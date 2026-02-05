@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec1337",
+                        "accent": "#7c3aed",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#12080a",
+                        "card-dark": "#221013",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        };
+    </script>
+<style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .neon-glow-red { box-shadow: 0 0 15px rgba(236, 19, 55, 0.4); }
+        .neon-glow-purple { box-shadow: 0 0 15px rgba(124, 58, 237, 0.4); }
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(to bottom right, #ec1337, #7c3aed);
+            padding: 1px;
+        }
+        .gradient-card-overlay {
+            background: linear-gradient(to top, rgba(18, 8, 10, 0.95) 0%, rgba(18, 8, 10, 0.4) 50%, rgba(18, 8, 10, 0.1) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen overflow-x-hidden">
+<div class="relative flex h-auto min-h-screen w-full flex-col font-display">
+<header class="fixed top-0 z-50 w-full flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 bg-background-dark/80 backdrop-blur-md px-6 md:px-16 py-4">
+<div class="flex items-center gap-3 text-white">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-black leading-tight tracking-tighter uppercase italic">Phantom Force</h2>
+</div>
+<nav class="hidden lg:flex flex-1 justify-center gap-8">
+<a class="text-white hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest" href="#">Home</a>
+<a class="text-white/70 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest" href="#">Champions</a>
+<a class="text-white/70 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest" href="#">Teams & Matches</a>
+<a class="text-white/70 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest" href="#">Tournaments</a>
+<a class="text-white/70 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest" href="#">Coaching</a>
+<a class="text-white/70 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest" href="#">Shop</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-white/5 hover:bg-white/10 text-white transition-all">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-white/5 hover:bg-white/10 text-white transition-all">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full border-2 border-primary/50 overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Cyberpunk style gamer profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxVsRndx34RhXHJWvXZKL3a9pBOBOaPz1gQkIg9LuJeo2ykWqr0-E_Brx0-04i8I5_HqNoayzi7u8oVWQp6Azj_0k04oR_h4s5-80EYB6d99i6ucGxcnJaptrLphcuPUaN8Q2XHukLLb4sPcYHTek4HTID45rForWhVDTtcJfAnw-nSutH3Fvk_5Z3Tn0pk_za-S1UOkqbvdsrilX_UfFPOg8uQBhIrNYeHSCGQmrlr0REewJjtQhaXMjjnD3GEJWvl5INbPUb9vAi"/>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<section class="relative min-h-[85vh] flex items-center justify-center px-4 overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-b from-background-dark/40 via-background-dark/60 to-background-dark z-10"></div>
+<img class="w-full h-full object-cover" data-alt="Massive eSport arena with neon lighting and crowd" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL4YYREvMHqLdigXRr5AHnxPIXAKXeIKbBmLRJf209Z0ErZci9qC1VYwqlVToNcQDahFCxr2730MDrjLjGegzlXeCYynuttDfsWtr88FUd50p4sRwAvQKXq45DEYLCu5zr10hc3mVFQmg7taY0YIU-OJRJR4HtFzbOuBP57r6VSA-EA8OlEubDp-qoyaMzY-DkUY5zDTlAME1xMW-aRzyG7bhj5DA68TCSDaKOqnFvNV_rCIoPKWP6vqh-PejVZyy3HRoN6uwnnXVb"/>
+</div>
+<div class="relative z-20 max-w-5xl mx-auto text-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-bold tracking-widest uppercase mb-6">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                        Live: World Finals Qualifying
+                    </div>
+<h1 class="text-white text-6xl md:text-8xl font-black leading-none tracking-tighter mb-6 uppercase italic">
+                        ANALYZE.<br/>TRAIN. <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">DOMINATE.</span>
+</h1>
+<p class="text-white/80 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
+                        Master the game with professional insights, AI-driven performance tracking, and elite coaching from the world's top players.
+                    </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<button class="w-full sm:w-auto px-10 py-4 bg-primary text-white font-black uppercase tracking-widest rounded-lg hover:scale-105 transition-transform neon-glow-red flex items-center justify-center gap-2">
+                            Start Training <span class="material-symbols-outlined">bolt</span>
+</button>
+<button class="w-full sm:w-auto px-10 py-4 bg-white/5 border border-white/20 text-white font-black uppercase tracking-widest rounded-lg hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+                            Watch Trailer <span class="material-symbols-outlined">play_circle</span>
+</button>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+<span class="material-symbols-outlined text-white text-3xl">keyboard_double_arrow_down</span>
+</div>
+</section>
+<section class="max-w-[1400px] mx-auto px-6 py-24">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div>
+<h2 class="text-primary text-sm font-bold tracking-[0.3em] uppercase mb-2">The Platform</h2>
+<h3 class="text-white text-4xl font-black uppercase tracking-tight">Our Core Pillars</h3>
+</div>
+<p class="text-white/60 max-w-md text-right hidden md:block">
+                        Propelling amateur players into the professional spotlight through rigorous data and world-class mentorship.
+                    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="group relative overflow-hidden rounded-xl bg-card-dark border border-white/10 aspect-[4/5] hover:border-primary/50 transition-all">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Data visualization dashboard for gaming performance" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7Vr8fyTE6qiLeF7gO7qBPbsKkOwTG3yTzeSZYj9VylC8c7sX-5di0tVmm0dyEu2izffGns9ITzbS7djZavdSO7Dzl8ItoLCOk5ij1ou_4zUueGLNI2zZHES71FTKOGtHSj8n74FIIWYA1gWeqMMu3JXNg2ZumCXHIcfo9QuyoPQrAL_l373CS2Bs8DIiaMSWHh4AJC6q6IipKnNFthVreD-BHCXZ3hUA1gXLHechHdof3wgDV_WzC7BxDtDC8wc9dg1cyXB1yX-eF"/>
+<div class="absolute inset-0 gradient-card-overlay z-10"></div>
+<div class="absolute inset-x-0 bottom-0 p-8 z-20">
+<div class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center mb-4 neon-glow-red">
+<span class="material-symbols-outlined text-white text-2xl">monitoring</span>
+</div>
+<h4 class="text-2xl font-black text-white uppercase mb-2">Performance Analysis</h4>
+<p class="text-white/70 text-sm leading-relaxed mb-6">Deep-dive into your match statistics with our proprietary AI engine.</p>
+<a class="text-primary font-bold uppercase tracking-widest text-xs flex items-center gap-2 group-hover:gap-4 transition-all" href="#">
+                                Explore Analytics <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl bg-card-dark border border-white/10 aspect-[4/5] hover:border-accent/50 transition-all">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Pro coach speaking into a headset while gaming" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6-SoR31rwtpLcl5yINnNcAshWKAwPaOfoCO4higTJ2mVPZW4bf97_wTsOOKet3TcxcQpLcH9Y9zvau7apT7ymEODDdke6y1_9ebhEKoBxRcq_e2SdaXhtm_-OS_8S8Vb6uSZv-QsNzUtL0HCCiBtnOs1HOQxS1k7nSYFMSmGQvlSm46FC4O7Q7nLHvFx6-NUW1CaV8AIUdGB1UolgmoHv3ESX981X3eQ3AnyNKblKDdderwuuC6KaIRRL2vnblQng0ItE2wcYKqfo"/>
+<div class="absolute inset-0 gradient-card-overlay z-10"></div>
+<div class="absolute inset-x-0 bottom-0 p-8 z-20">
+<div class="w-12 h-12 rounded-lg bg-accent flex items-center justify-center mb-4 neon-glow-purple">
+<span class="material-symbols-outlined text-white text-2xl">sports</span>
+</div>
+<h4 class="text-2xl font-black text-white uppercase mb-2">Professional Coaching</h4>
+<p class="text-white/70 text-sm leading-relaxed mb-6">1-on-1 sessions with Grandmasters and retired professional players.</p>
+<a class="text-accent font-bold uppercase tracking-widest text-xs flex items-center gap-2 group-hover:gap-4 transition-all" href="#">
+                                Book a session <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl bg-card-dark border border-white/10 aspect-[4/5] hover:border-primary/50 transition-all">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Glowing trophy on a stadium pedestal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCipFvtDD0psA7j4-0P44kXpBvVWi_YCmfQYv-t2nkCE2I8ZzTW5SVmpm1-p835JEr67IIFtUE9MTbFYvOS_66xpbHCEaUg1aEtUMp_sDQIU9vLEoRoNX-BdPdKebPsRYdwlYY1SWCh8e3DWJ3SjfxaRwzZDRwadE-xjCnprjT0HFbp-WWUwD9gw37xxgzwbL2N3O1Rpph-K_lw9q2mn-ioXyvZW-P0Lz8DoM3z4tyifReu7jQvsQPiN3HoJpxPIQu4iXm5OvedU24G"/>
+<div class="absolute inset-0 gradient-card-overlay z-10"></div>
+<div class="absolute inset-x-0 bottom-0 p-8 z-20">
+<div class="w-12 h-12 rounded-lg bg-primary flex items-center justify-center mb-4 neon-glow-red">
+<span class="material-symbols-outlined text-white text-2xl">trophy</span>
+</div>
+<h4 class="text-2xl font-black text-white uppercase mb-2">Elite Tournaments</h4>
+<p class="text-white/70 text-sm leading-relaxed mb-6">Compete in high-stakes leagues with massive prize pools and scouts.</p>
+<a class="text-primary font-bold uppercase tracking-widest text-xs flex items-center gap-2 group-hover:gap-4 transition-all" href="#">
+                                Join Tournament <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-background-dark/50 border-y border-white/5 py-24">
+<div class="max-w-[1400px] mx-auto px-6">
+<div class="flex items-center justify-between mb-12">
+<h2 class="text-white text-3xl font-black uppercase tracking-tight flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-4xl">stadium</span>
+                            Current Live Matches
+                        </h2>
+<a class="text-white/60 hover:text-white font-bold uppercase tracking-widest text-xs border-b border-white/20 pb-1" href="#">View All Schedule</a>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+<div class="flex flex-col md:flex-row items-center gap-6 p-6 rounded-xl bg-card-dark border border-primary/20 hover:border-primary/50 transition-all group">
+<div class="flex items-center justify-between w-full md:w-auto gap-12 px-4">
+<div class="text-center">
+<div class="w-20 h-20 bg-background-dark rounded-full mb-3 flex items-center justify-center p-4 border border-white/10">
+<img class="w-full h-full object-contain" data-alt="E-sports team logo for Phantom Kings" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXI_JvKQEZI0lT9oG2enNUfH2nwosaE5mbdeYwaaPIFkM0Av_ztVOla_zo8dygwggLbet86cvj7l1tVR-D38aAAX1qQne8AOkjZcUlCiHHAuSiI_u4_wXR4w2Y9NYZmAs0HW4gQySOTVwr-eGtfytk04VwnPOqF571HU83GMSuzlk8U4tGqDXicSTkydanfiGTaw-sHeBBEMOB8kgbaE-uIt78FWBW7HNvC4KZFz0GMW9Ldhv4XJbF3P2xpSOqW3ZtDElzsCqBQQoS"/>
+</div>
+<p class="text-white font-bold text-sm uppercase">Kings</p>
+</div>
+<div class="text-center">
+<div class="text-3xl font-black text-white mb-1">2 - 1</div>
+<div class="bg-primary/20 text-primary text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">Live Map 3</div>
+</div>
+<div class="text-center">
+<div class="w-20 h-20 bg-background-dark rounded-full mb-3 flex items-center justify-center p-4 border border-white/10">
+<img class="w-full h-full object-contain" data-alt="E-sports team logo for Neon Titans" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBomA8Jto-Ujkbjzx8H8cKyTd47Wua9EC-HiiUediJ0xCSAZotpHh4j7MWApAhw2-gGzESIc6hQ2Xa5jTOJpKtCDzQI_Af4JpXY6PzK0dQ82us-u1bTEj1MNRNM9kzveuj_Paa1bVU5vg6WoU6NqjVhsqtkFrqfiYqlmJpFcxRcQMSzuR5Y-lxCq7dt-YaTAhaKokS-6IMXHo9hJINsXx3m9ZHstFYMEs-adB2v5oOXwOwZ_JkIQGLvw30flsB9gT3Ppq_thICNcX5_"/>
+</div>
+<p class="text-white font-bold text-sm uppercase">Titans</p>
+</div>
+</div>
+<div class="hidden md:block w-px h-24 bg-white/10"></div>
+<div class="flex-1">
+<h5 class="text-white font-black text-lg uppercase mb-1">Global Pro League</h5>
+<p class="text-white/50 text-xs uppercase tracking-widest mb-4">Quarter Finals • Best of 5</p>
+<button class="w-full bg-white text-background-dark font-black uppercase text-xs py-2 rounded group-hover:bg-primary group-hover:text-white transition-all">Watch Stream</button>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-6 p-6 rounded-xl bg-card-dark border border-white/5 hover:border-white/20 transition-all group opacity-80 hover:opacity-100">
+<div class="flex items-center justify-between w-full md:w-auto gap-12 px-4">
+<div class="text-center">
+<div class="w-20 h-20 bg-background-dark rounded-full mb-3 flex items-center justify-center p-4 border border-white/10">
+<img class="w-full h-full object-contain" data-alt="E-sports team logo for Shadow Legion" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH59JzwLmBlJErOueSMq3JbtL9E7JUGEXk2ijLDHKSS_oYqN2G7QkxDV_lAK9tS1zTA5Aj7RxanKpqpiy7gI4YBeGR81uaTNTK3utLlBwsfFUCkeaVaXWzfl0-URgexjyAbLKuCu-OhH_iCIbjIEBVtLxCknkGWoMlGCPybgstBqcuodlg_kSxEt-zNkyEkAERKU5h0eY6AIRKIHD_j4oTIIDViT8rgQuruOsUHPIZbjdtrXUXhRFhiFL9_BeNDwJm2MdkF1T_ZPyA"/>
+</div>
+<p class="text-white font-bold text-sm uppercase">Shadows</p>
+</div>
+<div class="text-center">
+<div class="text-3xl font-black text-white/40 mb-1">0 - 0</div>
+<div class="bg-white/10 text-white/40 text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">Starting Soon</div>
+</div>
+<div class="text-center">
+<div class="w-20 h-20 bg-background-dark rounded-full mb-3 flex items-center justify-center p-4 border border-white/10">
+<img class="w-full h-full object-contain" data-alt="E-sports team logo for Iron Wolves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYfKhi4ZCFT007pRx-8nrYK2aAlXdsV5Nhnva9DnWoYyLS1_uoQr-Xmyyo09uwFPzdAgMp4InOEqWSngfBJcyeBh4IFz819m_YwzgaAaJWhSTbpOxcCpqWSWJ-mItRI4X6S9SLSfAlSeBlqmOJjW4b3NREMQDjbRkGg7NO2deGlU62g8gI9ckF_HtEMY2uf8GNtoukoBVf91BB0zaHLsQPUzeWnurVLHAHqdTHMctXDQYjhJK3mlOnx5slFivvIAG89Qn0t1KznfCD"/>
+</div>
+<p class="text-white font-bold text-sm uppercase">Wolves</p>
+</div>
+</div>
+<div class="hidden md:block w-px h-24 bg-white/10"></div>
+<div class="flex-1">
+<h5 class="text-white font-black text-lg uppercase mb-1">Asian Cup 2024</h5>
+<p class="text-white/50 text-xs uppercase tracking-widest mb-4">Group Stage • Best of 3</p>
+<button class="w-full bg-white/10 text-white font-black uppercase text-xs py-2 rounded group-hover:bg-white group-hover:text-background-dark transition-all">Pre-Show</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-background-dark border-t border-white/10 pt-20 pb-10">
+<div class="max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-3 text-white mb-6">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-lg font-black uppercase tracking-tighter italic">Phantom Force</h2>
+</div>
+<p class="text-white/50 text-sm leading-relaxed mb-6">
+                        The definitive hub for eSports performance. Join 1M+ gamers training to reach the top.
+                    </p>
+<div class="flex gap-4">
+<a class="text-white/40 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">social_leaderboard</span></a>
+<a class="text-white/40 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">crossword</span></a>
+<a class="text-white/40 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">video_library</span></a>
+</div>
+</div>
+<div>
+<h6 class="text-white font-black uppercase tracking-widest text-xs mb-6">Platform</h6>
+<ul class="space-y-4">
+<li><a class="text-white/50 hover:text-white text-sm transition-colors" href="#">Champions Arena</a></li>
+<li><a class="text-white/50 hover:text-white text-sm transition-colors" href="#">Data Analytics</a></li>
+<li><a class="text-white/50 hover:text-white text-sm transition-colors" href="#">Team Manager</a></li>
+<li><a class="text-white/50 hover:text-white text-sm transition-colors" href="#">Tournament Portal</a></li>
+</ul>
+</div>
+<div>
+<h6 class="text-white font-black uppercase tracking-widest text-xs mb-6">Training</h6>
+<ul class="space-y-4">
+<li><a class="text-white/50 hover:text-white text-sm transition-colors" href="#">Personal Coaching</a></li>
+<li><a class="text-white/50 hover:text-white text-sm transition-colors" href="#">Video Academy</a></li>
+<li><a class="text-white/50 hover:text-white text-sm transition-colors" href="#">VOD Review</a></li>
+<li><a class="text-white/50 hover:text-white text-sm transition-colors" href="#">Aim Trainer</a></li>
+</ul>
+</div>
+<div>
+<h6 class="text-white font-black uppercase tracking-widest text-xs mb-6">Newsletter</h6>
+<p class="text-white/50 text-sm mb-4">Get the latest pro tips and tournament alerts.</p>
+<div class="flex gap-2">
+<input class="bg-white/5 border border-white/10 rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-primary w-full" placeholder="Your email" type="email"/>
+<button class="bg-primary px-4 py-2 rounded text-white font-bold text-sm uppercase">Join</button>
+</div>
+</div>
+</div>
+<div class="max-w-[1400px] mx-auto px-6 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-white/30 text-[10px] font-bold uppercase tracking-[0.2em]">
+<p>© 2024 PHANTOM FORCE ESPORTS. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-8">
+<a class="hover:text-white" href="#">Privacy Policy</a>
+<a class="hover:text-white" href="#">Terms of Service</a>
+<a class="hover:text-white" href="#">Cookies</a>
+</div>
+</div>
+</footer>
+</div>
+
+```</body></html>
