@@ -1,0 +1,55 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Admin - Nouvelle équipe{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-2">Créer une nouvelle équipe</h1>
+            <p class="mb-0 text-muted">Ajoutez une équipe à l'arène e-sport</p>
+        </div>
+        <a href="{{ path('app_back_team_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+    </div>
+</div>
+
+<div class="admin-card">
+    {{ form_start(form, {'attr': {'class': 'form-admin'}}) }}
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.name, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Nom de l\'équipe'}}) }}
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.game, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.game, {'attr': {'class': 'form-control', 'placeholder': 'Jeu principal'}}) }}
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.creation_date, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.creation_date, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.coach_id, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.coach_id, {'attr': {'class': 'form-control', 'placeholder': 'Nom du coach_id'}}) }}
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <button type="submit" class="btn-admin btn-admin-primary">
+            <i class="fas fa-save"></i> Créer l'équipe
+        </button>
+        
+        <a href="{{ path('app_back_team_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-times"></i> Annuler
+        </a>
+    </div>
+    
+    {{ form_end(form) }}
+</div>
+{% endblock %}

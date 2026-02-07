@@ -1,0 +1,208 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}🎮 BLOOD ARENA - {{ team.name }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+    
+    :root {
+        --blood-red: #ff003c;
+        --dark-red: #cc0030;
+        --light-red: #ff335c;
+        --blood-orange: #ff6600;
+        --fire-yellow: #ffcc00;
+        --dark-bg: #000000;
+        --dark-gray: #111111;
+        --medium-gray: #222222;
+        --light-gray: #333333;
+        --text-color: #ffffff;
+        --text-muted: #aaaaaa;
+    }
+    
+    body {
+        background: linear-gradient(135deg, #000000 0%, #111111 50%, #220000 100%);
+        font-family: 'Rajdhani', sans-serif;
+        color: var(--text-color);
+        min-height: 100vh;
+        padding: 2rem;
+    }
+    
+    .show-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .info-card {
+        background: linear-gradient(145deg, rgba(34, 34, 34, 0.95), rgba(17, 17, 17, 0.95));
+        border-radius: 20px;
+        border: 2px solid var(--blood-red);
+        padding: 2.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+    
+    .card-header {
+        border-bottom: 2px solid var(--blood-red);
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .card-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: var(--fire-yellow);
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .card-title::before {
+        content: '⚡';
+        margin-right: 0.5rem;
+    }
+    
+    .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+    }
+    
+    .info-row {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .info-label {
+        color: var(--fire-yellow);
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        padding: 1rem;
+        text-transform: uppercase;
+        width: 30%;
+        border-right: 2px solid rgba(255, 0, 60, 0.2);
+    }
+    
+    .info-value {
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+    
+    .actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 0, 60, 0.3);
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .btn-edit {
+        background: var(--blood-orange);
+        color: black;
+        border: none;
+    }
+    
+    .btn-edit:hover {
+        background: var(--fire-yellow);
+        transform: translateY(-2px);
+    }
+    
+    .btn-back {
+        background: transparent;
+        color: white;
+        border: 2px solid var(--blood-red);
+    }
+    
+    .btn-back:hover {
+        background: var(--blood-red);
+        transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+        body {
+            padding: 1rem;
+        }
+        
+        .info-card {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+        }
+        
+        .info-label, .info-value {
+            padding: 0.8rem;
+            font-size: 1rem;
+        }
+        
+        .actions {
+            flex-direction: column;
+        }
+        
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="show-container">
+    <div class="info-card">
+        <div class="card-header">
+            <h1 class="card-title">{{ team.name }}</h1>
+        </div>
+        
+        <table class="info-table">
+            <tbody>
+                <tr class="info-row">
+                    <th class="info-label">ID</th>
+                    <td class="info-value">{{ team.id }}</td>
+                </tr>
+                <tr class="info-row">
+                    <th class="info-label">Nom</th>
+                    <td class="info-value">{{ team.name }}</td>
+                </tr>
+                <tr class="info-row">
+                    <th class="info-label">Jeu</th>
+                    <td class="info-value">{{ team.game }}</td>
+                </tr>
+                <tr class="info-row">
+                    <th class="info-label">Date de création</th>
+                    <td class="info-value">{{ team.creationDate ? team.creationDate|date('d/m/Y H:i') : '' }}</td>
+                </tr>
+                <tr class="info-row">
+                    <th class="info-label">Coach ID</th>
+                    <td class="info-value">{{ team.coachId }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="actions">
+            <a href="{{ path('app_team_edit', {'id': team.id}) }}" class="btn btn-edit">
+                ✏️ Modifier
+            </a>
+            <a href="{{ path('app_team_index') }}" class="btn btn-back">
+                🔙 Retour à la liste
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
