@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<h1>Welcome to Our Application!</h1>
+
+{% if app.user %}
+    <p>You are logged in as <strong>{{ app.user.username }}</strong></p>
+    <p><a href="{{ path('app_user_index') }}">Go to Dashboard</a></p>
+    
+    {% if is_granted('ROLE_ADMIN') %}
+        <p><a href="{{ path('admin_dashboard') }}">Admin Dashboard</a></p>
+    {% endif %}
+    
+    <p><a href="{{ path('app_logout') }}">Logout</a></p>
+{% else %}
+    <p>Please <a href="{{ path('app_login') }}">login</a> or <a href="{{ path('app_register') }}">register</a> to continue.</p>
+{% endif %}
+{% endblock %}
