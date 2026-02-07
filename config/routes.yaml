@@ -47,7 +47,3 @@ app_user_delete:
     path: /user/{id}
     controller: App\Controller\UserController::delete
     methods: POST
-debug_auth:
-    path: /debug-auth
-    controller: App\Controller\SecurityController::debugAuth
-    methods: GET

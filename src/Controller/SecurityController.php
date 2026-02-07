@@ -12,8 +12,11 @@ class SecurityController extends AbstractController
     #[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // If user is already logged in, redirect them
+        // If user is already logged in, redirect based on role
         if ($this->getUser()) {
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('admin_dashboard');
+            }
             return $this->redirectToRoute('app_user_index');
         }
 
@@ -32,6 +35,7 @@ class SecurityController extends AbstractController
     #[Route('/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): void
     {
+        // Controller can be blank: it will never be executed!
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

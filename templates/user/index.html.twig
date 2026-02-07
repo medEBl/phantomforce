@@ -38,7 +38,11 @@
                 <td>{{ user.lastLoginAt ? user.lastLoginAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    
+                    {# Show edit link only if user is admin OR editing own profile #}
+                    {% if is_granted('ROLE_ADMIN') or app.user.id == user.id %}
+                        <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -49,5 +53,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_user_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

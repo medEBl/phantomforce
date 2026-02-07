@@ -56,7 +56,13 @@
 
     <a href="{{ path('app_user_index') }}">back to list</a>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+    {# Show edit link only if user is admin OR viewing own profile #}
+    {% if is_granted('ROLE_ADMIN') or app.user.id == user.id %}
+        <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+    {% endif %}
 
-    {{ include('user/_delete_form.html.twig') }}
+    {# Only show delete form for admins #}
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('user/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

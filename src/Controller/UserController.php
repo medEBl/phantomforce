@@ -70,7 +70,10 @@ final class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('edit', $user);
+        // Allow access if: user is admin OR user is editing their own profile
+        if (!$this->isGranted('ROLE_ADMIN') && $this->getUser()->getId() !== $user->getId()) {
+            throw $this->createAccessDeniedException('You can only edit your own profile.');
+        }
         
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
