@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TrainingPlan index{% endblock %}
+
+{% block body %}
+    <h1>TrainingPlan index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Focus_area</th>
+                <th>Difficulty_level</th>
+                <th>Coach_id</th>
+                <th>Created_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for training_plan in training_plans %}
+            <tr>
+                <td>{{ training_plan.id }}</td>
+                <td>{{ training_plan.title }}</td>
+                <td>{{ training_plan.description }}</td>
+                <td>{{ training_plan.focusArea }}</td>
+                <td>{{ training_plan.difficultyLevel }}</td>
+                <td>{{ training_plan.coachId }}</td>
+                <td>{{ training_plan.createdAt ? training_plan.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_training_plan_show', {'id': training_plan.id}) }}">show</a>
+                    <a href="{{ path('app_training_plan_edit', {'id': training_plan.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_training_plan_new') }}">Create new</a>
+{% endblock %}

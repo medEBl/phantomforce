@@ -1,5 +1,61 @@
+# config/routes.yaml
+
+# ==================== ANCIENNE CONFIGURATION ====================
 controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# ==================== ROUTES SPÉCIFIQUES POUR COACHING ====================
+# Routes détaillées pour CoachingSessionController
+app_coaching_session_index:
+    path: /coaching/session
+    controller: App\Controller\CoachingSessionController::index
+    methods: GET
+
+app_coaching_session_new:
+    path: /coaching/session/new
+    controller: App\Controller\CoachingSessionController::new
+    methods: [GET, POST]
+
+app_coaching_session_show:
+    path: /coaching/session/{id}
+    controller: App\Controller\CoachingSessionController::show
+    methods: GET
+
+app_coaching_session_edit:
+    path: /coaching/session/{id}/edit
+    controller: App\Controller\CoachingSessionController::edit
+    methods: [GET, POST]
+
+app_coaching_session_delete:
+    path: /coaching/session/{id}
+    controller: App\Controller\CoachingSessionController::delete
+    methods: POST
+    
+
+app_training_plan_index:
+    path: /training/plan
+    controller: App\Controller\TrainingPlanController::index
+    methods: GET
+
+app_training_plan_new:
+    path: /training/plan/new
+    controller: App\Controller\TrainingPlanController::new
+    methods: [GET, POST]
+
+app_training_plan_show:
+    path: /training/plan/{id}
+    controller: App\Controller\TrainingPlanController::show
+    methods: GET
+
+app_training_plan_edit:
+    path: /training/plan/{id}/edit
+    controller: App\Controller\TrainingPlanController::edit
+    methods: [GET, POST]
+
+app_training_plan_delete:
+    path: /training/plan/{id}
+    controller: App\Controller\TrainingPlanController::delete
+    methods: POST

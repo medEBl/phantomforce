@@ -1325,7 +1325,7 @@
         <a href="#" class="{{ app.request.get('_route') == 'app_tournaments' ? 'active' }}">
             <i class="fas fa-calendar-alt"></i> Tournois
         </a>
-        <a href="#" class="{{ app.request.get('_route') == 'app_coaching' ? 'active' }}">
+        <a href="{{ path('app_coaching_session_index') }}" class="{{ app.request.get('_route') == 'app_coaching' ? 'active' }}">
             <i class="fas fa-chalkboard-teacher"></i> Coaching
         </a>
         <a href="#" class="{{ app.request.get('_route') == 'app_shop' ? 'active' }}">
@@ -1391,7 +1391,7 @@
                 <a href="{{ path('app_team_index') }}"><i class="fas fa-chevron-right"></i> Équipes</a>
                 <a href="{{ path('app_matchy_index') }}"><i class="fas fa-chevron-right"></i> Matchs</a>
                 <a href="#"><i class="fas fa-chevron-right"></i> Tournois</a>
-                <a href="#"><i class="fas fa-chevron-right"></i> Coaching</a>
+                <a href="{{ path('app_coaching_session_index') }}"><i class="fas fa-chevron-right"></i> Coaching</a>
                 <a href="#"><i class="fas fa-chevron-right"></i> Boutique</a>
             </div>
         </div>
