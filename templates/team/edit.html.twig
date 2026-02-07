@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}⚔️ BLOOD ARENA - Modifier l'Équipe{% endblock %}
+{% block title %}⚔️ BLOOD ARENA - Modifier {{ team.name }}{% endblock %}
 
 {% block stylesheets %}
 {{ parent() }}
@@ -21,7 +21,6 @@
         --text-muted: #aaaaaa;
         --success-green: #00ff88;
         --warning-orange: #ff9900;
-        --danger-red: #ff003c;
     }
     
     body {
@@ -51,7 +50,7 @@
         position: relative;
         padding: 2rem;
         animation: fadeIn 1s ease-out;
-        max-width: 900px;
+        max-width: 800px;
         margin: 0 auto;
     }
     
@@ -124,6 +123,17 @@
                          0 0 50px rgba(255, 204, 0, 0.4); }
     }
     
+    .team-id {
+        display: inline-block;
+        background: rgba(255, 0, 60, 0.2);
+        border: 1px solid var(--blood-red);
+        border-radius: 10px;
+        padding: 0.5rem 1rem;
+        font-family: 'Orbitron', monospace;
+        font-size: 1.2rem;
+        margin-left: 1rem;
+    }
+    
     .form-card {
         background: linear-gradient(145deg, rgba(34, 34, 34, 0.95), rgba(17, 17, 17, 0.95));
         border-radius: 20px;
@@ -134,7 +144,7 @@
         border: 2px solid rgba(255, 0, 60, 0.4);
         backdrop-filter: blur(10px);
         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
     }
     
     .form-card:hover {
@@ -206,6 +216,15 @@
         transform: translateY(-2px);
     }
     
+    .form-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 400;
+    }
+    
+    .form-input:focus::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+    }
+    
     .form-select {
         width: 100%;
         padding: 1.2rem 1.5rem;
@@ -254,17 +273,17 @@
     
     .submit-btn {
         position: relative;
-        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        background: linear-gradient(45deg, var(--warning-orange), var(--fire-yellow));
         border: none;
         padding: 1.2rem 3rem;
         font-family: 'Orbitron', sans-serif;
         font-weight: 700;
         font-size: 1.3rem;
-        color: white;
+        color: black;
         border-radius: 12px;
         overflow: hidden;
         transition: all 0.3s ease;
-        box-shadow: 0 0 30px rgba(255, 0, 60, 0.6);
+        box-shadow: 0 0 30px rgba(255, 204, 0, 0.6);
         z-index: 1;
         text-decoration: none;
         display: inline-flex;
@@ -295,8 +314,8 @@
     
     .submit-btn:hover {
         transform: translateY(-5px) scale(1.05);
-        box-shadow: 0 0 50px rgba(255, 0, 60, 0.9);
-        background: linear-gradient(45deg, var(--blood-orange), var(--blood-red));
+        box-shadow: 0 0 50px rgba(255, 204, 0, 0.9);
+        background: linear-gradient(45deg, var(--fire-yellow), var(--warning-orange));
     }
     
     .back-btn {
@@ -347,49 +366,10 @@
         border-color: var(--fire-yellow);
     }
     
-    .delete-section {
-        background: linear-gradient(145deg, rgba(51, 0, 0, 0.8), rgba(34, 0, 0, 0.9));
-        border-radius: 20px;
-        padding: 2.5rem;
+    .cancel-btn {
         position: relative;
-        overflow: hidden;
-        border: 2px solid var(--blood-red);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
-        margin-top: 2rem;
-        text-align: center;
-    }
-    
-    .delete-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 5px;
-        background: linear-gradient(90deg, 
-            var(--danger-red), 
-            #ff0000,
-            #ff4400);
-        background-size: 200% 100%;
-        animation: slide 2s linear infinite;
-    }
-    
-    .delete-title {
-        color: var(--danger-red);
-        font-family: 'Orbitron', sans-serif;
-        font-size: 1.8rem;
-        font-weight: 900;
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        text-shadow: 0 0 20px rgba(255, 0, 60, 0.5);
-    }
-    
-    .delete-btn {
-        position: relative;
-        background: linear-gradient(45deg, #990000, #cc0000);
-        border: 2px solid var(--danger-red);
+        background: linear-gradient(45deg, var(--light-red), var(--blood-red));
+        border: none;
         padding: 1.2rem 3rem;
         font-family: 'Orbitron', sans-serif;
         font-weight: 700;
@@ -398,7 +378,7 @@
         border-radius: 12px;
         overflow: hidden;
         transition: all 0.3s ease;
-        box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+        box-shadow: 0 0 20px rgba(255, 0, 60, 0.5);
         z-index: 1;
         text-decoration: none;
         display: inline-flex;
@@ -409,30 +389,12 @@
         letter-spacing: 1.5px;
         cursor: pointer;
         min-width: 250px;
-        margin-top: 1rem;
     }
     
-    .delete-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-        transition: 0.6s;
-        z-index: -1;
-    }
-    
-    .delete-btn:hover::before {
-        left: 100%;
-    }
-    
-    .delete-btn:hover {
+    .cancel-btn:hover {
         transform: translateY(-5px);
-        box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
-        background: linear-gradient(45deg, #cc0000, #ff0000);
-        border-color: #ff3300;
+        box-shadow: 0 0 40px rgba(255, 0, 60, 0.7);
+        background: linear-gradient(45deg, var(--blood-red), var(--light-red));
     }
     
     .game-grid {
@@ -491,7 +453,7 @@
     }
     
     .character-counter.danger {
-        color: var(--danger-red);
+        color: var(--blood-red);
     }
     
     .floating-elements {
@@ -527,6 +489,65 @@
         }
     }
     
+    /* Styles pour les erreurs de validation */
+    .form-error {
+        color: var(--blood-red);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 0, 60, 0.1);
+        border-radius: 8px;
+        border-left: 3px solid var(--blood-red);
+        animation: shake 0.5s ease-in-out;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    
+    /* Style pour les champs avec erreur */
+    .form-input.error,
+    .form-select.error {
+        border-color: var(--blood-red) !important;
+        box-shadow: 0 0 20px rgba(255, 0, 60, 0.3) !important;
+        background: rgba(255, 0, 60, 0.05) !important;
+    }
+    
+    /* Style pour les messages d'erreur globaux */
+    .form-global-error {
+        background: rgba(255, 0, 60, 0.1);
+        border: 2px solid var(--blood-red);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        color: var(--fire-yellow);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
+    }
+    
+    .form-global-error ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+    
+    .form-global-error li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    
+    .form-global-error li::before {
+        content: '❌';
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
     @media (max-width: 768px) {
         .edit-container {
             padding: 1rem;
@@ -536,7 +557,7 @@
             font-size: 2rem;
         }
         
-        .form-card, .delete-section {
+        .form-card {
             padding: 1.5rem;
         }
         
@@ -545,7 +566,7 @@
             gap: 1rem;
         }
         
-        .submit-btn, .back-btn, .delete-btn {
+        .submit-btn, .back-btn, .cancel-btn {
             min-width: 100%;
             font-size: 1.1rem;
             padding: 1rem 2rem;
@@ -581,15 +602,26 @@
     
     <!-- En-tête avec effet néon -->
     <div class="header-glow">
-        <h1 class="main-title">MODIFIER LA LÉGENDE</h1>
+        <h1 class="main-title">
+            MODIFIER L'ÉQUIPE
+            <span class="team-id">ID: #{{ team.id }}</span>
+        </h1>
         <p class="text-light mb-4" style="font-size: 1.3rem; opacity: 0.9; font-family: 'Orbitron', sans-serif;">
-            METTEZ À JOUR L'ÉQUIPE : <span style="color: var(--fire-yellow);">{{ team.name|upper }}</span>
+            METTRE À JOUR LES INFORMATIONS DE L'ÉQUIPE
         </p>
     </div>
     
     <!-- Carte du formulaire -->
     <div class="form-card">
         {{ form_start(form) }}
+        
+        {# Afficher les erreurs globales du formulaire #}
+        {% if form.vars.errors|length > 0 %}
+        <div class="form-global-error">
+            <strong style="display: block; margin-bottom: 0.5rem;">⚠️ ERREURS DANS LE FORMULAIRE :</strong>
+            {{ form_errors(form) }}
+        </div>
+        {% endif %}
         
         <div class="form-group">
             <label class="form-label">
@@ -603,6 +635,12 @@
                 }
             }) }}
             <div class="input-icon">🏆</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'name' #}
+            {{ form_errors(form.name, {
+                'attr': {'class': 'form-error'}
+            }) }}
+            
             <div class="character-counter" id="nameCounter">{{ team.name|length }}/50</div>
         </div>
         
@@ -617,6 +655,11 @@
                 }
             }) }}
             <div class="input-icon">🕹️</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'game' #}
+            {{ form_errors(form.game, {
+                'attr': {'class': 'form-error'}
+            }) }}
             
             <!-- Suggestions de jeux populaires -->
             <div class="game-grid" id="gameSuggestions">
@@ -666,6 +709,11 @@
                 }
             }) }}
             <div class="input-icon">📅</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'creation_date' #}
+            {{ form_errors(form.creation_date, {
+                'attr': {'class': 'form-error'}
+            }) }}
         </div>
         
         <div class="form-group">
@@ -675,36 +723,35 @@
             {{ form_widget(form.coach_id, {
                 'attr': {
                     'class': 'form-input',
-                    'placeholder': 'EX: COACH_LEGEND'
+                    'placeholder': 'ID du coach (ex: 1, 2, 3...)'
                 }
             }) }}
             <div class="input-icon">👑</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'coach_id' #}
+            {{ form_errors(form.coach_id, {
+                'attr': {'class': 'form-error'}
+            }) }}
         </div>
         
         <div class="form-actions">
             <button type="submit" class="submit-btn">
-                ⚡ METTRE À JOUR
+                💾 SAUVEGARDER
             </button>
-            <a href="{{ path('app_team_index') }}" class="back-btn">
-                🔙 RETOUR À LA LISTE
+            <a href="{{ path('app_back_team_show', {'id': team.id}) }}" class="cancel-btn">
+                ❌ ANNULER
+            </a>
+            <a href="{{ path('app_back_team_index') }}" class="back-btn">
+                🔙 RETOUR
             </a>
         </div>
         
         {{ form_end(form) }}
     </div>
     
-    <!-- Section de suppression -->
-    <div class="delete-section">
-        <h3 class="delete-title">⚠️ ZONE DE DANGER ⚠️</h3>
-        <p style="color: #ff9999; font-size: 1.1rem; margin-bottom: 1.5rem;">
-            Cette action est irréversible. Toutes les données de l'équipe seront perdues.
-        </p>
-        
-        {{ include('team/_delete_form.html.twig') }}
-        
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 1.5rem;">
-            <strong>⚠️ ATTENTION :</strong> La suppression entraînera la dissolution permanente de l'équipe.
-        </p>
+    <!-- Conseils -->
+    <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 2rem;">
+        <p>⚠️ <strong>ATTENTION :</strong> Les modifications sont immédiates et affectent tous les membres de l'équipe.</p>
     </div>
 </div>
 
@@ -727,20 +774,14 @@
                 nameCounter.classList.add('danger');
             }
         });
+        
+        // Initialiser le compteur avec la valeur actuelle
+        nameInput.dispatchEvent(new Event('input'));
     }
     
     // Gestion des suggestions de jeux
     const gameOptions = document.querySelectorAll('.game-option');
     const gameSelect = document.querySelector('select[name*="game"]');
-    
-    // Pré-sélectionner le jeu actuel
-    if (gameSelect && gameSelect.value) {
-        gameOptions.forEach(option => {
-            if (option.getAttribute('data-game') === gameSelect.value.toUpperCase()) {
-                option.classList.add('selected');
-            }
-        });
-    }
     
     gameOptions.forEach(option => {
         option.addEventListener('click', function() {
@@ -761,6 +802,15 @@
         });
     });
     
+    // Pré-sélectionner l'option si elle correspond au select
+    if (gameSelect && gameSelect.value) {
+        gameOptions.forEach(option => {
+            if (option.getAttribute('data-game') === gameSelect.value) {
+                option.classList.add('selected');
+            }
+        });
+    }
+    
     // Animation des inputs au focus
     const formInputs = document.querySelectorAll('.form-input, .form-select');
     
@@ -774,41 +824,62 @@
         });
     });
     
-    // Confirmation de suppression
-    const deleteForm = document.querySelector('.delete-section form');
-    if (deleteForm) {
-        deleteForm.addEventListener('submit', function(e) {
-            const confirmed = confirm('⚡ VOULEZ-VOUS VRAIMENT DÉTRUIRE CETTE ÉQUIPE ? CETTE ACTION EST IRRÉVERSIBLE !');
-            if (!confirmed) {
-                e.preventDefault();
-                
-                // Animation de refus
-                const deleteBtn = this.querySelector('button');
-                if (deleteBtn) {
-                    deleteBtn.style.background = 'linear-gradient(45deg, var(--medium-gray), var(--light-gray))';
-                    deleteBtn.innerHTML = '❌ ACTION ANNULÉE';
-                    setTimeout(() => {
-                        deleteBtn.style.background = 'linear-gradient(45deg, #990000, #cc0000)';
-                        deleteBtn.innerHTML = '💥 DISSOUDRE L\'ÉQUIPE';
-                    }, 1500);
-                }
-            } else {
-                // Animation de confirmation
-                const deleteBtn = this.querySelector('button');
-                if (deleteBtn) {
-                    deleteBtn.innerHTML = '💣 DESTRUCTION EN COURS...';
-                    deleteBtn.disabled = true;
-                    deleteBtn.style.opacity = '0.7';
-                }
-            }
+    // Effet de validation au submit
+    const form = document.querySelector('form');
+    const submitBtn = document.querySelector('.submit-btn');
+    
+    if (form && submitBtn) {
+        form.addEventListener('submit', function(e) {
+            // Animation du bouton
+            submitBtn.innerHTML = '💾 SAUVEGARDE...';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.8';
+            
+            // Petite animation avant la soumission réelle
+            setTimeout(() => {
+                submitBtn.innerHTML = '💾 MIS À JOUR !';
+                submitBtn.style.background = 'linear-gradient(45deg, var(--success-green), var(--fire-yellow))';
+            }, 100);
         });
     }
     
-    // Effet au chargement
+    // Mettre en évidence les champs avec erreurs
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             document.querySelector('.edit-container').style.opacity = '1';
         }, 100);
+        
+        const errorElements = document.querySelectorAll('.form-error');
+        
+        errorElements.forEach(errorElement => {
+            // Trouver le champ input/select correspondant
+            const formGroup = errorElement.closest('.form-group');
+            if (formGroup) {
+                const inputElement = formGroup.querySelector('.form-input, .form-select');
+                if (inputElement && errorElement.textContent.trim() !== '') {
+                    inputElement.classList.add('error');
+                    
+                    // Ajouter un écouteur pour retirer la classe d'erreur quand l'utilisateur commence à taper
+                    inputElement.addEventListener('input', function() {
+                        if (errorElement.textContent.trim() !== '') {
+                            errorElement.textContent = '';
+                            errorElement.style.display = 'none';
+                            this.classList.remove('error');
+                        }
+                    });
+                }
+            }
+        });
+        
+        // Pour les erreurs globales, cacher après 10 secondes
+        const globalError = document.querySelector('.form-global-error');
+        if (globalError) {
+            setTimeout(() => {
+                globalError.style.opacity = '0';
+                globalError.style.transition = 'opacity 1s';
+                setTimeout(() => globalError.style.display = 'none', 1000);
+            }, 10000);
+        }
     });
 </script>
 {% endblock %}

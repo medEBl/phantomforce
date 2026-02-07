@@ -471,6 +471,65 @@
         }
     }
     
+    /* Styles pour les erreurs de validation */
+    .form-error {
+        color: var(--blood-red);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 0, 60, 0.1);
+        border-radius: 8px;
+        border-left: 3px solid var(--blood-red);
+        animation: shake 0.5s ease-in-out;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    
+    /* Style pour les champs avec erreur */
+    .form-input.error,
+    .form-select.error {
+        border-color: var(--blood-red) !important;
+        box-shadow: 0 0 20px rgba(255, 0, 60, 0.3) !important;
+        background: rgba(255, 0, 60, 0.05) !important;
+    }
+    
+    /* Style pour les messages d'erreur globaux */
+    .form-global-error {
+        background: rgba(255, 0, 60, 0.1);
+        border: 2px solid var(--blood-red);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        color: var(--fire-yellow);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
+    }
+    
+    .form-global-error ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+    
+    .form-global-error li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    
+    .form-global-error li::before {
+        content: '❌';
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
     @media (max-width: 768px) {
         .creation-container {
             padding: 1rem;
@@ -535,6 +594,14 @@
     <div class="form-card">
         {{ form_start(form) }}
         
+        {# Afficher les erreurs globales du formulaire #}
+        {% if form.vars.errors|length > 0 %}
+        <div class="form-global-error">
+            <strong style="display: block; margin-bottom: 0.5rem;">⚠️ ERREURS DANS LE FORMULAIRE :</strong>
+            {{ form_errors(form) }}
+        </div>
+        {% endif %}
+        
         <div class="form-group">
             <label class="form-label">
                 <span>⚡ NOM DE L'ÉQUIPE</span>
@@ -547,6 +614,12 @@
                 }
             }) }}
             <div class="input-icon">🏆</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'name' #}
+            {{ form_errors(form.name, {
+                'attr': {'class': 'form-error'}
+            }) }}
+            
             <div class="character-counter" id="nameCounter">0/50</div>
         </div>
         
@@ -561,6 +634,11 @@
                 }
             }) }}
             <div class="input-icon">🕹️</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'game' #}
+            {{ form_errors(form.game, {
+                'attr': {'class': 'form-error'}
+            }) }}
             
             <!-- Suggestions de jeux populaires -->
             <div class="game-grid" id="gameSuggestions">
@@ -610,6 +688,11 @@
                 }
             }) }}
             <div class="input-icon">📅</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'creation_date' #}
+            {{ form_errors(form.creation_date, {
+                'attr': {'class': 'form-error'}
+            }) }}
         </div>
         
         <div class="form-group">
@@ -619,10 +702,15 @@
             {{ form_widget(form.coach_id, {
                 'attr': {
                     'class': 'form-input',
-                    'placeholder': 'EX: COACH_LEGEND'
+                    'placeholder': 'ID du coach (ex: 1, 2, 3...)'
                 }
             }) }}
             <div class="input-icon">👑</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'coach_id' #}
+            {{ form_errors(form.coach_id, {
+                'attr': {'class': 'form-error'}
+            }) }}
         </div>
         
         <div class="form-actions">
@@ -758,6 +846,39 @@
         setTimeout(() => {
             document.querySelector('.creation-container').style.opacity = '1';
         }, 100);
+        
+        // Mettre en évidence les champs avec erreurs
+        const errorElements = document.querySelectorAll('.form-error');
+        
+        errorElements.forEach(errorElement => {
+            // Trouver le champ input/select correspondant
+            const formGroup = errorElement.closest('.form-group');
+            if (formGroup) {
+                const inputElement = formGroup.querySelector('.form-input, .form-select');
+                if (inputElement && errorElement.textContent.trim() !== '') {
+                    inputElement.classList.add('error');
+                    
+                    // Ajouter un écouteur pour retirer la classe d'erreur quand l'utilisateur commence à taper
+                    inputElement.addEventListener('input', function() {
+                        if (errorElement.textContent.trim() !== '') {
+                            errorElement.textContent = '';
+                            errorElement.style.display = 'none';
+                            this.classList.remove('error');
+                        }
+                    });
+                }
+            }
+        });
+        
+        // Pour les erreurs globales, cacher après 10 secondes
+        const globalError = document.querySelector('.form-global-error');
+        if (globalError) {
+            setTimeout(() => {
+                globalError.style.opacity = '0';
+                globalError.style.transition = 'opacity 1s';
+                setTimeout(() => globalError.style.display = 'none', 1000);
+            }, 10000);
+        }
     });
 </script>
 {% endblock %}

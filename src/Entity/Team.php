@@ -6,6 +6,7 @@ use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
 class Team
@@ -16,15 +17,31 @@ class Team
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le nom de l'équipe est obligatoire")]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: "Le nom doit faire au moins {{ limit }} caractères",
+        maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères"
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le jeu principal est obligatoire")]
+    #[Assert\Length(
+        max: 100,
+        maxMessage: "Le jeu ne peut pas dépasser {{ limit }} caractères"
+    )]
     private ?string $game = null;
 
     #[ORM\Column(type: 'datetime')]
+    #[Assert\NotBlank(message: "La date de création est obligatoire")]
+    #[Assert\Type("\DateTimeInterface", message: "La date doit être valide")]
+    #[Assert\LessThanOrEqual("now", message: "La date ne peut pas être dans le futur")]
     private ?\DateTimeInterface $creation_date = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero(message: "L'ID du coach doit être positif ou zéro")]
     private ?int $coach_id = null;
 
     // Relation avec Matchy (1 team => plusieurs matchs)

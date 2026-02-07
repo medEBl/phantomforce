@@ -497,6 +497,66 @@
         display: block;
     }
     
+    /* Styles pour les erreurs de validation */
+    .form-error {
+        color: var(--neon-red);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 0, 60, 0.1);
+        border-radius: 8px;
+        border-left: 3px solid var(--neon-red);
+        animation: shake 0.5s ease-in-out;
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    
+    /* Style pour les champs avec erreur */
+    .form-input.error,
+    .form-select.error,
+    .score-input.error {
+        border-color: var(--neon-red) !important;
+        box-shadow: 0 0 20px rgba(255, 0, 60, 0.3) !important;
+        background: rgba(255, 0, 60, 0.05) !important;
+    }
+    
+    /* Style pour les messages d'erreur globaux */
+    .form-global-error {
+        background: rgba(255, 0, 60, 0.1);
+        border: 2px solid var(--neon-red);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        color: var(--neon-green);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
+    }
+    
+    .form-global-error ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+    
+    .form-global-error li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+    
+    .form-global-error li::before {
+        content: '❌';
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
     /* Section de suppression */
     .delete-section {
         margin-top: 4rem;
@@ -683,17 +743,28 @@
     <div class="form-card">
         {{ form_start(form) }}
         
+        {# Afficher les erreurs globales #}
+        {% if form.vars.errors|length > 0 %}
+        <div class="form-global-error">
+            <strong style="display: block; margin-bottom: 0.5rem;">⚠️ ERREURS DANS LE FORMULAIRE :</strong>
+            {{ form_errors(form) }}
+        </div>
+        {% endif %}
+        
         <div class="form-group">
             <label class="form-label">
                 <span>🎮 JEU DU MATCH</span>
             </label>
             {{ form_widget(form.game, {
                 'attr': {
-                    'class': 'form-select',
-                    'placeholder': 'SÉLECTIONNEZ UN JEU'
+                    'class': 'form-input',
+                    'placeholder': 'Sélectionnez ou entrez le nom du jeu'
                 }
             }) }}
             <div class="input-icon">🕹️</div>
+            
+            {# Afficher les erreurs pour le jeu #}
+            {{ form_errors(form.game, {'attr': {'class': 'form-error'}}) }}
             
             <!-- Suggestions de jeux populaires -->
             <div class="game-suggestions" id="gameSuggestions">
@@ -735,6 +806,9 @@
                 }
             }) }}
             <div class="input-icon">📅</div>
+            
+            {# Afficher les erreurs pour la date #}
+            {{ form_errors(form.match_date, {'attr': {'class': 'form-error'}}) }}
         </div>
         
         <!-- Sélection des équipes -->
@@ -746,6 +820,9 @@
                         'class': 'form-select'
                     }
                 }) }}
+                
+                {# Afficher les erreurs pour l'équipe 1 #}
+                {{ form_errors(form.team1, {'attr': {'class': 'form-error'}}) }}
             </div>
             
             <div class="vs-container">VS</div>
@@ -757,6 +834,9 @@
                         'class': 'form-select'
                     }
                 }) }}
+                
+                {# Afficher les erreurs pour l'équipe 2 #}
+                {{ form_errors(form.team2, {'attr': {'class': 'form-error'}}) }}
             </div>
         </div>
         
@@ -766,9 +846,13 @@
                 {{ form_widget(form.score_team1, {
                     'attr': {
                         'class': 'score-input',
-                        'placeholder': '0'
+                        'placeholder': '0',
+                        'min': '0',
+                        'max': '999'
                     }
                 }) }}
+                {# Afficher les erreurs pour le score team 1 #}
+                {{ form_errors(form.score_team1, {'attr': {'class': 'form-error'}}) }}
             </div>
             
             <div class="score-separator">:</div>
@@ -777,9 +861,13 @@
                 {{ form_widget(form.score_team2, {
                     'attr': {
                         'class': 'score-input',
-                        'placeholder': '0'
+                        'placeholder': '0',
+                        'min': '0',
+                        'max': '999'
                     }
                 }) }}
+                {# Afficher les erreurs pour le score team 2 #}
+                {{ form_errors(form.score_team2, {'attr': {'class': 'form-error'}}) }}
             </div>
         </div>
         
@@ -793,6 +881,9 @@
                 }
             }) }}
             <div class="input-icon">📈</div>
+            
+            {# Afficher les erreurs pour le statut #}
+            {{ form_errors(form.status, {'attr': {'class': 'form-error'}}) }}
         </div>
         
         <div class="form-group">
@@ -806,6 +897,9 @@
                 }
             }) }}
             <div class="input-icon">👑</div>
+            
+            {# Afficher les erreurs pour le gagnant #}
+            {{ form_errors(form.winner_team, {'attr': {'class': 'form-error'}}) }}
         </div>
         
         <div class="form-actions">
@@ -818,6 +912,18 @@
         </div>
         
         {{ form_end(form) }}
+    </div>
+    
+    <!-- Conseils -->
+    <div style="text-align: center; color: #a0a0c0; font-size: 0.9rem; margin-top: 2rem;">
+        <p>💡 <strong>CONSEILS :</strong></p>
+        <ul style="list-style: none; padding: 0; margin: 0.5rem 0;">
+            <li>• Les deux équipes doivent être différentes</li>
+            <li>• Les scores doivent être des nombres entiers positifs (0-999)</li>
+            <li>• Si le statut est "finished", un gagnant doit être sélectionné</li>
+            <li>• Les matchs "planned" ne peuvent pas avoir une date dans le passé</li>
+            <li>• Le gagnant doit avoir un score supérieur à l'adversaire</li>
+        </ul>
     </div>
     
     <!-- Section de suppression -->
@@ -843,7 +949,7 @@
 <script>
     // Gestion des suggestions de jeux
     const gameOptions = document.querySelectorAll('.game-option');
-    const gameSelect = document.querySelector('select[name*="game"]');
+    const gameInput = document.querySelector('input[name*="game"]');
     
     gameOptions.forEach(option => {
         option.addEventListener('click', function() {
@@ -853,20 +959,20 @@
             // Sélectionner cette option
             this.classList.add('selected');
             
-            // Mettre à jour le select
-            if (gameSelect) {
+            // Mettre à jour l'input
+            if (gameInput) {
                 const gameValue = this.getAttribute('data-game');
-                gameSelect.value = gameValue;
+                gameInput.value = gameValue;
                 
                 // Déclencher l'événement change
-                gameSelect.dispatchEvent(new Event('change'));
+                gameInput.dispatchEvent(new Event('change'));
             }
         });
     });
     
     // Pré-sélectionner l'option si elle correspond au select
-    if (gameSelect && gameSelect.value) {
-        const currentGame = gameSelect.value.toUpperCase();
+    if (gameInput && gameInput.value) {
+        const currentGame = gameInput.value.toUpperCase();
         gameOptions.forEach(option => {
             if (option.getAttribute('data-game') === currentGame) {
                 option.classList.add('selected');
@@ -880,6 +986,72 @@
     const winnerSelect = document.querySelector('select[name*="winner_team"]');
     const scoreTeam1Input = document.querySelector('input[name*="score_team1"]');
     const scoreTeam2Input = document.querySelector('input[name*="score_team2"]');
+    const statusSelect = document.querySelector('select[name*="status"]');
+    
+    // Fonction pour déterminer automatiquement le gagnant basé sur les scores
+    function updateWinnerFromScores() {
+        if (!scoreTeam1Input || !scoreTeam2Input || !winnerSelect || !team1Select || !team2Select) return;
+        
+        const score1 = parseInt(scoreTeam1Input.value) || 0;
+        const score2 = parseInt(scoreTeam2Input.value) || 0;
+        const team1Id = team1Select.value;
+        const team2Id = team2Select.value;
+        
+        if (!team1Id || !team2Id) return;
+        
+        if (score1 > score2) {
+            winnerSelect.value = team1Id;
+        } else if (score2 > score1) {
+            winnerSelect.value = team2Id;
+        } else {
+            // Égalité
+            winnerSelect.value = '';
+        }
+    }
+    
+    // Fonction pour valider les scores et le gagnant
+    function validateScoresAndWinner() {
+        if (!scoreTeam1Input || !scoreTeam2Input || !winnerSelect || !team1Select || !team2Select || !statusSelect) return true;
+        
+        const score1 = parseInt(scoreTeam1Input.value) || 0;
+        const score2 = parseInt(scoreTeam2Input.value) || 0;
+        const winnerId = winnerSelect.value;
+        const team1Id = team1Select.value;
+        const team2Id = team2Select.value;
+        const status = statusSelect.value;
+        
+        // Validation 1: Si le match est terminé, un vainqueur doit être défini
+        if (status === 'finished' && !winnerId) {
+            alert('⚠️ Pour un match terminé (finished), un gagnant doit être sélectionné !');
+            return false;
+        }
+        
+        // Validation 2: Si un vainqueur est défini, les scores doivent être définis
+        if (winnerId && (score1 === 0 && score2 === 0)) {
+            alert('⚠️ Si un gagnant est sélectionné, les scores doivent être renseignés !');
+            return false;
+        }
+        
+        // Validation 3: Le vainqueur doit avoir un score supérieur
+        if (winnerId && team1Id && team2Id) {
+            if (winnerId === team1Id && score1 <= score2) {
+                alert('⚠️ L\'équipe 1 est désignée gagnante mais son score n\'est pas supérieur à celui de l\'équipe 2 !');
+                return false;
+            }
+            if (winnerId === team2Id && score2 <= score1) {
+                alert('⚠️ L\'équipe 2 est désignée gagnante mais son score n\'est pas supérieur à celui de l\'équipe 1 !');
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    // Écouteurs d'événements
+    if (scoreTeam1Input && scoreTeam2Input) {
+        scoreTeam1Input.addEventListener('change', updateWinnerFromScores);
+        scoreTeam2Input.addEventListener('change', updateWinnerFromScores);
+    }
     
     if (winnerSelect && scoreTeam1Input && scoreTeam2Input) {
         winnerSelect.addEventListener('change', function() {
@@ -888,12 +1060,10 @@
             const team2Id = team2Select ? team2Select.value : null;
             
             if (winnerId && team1Id && team2Id) {
-                if (winnerId === team1Id) {
-                    // Équipe 1 gagnante
+                if (winnerId === team1Id && (!scoreTeam1Input.value || scoreTeam1Input.value === '0')) {
                     scoreTeam1Input.value = '3';
                     scoreTeam2Input.value = '0';
-                } else if (winnerId === team2Id) {
-                    // Équipe 2 gagnante
+                } else if (winnerId === team2Id && (!scoreTeam2Input.value || scoreTeam2Input.value === '0')) {
                     scoreTeam1Input.value = '0';
                     scoreTeam2Input.value = '3';
                 }
@@ -901,16 +1071,57 @@
         });
     }
     
-    // Validation des équipes différentes
+    // Validation des équipes différentes et autres règles
     const form = document.querySelector('form');
     if (form) {
         form.addEventListener('submit', function(e) {
+            // Validation 1: Équipes différentes
             const team1Value = team1Select ? team1Select.value : null;
             const team2Value = team2Select ? team2Select.value : null;
             
             if (team1Value && team2Value && team1Value === team2Value) {
                 e.preventDefault();
                 alert('⚠️ Les deux équipes doivent être différentes !');
+                team1Select.focus();
+                return false;
+            }
+            
+            // Validation 2: Vérification de la date pour les matchs programmés
+            const dateInput = document.querySelector('input[name*="match_date"]');
+            if (dateInput && dateInput.value && statusSelect && statusSelect.value === 'planned') {
+                const matchDate = new Date(dateInput.value);
+                const now = new Date();
+                now.setSeconds(0, 0); // Ignorer les secondes et millisecondes pour la comparaison
+                
+                if (matchDate < now) {
+                    e.preventDefault();
+                    alert('⚠️ Un match programmé (planned) ne peut pas avoir une date dans le passé !');
+                    dateInput.focus();
+                    return false;
+                }
+            }
+            
+            // Validation 3: Vérification des scores et du gagnant
+            if (!validateScoresAndWinner()) {
+                e.preventDefault();
+                return false;
+            }
+            
+            // Validation 4: Scores valides (entiers, non négatifs, max 999)
+            const score1 = parseInt(scoreTeam1Input.value) || 0;
+            const score2 = parseInt(scoreTeam2Input.value) || 0;
+            
+            if (score1 < 0 || score2 < 0) {
+                e.preventDefault();
+                alert('⚠️ Les scores ne peuvent pas être négatifs !');
+                scoreTeam1Input.focus();
+                return false;
+            }
+            
+            if (score1 > 999 || score2 > 999) {
+                e.preventDefault();
+                alert('⚠️ Les scores ne peuvent pas dépasser 999 !');
+                scoreTeam1Input.focus();
                 return false;
             }
             
@@ -930,9 +1141,23 @@
         });
     }
     
-    // Date picker amélioré
+    // Date picker amélioré avec validation
     const dateInput = document.querySelector('input[name*="match_date"]');
     if (dateInput && dateInput.type === 'text') {
+        // Formater la date existante
+        if (dateInput.value) {
+            try {
+                const date = new Date(dateInput.value);
+                if (!isNaN(date.getTime())) {
+                    const formatted = date.toLocaleDateString('fr-FR') + ' ' + 
+                                    date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
+                    dateInput.value = formatted;
+                }
+            } catch (e) {
+                console.log('Erreur de formatage de date:', e);
+            }
+        }
+        
         dateInput.addEventListener('focus', function() {
             // Changer le type en datetime-local pour les navigateurs modernes
             if (this.type === 'text') {
@@ -940,14 +1165,17 @@
             }
         });
         
-        // Formatage de la date
         dateInput.addEventListener('blur', function() {
             if (this.value) {
-                const date = new Date(this.value);
-                if (!isNaN(date.getTime())) {
-                    const formatted = date.toLocaleDateString('fr-FR') + ' ' + 
-                                    date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
-                    this.value = formatted;
+                try {
+                    const date = new Date(this.value);
+                    if (!isNaN(date.getTime())) {
+                        const formatted = date.toLocaleDateString('fr-FR') + ' ' + 
+                                        date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
+                        this.value = formatted;
+                    }
+                } catch (e) {
+                    console.log('Erreur de formatage de date:', e);
                 }
             }
         });
@@ -984,6 +1212,45 @@
                 deleteSection.style.transform = 'translateY(0)';
             }, 500);
         }
+        
+        // Mettre en évidence les champs avec erreurs
+        const errorElements = document.querySelectorAll('.form-error');
+        
+        errorElements.forEach(errorElement => {
+            // Trouver le champ correspondant
+            const formGroup = errorElement.closest('.form-group') || 
+                            errorElement.closest('.team-select-container') ||
+                            errorElement.closest('div'); // Pour les scores
+            
+            if (formGroup) {
+                const inputElement = formGroup.querySelector('.form-input, .form-select, .score-input');
+                if (inputElement && errorElement.textContent.trim() !== '') {
+                    inputElement.classList.add('error');
+                    
+                    // Ajouter un écouteur pour retirer la classe d'erreur quand l'utilisateur commence à taper
+                    inputElement.addEventListener('input', function() {
+                        if (errorElement.textContent.trim() !== '') {
+                            errorElement.textContent = '';
+                            errorElement.style.display = 'none';
+                            this.classList.remove('error');
+                        }
+                    });
+                }
+            }
+        });
+        
+        // Pour les erreurs globales, cacher après 10 secondes
+        const globalError = document.querySelector('.form-global-error');
+        if (globalError) {
+            setTimeout(() => {
+                globalError.style.opacity = '0';
+                globalError.style.transition = 'opacity 1s';
+                setTimeout(() => globalError.style.display = 'none', 1000);
+            }, 10000);
+        }
+        
+        // Mettre à jour le gagnant au chargement basé sur les scores existants
+        updateWinnerFromScores();
     });
     
     // Fonction de confirmation pour suppression
@@ -991,16 +1258,38 @@
         const gameName = '{{ matchy.game|escape('js') }}';
         const team1Name = '{{ matchy.team1 ? matchy.team1.name|escape('js') : "Équipe 1" }}';
         const team2Name = '{{ matchy.team2 ? matchy.team2.name|escape('js') : "Équipe 2" }}';
+        const matchDate = '{{ matchy.matchDate ? matchy.matchDate|date('d/m/Y H:i') : 'N/A' }}';
         
         const message = `⚠️ CONFIRMATION DE SUPPRESSION ⚠️\n\n` +
                        `Vous êtes sur le point de supprimer définitivement :\n` +
                        `• Match: ${gameName}\n` +
                        `• ${team1Name} VS ${team2Name}\n` +
-                       `• Date: {{ matchy.matchDate ? matchy.matchDate|date('d/m/Y H:i') : 'N/A' }}\n\n` +
+                       `• Date: ${matchDate}\n\n` +
                        `Cette action est IRRÉVERSIBLE !\n\n` +
                        `Êtes-vous ABSOLUMENT SÛR de vouloir continuer ?`;
         
         return confirm(message);
+    }
+    
+    // Validation en temps réel des scores
+    if (scoreTeam1Input && scoreTeam2Input) {
+        [scoreTeam1Input, scoreTeam2Input].forEach(input => {
+            input.addEventListener('input', function() {
+                // Supprimer les caractères non numériques
+                this.value = this.value.replace(/[^0-9]/g, '');
+                
+                // Limiter à 3 chiffres
+                if (this.value.length > 3) {
+                    this.value = this.value.slice(0, 3);
+                }
+                
+                // S'assurer que la valeur est entre 0 et 999
+                let value = parseInt(this.value) || 0;
+                if (value < 0) value = 0;
+                if (value > 999) value = 999;
+                this.value = value;
+            });
+        });
     }
 </script>
 {% endblock %}
