@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<h1>Login</h1>
+
+<form action="{{ path('app_login') }}" method="post" style="max-width: 400px;">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    
+    <div style="margin-bottom: 15px;">
+        <label for="email" style="display: block; margin-bottom: 5px;">Email:</label>
+        <input type="text" id="email" name="email" value="{{ last_username }}" required autofocus 
+               style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label for="password" style="display: block; margin-bottom: 5px;">Password:</label>
+        <input type="password" id="password" name="password" required 
+               style="width: 100%; padding: 8px; box-sizing: border-box;"/>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <input type="checkbox" id="remember_me" name="_remember_me" checked/>
+        <label for="remember_me">Remember me</label>
+    </div>
+
+    <button type="submit" style="padding: 10px 20px;">Login</button>
+
+    {% if error %}
+        <div style="color: red; margin-top: 10px; padding: 10px; background: #ffe6e6;">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
+</form>
+
+<p style="margin-top: 20px;">
+    Don't have an account? <a href="{{ path('app_register') }}">Register here</a>
+</p>
+{% endblock %}
