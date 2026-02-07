@@ -4,7 +4,6 @@ namespace App\Security;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
@@ -28,36 +27,41 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        // Get credentials from request
+        // These field names must match the login form
         $email = $request->request->get('email', '');
         $password = $request->request->get('password', '');
         $csrfToken = $request->request->get('_csrf_token', '');
 
-        // Store last username in session
-        $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);
+        $request->getSession()->set(
+            SecurityRequestAttributes::LAST_USERNAME,
+            $email
+        );
 
         return new Passport(
             new UserBadge($email),
             new PasswordCredentials($password),
             [
-                //new CsrfTokenBadge('authenticate', $csrfToken),
+                new CsrfTokenBadge('authenticate', $csrfToken),
                 new RememberMeBadge(),
             ]
         );
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?RedirectResponse
     {
+        // Redirect to previous page if exists
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        // Redirect based on role
         $user = $token->getUser();
-        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+
+        // Admin goes to admin dashboard
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
             return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
         }
 
+        // Regular user goes to home/dashboard
         return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
     }
 

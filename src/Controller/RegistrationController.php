@@ -32,6 +32,12 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // Set the role from the form (important!)
+            $role = $form->get('role')->getData();
+            if ($role) {
+                $user->setRole($role);
+            }
+
             // Set default values
             $user->setIsActive(true);
             $user->setCreatedAt(new \DateTimeImmutable());

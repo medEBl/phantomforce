@@ -85,10 +85,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // Add the main role from $this->role
-        if ($this->role) {
-            $roles[] = 'ROLE_' . $this->role;
+        
+        // Add the main role from $this->role with proper ROLE_ prefix
+        if ($this->role && !in_array('ROLE_' . strtoupper($this->role), $roles, true)) {
+            $roles[] = 'ROLE_' . strtoupper($this->role);
         }
+        
         // Ensure unique roles
         return array_unique($roles);
     }
@@ -178,10 +180,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRole(string $role): static
     {
         $this->role = $role;
-        // Add role to roles array
-        if (!in_array('ROLE_' . $role, $this->roles)) {
-            $this->roles[] = 'ROLE_' . $role;
+        
+        // Add role to roles array with proper prefix
+        $roleWithPrefix = 'ROLE_' . strtoupper($role);
+        if (!in_array($roleWithPrefix, $this->roles, true)) {
+            $this->roles[] = $roleWithPrefix;
         }
+        
         return $this;
     }
 
