@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<h1>Register</h1>
+
+{% for message in app.flashes('error') %}
+    <div style="color: red; background: #ffe6e6; padding: 10px; margin: 10px 0; border: 1px solid red;">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.username) }}
+    {{ form_row(registrationForm.plainPassword) }}
+    {{ form_row(registrationForm.fullName) }}
+    {{ form_row(registrationForm.country) }}
+    {{ form_row(registrationForm.birthDate) }}
+    {{ form_row(registrationForm.role) }}
+    
+    <button type="submit" style="margin-top: 15px; padding: 10px 20px;">Register</button>
+{{ form_end(registrationForm) }}
+
+<p style="margin-top: 20px;">
+    Already have an account? <a href="{{ path('app_login') }}">Login here</a>
+</p>
+
+<style>
+    .form-error {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 5px;
+    }
+    input.error, select.error {
+        border-color: red;
+    }
+</style>
+{% endblock %}
