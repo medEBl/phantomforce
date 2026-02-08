@@ -1,4 +1,6 @@
 # config/routes.yaml
+
+# Routes existantes
 app_login:
     path: /login
     controller: App\Controller\SecurityController::login
@@ -23,6 +25,7 @@ front_home:
     controller: App\Controller\FrontController::home
     methods: GET
 
+# Routes User (normales - espace utilisateur)
 app_user_index:
     path: /user
     controller: App\Controller\UserController::index
@@ -47,3 +50,42 @@ app_user_delete:
     path: /user/{id}
     controller: App\Controller\UserController::delete
     methods: POST
+
+# NOUVELLES ROUTES ADMIN
+# Routes Admin User (module admin) - IMPORTANT: ORDRE DES ROUTES!
+admin_user_index:
+    path: /admin/users
+    controller: App\Controller\Admin\AdminUserController::index
+    methods: GET
+
+admin_user_new:
+    path: /admin/users/new
+    controller: App\Controller\Admin\AdminUserController::new
+    methods: GET|POST
+
+# LES ROUTES EDIT ET DELETE DOIVENT ÊTRE AVANT SHOW!
+admin_user_edit:
+    path: /admin/users/{id}/edit
+    controller: App\Controller\Admin\AdminUserController::edit
+    methods: GET|POST
+
+admin_user_delete:
+    path: /admin/users/{id}
+    controller: App\Controller\Admin\AdminUserController::delete
+    methods: POST
+
+admin_user_show:
+    path: /admin/users/{id}
+    controller: App\Controller\Admin\AdminUserController::show
+    methods: GET
+
+# Routes pour les futurs modules
+admin_match_index:
+    path: /admin/matches
+    controller: App\Controller\Admin\AdminMatchController::index
+    methods: GET
+
+admin_team_index:
+    path: /admin/teams
+    controller: App\Controller\Admin\AdminTeamController::index
+    methods: GET
