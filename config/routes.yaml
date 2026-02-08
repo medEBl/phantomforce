@@ -89,3 +89,7 @@ admin_team_index:
     path: /admin/teams
     controller: App\Controller\Admin\AdminTeamController::index
     methods: GET
+app_acceuil:
+    path: /acceuil
+    controller: App\Controller\AcceuilController::index
+    methods: GET
