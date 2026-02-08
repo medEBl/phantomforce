@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
@@ -18,6 +19,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: "L'email est obligatoire.")]
+    #[Assert\Email(message: "L'email '{{ value }}' n'est pas valide.")]
+    #[Assert\Length(
+        max: 180,
+        maxMessage: "L'email ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $email = null;
 
     #[ORM\Column(type: 'json')]
@@ -27,21 +34,80 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le nom d'utilisateur est obligatoire.")]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: "Le nom d'utilisateur doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z0-9_-]+$/',
+        message: "Le nom d'utilisateur ne peut contenir que des lettres, chiffres, tirets et underscores."
+    )]
     private ?string $username = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: "Le nom complet est obligatoire.")]
+    #[Assert\Length(
+        min: 2,
+        max: 100,
+        minMessage: "Le nom complet doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le nom complet ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z\s\-\'\.]+$/',
+        message: "Le nom complet ne peut contenir que des lettres, espaces, tirets, apostrophes et points."
+    )]
     private ?string $fullName = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le pays est obligatoire.")]
+    #[Assert\Length(
+        max: 50,
+        maxMessage: "Le pays ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z\s\-]+$/',
+        message: "Le pays ne peut contenir que des lettres, espaces et tirets."
+    )]
     private ?string $country = null;
 
     #[ORM\Column(type: 'date')]
+    #[Assert\NotNull(message: "La date de naissance est obligatoire.")]
+    #[Assert\LessThan(
+        value: "today - 13 years",
+        message: "L'utilisateur doit avoir au moins 13 ans."
+    )]
+    #[Assert\GreaterThan(
+        value: "today - 120 years",
+        message: "La date de naissance n'est pas valide."
+    )]
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank(message: "Le rôle est obligatoire.")]
+    #[Assert\Length(
+        max: 20,
+        maxMessage: "Le rôle ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Choice(
+        choices: ['user', 'admin', 'moderator', 'editor'],
+        message: "Le rôle '{{ value }}' n'est pas valide. Valeurs acceptées : user, admin, moderator, editor."
+    )]
     private ?string $role = null;
 
     #[ORM\Column]
+    #[Assert\Type(
+        type: 'integer',
+        message: "Les points d'accomplissement doivent être un nombre entier."
+    )]
+    #[Assert\Range(
+        min: 0,
+        max: 999999,
+        minMessage: "Les points d'accomplissement ne peuvent pas être négatifs.",
+        maxMessage: "Les points d'accomplissement ne peuvent pas dépasser {{ limit }}."
+    )]
     private int $achievementPoints = 0;
 
     #[ORM\Column]
@@ -53,6 +119,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $lastLoginAt = null;
 
+    #[Assert\Length(
+        min: 8,
+        max: 50,
+        minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères.",
+        maxMessage: "Le mot de passe ne peut pas dépasser {{ limit }} caractères."
+    )]
+    #[Assert\Regex(
+        pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+        message: "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial."
+    )]
     private ?string $plainPassword = null;
 
     public function __construct()
@@ -73,7 +149,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): static
     {
-        $this->email = $email;
+        $this->email = trim($email);
         return $this;
     }
 
@@ -86,12 +162,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         
-        // Add the main role from $this->role with proper ROLE_ prefix
         if ($this->role && !in_array('ROLE_' . strtoupper($this->role), $roles, true)) {
             $roles[] = 'ROLE_' . strtoupper($this->role);
         }
         
-        // Ensure unique roles
         return array_unique($roles);
     }
 
@@ -119,6 +193,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPlainPassword(?string $plainPassword): static
     {
+        if ($plainPassword !== null) {
+            $plainPassword = trim($plainPassword);
+        }
         $this->plainPassword = $plainPassword;
         return $this;
     }
@@ -135,7 +212,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setUsername(string $username): static
     {
-        $this->username = $username;
+        $this->username = trim($username);
         return $this;
     }
 
@@ -146,7 +223,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setFullName(string $fullName): static
     {
-        $this->fullName = $fullName;
+        $this->fullName = trim($fullName);
         return $this;
     }
 
@@ -157,7 +234,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setCountry(string $country): static
     {
-        $this->country = $country;
+        $this->country = trim($country);
         return $this;
     }
 
@@ -179,9 +256,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRole(string $role): static
     {
-        $this->role = $role;
+        $this->role = trim($role);
         
-        // Add role to roles array with proper prefix
         $roleWithPrefix = 'ROLE_' . strtoupper($role);
         if (!in_array($roleWithPrefix, $this->roles, true)) {
             $this->roles[] = $roleWithPrefix;
@@ -232,5 +308,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->lastLoginAt = $lastLoginAt;
         return $this;
+    }
+
+    /**
+     * Validation supplémentaire pour les scénarios de création
+     */
+    #[Assert\IsTrue(message: "Le mot de passe est obligatoire pour la création d'un utilisateur.")]
+    public function isPasswordRequiredForNewUser(): bool
+    {
+        return $this->id !== null || $this->plainPassword !== null;
     }
 }
