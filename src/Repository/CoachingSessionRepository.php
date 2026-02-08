@@ -15,6 +15,7 @@ class CoachingSessionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, CoachingSession::class);
     }
+    
 
     //    /**
     //     * @return CoachingSession[] Returns an array of CoachingSession objects

@@ -15,7 +15,7 @@ class TrainingPlanRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, TrainingPlan::class);
     }
-
+    
     //    /**
     //     * @return TrainingPlan[] Returns an array of TrainingPlan objects
     //     */
