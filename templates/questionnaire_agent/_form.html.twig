@@ -1,0 +1,48 @@
+{# templates/questionnaire_agent/_form.html.twig #}
+{{ form_start(form) }}
+    <div style="display: grid; gap: 15px;">
+        
+        {# Game Field #}
+        <div>
+            {{ form_label(form.game, 'Jeu', {'label_attr': {'style': 'color:white; display:block; margin-bottom:5px;'}}) }}
+            {{ form_widget(form.game, {'attr': {'class': 'form-control', 'style': 'background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); color:white;'}}) }}
+            {{ form_errors(form.game) }}
+        </div>
+
+        {# Question 1 #}
+        <div>
+            {{ form_label(form.ques1, 'Question 1', {'label_attr': {'style': 'color:white; display:block; margin-bottom:5px;'}}) }}
+            {{ form_widget(form.ques1, {'attr': {'class': 'form-control', 'style': 'background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); color:white;'}}) }}
+            {{ form_errors(form.ques1) }}
+        </div>
+
+        {# Question 2 #}
+        <div>
+            {{ form_label(form.ques2, 'Question 2', {'label_attr': {'style': 'color:white; display:block; margin-bottom:5px;'}}) }}
+            {{ form_widget(form.ques2, {'attr': {'class': 'form-control', 'style': 'background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); color:white;'}}) }}
+            {{ form_errors(form.ques2) }}
+        </div>
+
+        {# Question 3 #}
+        <div>
+            {{ form_label(form.ques3, 'Question 3', {'label_attr': {'style': 'color:white; display:block; margin-bottom:5px;'}}) }}
+            {{ form_widget(form.ques3, {'attr': {'class': 'form-control', 'style': 'background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); color:white;'}}) }}
+            {{ form_errors(form.ques3) }}
+        </div>
+
+        {# Question 4 #}
+        <div>
+            {{ form_label(form.ques4, 'Question 4', {'label_attr': {'style': 'color:white; display:block; margin-bottom:5px;'}}) }}
+            {{ form_widget(form.ques4, {'attr': {'class': 'form-control', 'style': 'background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); color:white;'}}) }}
+            {{ form_errors(form.ques4) }}
+        </div>
+
+        {# Save Button #}
+        <div style="margin-top: 20px;">
+            <button class="btn" style="background: var(--admin-accent, #00f3ff); color: black; font-weight: bold; padding: 10px 20px; border-radius: 8px; border:none;">
+                {{ button_label|default('Enregistrer') }}
+            </button>
+        </div>
+
+    </div>
+{{ form_end(form) }}

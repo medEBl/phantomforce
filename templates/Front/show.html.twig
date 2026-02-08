@@ -1,0 +1,346 @@
+{# templates/front/show.html.twig #}
+{% extends 'basefront.html.twig' %}
+
+{% block title %}Agent — {{ agent.pseudo }}{% endblock %}
+
+{% block inline_styles %}
+<style>
+  .page-wrap { max-width: 1200px; margin: 0 auto; }
+
+  /* HERO matches your index style (glass + subtle borders) */
+  .page-hero {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+
+  .hero-title {
+    margin: 0 0 6px;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text-light);
+  }
+  .hero-sub {
+    margin: 0;
+    color: var(--text-muted);
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+
+  .content-grid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 992px) {
+    .content-grid { grid-template-columns: 1fr; }
+  }
+
+  /* CARD matches your index style */
+  .card{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+
+  .hr{ height:1px; background: var(--border-light); margin: 16px 0; }
+  .muted{ color: var(--text-muted); }
+  .row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  a.btn{ text-decoration:none; }
+
+  /* Pills like your index */
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-light);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-light);
+    font-size: 12px;
+    font-weight: 600;
+    gap: 8px;
+  }
+
+  /* Status like your index (text colored) */
+  .status{
+    display:inline-flex;
+    align-items:center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    border: 1px solid var(--border-light);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-light);
+    gap: 8px;
+  }
+  .status.active{ color: var(--green); }
+  .status.inactive{ color: var(--yellow); }
+  .status.banned{ color: var(--red); }
+
+  /* Info tiles same family */
+  .info-grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 14px;
+  }
+  @media (max-width: 768px) {
+    .info-grid { grid-template-columns: 1fr; }
+  }
+
+  .info-item{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    transition: var(--transition);
+  }
+  .info-item:hover{
+    transform: translateY(-2px);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+  .info-label{
+    display:block;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    margin-bottom: 6px;
+  }
+  .info-value{
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-light);
+  }
+
+  /* Questionnaire tiles */
+  .qa-container { display:grid; gap: 12px; }
+  .qa-item{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    transition: var(--transition);
+  }
+  .qa-item:hover{
+    transform: translateY(-2px);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+  .qa-question{
+    display:block;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 6px;
+  }
+  .qa-answer{
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.35;
+  }
+
+  /* Alert matches your dark palette (no blue) */
+  .alert-soft {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-light);
+    color: var(--text-light);
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+  .alert-soft i { color: var(--text-muted); margin-top: 2px; }
+
+  /* Buttons: keep same danger colors as your index */
+  .btn-danger{
+    background: rgba(255,45,45,0.12);
+    border: 1px solid rgba(255,45,45,0.35);
+    color: #ff6b6b;
+  }
+  .btn-danger:hover{
+    background: rgba(255,45,45,0.18);
+    transform: translateY(-2px);
+  }
+
+  .actions-row {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    margin-top: 12px;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="page-wrap">
+
+  {# ===== HERO ===== #}
+  <section class="page-hero">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+      <div>
+        <h1 class="hero-title">{{ agent.pseudo }}</h1>
+        <p class="hero-sub">
+          <span class="pill"><i class="fa-solid fa-gamepad"></i> {{ agent.game }}</span>
+          <span class="pill"><i class="fa-solid fa-ranking-star"></i> Rang : {{ agent.rank }}</span>
+          <span class="status {{ agent.status }}">
+            <i class="fa-solid fa-circle" style="font-size:8px;"></i>
+            {{ agent.status|capitalize }}
+          </span>
+        </p>
+      </div>
+
+      <div class="row" style="justify-content:flex-end;">
+        <a class="btn btn-secondary" href="{{ path('front_agent_index') }}">
+          <i class="fa-solid fa-arrow-left"></i> Retour
+        </a>
+        <a class="btn btn-primary" href="{{ path('front_agent_edit', { id: agent.id }) }}">
+          <i class="fa-solid fa-pen"></i> Modifier l'Agent
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-grid">
+
+    {# ===== LEFT: Agent Info ===== #}
+    <section class="card">
+      <h2 style="margin:0 0 10px;">
+        <i class="fa-solid fa-id-card" style="color:var(--text-muted); margin-right:8px;"></i>
+        Détails de l'Agent
+      </h2>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Pseudo</span>
+          <div class="info-value">{{ agent.pseudo }}</div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-label">Jeu</span>
+          <div class="info-value">{{ agent.game }}</div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-label">Rang</span>
+          <div class="info-value">{{ agent.rank }}</div>
+        </div>
+
+        <div class="info-item">
+          <span class="info-label">Statut</span>
+          <div class="info-value">{{ agent.status|capitalize }}</div>
+        </div>
+
+        <div class="info-item" style="grid-column: 1 / -1;">
+          <span class="info-label">Créé le</span>
+          <div class="info-value">{{ agent.dateOfCreation|date('d M Y') }}</div>
+        </div>
+
+        <div class="info-item" style="grid-column: 1 / -1;">
+          <span class="info-label">Lien Social</span>
+          <div class="info-value" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            {% if agent.socialsLink %}
+              <a class="btn btn-secondary" style="padding:6px 10px;" href="{{ agent.socialsLink }}" target="_blank" rel="noreferrer">
+                <i class="fa-solid fa-link"></i> Ouvrir
+              </a>
+              <span class="muted" style="font-size:12px;">{{ agent.socialsLink }}</span>
+            {% else %}
+              <span class="muted">—</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div class="actions-row">
+        <form method="post"
+              action="{{ path('front_agent_delete', { id: agent.id }) }}"
+              style="display:inline"
+              onsubmit="return confirm('Voulez-vous vraiment supprimer cet agent ?');">
+          <input type="hidden" name="_token" value="{{ csrf_token('delete_agent_' ~ agent.id) }}">
+          <button class="btn btn-danger" type="submit">
+            <i class="fa-solid fa-trash"></i> Supprimer
+          </button>
+        </form>
+      </div>
+    </section>
+
+    {# ===== RIGHT: Questionnaire ===== #}
+    <section class="card" id="qa-section">
+      <h2 style="margin:0 0 10px;">
+        <i class="fa-solid fa-clipboard-question" style="color:var(--text-muted); margin-right:8px;"></i>
+        Questionnaire
+      </h2>
+
+      {% if reponse %}
+        <div class="qa-container">
+          <div class="qa-item">
+            <span class="qa-question">{{ reponse.questionnaire.ques1 }}</span>
+            <span class="qa-answer">{{ reponse.rep1 }}</span>
+          </div>
+
+          <div class="qa-item">
+            <span class="qa-question">{{ reponse.questionnaire.ques2 }}</span>
+            <span class="qa-answer">{{ reponse.rep2 }}</span>
+          </div>
+
+          {% if reponse.questionnaire.ques3 and reponse.rep3 %}
+            <div class="qa-item">
+              <span class="qa-question">{{ reponse.questionnaire.ques3 }}</span>
+              <span class="qa-answer">{{ reponse.rep3 }}</span>
+            </div>
+          {% endif %}
+
+          {% if reponse.questionnaire.ques4 and reponse.rep4 %}
+            <div class="qa-item">
+              <span class="qa-question">{{ reponse.questionnaire.ques4 }}</span>
+              <span class="qa-answer">{{ reponse.rep4 }}</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row" style="justify-content:flex-end;">
+          {# ✅ FIX: Link to EDIT route #}
+          <a class="btn btn-secondary" href="{{ path('front_agent_questionnaire_edit', { id: agent.id }) }}">
+            <i class="fa-solid fa-pen-to-square"></i> Modifier les réponses
+          </a>
+        </div>
+      {% else %}
+        <div class="alert-soft">
+          <i class="fa-solid fa-circle-info"></i>
+          <div>
+            <div style="font-weight:800; margin-bottom:4px;">Pas encore de réponses</div>
+            <div class="muted" style="font-size:13px;">Cet agent n'a pas encore rempli le questionnaire.</div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="row" style="justify-content:flex-end;">
+          {# ✅ FIX: Link to EDIT route #}
+          <a class="btn btn-danger" href="{{ path('front_agent_questionnaire_edit', { id: agent.id }) }}">
+            <i class="fa-solid fa-pen-to-square"></i> Remplir le Questionnaire
+          </a>
+        </div>
+      {% endif %}
+    </section>
+
+  </div>
+</div>
+{% endblock %}
