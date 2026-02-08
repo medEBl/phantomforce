@@ -62,7 +62,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // Regular user goes to home/dashboard
-        return new RedirectResponse($this->urlGenerator->generate('app_user_index'));
+        return new RedirectResponse($this->urlGenerator->generate('app_acceuil'));
     }
 
     protected function getLoginUrl(Request $request): string

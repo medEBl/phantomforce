@@ -536,13 +536,12 @@
                 <ul class="nav-menu">
                     <li><a href="{{ path('front_home') }}">HOME BASE</a></li>
                     
-                    {% if app.user %}
-                        <li><a href="{{ path('app_user_index') }}">WAR ROOM</a></li>
+                    
                         
                         {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="{{ path('admin_dashboard') }}">COMMAND CENTER</a></li>
                         {% endif %}
-                    {% endif %}
+                    
                 </ul>
                 
                 <div class="nav-user">
