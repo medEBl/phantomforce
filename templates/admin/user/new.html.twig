@@ -1,0 +1,147 @@
+{% extends 'backbase.html.twig' %}
+
+{% block title %}{{ user.id ? 'Edit' : 'New' }} User{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .form-container {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--admin-accent);
+            box-shadow: 0 0 0 3px rgba(0, 243, 255, 0.1);
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .form-check-label {
+            color: #aaa;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 style="color: var(--admin-accent);">{{ user.id ? 'Edit User' : 'Create New User' }}</h1>
+            <p class="mb-0">{{ user.id ? 'Update user information' : 'Add a new user to the system' }}</p>
+        </div>
+        <a href="{{ path('admin_user_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-arrow-left"></i> Back to list
+        </a>
+    </div>
+</div>
+
+<div class="form-container">
+    {{ form_start(form) }}
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div>
+                <div class="form-group">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form_label(form.username) }}
+                    {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form_label(form.plainPassword) }}
+                    {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                    <small style="color: #666; font-size: 0.8em; margin-top: 5px; display: block;">
+                        {% if user.id %}Leave blank to keep current password{% endif %}
+                    </small>
+                </div>
+                
+                <div class="form-group">
+                    {{ form_label(form.fullName) }}
+                    {{ form_widget(form.fullName, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            
+            <div>
+                <div class="form-group">
+                    {{ form_label(form.country) }}
+                    {{ form_widget(form.country, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form_label(form.birthDate) }}
+                    {{ form_widget(form.birthDate, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form_label(form.role) }}
+                    {{ form_widget(form.role, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                
+                <div class="form-group">
+                    {{ form_label(form.achievementPoints) }}
+                    {{ form_widget(form.achievementPoints, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                
+                <div class="form-check">
+                    {{ form_widget(form.isActive) }}
+                    {{ form_label(form.isActive) }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn-admin btn-admin-primary">
+                <i class="fas fa-save"></i> {{ user.id ? 'Update' : 'Create' }}
+            </button>
+            <a href="{{ path('admin_user_index') }}" class="btn-admin btn-admin-secondary">
+                <i class="fas fa-times"></i> Cancel
+            </a>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

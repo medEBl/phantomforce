@@ -1,40 +1,722 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}ARENA-X | ENLISTMENT PROTOCOL{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        :root {
+            --blood-red: #ff0000;
+            --dark-red: #8b0000;
+            --neon-red: #ff003c;
+            --pulse-red: #ff3355;
+            --black-hole: #000000;
+            --metal-gray: #111111;
+            --carbon-gray: #222222;
+            --steel-gray: #333333;
+            --glitch-blue: #00f0ff;
+            --hacker-green: #00ff00;
+            --toxic-purple: #9d00ff;
+            --gold: #ffd700;
+            --cyber-yellow: #ffff00;
+        }
+
+        .enlistment-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 60px 20px;
+            background: 
+                linear-gradient(135deg, #000000 0%, #1a0000 100%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,20 L80,80 M20,80 L80,20" stroke="%238B0000" stroke-width="1" opacity="0.1"/></svg>');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .enlistment-container {
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+            background: linear-gradient(145deg, rgba(17,17,17,0.95), rgba(34,34,34,0.95));
+            border: 3px solid;
+            border-image: linear-gradient(45deg, var(--toxic-purple), var(--neon-red), var(--cyber-yellow)) 1;
+            padding: 50px;
+            box-shadow: 
+                0 0 50px rgba(157,0,255,0.4),
+                0 0 100px rgba(255,0,60,0.2),
+                inset 0 0 30px rgba(0,0,0,0.7);
+            animation: borderPulse 3s infinite alternate;
+        }
+
+        @keyframes borderPulse {
+            0% { border-image-source: linear-gradient(45deg, var(--toxic-purple), var(--neon-red), var(--cyber-yellow)); }
+            100% { border-image-source: linear-gradient(45deg, var(--cyber-yellow), var(--toxic-purple), var(--neon-red)); }
+        }
+
+        .enlistment-container::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, var(--toxic-purple), var(--neon-red), var(--cyber-yellow));
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.3;
+        }
+
+        .enlistment-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .enlistment-title {
+            font-size: 3.5em;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin-bottom: 20px;
+            font-family: 'Aldrich', sans-serif;
+            background: linear-gradient(45deg, var(--cyber-yellow), var(--toxic-purple), var(--neon-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(157,0,255,0.5);
+            position: relative;
+            display: inline-block;
+        }
+
+        .enlistment-title::after {
+            content: '🛡️';
+            position: absolute;
+            right: -60px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            filter: drop-shadow(0 0 10px var(--cyber-yellow));
+            animation: shieldPulse 2s infinite;
+        }
+
+        @keyframes shieldPulse {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.1); }
+        }
+
+        .enlistment-subtitle {
+            color: #aaa;
+            font-size: 1.2em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .protocol-steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--dark-red), var(--blood-red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 900;
+            color: white;
+            font-size: 1.2em;
+            box-shadow: 0 0 15px rgba(255,0,60,0.5);
+            animation: stepPulse 2s infinite;
+        }
+
+        @keyframes stepPulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(255,0,60,0.5); }
+            50% { box-shadow: 0 0 25px rgba(255,0,60,0.8); }
+        }
+
+        .step-label {
+            color: #ccc;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cyber-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            position: relative;
+        }
+
+        .form-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--glitch-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9em;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .form-label::before {
+            content: '▶';
+            margin-right: 8px;
+            color: var(--neon-red);
+            font-size: 0.8em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid var(--carbon-gray);
+            border-left: 5px solid var(--toxic-purple);
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-size: 1em;
+            transition: all 0.3s;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--neon-red);
+            border-left-color: var(--cyber-yellow);
+            box-shadow: 
+                inset 0 0 25px rgba(157,0,255,0.3),
+                0 0 20px rgba(255,0,60,0.2);
+            background: rgba(0,0,0,0.9);
+        }
+
+        .form-input::placeholder {
+            color: #666;
+            font-style: italic;
+        }
+
+        .password-group {
+            position: relative;
+        }
+
+        .password-strength {
+            height: 4px;
+            background: var(--carbon-gray);
+            margin-top: 10px;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .strength-meter {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--blood-red), var(--cyber-yellow), var(--hacker-green));
+            transition: width 0.3s;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid var(--carbon-gray);
+            border-left: 5px solid var(--toxic-purple);
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-size: 1em;
+            transition: all 0.3s;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff003c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--neon-red);
+            border-left-color: var(--cyber-yellow);
+            box-shadow: 
+                inset 0 0 25px rgba(157,0,255,0.3),
+                0 0 20px rgba(255,0,60,0.2);
+        }
+
+        .checkbox-group {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .cyber-checkbox {
+            display: none;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #ccc;
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        .custom-checkbox {
+            width: 25px;
+            height: 25px;
+            border: 2px solid var(--neon-red);
+            margin-right: 15px;
+            position: relative;
+            transition: all 0.3s;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .custom-checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--hacker-green);
+            opacity: 0;
+            font-size: 1.2em;
+            transition: opacity 0.3s;
+        }
+
+        .cyber-checkbox:checked + .custom-checkbox {
+            border-color: var(--hacker-green);
+            box-shadow: 0 0 15px rgba(0,255,0,0.5);
+        }
+
+        .cyber-checkbox:checked + .custom-checkbox::after {
+            opacity: 1;
+        }
+
+        .submit-section {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .enlist-button {
+            padding: 20px 60px;
+            background: linear-gradient(45deg, var(--toxic-purple), var(--neon-red));
+            border: none;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3em;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s;
+            box-shadow: 
+                0 10px 30px rgba(157,0,255,0.4),
+                inset 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        .enlist-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.6s;
+        }
+
+        .enlist-button:hover {
+            background: linear-gradient(45deg, var(--neon-red), var(--cyber-yellow));
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 40px rgba(255,0,60,0.6),
+                0 0 30px rgba(255,215,0,0.4),
+                inset 0 0 20px rgba(255,255,255,0.2);
+            letter-spacing: 4px;
+        }
+
+        .enlist-button:hover::before {
+            left: 100%;
+        }
+
+        .enlist-button:active {
+            transform: translateY(2px);
+            box-shadow: 
+                0 5px 20px rgba(255,0,60,0.4),
+                inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+        }
+
+        .login-link a {
+            color: var(--glitch-blue);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .login-link a:hover {
+            color: var(--cyber-yellow);
+            text-shadow: 0 0 15px rgba(255,215,0,0.5);
+        }
+
+        .login-link a::after {
+            content: '↗';
+            margin-left: 8px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .login-link a:hover::after {
+            transform: translate(3px, -3px);
+        }
+
+        .form-error {
+            color: var(--neon-red);
+            font-size: 0.9em;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .form-error::before {
+            content: '⚠';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .hologram-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 65%, rgba(0, 240, 255, 0.1) 75%, transparent 85%);
+            pointer-events: none;
+            animation: hologramScan 3s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes hologramScan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        @media (max-width: 768px) {
+            .cyber-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .enlistment-container {
+                padding: 30px 20px;
+            }
+            
+            .enlistment-title {
+                font-size: 2.5em;
+                letter-spacing: 3px;
+            }
+            
+            .protocol-steps {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            
+            .enlist-button {
+                padding: 15px 40px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-<h1>Register</h1>
+    <section class="enlistment-section">
+        <div class="hologram-effect"></div>
+        
+        <div class="enlistment-container">
+            <div class="enlistment-header">
+                <h1 class="enlistment-title">ENLISTMENT PROTOCOL</h1>
+                <p class="enlistment-subtitle">JOIN THE ELITE FORCES OF ARENA-X</p>
+                
+                <div class="protocol-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-label">IDENTITY</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-label">CREDENTIALS</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-label">VERIFICATION</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-label">DEPLOYMENT</div>
+                    </div>
+                </div>
+            </div>
+            
+            {% for message in app.flashes('error') %}
+                <div style="background: rgba(139,0,0,0.2); border-left: 4px solid var(--blood-red); padding: 15px; margin-bottom: 30px;">
+                    <strong style="color: var(--neon-red);">⚠ ALERT:</strong> {{ message }}
+                </div>
+            {% endfor %}
+            
+            {{ form_start(registrationForm, {'attr': {'class': 'cyber-form', 'novalidate': 'novalidate'}}) }}
+                <div class="form-column">
+                    {{ form_row(registrationForm.email, {
+                        'label': 'COMBAT EMAIL',
+                        'attr': {
+                            'class': 'form-input',
+                            'placeholder': 'warrior@arena-x.io'
+                        }
+                    }) }}
+                    
+                    {{ form_row(registrationForm.username, {
+                        'label': 'CALL SIGN',
+                        'attr': {
+                            'class': 'form-input',
+                            'placeholder': 'Enter your warrior name'
+                        }
+                    }) }}
+                    
+                    <div class="password-group">
+                        {{ form_row(registrationForm.plainPassword.first, {
+                            'label': 'ACCESS CODE',
+                            'attr': {
+                                'class': 'form-input',
+                                'placeholder': 'Minimum 8 characters',
+                                'oninput': 'checkPasswordStrength(this.value)'
+                            }
+                        }) }}
+                        
+                        <div class="password-strength">
+                            <div class="strength-meter" id="passwordStrength"></div>
+                        </div>
+                    </div>
+                    
+                    {{ form_row(registrationForm.plainPassword.second, {
+                        'label': 'CONFIRM CODE',
+                        'attr': {
+                            'class': 'form-input',
+                            'placeholder': 'Repeat access code'
+                        }
+                    }) }}
+                </div>
+                
+                <div class="form-column">
+                    {{ form_row(registrationForm.fullName, {
+                        'label': 'FULL DESIGNATION',
+                        'attr': {
+                            'class': 'form-input',
+                            'placeholder': 'John "Reaper" Smith'
+                        }
+                    }) }}
+                    
+                    {{ form_row(registrationForm.country, {
+                        'label': 'OPERATION ZONE',
+                        'attr': {
+                            'class': 'form-input',
+                            'placeholder': 'Country of origin'
+                        }
+                    }) }}
+                    
+                    {{ form_row(registrationForm.birthDate, {
+                        'label': 'ACTIVATION DATE',
+                        'attr': {
+                            'class': 'form-input'
+                        }
+                    }) }}
+                    
+                    {{ form_row(registrationForm.role, {
+                        'label': 'COMBAT ROLE',
+                        'attr': {
+                            'class': 'form-select'
+                        }
+                    }) }}
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" class="cyber-checkbox" required>
+                    <label for="terms" class="checkbox-label">
+                        <span class="custom-checkbox"></span>
+                        <span>I ACCEPT THE ARENA-X COMBAT PROTOCOL AND DATA PROCESSING TERMS</span>
+                    </label>
+                </div>
+                
+                <div class="submit-section">
+                    <button type="submit" class="enlist-button">
+                        <span>INITIATE ENLISTMENT</span>
+                    </button>
+                </div>
+            {{ form_end(registrationForm) }}
+            
+            <div class="login-link">
+                <p>ALREADY ENLISTED? <a href="{{ path('app_login') }}">PROCEED TO LOGIN</a></p>
+            </div>
+        </div>
+    </section>
 
-{% for message in app.flashes('error') %}
-    <div style="color: red; background: #ffe6e6; padding: 10px; margin: 10px 0; border: 1px solid red;">
-        {{ message }}
-    </div>
-{% endfor %}
-
-{{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.username) }}
-    {{ form_row(registrationForm.plainPassword) }}
-    {{ form_row(registrationForm.fullName) }}
-    {{ form_row(registrationForm.country) }}
-    {{ form_row(registrationForm.birthDate) }}
-    {{ form_row(registrationForm.role) }}
-    
-    <button type="submit" style="margin-top: 15px; padding: 10px 20px;">Register</button>
-{{ form_end(registrationForm) }}
-
-<p style="margin-top: 20px;">
-    Already have an account? <a href="{{ path('app_login') }}">Login here</a>
-</p>
-
-<style>
-    .form-error {
-        color: red;
-        font-size: 0.9em;
-        margin-top: 5px;
-    }
-    input.error, select.error {
-        border-color: red;
-    }
-</style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Custom form styling
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach(group => {
+                const label = group.querySelector('label');
+                const input = group.querySelector('input, select, textarea');
+                
+                if(label && input) {
+                    // Wrap label text in span for custom styling
+                    const labelText = label.textContent;
+                    label.innerHTML = `<span class="form-label">${labelText}</span>`;
+                    
+                    // Add focus effects
+                    input.addEventListener('focus', function() {
+                        this.parentElement.style.transform = 'translateX(10px)';
+                        setTimeout(() => {
+                            this.parentElement.style.transform = 'translateX(0)';
+                        }, 300);
+                    });
+                    
+                    // Add input validation styling
+                    input.addEventListener('blur', function() {
+                        if(this.value && !this.validity.valid) {
+                            this.style.borderColor = 'var(--neon-red)';
+                        } else if(this.validity.valid) {
+                            this.style.borderColor = 'var(--hacker-green)';
+                        }
+                    });
+                }
+            });
+            
+            // Password strength checker
+            window.checkPasswordStrength = function(password) {
+                const meter = document.getElementById('passwordStrength');
+                if(!password) {
+                    meter.style.width = '0%';
+                    return;
+                }
+                
+                let strength = 0;
+                
+                // Length check
+                if(password.length >= 8) strength += 25;
+                if(password.length >= 12) strength += 10;
+                
+                // Complexity checks
+                if(/[A-Z]/.test(password)) strength += 20;
+                if(/[a-z]/.test(password)) strength += 20;
+                if(/[0-9]/.test(password)) strength += 15;
+                if(/[^A-Za-z0-9]/.test(password)) strength += 10;
+                
+                meter.style.width = Math.min(strength, 100) + '%';
+                
+                // Color based on strength
+                if(strength < 50) {
+                    meter.style.background = 'linear-gradient(90deg, var(--blood-red), var(--neon-red))';
+                } else if(strength < 80) {
+                    meter.style.background = 'linear-gradient(90deg, var(--neon-red), var(--cyber-yellow))';
+                } else {
+                    meter.style.background = 'linear-gradient(90deg, var(--cyber-yellow), var(--hacker-green))';
+                }
+            };
+            
+            // Form submission animation
+            const form = document.querySelector('.cyber-form');
+            form.addEventListener('submit', function(e) {
+                const button = this.querySelector('.enlist-button');
+                button.innerHTML = '<span>PROCESSING ENLISTMENT...</span>';
+                button.style.background = 'linear-gradient(45deg, var(--cyber-yellow), var(--hacker-green))';
+                button.disabled = true;
+                
+                // Add loading animation
+                button.style.position = 'relative';
+                button.style.overflow = 'hidden';
+                
+                const loadingBar = document.createElement('div');
+                loadingBar.style.position = 'absolute';
+                loadingBar.style.bottom = '0';
+                loadingBar.style.left = '0';
+                loadingBar.style.width = '0%';
+                loadingBar.style.height = '4px';
+                loadingBar.style.background = 'linear-gradient(90deg, var(--toxic-purple), var(--neon-red))';
+                loadingBar.style.transition = 'width 2s';
+                button.appendChild(loadingBar);
+                
+                setTimeout(() => {
+                    loadingBar.style.width = '100%';
+                }, 100);
+            });
+            
+            // Random glitch effect on inputs
+            const inputs = document.querySelectorAll('.form-input, .form-select');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if(Math.random() > 0.95) {
+                        this.style.animation = 'none';
+                        setTimeout(() => {
+                            this.style.animation = 'glitch 0.1s';
+                            setTimeout(() => {
+                                this.style.animation = '';
+                            }, 100);
+                        }, 10);
+                    }
+                });
+            });
+            
+            // Role select customization
+            const roleSelect = document.querySelector('select[name$="[role]"]');
+            if(roleSelect) {
+                roleSelect.addEventListener('change', function() {
+                    const roleColors = {
+                        'PLAYER': 'var(--neon-red)',
+                        'ADMIN': 'var(--toxic-purple)',
+                        'COACH': 'var(--glitch-blue)',
+                        'ORGANIZER': 'var(--cyber-yellow)'
+                    };
+                    
+                    const color = roleColors[this.value] || 'var(--neon-red)';
+                    this.style.borderLeftColor = color;
+                    this.style.boxShadow = `0 0 15px ${color}40`;
+                });
+            }
+        });
+    </script>
 {% endblock %}
