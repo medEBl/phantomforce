@@ -210,6 +210,25 @@
             background: rgba(0,0,0,0.9);
         }
 
+        .form-input.is-invalid {
+            border-color: var(--neon-red) !important;
+            border-left-color: var(--neon-red) !important;
+            background: rgba(139, 0, 0, 0.2);
+            animation: errorPulse 0.5s ease-in-out;
+        }
+
+        .form-input.is-valid {
+            border-color: var(--hacker-green) !important;
+            border-left-color: var(--hacker-green) !important;
+            background: rgba(0, 100, 0, 0.2);
+        }
+
+        @keyframes errorPulse {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
         .form-input::placeholder {
             color: #666;
             font-style: italic;
@@ -260,6 +279,17 @@
             box-shadow: 
                 inset 0 0 25px rgba(157,0,255,0.3),
                 0 0 20px rgba(255,0,60,0.2);
+        }
+
+        .form-select.is-invalid {
+            border-color: var(--neon-red) !important;
+            border-left-color: var(--neon-red) !important;
+            background: rgba(139, 0, 0, 0.2);
+        }
+
+        .form-select.is-valid {
+            border-color: var(--hacker-green) !important;
+            border-left-color: var(--hacker-green) !important;
         }
 
         .checkbox-group {
@@ -411,6 +441,20 @@
             letter-spacing: 1px;
             position: relative;
             padding-left: 20px;
+            display: block;
+            animation: errorAppear 0.3s ease-out;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+        }
+
+        @keyframes errorAppear {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .form-error::before {
@@ -418,6 +462,26 @@
             position: absolute;
             left: 0;
             top: 0;
+            animation: warningPulse 1s infinite;
+        }
+
+        @keyframes warningPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .form-hint {
+            color: var(--glitch-blue);
+            font-size: 0.8em;
+            margin-top: 5px;
+            padding-left: 15px;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        .form-hint::before {
+            content: '💡';
+            margin-right: 5px;
         }
 
         .hologram-effect {
@@ -435,6 +499,82 @@
         @keyframes hologramScan {
             0% { transform: translateY(-100%); }
             100% { transform: translateY(100%); }
+        }
+
+        .password-requirements {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--carbon-gray);
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 0.85em;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .password-requirements ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #aaa;
+        }
+
+        .password-requirements li {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .password-requirements li.valid {
+            color: var(--hacker-green);
+        }
+
+        .password-requirements li.invalid {
+            color: var(--neon-red);
+        }
+
+        .password-requirements li::before {
+            content: '▢';
+            margin-right: 8px;
+        }
+
+        .password-requirements li.valid::before {
+            content: '✓';
+            color: var(--hacker-green);
+        }
+
+        .password-requirements li.invalid::before {
+            content: '✗';
+            color: var(--neon-red);
+        }
+
+        .global-error {
+            background: linear-gradient(90deg, rgba(139,0,0,0.1), rgba(255,0,60,0.1));
+            border-left: 4px solid var(--blood-red);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            animation: errorGlow 2s infinite alternate;
+        }
+
+        @keyframes errorGlow {
+            0% { box-shadow: 0 0 10px rgba(255,0,60,0.2); }
+            100% { box-shadow: 0 0 20px rgba(255,0,60,0.4); }
+        }
+
+        .global-error strong {
+            color: var(--neon-red);
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         @media (max-width: 768px) {
@@ -499,78 +639,135 @@
                 </div>
             {% endfor %}
             
+            {% if form.vars.errors|length %}
+                <div class="global-error">
+                    <strong>⚠ ENLISTMENT PROTOCOL VIOLATION</strong>
+                    {{ form_errors(form) }}
+                </div>
+            {% endif %}
+            
             {{ form_start(registrationForm, {'attr': {'class': 'cyber-form', 'novalidate': 'novalidate'}}) }}
                 <div class="form-column">
-                    {{ form_row(registrationForm.email, {
-                        'label': 'COMBAT EMAIL',
-                        'attr': {
-                            'class': 'form-input',
-                            'placeholder': 'warrior@arena-x.io'
-                        }
-                    }) }}
-                    
-                    {{ form_row(registrationForm.username, {
-                        'label': 'CALL SIGN',
-                        'attr': {
-                            'class': 'form-input',
-                            'placeholder': 'Enter your warrior name'
-                        }
-                    }) }}
-                    
-                    <div class="password-group">
-                        {{ form_row(registrationForm.plainPassword.first, {
-                            'label': 'ACCESS CODE',
+                    <div class="form-group">
+                        {{ form_label(registrationForm.email, 'COMBAT EMAIL', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.email, {
                             'attr': {
-                                'class': 'form-input',
-                                'placeholder': 'Minimum 8 characters',
-                                'oninput': 'checkPasswordStrength(this.value)'
+                                'class': 'form-input' ~ (registrationForm.email.vars.valid ? ' is-valid' : '') ~ (registrationForm.email.vars.errors|length ? ' is-invalid' : ''),
+                                'placeholder': 'warrior@arena-x.io',
+                                'required': 'required'
                             }
                         }) }}
-                        
-                        <div class="password-strength">
-                            <div class="strength-meter" id="passwordStrength"></div>
+                        {{ form_errors(registrationForm.email) }}
+                        <div class="form-hint">Format: warrior@arena-x.io</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ form_label(registrationForm.username, 'CALL SIGN', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.username, {
+                            'attr': {
+                                'class': 'form-input' ~ (registrationForm.username.vars.valid ? ' is-valid' : '') ~ (registrationForm.username.vars.errors|length ? ' is-invalid' : ''),
+                                'placeholder': 'Enter your warrior name',
+                                'required': 'required'
+                            }
+                        }) }}
+                        {{ form_errors(registrationForm.username) }}
+                        <div class="form-hint">3-50 caractères, lettres, chiffres, tirets et underscores uniquement</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="password-group">
+                            {{ form_label(registrationForm.plainPassword.first, 'ACCESS CODE', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.plainPassword.first, {
+                                'attr': {
+                                    'class': 'form-input' ~ (registrationForm.plainPassword.first.vars.valid ? ' is-valid' : '') ~ (registrationForm.plainPassword.first.vars.errors|length ? ' is-invalid' : ''),
+                                    'placeholder': 'Minimum 8 characters',
+                                    'required': 'required',
+                                    'oninput': 'checkPasswordStrength(this.value)',
+                                    'autocomplete': 'new-password'
+                                }
+                            }) }}
+                            {{ form_errors(registrationForm.plainPassword.first) }}
+                            
+                            <div class="password-strength">
+                                <div class="strength-meter" id="passwordStrength"></div>
+                            </div>
+                            
+                            <div id="passwordRequirements" class="password-requirements" style="display: none;">
+                                <strong>EXIGENCES DU CODE D'ACCÈS:</strong>
+                                <ul>
+                                    <li id="reqLength">Minimum 8 caractères</li>
+                                    <li id="reqUppercase">Au moins une majuscule</li>
+                                    <li id="reqLowercase">Au moins une minuscule</li>
+                                    <li id="reqNumber">Au moins un chiffre</li>
+                                    <li id="reqSpecial">Au moins un caractère spécial (@$!%*?&)</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                     
-                    {{ form_row(registrationForm.plainPassword.second, {
-                        'label': 'CONFIRM CODE',
-                        'attr': {
-                            'class': 'form-input',
-                            'placeholder': 'Repeat access code'
-                        }
-                    }) }}
+                    <div class="form-group">
+                        {{ form_label(registrationForm.plainPassword.second, 'CONFIRM CODE', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.plainPassword.second, {
+                            'attr': {
+                                'class': 'form-input' ~ (registrationForm.plainPassword.second.vars.valid ? ' is-valid' : '') ~ (registrationForm.plainPassword.second.vars.errors|length ? ' is-invalid' : ''),
+                                'placeholder': 'Repeat access code',
+                                'required': 'required'
+                            }
+                        }) }}
+                        {{ form_errors(registrationForm.plainPassword.second) }}
+                    </div>
                 </div>
                 
                 <div class="form-column">
-                    {{ form_row(registrationForm.fullName, {
-                        'label': 'FULL DESIGNATION',
-                        'attr': {
-                            'class': 'form-input',
-                            'placeholder': 'John "Reaper" Smith'
-                        }
-                    }) }}
+                    <div class="form-group">
+                        {{ form_label(registrationForm.fullName, 'FULL DESIGNATION', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.fullName, {
+                            'attr': {
+                                'class': 'form-input' ~ (registrationForm.fullName.vars.valid ? ' is-valid' : '') ~ (registrationForm.fullName.vars.errors|length ? ' is-invalid' : ''),
+                                'placeholder': 'John "Reaper" Smith',
+                                'required': 'required'
+                            }
+                        }) }}
+                        {{ form_errors(registrationForm.fullName) }}
+                        <div class="form-hint">2-100 caractères, lettres, espaces, tirets et apostrophes uniquement</div>
+                    </div>
                     
-                    {{ form_row(registrationForm.country, {
-                        'label': 'OPERATION ZONE',
-                        'attr': {
-                            'class': 'form-input',
-                            'placeholder': 'Country of origin'
-                        }
-                    }) }}
+                    <div class="form-group">
+                        {{ form_label(registrationForm.country, 'OPERATION ZONE', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.country, {
+                            'attr': {
+                                'class': 'form-input' ~ (registrationForm.country.vars.valid ? ' is-valid' : '') ~ (registrationForm.country.vars.errors|length ? ' is-invalid' : ''),
+                                'placeholder': 'Country of origin',
+                                'required': 'required'
+                            }
+                        }) }}
+                        {{ form_errors(registrationForm.country) }}
+                        <div class="form-hint">Lettres, espaces et tirets uniquement</div>
+                    </div>
                     
-                    {{ form_row(registrationForm.birthDate, {
-                        'label': 'ACTIVATION DATE',
-                        'attr': {
-                            'class': 'form-input'
-                        }
-                    }) }}
+                    <div class="form-group">
+                        {{ form_label(registrationForm.birthDate, 'ACTIVATION DATE', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.birthDate, {
+                            'attr': {
+                                'class': 'form-input' ~ (registrationForm.birthDate.vars.valid ? ' is-valid' : '') ~ (registrationForm.birthDate.vars.errors|length ? ' is-invalid' : ''),
+                                'required': 'required'
+                            }
+                        }) }}
+                        {{ form_errors(registrationForm.birthDate) }}
+                        <div class="form-hint">L'utilisateur doit avoir au moins 13 ans</div>
+                    </div>
                     
-                    {{ form_row(registrationForm.role, {
-                        'label': 'COMBAT ROLE',
-                        'attr': {
-                            'class': 'form-select'
-                        }
-                    }) }}
+                    <div class="form-group">
+                        {{ form_label(registrationForm.role, 'COMBAT ROLE', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(registrationForm.role, {
+                            'attr': {
+                                'class': 'form-select' ~ (registrationForm.role.vars.valid ? ' is-valid' : '') ~ (registrationForm.role.vars.errors|length ? ' is-invalid' : ''),
+                                'required': 'required'
+                            }
+                        }) }}
+                        {{ form_errors(registrationForm.role) }}
+                        <div class="form-hint">Choix: user, admin, moderator, editor</div>
+                    </div>
                 </div>
                 
                 <div class="checkbox-group">
@@ -603,10 +800,6 @@
                 const input = group.querySelector('input, select, textarea');
                 
                 if(label && input) {
-                    // Wrap label text in span for custom styling
-                    const labelText = label.textContent;
-                    label.innerHTML = `<span class="form-label">${labelText}</span>`;
-                    
                     // Add focus effects
                     input.addEventListener('focus', function() {
                         this.parentElement.style.transform = 'translateX(10px)';
@@ -615,36 +808,102 @@
                         }, 300);
                     });
                     
-                    // Add input validation styling
+                    // Real-time validation
                     input.addEventListener('blur', function() {
-                        if(this.value && !this.validity.valid) {
-                            this.style.borderColor = 'var(--neon-red)';
-                        } else if(this.validity.valid) {
-                            this.style.borderColor = 'var(--hacker-green)';
+                        validateField(this);
+                    });
+                    
+                    input.addEventListener('input', function() {
+                        // Remove error class on input
+                        this.classList.remove('is-invalid');
+                        const errorElement = this.parentElement.querySelector('.form-error');
+                        if(errorElement) {
+                            errorElement.style.display = 'none';
+                        }
+                        
+                        // Special handling for password field
+                        if(this.type === 'password' && this.id.includes('first')) {
+                            checkPasswordStrength(this.value);
                         }
                     });
                 }
             });
             
-            // Password strength checker
+            function validateField(field) {
+                if(field.value.trim() === '' && field.hasAttribute('required')) {
+                    field.classList.add('is-invalid');
+                    field.classList.remove('is-valid');
+                    return false;
+                }
+                
+                // Basic email validation
+                if(field.type === 'email') {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if(!emailRegex.test(field.value)) {
+                        field.classList.add('is-invalid');
+                        field.classList.remove('is-valid');
+                        return false;
+                    }
+                }
+                
+                // Basic validation passed
+                if(field.value.trim() !== '') {
+                    field.classList.add('is-valid');
+                    field.classList.remove('is-invalid');
+                }
+                
+                return true;
+            }
+            
+            // Enhanced password strength checker
             window.checkPasswordStrength = function(password) {
                 const meter = document.getElementById('passwordStrength');
+                const requirements = document.getElementById('passwordRequirements');
+                const reqs = {
+                    length: document.getElementById('reqLength'),
+                    uppercase: document.getElementById('reqUppercase'),
+                    lowercase: document.getElementById('reqLowercase'),
+                    number: document.getElementById('reqNumber'),
+                    special: document.getElementById('reqSpecial')
+                };
+                
                 if(!password) {
                     meter.style.width = '0%';
+                    requirements.style.display = 'none';
+                    Object.values(reqs).forEach(req => {
+                        req.classList.remove('valid', 'invalid');
+                    });
                     return;
                 }
                 
+                // Show requirements
+                requirements.style.display = 'block';
+                
+                // Check individual requirements
                 let strength = 0;
+                const checks = {
+                    length: password.length >= 8,
+                    uppercase: /[A-Z]/.test(password),
+                    lowercase: /[a-z]/.test(password),
+                    number: /[0-9]/.test(password),
+                    special: /[^A-Za-z0-9]/.test(password)
+                };
                 
-                // Length check
-                if(password.length >= 8) strength += 25;
+                // Update requirement indicators
+                Object.keys(checks).forEach(key => {
+                    if(checks[key]) {
+                        reqs[key].classList.add('valid');
+                        reqs[key].classList.remove('invalid');
+                        strength += 20; // Each requirement adds 20%
+                    } else {
+                        reqs[key].classList.add('invalid');
+                        reqs[key].classList.remove('valid');
+                    }
+                });
+                
+                // Additional points for length
                 if(password.length >= 12) strength += 10;
-                
-                // Complexity checks
-                if(/[A-Z]/.test(password)) strength += 20;
-                if(/[a-z]/.test(password)) strength += 20;
-                if(/[0-9]/.test(password)) strength += 15;
-                if(/[^A-Za-z0-9]/.test(password)) strength += 10;
+                if(password.length >= 16) strength += 10;
                 
                 meter.style.width = Math.min(strength, 100) + '%';
                 
@@ -661,6 +920,18 @@
             // Form submission animation
             const form = document.querySelector('.cyber-form');
             form.addEventListener('submit', function(e) {
+                // Check terms checkbox
+                const termsCheckbox = document.getElementById('terms');
+                if(!termsCheckbox.checked) {
+                    e.preventDefault();
+                    alert('You must accept the Arena-X Combat Protocol to proceed.');
+                    termsCheckbox.parentElement.style.animation = 'errorPulse 0.5s ease-in-out';
+                    setTimeout(() => {
+                        termsCheckbox.parentElement.style.animation = '';
+                    }, 500);
+                    return;
+                }
+                
                 const button = this.querySelector('.enlist-button');
                 button.innerHTML = '<span>PROCESSING ENLISTMENT...</span>';
                 button.style.background = 'linear-gradient(45deg, var(--cyber-yellow), var(--hacker-green))';
@@ -706,17 +977,42 @@
             if(roleSelect) {
                 roleSelect.addEventListener('change', function() {
                     const roleColors = {
-                        'PLAYER': 'var(--neon-red)',
-                        'ADMIN': 'var(--toxic-purple)',
-                        'COACH': 'var(--glitch-blue)',
-                        'ORGANIZER': 'var(--cyber-yellow)'
+                        'user': 'var(--neon-red)',
+                        'admin': 'var(--toxic-purple)',
+                        'moderator': 'var(--glitch-blue)',
+                        'editor': 'var(--cyber-yellow)'
                     };
                     
                     const color = roleColors[this.value] || 'var(--neon-red)';
                     this.style.borderLeftColor = color;
                     this.style.boxShadow = `0 0 15px ${color}40`;
                 });
+                
+                // Trigger initial color
+                if(roleSelect.value) {
+                    roleSelect.dispatchEvent(new Event('change'));
+                }
             }
+            
+            // Validate all fields on page load if they have values
+            inputs.forEach(input => {
+                if(input.value) {
+                    validateField(input);
+                }
+            });
+            
+            // Terms checkbox styling
+            const termsCheckbox = document.getElementById('terms');
+            termsCheckbox.addEventListener('change', function() {
+                const customCheckbox = this.nextElementSibling;
+                if(this.checked) {
+                    customCheckbox.style.borderColor = 'var(--hacker-green)';
+                    customCheckbox.style.boxShadow = '0 0 15px rgba(0,255,0,0.5)';
+                } else {
+                    customCheckbox.style.borderColor = 'var(--neon-red)';
+                    customCheckbox.style.boxShadow = 'none';
+                }
+            });
         });
     </script>
 {% endblock %}
