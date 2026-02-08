@@ -413,12 +413,7 @@
                 <div class="action-grid">
                     {% if app.user %}
                         <!-- Logged In Actions -->
-                        <div class="cyber-card">
-                            <div class="card-icon">🎮</div>
-                            <h3 class="card-title">WAR ROOM</h3>
-                            <p class="card-desc">Access your command center and manage your digital arsenal</p>
-                            <a href="{{ path('app_user_index') }}" class="card-btn">ENTER</a>
-                        </div>
+                      
                         
                         {% if is_granted('ROLE_ADMIN') %}
                             <div class="cyber-card">

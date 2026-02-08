@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -75,6 +74,106 @@
             100% { opacity: 1; }
         }
 
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes logoGlow {
+            0% { box-shadow: 0 0 10px rgba(255,45,45,0.3); }
+            100% { box-shadow: 0 0 20px rgba(255,45,45,0.6); }
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes fadeInRight {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes notificationPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes avatarFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes widthGrow {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        @keyframes textGlow {
+            0% { filter: drop-shadow(0 0 5px rgba(255,45,45,0.3)); }
+            100% { filter: drop-shadow(0 0 15px rgba(255,45,45,0.6)); }
+        }
+
+        @keyframes slideInLeft {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes borderFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes countUp {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes underlineSlide {
+            from { width: 0; }
+            to { width: 50px; }
+        }
+
+        @keyframes scorePulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes ripple {
+            to {
+                width: 300px;
+                height: 300px;
+                opacity: 0;
+            }
+        }
+
         /* ================= HEADER ================= */
         header {
             display: flex;
@@ -89,11 +188,6 @@
             z-index: 100;
             box-shadow: var(--shadow);
             animation: slideDown 0.5s ease-out;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .logo {
@@ -121,11 +215,6 @@
             font-weight: 900;
             font-size: 18px;
             animation: logoGlow 2s infinite alternate;
-        }
-
-        @keyframes logoGlow {
-            0% { box-shadow: 0 0 10px rgba(255,45,45,0.3); }
-            100% { box-shadow: 0 0 20px rgba(255,45,45,0.6); }
         }
 
         nav {
@@ -156,6 +245,7 @@
         nav a:nth-child(5) { animation-delay: 0.5s; }
         nav a:nth-child(6) { animation-delay: 0.6s; }
         nav a:nth-child(7) { animation-delay: 0.7s; }
+        nav a:nth-child(8) { animation-delay: 0.8s; }
 
         nav a.active, nav a:hover { 
             color: var(--red);
@@ -176,21 +266,11 @@
             animation: pulseDot 1.5s infinite;
         }
 
-        @keyframes pulseDot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
         .user-actions {
             display: flex;
             align-items: center;
             gap: 16px;
             animation: fadeInRight 0.5s ease-out;
-        }
-
-        @keyframes fadeInRight {
-            from { transform: translateX(20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
         }
 
         .notification-badge {
@@ -229,12 +309,7 @@
             animation: notificationPulse 2s infinite;
         }
 
-        @keyframes notificationPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
+        /* ============ USER PROFILE ============ */
         .user-profile {
             display: flex;
             align-items: center;
@@ -244,11 +319,16 @@
             border-radius: 10px;
             transition: var(--transition);
             background: rgba(255,255,255,0.03);
+            position: relative;
         }
 
         .user-profile:hover {
             background: rgba(255,255,255,0.08);
-            transform: translateY(-2px);
+        }
+
+        .user-profile.active {
+            background: rgba(255,45,45,0.1);
+            border-color: rgba(255,45,45,0.3);
         }
 
         .avatar {
@@ -262,27 +342,124 @@
             font-weight: 700;
             font-size: 18px;
             animation: avatarFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes avatarFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            flex-shrink: 0;
         }
 
         .user-info {
             display: flex;
             flex-direction: column;
+            min-width: 100px;
         }
 
         .username {
             font-weight: 600;
             font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .user-role {
             font-size: 12px;
             color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
+
+        .user-profile i.fa-chevron-down {
+            font-size: 12px;
+            transition: var(--transition);
+            margin-left: 4px;
+        }
+      /* Add this to your CSS */
+.dropdown-toggle-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    transition: var(--transition);
+    border-radius: 6px;
+    outline: none; /* Remove default focus */
+}
+.dropdown-toggle-btn:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+}
+
+.dropdown-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.dropdown-toggle-btn i {
+    font-size: 12px;
+    transition: var(--transition);
+}
+
+.user-profile.active .dropdown-toggle-btn i {
+    transform: rotate(180deg);
+}
+
+
+        .user-profile.active i.fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        /* ============ DROPDOWN FIXES ============ */
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 8px) !important;
+    right: 0 !important;
+    background: rgba(15, 15, 20, 0.98) !important;
+    border: 1px solid rgba(255, 45, 45, 0.35) !important;
+    border-radius: 12px !important;
+    min-width: 200px !important;
+    padding: 8px 0 !important;
+    box-shadow: var(--shadow-lg) !important;
+    backdrop-filter: blur(20px) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(-10px) !important;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s !important;
+    z-index: 1000 !important;
+    display: block !important;
+}
+
+.user-profile.active .user-dropdown {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+}
+
+/* Make sure dropdown stays above everything */
+.user-profile {
+    position: relative;
+    z-index: 1001;
+}
+
+.user-dropdown a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 20px !important;
+    color: var(--text-light) !important;
+    text-decoration: none !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: var(--transition) !important;
+}
+
+.user-dropdown a:hover {
+    background: rgba(255, 45, 45, 0.15) !important;
+    color: var(--red) !important;
+    padding-left: 24px !important;
+}
 
         /* ================= MAIN CONTENT ================= */
         .container {
@@ -292,11 +469,6 @@
             animation: fadeIn 0.8s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         /* ================= HERO ================= */
         .hero {
             text-align: center;
@@ -304,11 +476,6 @@
             position: relative;
             margin-bottom: 40px;
             animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .hero::after {
@@ -324,11 +491,6 @@
             animation: widthGrow 1s ease-out;
         }
 
-        @keyframes widthGrow {
-            from { width: 0; }
-            to { width: 100px; }
-        }
-
         .hero h1 {
             font-size: 52px;
             font-weight: 800;
@@ -339,11 +501,6 @@
             margin-bottom: 16px;
             line-height: 1.1;
             animation: textGlow 3s infinite alternate;
-        }
-
-        @keyframes textGlow {
-            0% { filter: drop-shadow(0 0 5px rgba(255,45,45,0.3)); }
-            100% { filter: drop-shadow(0 0 15px rgba(255,45,45,0.6)); }
         }
 
         .hero p {
@@ -410,11 +567,6 @@
             animation: slideInLeft 0.8s ease-out;
         }
 
-        @keyframes slideInLeft {
-            from { transform: translateX(-30px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
         .modules-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -456,12 +608,6 @@
             height: 4px;
             background: var(--red-gradient);
             animation: borderFlow 3s linear infinite;
-        }
-
-        @keyframes borderFlow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .module-icon {
@@ -512,11 +658,6 @@
             font-weight: 800;
             color: var(--red);
             animation: countUp 1s ease-out;
-        }
-
-        @keyframes countUp {
-            from { transform: scale(0.5); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         .module-stat-label {
@@ -596,11 +737,6 @@
             animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
         .stat-label {
             color: var(--text-muted);
             font-size: 15px;
@@ -656,11 +792,6 @@
         .activity-card h3 i {
             color: var(--red);
             animation: spinSlow 10s linear infinite;
-        }
-
-        @keyframes spinSlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .activity-list {
@@ -756,11 +887,6 @@
             height: 3px;
             background: var(--red-gradient);
             animation: underlineSlide 1s ease-out;
-        }
-
-        @keyframes underlineSlide {
-            from { width: 0; }
-            to { width: 50px; }
         }
 
         .section-actions {
@@ -909,11 +1035,6 @@
             height: 30px;
             background: var(--red-gradient);
             animation: scorePulse 2s infinite;
-        }
-
-        @keyframes scorePulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
         }
 
         .match-details {
@@ -1074,11 +1195,6 @@
         .footer-section:nth-child(3) { animation-delay: 0.3s; }
         .footer-section:nth-child(4) { animation-delay: 0.4s; }
 
-        @keyframes slideInUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
         .footer-section h4 {
             font-size: 18px;
             font-weight: 700;
@@ -1237,6 +1353,10 @@
             footer {
                 padding: 40px 20px 20px;
             }
+            
+            .user-info {
+                min-width: auto;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1297,6 +1417,43 @@
                 text-align: center;
                 gap: 15px;
             }
+            
+            /* Mobile user profile fix */
+            .user-profile .user-info {
+                display: none;
+            }
+            
+            .user-dropdown {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                border-radius: 20px 20px 0 0;
+                min-width: auto;
+            }
+            
+            .user-profile.active .user-dropdown {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav a {
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+            
+            .user-actions {
+                gap: 10px;
+            }
+            
+            .avatar {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
         }
     </style>
     
@@ -1310,26 +1467,27 @@
     </div>
     
     <nav>
-        <a href="{{ path('app_home') }}" class="{{ app.request.get('_route') == 'app_home' ? 'active' }}">
+        <a href="{{ path('app_acceuil') }}"
+           class="{{ app.request.attributes.get('_route') == 'app_acceuil' ? 'active' }}">
             <i class="fas fa-home"></i> Accueil
         </a>
-        <a href="{{ path('app_champions') }}" class="{{ app.request.get('_route') == 'app_champions' ? 'active' }}">
-            <i class="fas fa-user"></i> Champions
+        <a href="#">
+            <i class="fas fa-crown"></i> Champions
         </a>
-        <a href="{{ path('app_teams') }}" class="{{ app.request.get('_route') == 'app_teams' ? 'active' }}">
+        <a href="#">
             <i class="fas fa-users"></i> Équipes
         </a>
-        <a href="{{ path('app_matches') }}" class="{{ app.request.get('_route') == 'app_matches' ? 'active' }}">
+        <a href="#">
             <i class="fas fa-trophy"></i> Matchs
         </a>
-        <a href="{{ path('app_tournaments') }}" class="{{ app.request.get('_route') == 'app_tournaments' ? 'active' }}">
-            <i class="fas fa-calendar-alt"></i> Tournois
+        <a href="#">
+            <i class="fas fa-flag-checkered"></i> Tournois
         </a>
-        <a href="{{ path('app_coaching') }}" class="{{ app.request.get('_route') == 'app_coaching' ? 'active' }}">
+        <a href="#">
             <i class="fas fa-chalkboard-teacher"></i> Coaching
         </a>
-        <a href="{{ path('app_shop') }}" class="{{ app.request.get('_route') == 'app_shop' ? 'active' }}">
-            <i class="fas fa-shopping-cart"></i> Boutique
+        <a href="#">
+            <i class="fas fa-store"></i> Boutique
         </a>
     </nav>
     
@@ -1342,29 +1500,55 @@
             {% endif %}
         </div>
         
-        <div class="user-profile">
-            <div class="avatar">
-                {{ app.user ? app.user.initials|default('MK') : 'GU' }}
-            </div>
-            <div class="user-info">
-                <div class="username">
-                    {{ app.user ? app.user.username|default('Invité') : 'Invité' }}
-                </div>
-                <div class="user-role">
-                    {{ app.user ? app.user.role|default('Visiteur') : 'Visiteur' }}
-                </div>
-            </div>
-            <i class="fas fa-chevron-down" style="font-size: 12px; color: var(--text-muted);"></i>
+       <!-- In the header section, replace the user-profile section with this: -->
+<div class="user-profile" id="user-profile">
+    <div class="avatar" tabindex="0" role="button" aria-label="Toggle user menu">
+        {{ app.user ? app.user.initials|default('MK') : 'GU' }}
+    </div>
+    <div class="user-info">
+        <div class="username">
+            {{ app.user ? app.user.username|default('Invité') : 'Invité' }}
         </div>
+        <div class="user-role">
+            {{ app.user ? app.user.role|default('Visiteur') : 'Visiteur' }}
+        </div>
+    </div>
+    <button class="dropdown-toggle-btn" type="button" 
+            aria-label="Toggle user menu"
+            aria-expanded="false"
+            aria-controls="user-dropdown-menu">
+        <i class="fas fa-chevron-down"></i>
+    </button>
+
+    <!-- DROPDOWN -->
+    <div class="user-dropdown" id="user-dropdown-menu" aria-labelledby="user-profile">
+        {% if app.user %}
+            <a href="{{ path('app_logout') }}">
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
+            </a>
+            <a href="{{ path('app_user_show', {'id': app.user.id}) }}">
+                <i class="fas fa-user-cog"></i> Mon Profil
+            </a>
+            <a href="#">
+                <i class="fas fa-cog"></i> Paramètres
+            </a>
+        {% else %}
+            <a href="{{ path('app_login') }}">
+                <i class="fas fa-sign-in-alt"></i> Connexion
+            </a>
+            <a href="#">
+                <i class="fas fa-user-plus"></i> Inscription
+            </a>
+        {% endif %}
+    </div>
+</div>
     </div>
 </header>
 
-{# Block for main content #}
 <main class="container">
     {% block body %}{% endblock %}
 </main>
 
-{# Block for additional content before footer #}
 {% block before_footer %}{% endblock %}
 
 <footer>
@@ -1386,22 +1570,22 @@
         <div class="footer-section">
             <h4>Navigation</h4>
             <div class="footer-links">
-                <a href="{{ path('app_home') }}"><i class="fas fa-chevron-right"></i> Accueil</a>
-                <a href="{{ path('app_champions') }}"><i class="fas fa-chevron-right"></i> Joueurs</a>
-                <a href="{{ path('app_teams') }}"><i class="fas fa-chevron-right"></i> Équipes</a>
-                <a href="{{ path('app_matches') }}"><i class="fas fa-chevron-right"></i> Matchs</a>
-                <a href="{{ path('app_tournaments') }}"><i class="fas fa-chevron-right"></i> Tournois</a>
-                <a href="{{ path('app_coaching') }}"><i class="fas fa-chevron-right"></i> Coaching</a>
-                <a href="{{ path('app_shop') }}"><i class="fas fa-chevron-right"></i> Boutique</a>
+                <a href="{{ path('app_acceuil') }}"><i class="fas fa-chevron-right"></i> Accueil</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Champions</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Équipes</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Matchs</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Tournois</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Coaching</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Boutique</a>
             </div>
         </div>
         
         <div class="footer-section">
             <h4>Support</h4>
             <div class="footer-links">
-                <a href="{{ path('app_help') }}"><i class="fas fa-chevron-right"></i> Centre d'aide</a>
-                <a href="{{ path('app_contact') }}"><i class="fas fa-chevron-right"></i> Contact</a>
-                <a href="{{ path('app_faq') }}"><i class="fas fa-chevron-right"></i> FAQ</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Centre d'aide</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> Contact</a>
+                <a href="#"><i class="fas fa-chevron-right"></i> FAQ</a>
                 <a href="#"><i class="fas fa-chevron-right"></i> Tutoriels</a>
                 <a href="#"><i class="fas fa-chevron-right"></i> Status serveur</a>
                 <a href="#"><i class="fas fa-chevron-right"></i> Rapporter un bug</a>
@@ -1415,7 +1599,7 @@
                 Recevez les dernières actualités esport, les annonces de tournois et les offres exclusives.
             </p>
             <div class="newsletter">
-                <form action="{{ path('app_newsletter_subscribe') }}" method="post">
+                <form action="#" method="post">
                     <input type="email" name="email" placeholder="Votre email" required>
                     <button type="submit" class="btn btn-primary" style="width: 100%;">S'abonner</button>
                 </form>
@@ -1430,93 +1614,87 @@
         </div>
         <div>© {{ "now"|date("Y") }} Phantom Force Esports. Tous droits réservés.</div>
         <div style="display: flex; gap: 20px;">
-            <a href="{{ path('app_legal') }}" style="color: var(--text-muted); text-decoration: none; font-size: 13px;">Mentions légales</a>
-            <a href="{{ path('app_privacy') }}" style="color: var(--text-muted); text-decoration: none; font-size: 13px;">Confidentialité</a>
-            <a href="{{ path('app_cookies') }}" style="color: var(--text-muted); text-decoration: none; font-size: 13px;">Cookies</a>
-            <a href="{{ path('app_terms') }}" style="color: var(--text-muted); text-decoration: none; font-size: 13px;">CGU</a>
+            <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 13px;">Mentions légales</a>
+            <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 13px;">Confidentialité</a>
+            <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 13px;">Cookies</a>
+            <a href="#" style="color: var(--text-muted); text-decoration: none; font-size: 13px;">CGU</a>
         </div>
     </div>
 </footer>
 
-{# Block for additional JavaScript files #}
 {% block javascripts %}{% endblock %}
 
 <script>
-    // Interactive elements
-    document.addEventListener('DOMContentLoaded', function() {
-        // Notification interaction
-        const notificationBell = document.querySelector('.notification-badge');
-        if (notificationBell) {
-            notificationBell.addEventListener('click', function() {
-                const count = this.querySelector('.notification-count');
-                if (count && count.textContent !== '0') {
-                    count.textContent = '0';
-                    this.style.animation = 'none';
-                    setTimeout(() => {
-                        this.style.animation = '';
-                    }, 10);
-                    // Show notification panel in real implementation
-                    // In a real app, you might want to use AJAX or redirect to notifications page
-                    console.log('Notifications panel would open here');
-                }
-            });
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const userProfile = document.getElementById('user-profile');
+    const toggleBtn = userProfile ? userProfile.querySelector('.dropdown-toggle-btn') : null;
+    const dropdown = userProfile ? userProfile.querySelector('.user-dropdown') : null;
+    
+    if (userProfile && toggleBtn && dropdown) {
+        console.log('Dropdown setup starting...');
+        
+        // DEBUG: Add console logs to see what's happening
+        userProfile.addEventListener('click', function(e) {
+            console.log('User profile clicked', e.target);
+        });
+        
+        // Simple toggle function
+        function toggleDropdown(e) {
+            if (e) e.stopPropagation();
+            console.log('Toggle called, current state:', userProfile.classList.contains('active'));
+            
+            // Toggle the active class
+            userProfile.classList.toggle('active');
+            
+            // Update ARIA attribute
+            const isExpanded = userProfile.classList.contains('active');
+            toggleBtn.setAttribute('aria-expanded', isExpanded);
+            console.log('New state:', isExpanded ? 'open' : 'closed');
         }
         
-        // Add hover effects to cards
-        const cards = document.querySelectorAll('.module-card, .stat-card, .match-card, .event-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.zIndex = '10';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.zIndex = '1';
-            });
-        });
+        // Click on button
+        toggleBtn.addEventListener('click', toggleDropdown);
         
-        // Button ripple effect
-        const buttons = document.querySelectorAll('.btn');
-        buttons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const ripple = document.createElement('span');
-                ripple.style.position = 'absolute';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.style.width = '0';
-                ripple.style.height = '0';
-                ripple.style.borderRadius = '50%';
-                ripple.style.background = 'rgba(255,255,255,0.3)';
-                ripple.style.transform = 'translate(-50%, -50%)';
-                ripple.style.animation = 'ripple 0.6s linear';
-                
-                this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        });
+        // Click on avatar
+        userProfile.querySelector('.avatar').addEventListener('click', toggleDropdown);
         
-        // Add CSS for ripple effect
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    width: 300px;
-                    height: 300px;
-                    opacity: 0;
-                }
+        // Click on user info area
+        userProfile.querySelector('.user-info').addEventListener('click', toggleDropdown);
+        
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!userProfile.contains(e.target)) {
+                userProfile.classList.remove('active');
+                toggleBtn.setAttribute('aria-expanded', 'false');
             }
-        `;
-        document.head.appendChild(style);
-    });
-    
-    // Block for additional page-specific JavaScript
-    {% block javascript %}{% endblock %}
+        });
+        
+        // Close dropdown when clicking a link inside it
+        dropdown.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                userProfile.classList.remove('active');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+        
+        // Close with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && userProfile.classList.contains('active')) {
+                userProfile.classList.remove('active');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+        
+        console.log('Dropdown setup complete');
+    } else {
+        console.error('Missing dropdown elements:', { 
+            userProfile: !!userProfile, 
+            toggleBtn: !!toggleBtn, 
+            dropdown: !!dropdown 
+        });
+    }
+});
 </script>
 
 </body>
