@@ -14,19 +14,30 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use App\Security\RecaptchaValidator;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
-
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+ private RecaptchaValidator $recaptchaValidator;
+    public function __construct(private UrlGeneratorInterface $urlGenerator,RecaptchaValidator $recaptchaValidator)
     {
+        $this->recaptchaValidator = $recaptchaValidator;
     }
+   
+
+
 
     public function authenticate(Request $request): Passport
     {
+        if (!$this->recaptchaValidator->validate()) {
+        throw new CustomUserMessageAuthenticationException(
+            'reCAPTCHA validation failed.'
+        );
+    }
         // These field names must match the login form
         $email = $request->request->get('email', '');
         $password = $request->request->get('password', '');
