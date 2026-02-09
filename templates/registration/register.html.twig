@@ -167,6 +167,7 @@
 
         .form-group {
             position: relative;
+            margin-bottom: 20px;
         }
 
         .form-label {
@@ -198,6 +199,7 @@
             font-size: 1em;
             transition: all 0.3s;
             box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+            border-radius: 6px;
         }
 
         .form-input:focus {
@@ -214,19 +216,12 @@
             border-color: var(--neon-red) !important;
             border-left-color: var(--neon-red) !important;
             background: rgba(139, 0, 0, 0.2);
-            animation: errorPulse 0.5s ease-in-out;
         }
 
         .form-input.is-valid {
             border-color: var(--hacker-green) !important;
             border-left-color: var(--hacker-green) !important;
             background: rgba(0, 100, 0, 0.2);
-        }
-
-        @keyframes errorPulse {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
         }
 
         .form-input::placeholder {
@@ -270,6 +265,7 @@
             background-repeat: no-repeat;
             background-position: right 15px center;
             background-size: 20px;
+            border-radius: 6px;
         }
 
         .form-select:focus {
@@ -367,6 +363,7 @@
             box-shadow: 
                 0 10px 30px rgba(157,0,255,0.4),
                 inset 0 0 20px rgba(255,255,255,0.1);
+            border-radius: 6px;
         }
 
         .enlist-button::before {
@@ -433,7 +430,7 @@
             transform: translate(3px, -3px);
         }
 
-        .form-error {
+        .invalid-feedback {
             color: var(--neon-red);
             font-size: 0.9em;
             margin-top: 8px;
@@ -442,32 +439,19 @@
             position: relative;
             padding-left: 20px;
             display: block;
-            animation: errorAppear 0.3s ease-out;
             text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
         }
 
-        @keyframes errorAppear {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .form-error::before {
-            content: '⚠';
-            position: absolute;
-            left: 0;
-            top: 0;
-            animation: warningPulse 1s infinite;
-        }
-
-        @keyframes warningPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .valid-feedback {
+            color: var(--hacker-green);
+            font-size: 0.9em;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding-left: 20px;
+            display: block;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
         }
 
         .form-hint {
@@ -508,18 +492,6 @@
             padding: 15px;
             margin-top: 10px;
             font-size: 0.85em;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .password-requirements ul {
@@ -570,6 +542,22 @@
         }
 
         .global-error strong {
+            color: var(--neon-red);
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .alert-danger {
+            background: rgba(139,0,0,0.2);
+            border-left: 4px solid var(--blood-red);
+            padding: 15px;
+            margin-bottom: 30px;
+            color: var(--neon-red);
+        }
+
+        .alert-danger strong {
             color: var(--neon-red);
             display: block;
             margin-bottom: 8px;
@@ -639,12 +627,12 @@
                 </div>
             {% endfor %}
             
-            {% if form.vars.errors|length %}
-                <div class="global-error">
-                    <strong>⚠ ENLISTMENT PROTOCOL VIOLATION</strong>
-                    {{ form_errors(form) }}
-                </div>
-            {% endif %}
+           {% if registrationForm.vars.errors|length %}
+    <div class="alert alert-danger">
+        <strong>⚠ ENLISTMENT PROTOCOL VIOLATION</strong>
+        {{ form_errors(registrationForm) }}
+    </div>
+{% endif %}
             
             {{ form_start(registrationForm, {'attr': {'class': 'cyber-form', 'novalidate': 'novalidate'}}) }}
                 <div class="form-column">
@@ -658,6 +646,9 @@
                             }
                         }) }}
                         {{ form_errors(registrationForm.email) }}
+                        {% if not registrationForm.email.vars.errors|length and registrationForm.email.vars.value %}
+                            <div class="valid-feedback">✓ Valid email format</div>
+                        {% endif %}
                         <div class="form-hint">Format: warrior@arena-x.io</div>
                     </div>
                     
@@ -671,6 +662,9 @@
                             }
                         }) }}
                         {{ form_errors(registrationForm.username) }}
+                        {% if not registrationForm.username.vars.errors|length and registrationForm.username.vars.value %}
+                            <div class="valid-feedback">✓ Valid username</div>
+                        {% endif %}
                         <div class="form-hint">3-50 caractères, lettres, chiffres, tirets et underscores uniquement</div>
                     </div>
                     
@@ -687,6 +681,9 @@
                                 }
                             }) }}
                             {{ form_errors(registrationForm.plainPassword.first) }}
+                            {% if not registrationForm.plainPassword.first.vars.errors|length and registrationForm.plainPassword.first.vars.value %}
+                                <div class="valid-feedback">✓ Password meets requirements</div>
+                            {% endif %}
                             
                             <div class="password-strength">
                                 <div class="strength-meter" id="passwordStrength"></div>
@@ -715,6 +712,9 @@
                             }
                         }) }}
                         {{ form_errors(registrationForm.plainPassword.second) }}
+                        {% if not registrationForm.plainPassword.second.vars.errors|length and registrationForm.plainPassword.second.vars.value %}
+                            <div class="valid-feedback">✓ Passwords match</div>
+                        {% endif %}
                     </div>
                 </div>
                 
@@ -729,6 +729,9 @@
                             }
                         }) }}
                         {{ form_errors(registrationForm.fullName) }}
+                        {% if not registrationForm.fullName.vars.errors|length and registrationForm.fullName.vars.value %}
+                            <div class="valid-feedback">✓ Valid name format</div>
+                        {% endif %}
                         <div class="form-hint">2-100 caractères, lettres, espaces, tirets et apostrophes uniquement</div>
                     </div>
                     
@@ -742,6 +745,9 @@
                             }
                         }) }}
                         {{ form_errors(registrationForm.country) }}
+                        {% if not registrationForm.country.vars.errors|length and registrationForm.country.vars.value %}
+                            <div class="valid-feedback">✓ Valid country name</div>
+                        {% endif %}
                         <div class="form-hint">Lettres, espaces et tirets uniquement</div>
                     </div>
                     
@@ -754,6 +760,9 @@
                             }
                         }) }}
                         {{ form_errors(registrationForm.birthDate) }}
+                        {% if not registrationForm.birthDate.vars.errors|length and registrationForm.birthDate.vars.value %}
+                            <div class="valid-feedback">✓ Valid birth date</div>
+                        {% endif %}
                         <div class="form-hint">L'utilisateur doit avoir au moins 13 ans</div>
                     </div>
                     
@@ -766,6 +775,9 @@
                             }
                         }) }}
                         {{ form_errors(registrationForm.role) }}
+                        {% if not registrationForm.role.vars.errors|length and registrationForm.role.vars.value %}
+                            <div class="valid-feedback">✓ Role selected</div>
+                        {% endif %}
                         <div class="form-hint">Choix: user, admin, moderator, editor</div>
                     </div>
                 </div>
@@ -816,9 +828,18 @@
                     input.addEventListener('input', function() {
                         // Remove error class on input
                         this.classList.remove('is-invalid');
-                        const errorElement = this.parentElement.querySelector('.form-error');
+                        this.classList.add('is-valid');
+                        const errorElement = this.parentElement.querySelector('.invalid-feedback');
+                        const validElement = this.parentElement.querySelector('.valid-feedback');
+                        
                         if(errorElement) {
                             errorElement.style.display = 'none';
+                        }
+                        
+                        if(validElement && this.value.trim() !== '') {
+                            validElement.style.display = 'block';
+                        } else if(validElement) {
+                            validElement.style.display = 'none';
                         }
                         
                         // Special handling for password field
@@ -956,48 +977,12 @@
                 }, 100);
             });
             
-            // Random glitch effect on inputs
-            const inputs = document.querySelectorAll('.form-input, .form-select');
-            inputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    if(Math.random() > 0.95) {
-                        this.style.animation = 'none';
-                        setTimeout(() => {
-                            this.style.animation = 'glitch 0.1s';
-                            setTimeout(() => {
-                                this.style.animation = '';
-                            }, 100);
-                        }, 10);
-                    }
-                });
-            });
-            
-            // Role select customization
-            const roleSelect = document.querySelector('select[name$="[role]"]');
-            if(roleSelect) {
-                roleSelect.addEventListener('change', function() {
-                    const roleColors = {
-                        'user': 'var(--neon-red)',
-                        'admin': 'var(--toxic-purple)',
-                        'moderator': 'var(--glitch-blue)',
-                        'editor': 'var(--cyber-yellow)'
-                    };
-                    
-                    const color = roleColors[this.value] || 'var(--neon-red)';
-                    this.style.borderLeftColor = color;
-                    this.style.boxShadow = `0 0 15px ${color}40`;
-                });
-                
-                // Trigger initial color
-                if(roleSelect.value) {
-                    roleSelect.dispatchEvent(new Event('change'));
-                }
-            }
-            
             // Validate all fields on page load if they have values
+            const inputs = document.querySelectorAll('.form-input, .form-select');
             inputs.forEach(input => {
                 if(input.value) {
                     validateField(input);
+                    input.classList.add('is-valid');
                 }
             });
             

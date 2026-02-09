@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'user')]
 #[ORM\UniqueConstraint(name: 'UNIQ_EMAIL', fields: ['email'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_USERNAME', fields: ['username'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -19,11 +20,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Assert\NotBlank(message: "L'email est obligatoire.")]
-    #[Assert\Email(message: "L'email '{{ value }}' n'est pas valide.")]
+    #[Assert\NotBlank(message: 'L\'email est obligatoire.')]
+    #[Assert\Email(message: 'L\'email "{{ value }}" n\'est pas valide.')]
     #[Assert\Length(
         max: 180,
-        maxMessage: "L'email ne peut pas dépasser {{ limit }} caractères."
+        maxMessage: 'L\'email ne doit pas dépasser {{ limit }} caractères.'
     )]
     private ?string $email = null;
 
@@ -33,101 +34,115 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50)]
-    #[Assert\NotBlank(message: "Le nom d'utilisateur est obligatoire.")]
+    #[ORM\Column(length: 50, unique: true)]
+    #[Assert\NotBlank(message: 'Le nom d\'utilisateur est obligatoire.')]
     #[Assert\Length(
         min: 3,
         max: 50,
-        minMessage: "Le nom d'utilisateur doit contenir au moins {{ limit }} caractères.",
-        maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères."
+        minMessage: 'Le nom d\'utilisateur doit contenir au moins {{ limit }} caractères.',
+        maxMessage: 'Le nom d\'utilisateur ne doit pas dépasser {{ limit }} caractères.'
     )]
     #[Assert\Regex(
-        pattern: '/^[a-zA-Z0-9_-]+$/',
-        message: "Le nom d'utilisateur ne peut contenir que des lettres, chiffres, tirets et underscores."
+        pattern: '/^[a-zA-Z0-9_]+$/',
+        message: 'Le nom d\'utilisateur ne peut contenir que des lettres, chiffres et underscores.'
     )]
     private ?string $username = null;
 
     #[ORM\Column(length: 100)]
-    #[Assert\NotBlank(message: "Le nom complet est obligatoire.")]
+    #[Assert\NotBlank(message: 'Le nom complet est obligatoire.')]
     #[Assert\Length(
         min: 2,
         max: 100,
-        minMessage: "Le nom complet doit contenir au moins {{ limit }} caractères.",
-        maxMessage: "Le nom complet ne peut pas dépasser {{ limit }} caractères."
+        minMessage: 'Le nom complet doit contenir au moins {{ limit }} caractères.',
+        maxMessage: 'Le nom complet ne doit pas dépasser {{ limit }} caractères.'
     )]
     #[Assert\Regex(
-        pattern: '/^[a-zA-Z\s\-\'\.]+$/',
-        message: "Le nom complet ne peut contenir que des lettres, espaces, tirets, apostrophes et points."
+        pattern: '/^[a-zA-ZÀ-ÿ\s\'-]+$/u',
+        message: 'Le nom complet ne peut contenir que des lettres, espaces, tirets et apostrophes.'
     )]
     private ?string $fullName = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank(message: "Le pays est obligatoire.")]
+    #[Assert\NotBlank(message: 'Le pays est obligatoire.')]
     #[Assert\Length(
         max: 50,
-        maxMessage: "Le pays ne peut pas dépasser {{ limit }} caractères."
+        maxMessage: 'Le pays ne doit pas dépasser {{ limit }} caractères.'
     )]
     #[Assert\Regex(
-        pattern: '/^[a-zA-Z\s\-]+$/',
-        message: "Le pays ne peut contenir que des lettres, espaces et tirets."
+        pattern: '/^[a-zA-ZÀ-ÿ\s-]+$/u',
+        message: 'Le pays ne peut contenir que des lettres, espaces et tirets.'
     )]
     private ?string $country = null;
 
     #[ORM\Column(type: 'date')]
-    #[Assert\NotNull(message: "La date de naissance est obligatoire.")]
+    #[Assert\NotBlank(message: 'La date de naissance est obligatoire.')]
+    #[Assert\Type('\DateTimeInterface', message: 'La date de naissance doit être une date valide.')]
     #[Assert\LessThan(
-        value: "today - 13 years",
-        message: "L'utilisateur doit avoir au moins 13 ans."
+        value: '-13 years',
+        message: 'L\'utilisateur doit avoir au moins 13 ans.'
     )]
     #[Assert\GreaterThan(
-        value: "today - 120 years",
-        message: "La date de naissance n'est pas valide."
+        value: '-100 years',
+        message: 'La date de naissance n\'est pas valide.'
     )]
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(length: 20)]
-    #[Assert\NotBlank(message: "Le rôle est obligatoire.")]
+    #[Assert\NotBlank(message: 'Le rôle est obligatoire.')]
+    #[Assert\Choice(
+        choices: ['USER', 'ADMIN', 'MODERATOR', 'COACH', 'PLAYER', 'ORGANIZER'],
+        message: 'Le rôle "{{ value }}" n\'est pas valide. Choisissez parmi : {{ choices }}.'
+    )]
     #[Assert\Length(
         max: 20,
-        maxMessage: "Le rôle ne peut pas dépasser {{ limit }} caractères."
-    )]
-    #[Assert\Choice(
-        choices: ['user', 'admin', 'moderator', 'editor'],
-        message: "Le rôle '{{ value }}' n'est pas valide. Valeurs acceptées : user, admin, moderator, editor."
+        maxMessage: 'Le rôle ne doit pas dépasser {{ limit }} caractères.'
     )]
     private ?string $role = null;
 
     #[ORM\Column]
-    #[Assert\Type(
-        type: 'integer',
-        message: "Les points d'accomplissement doivent être un nombre entier."
-    )]
+    #[Assert\Type('integer', message: 'Les points de réussite doivent être un nombre entier.')]
     #[Assert\Range(
         min: 0,
-        max: 999999,
-        minMessage: "Les points d'accomplissement ne peuvent pas être négatifs.",
-        maxMessage: "Les points d'accomplissement ne peuvent pas dépasser {{ limit }}."
+        max: 10000,
+        notInRangeMessage: 'Les points de réussite doivent être compris entre {{ min }} et {{ max }}.'
     )]
     private int $achievementPoints = 0;
 
     #[ORM\Column]
+    #[Assert\Type('bool', message: 'Le statut actif doit être vrai ou faux.')]
     private bool $isActive = true;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $createdAt;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Assert\Type('\DateTimeInterface', message: 'La dernière connexion doit être une date valide.')]
     private ?\DateTimeInterface $lastLoginAt = null;
 
     #[Assert\Length(
         min: 8,
-        max: 50,
-        minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères.",
-        maxMessage: "Le mot de passe ne peut pas dépasser {{ limit }} caractères."
+        minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères.',
+        groups: ['registration', 'password_change']
     )]
     #[Assert\Regex(
-        pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-        message: "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial."
+        pattern: '/[A-Z]/',
+        message: 'Le mot de passe doit contenir au moins une lettre majuscule.',
+        groups: ['registration', 'password_change']
+    )]
+    #[Assert\Regex(
+        pattern: '/[a-z]/',
+        message: 'Le mot de passe doit contenir au moins une lettre minuscule.',
+        groups: ['registration', 'password_change']
+    )]
+    #[Assert\Regex(
+        pattern: '/[0-9]/',
+        message: 'Le mot de passe doit contenir au moins un chiffre.',
+        groups: ['registration', 'password_change']
+    )]
+    #[Assert\Regex(
+        pattern: '/[^A-Za-z0-9]/',
+        message: 'Le mot de passe doit contenir au moins un caractère spécial.',
+        groups: ['registration', 'password_change']
     )]
     private ?string $plainPassword = null;
 
@@ -149,7 +164,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): static
     {
-        $this->email = trim($email);
+        $this->email = $email;
         return $this;
     }
 
@@ -193,9 +208,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPlainPassword(?string $plainPassword): static
     {
-        if ($plainPassword !== null) {
-            $plainPassword = trim($plainPassword);
-        }
         $this->plainPassword = $plainPassword;
         return $this;
     }
@@ -212,7 +224,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setUsername(string $username): static
     {
-        $this->username = trim($username);
+        $this->username = $username;
         return $this;
     }
 
@@ -223,7 +235,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setFullName(string $fullName): static
     {
-        $this->fullName = trim($fullName);
+        $this->fullName = $fullName;
         return $this;
     }
 
@@ -234,7 +246,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setCountry(string $country): static
     {
-        $this->country = trim($country);
+        $this->country = $country;
         return $this;
     }
 
@@ -256,7 +268,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRole(string $role): static
     {
-        $this->role = trim($role);
+        $this->role = $role;
         
         $roleWithPrefix = 'ROLE_' . strtoupper($role);
         if (!in_array($roleWithPrefix, $this->roles, true)) {
@@ -310,12 +322,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * Validation supplémentaire pour les scénarios de création
-     */
-    #[Assert\IsTrue(message: "Le mot de passe est obligatoire pour la création d'un utilisateur.")]
-    public function isPasswordRequiredForNewUser(): bool
+    public function getAge(): int
     {
-        return $this->id !== null || $this->plainPassword !== null;
+        $now = new \DateTime();
+        $interval = $this->birthDate->diff($now);
+        return $interval->y;
+    }
+
+    public function isPasswordStrong(): bool
+    {
+        if (!$this->plainPassword) {
+            return false;
+        }
+
+        $password = $this->plainPassword;
+        
+        // Vérifier la longueur
+        if (strlen($password) < 8) {
+            return false;
+        }
+        
+        // Vérifier la complexité
+        $hasUpper = preg_match('/[A-Z]/', $password);
+        $hasLower = preg_match('/[a-z]/', $password);
+        $hasDigit = preg_match('/[0-9]/', $password);
+        $hasSpecial = preg_match('/[^A-Za-z0-9]/', $password);
+        
+        return $hasUpper && $hasLower && $hasDigit && $hasSpecial;
     }
 }
