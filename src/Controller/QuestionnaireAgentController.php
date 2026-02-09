@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\QuestionnaireAgent;
 use App\Form\QuestionnaireAgentType;
 use App\Repository\QuestionnaireAgentRepository;
+use App\Repository\AgentRepository;               // <--- ADDED
+use App\Repository\ReponseQuestionnaireRepository; // <--- ADDED
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +17,12 @@ use Symfony\Component\Routing\Attribute\Route;
 final class QuestionnaireAgentController extends AbstractController
 {
     #[Route('/', name: 'app_questionnaire_agent_index', methods: ['GET'])]
-    public function index(Request $request, QuestionnaireAgentRepository $repository): Response
+    public function index(
+        Request $request, 
+        QuestionnaireAgentRepository $repository,
+        AgentRepository $agentRepository,               // <--- INJECTED
+        ReponseQuestionnaireRepository $reponseRepository // <--- INJECTED
+    ): Response
     {
         // 1. Get parameters from URL
         $q = $request->query->get('q');
@@ -23,14 +30,27 @@ final class QuestionnaireAgentController extends AbstractController
         $dir = $request->query->get('dir', 'ASC');
 
         // 2. Call your custom searchAndSort method
-        // (Since you implemented it, we don't need the 'method_exists' check anymore)
         $questionnaires = $repository->searchAndSort($q, $sort, $dir);
+
+        // --- NEW: CALCULATE STATS FOR DASHBOARD ---
+        $totalAgents = $agentRepository->count([]);
+        $totalResponses = $reponseRepository->count([]);
+        
+        $completionRate = 0;
+        if ($totalAgents > 0) {
+            $completionRate = round(($totalResponses / $totalAgents) * 100, 1);
+        }
+        // ---------------------------------------------------------
 
         return $this->render('questionnaire_agent/index.html.twig', [
             'questionnaire_agents' => $questionnaires,
             'q' => $q,
             'sort' => $sort,
             'dir' => $dir,
+            // --- PASS STATS TO TWIG ---
+            'total_agents' => $totalAgents,
+            'total_responses' => $totalResponses,
+            'completion_rate' => $completionRate,
         ]);
     }
 
@@ -90,6 +110,7 @@ final class QuestionnaireAgentController extends AbstractController
 
         return $this->redirectToRoute('app_questionnaire_agent_index', [], Response::HTTP_SEE_OTHER);
     }
+    
     public function findDistinctGames(): array
     {
         return $this->createQueryBuilder('q')
@@ -98,12 +119,11 @@ final class QuestionnaireAgentController extends AbstractController
             ->getQuery()
             ->getSingleColumnResult();
     }
+    
     public function isCompleted(): bool 
     {
         return $this->field1 !== null
             && $this->field2 !== null
             && $this->field3 !== null;
     }
-
-
 }

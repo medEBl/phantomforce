@@ -6,10 +6,10 @@ use App\Entity\Agent;
 use App\Form\AgentEditType;
 use App\Form\FrontAgentCreateType;
 use App\Repository\AgentRepository;
-use App\Repository\ReponseQuestionnaireRepository; // ✅ Import this!
+use App\Repository\ReponseQuestionnaireRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request; // ✅ Needed for search
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -19,12 +19,20 @@ class AgentProfileController extends AbstractController
     #[Route('/', name: 'front_agent_index', methods: ['GET'])]
     public function index(
         AgentRepository $repo, 
-        \App\Repository\ReponseQuestionnaireRepository $repRepo
+        ReponseQuestionnaireRepository $repRepo,
+        Request $request // ✅ Inject Request
     ): Response
     {
-        $agents = $repo->findAll();
-        $responses = $repRepo->findAll();
+        // 1. Get parameters from URL (e.g. ?q=valorant&sort=rank&dir=DESC)
+        $q = $request->query->get('q');
+        $sort = $request->query->get('sort', 'id'); // Default sort by ID
+        $dir = $request->query->get('dir', 'ASC');  // Default direction ASC
 
+        // 2. Use the searchAndSort method from your Repository
+        $agents = $repo->searchAndSort($q, $sort, $dir);
+
+        // 3. Logic for answered questionnaires (Unchanged)
+        $responses = $repRepo->findAll();
         $answeredIds = [];
         foreach ($responses as $r) {
             if ($r->getAgent()) {
@@ -32,13 +40,18 @@ class AgentProfileController extends AbstractController
             }
         }
 
-        // ✅ FIXED PATH: Changed 'front/agent/index.html.twig' to 'front/index.html.twig'
-        // If your folder starts with a capital F, use 'Front/index.html.twig'
         return $this->render('front/index.html.twig', [ 
             'agents' => $agents,
             'answeredIds' => $answeredIds,
+            // 4. Pass params to view so we can keep them in links/inputs
+            'q' => $q,
+            'sort' => $sort,
+            'dir' => $dir
         ]);
     }
+
+    // ... (Keep the rest of the methods: new, show, edit, delete EXACTLY the same) ...
+    
     #[Route('/new', name: 'front_agent_new', methods: ['GET','POST'])]
     public function new(Request $request, EntityManagerInterface $em, AgentRepository $repo): Response
     {
@@ -74,15 +87,14 @@ class AgentProfileController extends AbstractController
     #[Route('/{id}', name: 'front_agent_show', methods: ['GET'])]
     public function show(
         Agent $agent,
-        ReponseQuestionnaireRepository $repRepo // ✅ Inject Repo here too
+        ReponseQuestionnaireRepository $repRepo 
     ): Response
     {
-        // ✅ Fetch answers so they can be displayed on the profile page
         $reponse = $repRepo->findOneBy(['agent' => $agent]);
 
         return $this->render('front/show.html.twig', [
             'agent' => $agent,
-            'reponse' => $reponse, // ✅ Pass answers to the view
+            'reponse' => $reponse, 
         ]);
     }
 
