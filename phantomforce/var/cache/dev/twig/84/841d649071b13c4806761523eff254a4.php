@@ -1,0 +1,1128 @@
+<?php
+
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Extension\CoreExtension;
+use Twig\Extension\SandboxExtension;
+use Twig\Markup;
+use Twig\Sandbox\SecurityError;
+use Twig\Sandbox\SecurityNotAllowedTagError;
+use Twig\Sandbox\SecurityNotAllowedFilterError;
+use Twig\Sandbox\SecurityNotAllowedFunctionError;
+use Twig\Source;
+use Twig\Template;
+use Twig\TemplateWrapper;
+
+/* acceuil/acceuil.html.twig */
+class __TwigTemplate_fb5a605523e34049ad4e9b5b8a5ad45a extends Template
+{
+    private Source $source;
+    /**
+     * @var array<string, Template>
+     */
+    private array $macros = [];
+
+    public function __construct(Environment $env)
+    {
+        parent::__construct($env);
+
+        $this->source = $this->getSourceContext();
+
+        $this->blocks = [
+            'title' => [$this, 'block_title'],
+            'body' => [$this, 'block_body'],
+            'javascript' => [$this, 'block_javascript'],
+        ];
+    }
+
+    protected function doGetParent(array $context): bool|string|Template|TemplateWrapper
+    {
+        // line 2
+        return "base.html.twig";
+    }
+
+    protected function doDisplay(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "acceuil/acceuil.html.twig"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "acceuil/acceuil.html.twig"));
+
+        $this->parent = $this->load("base.html.twig", 2);
+        yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+    }
+
+    // line 4
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_title(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
+
+        yield "Phantom Force – Accueil";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 6
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_body(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
+
+        // line 7
+        yield "<div class=\"hero\">
+    <h1>Phantom Force</h1>
+    <p>La plateforme esport ultime pour les joueurs compétitifs. Suivez les matchs, analysez les performances, et élevez votre jeu au niveau supérieur.</p>
+    
+    <div class=\"hero-badges\">
+        <div class=\"hero-badge\">
+            <i class=\"fas fa-bolt\"></i>
+            <span>En direct: Finale League of Legends</span>
+        </div>
+        <div class=\"hero-badge\">
+            <i class=\"fas fa-users\"></i>
+            <span>15 832 joueurs en ligne</span>
+        </div>
+        <div class=\"hero-badge\">
+            <i class=\"fas fa-trophy\"></i>
+            <span>Tournoi à 50 000€ en cours</span>
+        </div>
+        <div class=\"hero-badge\">
+            <i class=\"fas fa-chart-line\"></i>
+            <span>Stats en temps réel</span>
+        </div>
+    </div>
+</div>
+
+<div class=\"stats\">
+    <div class=\"stat-card\">
+        <div class=\"stat-icon\">
+            <i class=\"fas fa-users\"></i>
+        </div>
+        <div class=\"stat-value\">24 567</div>
+        <div class=\"stat-label\">Joueurs actifs</div>
+        <div class=\"stat-change positive\">
+            <i class=\"fas fa-arrow-up\"></i>
+            <span>+12% ce mois</span>
+        </div>
+    </div>
+    
+    <div class=\"stat-card\">
+        <div class=\"stat-icon\">
+            <i class=\"fas fa-trophy\"></i>
+        </div>
+        <div class=\"stat-value\">342</div>
+        <div class=\"stat-label\">Matchs joués</div>
+        <div class=\"stat-change positive\">
+            <i class=\"fas fa-arrow-up\"></i>
+            <span>+8% cette semaine</span>
+        </div>
+    </div>
+    
+    <div class=\"stat-card\">
+        <div class=\"stat-icon\">
+            <i class=\"fas fa-gamepad\"></i>
+        </div>
+        <div class=\"stat-value\">18</div>
+        <div class=\"stat-label\">Tournois actifs</div>
+        <div class=\"stat-change negative\">
+            <i class=\"fas fa-arrow-down\"></i>
+            <span>-2 cette semaine</span>
+        </div>
+    </div>
+    
+    <div class=\"stat-card\">
+        <div class=\"stat-icon\">
+            <i class=\"fas fa-crown\"></i>
+        </div>
+        <div class=\"stat-value\">156</div>
+        <div class=\"stat-label\">Équipes classées</div>
+        <div class=\"stat-change positive\">
+            <i class=\"fas fa-arrow-up\"></i>
+            <span>+5% ce mois</span>
+        </div>
+    </div>
+</div>
+
+<div class=\"modules-section\">
+    <h2 class=\"section-title\">Fonctionnalités Principales</h2>
+    
+    <div class=\"modules-grid\">
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+                <i class=\"fas fa-crosshairs\"></i>
+            </div>
+            <h3 class=\"module-title\">Suivi des Matchs</h3>
+            <p class=\"module-description\">
+                Suivez les matchs en direct avec des statistiques détaillées, des replays et des analyses en temps réel.
+            </p>
+            <div class=\"module-stats\">
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">156</div>
+                    <div class=\"module-stat-label\">En direct</div>
+                </div>
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">2.4K</div>
+                    <div class=\"module-stat-label\">Aujourd'hui</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+                <i class=\"fas fa-chart-bar\"></i>
+            </div>
+            <h3 class=\"module-title\">Analyses Avancées</h3>
+            <p class=\"module-description\">
+                Obtenez des insights détaillés sur vos performances avec des graphiques et des rapports personnalisés.
+            </p>
+            <div class=\"module-stats\">
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">98%</div>
+                    <div class=\"module-stat-label\">Précision</div>
+                </div>
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">50+</div>
+                    <div class=\"module-stat-label\">Métriques</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #2dff8b 0%, #5dffa3 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #2dff8b 0%, #5dffa3 100%);\">
+                <i class=\"fas fa-users-cog\"></i>
+            </div>
+            <h3 class=\"module-title\">Gestion d'Équipe</h3>
+            <p class=\"module-description\">
+                Gérez votre équipe, planifiez les entraînements et coordonnez les stratégies efficacement.
+            </p>
+            <div class=\"module-stats\">
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">342</div>
+                    <div class=\"module-stat-label\">Équipes</div>
+                </div>
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">1.2K</div>
+                    <div class=\"module-stat-label\">Joueurs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=\"activity-section\">
+    <h2 class=\"section-title\">Activité Récente</h2>
+    
+    <div class=\"activity-grid\">
+        <div class=\"activity-card\">
+            <h3><i class=\"fas fa-history\"></i> Dernières Actions</h3>
+            <div class=\"activity-list\">
+                <div class=\"activity-item\">
+                    <div class=\"activity-icon\" style=\"background: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+                        <i class=\"fas fa-trophy\"></i>
+                    </div>
+                    <div class=\"activity-content\">
+                        <h4>Victoire du tournoi \"Summer Clash\"</h4>
+                        <p>L'équipe Phoenix a remporté le tournoi avec un score de 3-1</p>
+                        <div class=\"activity-time\">Il y a 15 minutes</div>
+                    </div>
+                </div>
+                
+                <div class=\"activity-item\">
+                    <div class=\"activity-icon\" style=\"background: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+                        <i class=\"fas fa-user-plus\"></i>
+                    </div>
+                    <div class=\"activity-content\">
+                        <h4>Nouveau joueur classé</h4>
+                        <p>ShadowKiller a atteint le rang Grandmaster</p>
+                        <div class=\"activity-time\">Il y a 42 minutes</div>
+                    </div>
+                </div>
+                
+                <div class=\"activity-item\">
+                    <div class=\"activity-icon\" style=\"background: linear-gradient(135deg, #2dff8b 0%, #5dffa3 100%);\">
+                        <i class=\"fas fa-calendar-check\"></i>
+                    </div>
+                    <div class=\"activity-content\">
+                        <h4>Tournoi annoncé</h4>
+                        <p>Winter Championship 2024 - Inscriptions ouvertes</p>
+                        <div class=\"activity-time\">Il y a 2 heures</div>
+                    </div>
+                </div>
+                
+                <div class=\"activity-item\">
+                    <div class=\"activity-icon\" style=\"background: linear-gradient(135deg, #a82dff 0%, #c85dff 100%);\">
+                        <i class=\"fas fa-chart-line\"></i>
+                    </div>
+                    <div class=\"activity-content\">
+                        <h4>Record battu</h4>
+                        <p>Nouveau record de K/D: 24.5 par Neo_Impact</p>
+                        <div class=\"activity-time\">Il y a 4 heures</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"activity-card\">
+            <h3><i class=\"fas fa-calendar-star\"></i> Événements à Venir</h3>
+            <div class=\"events-grid\">
+                <div class=\"event-card\">
+                    <div class=\"event-header\">
+                        <div class=\"event-icon\" style=\"background: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+                            <i class=\"fas fa-trophy\"></i>
+                        </div>
+                        <div>
+                            <div class=\"event-title\">Finale Worlds</div>
+                            <div class=\"event-date\">15 Déc 2024 • 20:00</div>
+                        </div>
+                    </div>
+                    <p style=\"color: var(--text-muted); font-size: 14px; margin-top: 10px;\">
+                        Grande finale du championnat mondial. Enjeu: 250 000€
+                    </p>
+                    <div class=\"event-participants\">
+                        <i class=\"fas fa-users\"></i>
+                        <span>8 équipes qualifiées</span>
+                    </div>
+                </div>
+                
+                <div class=\"event-card\">
+                    <div class=\"event-header\">
+                        <div class=\"event-icon\" style=\"background: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+                            <i class=\"fas fa-graduation-cap\"></i>
+                        </div>
+                        <div>
+                            <div class=\"event-title\">Workshop Coaching</div>
+                            <div class=\"event-date\">10 Déc 2024 • 18:30</div>
+                        </div>
+                    </div>
+                    <p style=\"color: var(--text-muted); font-size: 14px; margin-top: 10px;\">
+                        Session de coaching avancée avec des pros. Places limitées.
+                    </p>
+                    <div class=\"event-participants\">
+                        <i class=\"fas fa-user-check\"></i>
+                        <span>15/20 inscrits</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=\"matches-section\">
+    <div class=\"section-header\">
+        <h2>Matchs en Direct</h2>
+        <div class=\"section-actions\">
+            <button class=\"btn btn-secondary\">
+                <i class=\"fas fa-calendar-alt\"></i>
+                Voir le calendrier
+            </button>
+            <button class=\"btn btn-primary\">
+                <i class=\"fas fa-plus\"></i>
+                Créer un match
+            </button>
+        </div>
+    </div>
+    
+    <div class=\"matches-container\">
+        <div class=\"match-card\">
+            <div class=\"match-teams\">
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+                        PX
+                    </div>
+                    <div class=\"team-name\">Phoenix Esports</div>
+                </div>
+                
+                <div class=\"match-score\">2 - 1</div>
+                
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+                        TF
+                    </div>
+                    <div class=\"team-name\">Titan Force</div>
+                </div>
+            </div>
+            
+            <div class=\"match-details\">
+                <span class=\"badge badge-upcoming\">LIVE</span>
+                <div class=\"match-date\">
+                    <i class=\"fas fa-clock\"></i>
+                    <span>Map 4/5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"match-card\">
+            <div class=\"match-teams\">
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #2dff8b 0%, #5dffa3 100%);\">
+                        VK
+                    </div>
+                    <div class=\"team-name\">Valkyrie</div>
+                </div>
+                
+                <div class=\"match-score\">3 - 0</div>
+                
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #ff8a2d 0%, #ffaa5d 100%);\">
+                        DR
+                    </div>
+                    <div class=\"team-name\">Dragon Riders</div>
+                </div>
+            </div>
+            
+            <div class=\"match-details\">
+                <span class=\"badge badge-win\">TERMINÉ</span>
+                <div class=\"match-date\">
+                    <i class=\"fas fa-clock\"></i>
+                    <span>Aujourd'hui, 14:30</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"match-card\">
+            <div class=\"match-teams\">
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #a82dff 0%, #c85dff 100%);\">
+                        SG
+                    </div>
+                    <div class=\"team-name\">Shadow Gaming</div>
+                </div>
+                
+                <div class=\"match-score\">0 - 0</div>
+                
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #ffd42d 0%, #ffe45d 100%);\">
+                        NS
+                    </div>
+                    <div class=\"team-name\">Night Stalkers</div>
+                </div>
+            </div>
+            
+            <div class=\"match-details\">
+                <span class=\"badge badge-upcoming\">À VENIR</span>
+                <div class=\"match-date\">
+                    <i class=\"fas fa-clock\"></i>
+                    <span>Demain, 19:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=\"modules-section\">
+    <h2 class=\"section-title\">Rejoignez la Communauté</h2>
+    
+    <div class=\"modules-grid\">
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #ff8a2d 0%, #ffaa5d 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #ff8a2d 0%, #ffaa5d 100%);\">
+                <i class=\"fas fa-user-plus\"></i>
+            </div>
+            <h3 class=\"module-title\">Inscrivez-vous</h3>
+            <p class=\"module-description\">
+                Créez votre compte gratuit et accédez à toutes les fonctionnalités de la plateforme.
+            </p>
+            <button class=\"btn btn-primary\" style=\"margin-top: auto; width: 100%;\">
+                <i class=\"fas fa-user-plus\"></i>
+                S'inscrire gratuitement
+            </button>
+        </div>
+        
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #ffd42d 0%, #ffe45d 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #ffd42d 0%, #ffe45d 100%);\">
+                <i class=\"fas fa-users\"></i>
+            </div>
+            <h3 class=\"module-title\">Trouvez une Équipe</h3>
+            <p class=\"module-description\">
+                Rejoignez ou créez une équipe pour participer aux tournois et améliorer vos compétences.
+            </p>
+            <button class=\"btn btn-secondary\" style=\"margin-top: auto; width: 100%;\">
+                <i class=\"fas fa-search\"></i>
+                Explorer les équipes
+            </button>
+        </div>
+        
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #a82dff 0%, #c85dff 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #a82dff 0%, #c85dff 100%);\">
+                <i class=\"fas fa-trophy\"></i>
+            </div>
+            <h3 class=\"module-title\">Participez aux Tournois</h3>
+            <p class=\"module-description\">
+                Inscrivez-vous aux tournois et gagnez des prix, de la reconnaissance et montez dans le classement.
+            </p>
+            <button class=\"btn btn-primary\" style=\"margin-top: auto; width: 100%;\">
+                <i class=\"fas fa-calendar-check\"></i>
+                Voir les tournois
+            </button>
+        </div>
+    </div>
+</div>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 396
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_javascript(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascript"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascript"));
+
+        // line 397
+        yield "<script>
+    // JavaScript spécifique à la page d'accueil
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-update match scores for live matches
+        function updateLiveMatch() {
+            const liveScore = document.querySelector('.match-card .badge-upcoming + .match-date span');
+            if (liveScore && liveScore.textContent.includes('Map')) {
+                // Simulate score update (in real app, this would come from WebSocket)
+                const maps = liveScore.textContent.match(/(\\d+)\\/(\\d+)/);
+                if (maps && parseInt(maps[1]) < parseInt(maps[2])) {
+                    const currentMap = parseInt(maps[1]) + 1;
+                    liveScore.textContent = `Map \${currentMap}/\${maps[2]}`;
+                    
+                    // Add visual feedback
+                    liveScore.parentElement.style.color = 'var(--red)';
+                    setTimeout(() => {
+                        liveScore.parentElement.style.color = '';
+                    }, 1000);
+                }
+            }
+        }
+        
+        // Update every 30 seconds for demo purposes
+        setInterval(updateLiveMatch, 30000);
+        
+        // Count-up animation for stats
+        function animateCountUp() {
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach(stat => {
+                const finalValue = parseInt(stat.textContent.replace(/,/g, ''));
+                const duration = 2000;
+                const step = finalValue / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= finalValue) {
+                        stat.textContent = finalValue.toLocaleString();
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 16);
+            });
+        }
+        
+        // Start count-up when stats are visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCountUp();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+        
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+        
+        // Newsletter form handling
+        const newsletterForm = document.querySelector('.newsletter form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[name=\"email\"]').value;
+                
+                // Simulate form submission
+                const submitBtn = this.querySelector('button[type=\"submit\"]');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class=\"fas fa-spinner fa-spin\"></i> Inscription...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class=\"fas fa-check\"></i> Inscrit!';
+                    submitBtn.style.background = 'var(--green-gradient)';
+                    
+                    // Reset after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.style.background = '';
+                        this.reset();
+                    }, 3000);
+                }, 1500);
+            });
+        }
+    });
+</script>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getTemplateName(): string
+    {
+        return "acceuil/acceuil.html.twig";
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function isTraitable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getDebugInfo(): array
+    {
+        return array (  512 => 397,  499 => 396,  101 => 7,  88 => 6,  65 => 4,  42 => 2,);
+    }
+
+    public function getSourceContext(): Source
+    {
+        return new Source("{# templates/acceuil.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Phantom Force – Accueil{% endblock %}
+
+{% block body %}
+<div class=\"hero\">
+    <h1>Phantom Force</h1>
+    <p>La plateforme esport ultime pour les joueurs compétitifs. Suivez les matchs, analysez les performances, et élevez votre jeu au niveau supérieur.</p>
+    
+    <div class=\"hero-badges\">
+        <div class=\"hero-badge\">
+            <i class=\"fas fa-bolt\"></i>
+            <span>En direct: Finale League of Legends</span>
+        </div>
+        <div class=\"hero-badge\">
+            <i class=\"fas fa-users\"></i>
+            <span>15 832 joueurs en ligne</span>
+        </div>
+        <div class=\"hero-badge\">
+            <i class=\"fas fa-trophy\"></i>
+            <span>Tournoi à 50 000€ en cours</span>
+        </div>
+        <div class=\"hero-badge\">
+            <i class=\"fas fa-chart-line\"></i>
+            <span>Stats en temps réel</span>
+        </div>
+    </div>
+</div>
+
+<div class=\"stats\">
+    <div class=\"stat-card\">
+        <div class=\"stat-icon\">
+            <i class=\"fas fa-users\"></i>
+        </div>
+        <div class=\"stat-value\">24 567</div>
+        <div class=\"stat-label\">Joueurs actifs</div>
+        <div class=\"stat-change positive\">
+            <i class=\"fas fa-arrow-up\"></i>
+            <span>+12% ce mois</span>
+        </div>
+    </div>
+    
+    <div class=\"stat-card\">
+        <div class=\"stat-icon\">
+            <i class=\"fas fa-trophy\"></i>
+        </div>
+        <div class=\"stat-value\">342</div>
+        <div class=\"stat-label\">Matchs joués</div>
+        <div class=\"stat-change positive\">
+            <i class=\"fas fa-arrow-up\"></i>
+            <span>+8% cette semaine</span>
+        </div>
+    </div>
+    
+    <div class=\"stat-card\">
+        <div class=\"stat-icon\">
+            <i class=\"fas fa-gamepad\"></i>
+        </div>
+        <div class=\"stat-value\">18</div>
+        <div class=\"stat-label\">Tournois actifs</div>
+        <div class=\"stat-change negative\">
+            <i class=\"fas fa-arrow-down\"></i>
+            <span>-2 cette semaine</span>
+        </div>
+    </div>
+    
+    <div class=\"stat-card\">
+        <div class=\"stat-icon\">
+            <i class=\"fas fa-crown\"></i>
+        </div>
+        <div class=\"stat-value\">156</div>
+        <div class=\"stat-label\">Équipes classées</div>
+        <div class=\"stat-change positive\">
+            <i class=\"fas fa-arrow-up\"></i>
+            <span>+5% ce mois</span>
+        </div>
+    </div>
+</div>
+
+<div class=\"modules-section\">
+    <h2 class=\"section-title\">Fonctionnalités Principales</h2>
+    
+    <div class=\"modules-grid\">
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+                <i class=\"fas fa-crosshairs\"></i>
+            </div>
+            <h3 class=\"module-title\">Suivi des Matchs</h3>
+            <p class=\"module-description\">
+                Suivez les matchs en direct avec des statistiques détaillées, des replays et des analyses en temps réel.
+            </p>
+            <div class=\"module-stats\">
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">156</div>
+                    <div class=\"module-stat-label\">En direct</div>
+                </div>
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">2.4K</div>
+                    <div class=\"module-stat-label\">Aujourd'hui</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+                <i class=\"fas fa-chart-bar\"></i>
+            </div>
+            <h3 class=\"module-title\">Analyses Avancées</h3>
+            <p class=\"module-description\">
+                Obtenez des insights détaillés sur vos performances avec des graphiques et des rapports personnalisés.
+            </p>
+            <div class=\"module-stats\">
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">98%</div>
+                    <div class=\"module-stat-label\">Précision</div>
+                </div>
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">50+</div>
+                    <div class=\"module-stat-label\">Métriques</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #2dff8b 0%, #5dffa3 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #2dff8b 0%, #5dffa3 100%);\">
+                <i class=\"fas fa-users-cog\"></i>
+            </div>
+            <h3 class=\"module-title\">Gestion d'Équipe</h3>
+            <p class=\"module-description\">
+                Gérez votre équipe, planifiez les entraînements et coordonnez les stratégies efficacement.
+            </p>
+            <div class=\"module-stats\">
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">342</div>
+                    <div class=\"module-stat-label\">Équipes</div>
+                </div>
+                <div class=\"module-stat\">
+                    <div class=\"module-stat-value\">1.2K</div>
+                    <div class=\"module-stat-label\">Joueurs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=\"activity-section\">
+    <h2 class=\"section-title\">Activité Récente</h2>
+    
+    <div class=\"activity-grid\">
+        <div class=\"activity-card\">
+            <h3><i class=\"fas fa-history\"></i> Dernières Actions</h3>
+            <div class=\"activity-list\">
+                <div class=\"activity-item\">
+                    <div class=\"activity-icon\" style=\"background: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+                        <i class=\"fas fa-trophy\"></i>
+                    </div>
+                    <div class=\"activity-content\">
+                        <h4>Victoire du tournoi \"Summer Clash\"</h4>
+                        <p>L'équipe Phoenix a remporté le tournoi avec un score de 3-1</p>
+                        <div class=\"activity-time\">Il y a 15 minutes</div>
+                    </div>
+                </div>
+                
+                <div class=\"activity-item\">
+                    <div class=\"activity-icon\" style=\"background: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+                        <i class=\"fas fa-user-plus\"></i>
+                    </div>
+                    <div class=\"activity-content\">
+                        <h4>Nouveau joueur classé</h4>
+                        <p>ShadowKiller a atteint le rang Grandmaster</p>
+                        <div class=\"activity-time\">Il y a 42 minutes</div>
+                    </div>
+                </div>
+                
+                <div class=\"activity-item\">
+                    <div class=\"activity-icon\" style=\"background: linear-gradient(135deg, #2dff8b 0%, #5dffa3 100%);\">
+                        <i class=\"fas fa-calendar-check\"></i>
+                    </div>
+                    <div class=\"activity-content\">
+                        <h4>Tournoi annoncé</h4>
+                        <p>Winter Championship 2024 - Inscriptions ouvertes</p>
+                        <div class=\"activity-time\">Il y a 2 heures</div>
+                    </div>
+                </div>
+                
+                <div class=\"activity-item\">
+                    <div class=\"activity-icon\" style=\"background: linear-gradient(135deg, #a82dff 0%, #c85dff 100%);\">
+                        <i class=\"fas fa-chart-line\"></i>
+                    </div>
+                    <div class=\"activity-content\">
+                        <h4>Record battu</h4>
+                        <p>Nouveau record de K/D: 24.5 par Neo_Impact</p>
+                        <div class=\"activity-time\">Il y a 4 heures</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"activity-card\">
+            <h3><i class=\"fas fa-calendar-star\"></i> Événements à Venir</h3>
+            <div class=\"events-grid\">
+                <div class=\"event-card\">
+                    <div class=\"event-header\">
+                        <div class=\"event-icon\" style=\"background: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+                            <i class=\"fas fa-trophy\"></i>
+                        </div>
+                        <div>
+                            <div class=\"event-title\">Finale Worlds</div>
+                            <div class=\"event-date\">15 Déc 2024 • 20:00</div>
+                        </div>
+                    </div>
+                    <p style=\"color: var(--text-muted); font-size: 14px; margin-top: 10px;\">
+                        Grande finale du championnat mondial. Enjeu: 250 000€
+                    </p>
+                    <div class=\"event-participants\">
+                        <i class=\"fas fa-users\"></i>
+                        <span>8 équipes qualifiées</span>
+                    </div>
+                </div>
+                
+                <div class=\"event-card\">
+                    <div class=\"event-header\">
+                        <div class=\"event-icon\" style=\"background: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+                            <i class=\"fas fa-graduation-cap\"></i>
+                        </div>
+                        <div>
+                            <div class=\"event-title\">Workshop Coaching</div>
+                            <div class=\"event-date\">10 Déc 2024 • 18:30</div>
+                        </div>
+                    </div>
+                    <p style=\"color: var(--text-muted); font-size: 14px; margin-top: 10px;\">
+                        Session de coaching avancée avec des pros. Places limitées.
+                    </p>
+                    <div class=\"event-participants\">
+                        <i class=\"fas fa-user-check\"></i>
+                        <span>15/20 inscrits</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=\"matches-section\">
+    <div class=\"section-header\">
+        <h2>Matchs en Direct</h2>
+        <div class=\"section-actions\">
+            <button class=\"btn btn-secondary\">
+                <i class=\"fas fa-calendar-alt\"></i>
+                Voir le calendrier
+            </button>
+            <button class=\"btn btn-primary\">
+                <i class=\"fas fa-plus\"></i>
+                Créer un match
+            </button>
+        </div>
+    </div>
+    
+    <div class=\"matches-container\">
+        <div class=\"match-card\">
+            <div class=\"match-teams\">
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #ff2d2d 0%, #ff5e5e 100%);\">
+                        PX
+                    </div>
+                    <div class=\"team-name\">Phoenix Esports</div>
+                </div>
+                
+                <div class=\"match-score\">2 - 1</div>
+                
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #4d7cff 0%, #6d9cff 100%);\">
+                        TF
+                    </div>
+                    <div class=\"team-name\">Titan Force</div>
+                </div>
+            </div>
+            
+            <div class=\"match-details\">
+                <span class=\"badge badge-upcoming\">LIVE</span>
+                <div class=\"match-date\">
+                    <i class=\"fas fa-clock\"></i>
+                    <span>Map 4/5</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"match-card\">
+            <div class=\"match-teams\">
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #2dff8b 0%, #5dffa3 100%);\">
+                        VK
+                    </div>
+                    <div class=\"team-name\">Valkyrie</div>
+                </div>
+                
+                <div class=\"match-score\">3 - 0</div>
+                
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #ff8a2d 0%, #ffaa5d 100%);\">
+                        DR
+                    </div>
+                    <div class=\"team-name\">Dragon Riders</div>
+                </div>
+            </div>
+            
+            <div class=\"match-details\">
+                <span class=\"badge badge-win\">TERMINÉ</span>
+                <div class=\"match-date\">
+                    <i class=\"fas fa-clock\"></i>
+                    <span>Aujourd'hui, 14:30</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class=\"match-card\">
+            <div class=\"match-teams\">
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #a82dff 0%, #c85dff 100%);\">
+                        SG
+                    </div>
+                    <div class=\"team-name\">Shadow Gaming</div>
+                </div>
+                
+                <div class=\"match-score\">0 - 0</div>
+                
+                <div class=\"team\">
+                    <div class=\"team-logo\" style=\"background: linear-gradient(135deg, #ffd42d 0%, #ffe45d 100%);\">
+                        NS
+                    </div>
+                    <div class=\"team-name\">Night Stalkers</div>
+                </div>
+            </div>
+            
+            <div class=\"match-details\">
+                <span class=\"badge badge-upcoming\">À VENIR</span>
+                <div class=\"match-date\">
+                    <i class=\"fas fa-clock\"></i>
+                    <span>Demain, 19:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=\"modules-section\">
+    <h2 class=\"section-title\">Rejoignez la Communauté</h2>
+    
+    <div class=\"modules-grid\">
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #ff8a2d 0%, #ffaa5d 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #ff8a2d 0%, #ffaa5d 100%);\">
+                <i class=\"fas fa-user-plus\"></i>
+            </div>
+            <h3 class=\"module-title\">Inscrivez-vous</h3>
+            <p class=\"module-description\">
+                Créez votre compte gratuit et accédez à toutes les fonctionnalités de la plateforme.
+            </p>
+            <button class=\"btn btn-primary\" style=\"margin-top: auto; width: 100%;\">
+                <i class=\"fas fa-user-plus\"></i>
+                S'inscrire gratuitement
+            </button>
+        </div>
+        
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #ffd42d 0%, #ffe45d 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #ffd42d 0%, #ffe45d 100%);\">
+                <i class=\"fas fa-users\"></i>
+            </div>
+            <h3 class=\"module-title\">Trouvez une Équipe</h3>
+            <p class=\"module-description\">
+                Rejoignez ou créez une équipe pour participer aux tournois et améliorer vos compétences.
+            </p>
+            <button class=\"btn btn-secondary\" style=\"margin-top: auto; width: 100%;\">
+                <i class=\"fas fa-search\"></i>
+                Explorer les équipes
+            </button>
+        </div>
+        
+        <div class=\"module-card\" style=\"--red-gradient: linear-gradient(135deg, #a82dff 0%, #c85dff 100%);\">
+            <div class=\"module-icon\" style=\"background: linear-gradient(135deg, #a82dff 0%, #c85dff 100%);\">
+                <i class=\"fas fa-trophy\"></i>
+            </div>
+            <h3 class=\"module-title\">Participez aux Tournois</h3>
+            <p class=\"module-description\">
+                Inscrivez-vous aux tournois et gagnez des prix, de la reconnaissance et montez dans le classement.
+            </p>
+            <button class=\"btn btn-primary\" style=\"margin-top: auto; width: 100%;\">
+                <i class=\"fas fa-calendar-check\"></i>
+                Voir les tournois
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    // JavaScript spécifique à la page d'accueil
+    document.addEventListener('DOMContentLoaded', function() {
+        // Auto-update match scores for live matches
+        function updateLiveMatch() {
+            const liveScore = document.querySelector('.match-card .badge-upcoming + .match-date span');
+            if (liveScore && liveScore.textContent.includes('Map')) {
+                // Simulate score update (in real app, this would come from WebSocket)
+                const maps = liveScore.textContent.match(/(\\d+)\\/(\\d+)/);
+                if (maps && parseInt(maps[1]) < parseInt(maps[2])) {
+                    const currentMap = parseInt(maps[1]) + 1;
+                    liveScore.textContent = `Map \${currentMap}/\${maps[2]}`;
+                    
+                    // Add visual feedback
+                    liveScore.parentElement.style.color = 'var(--red)';
+                    setTimeout(() => {
+                        liveScore.parentElement.style.color = '';
+                    }, 1000);
+                }
+            }
+        }
+        
+        // Update every 30 seconds for demo purposes
+        setInterval(updateLiveMatch, 30000);
+        
+        // Count-up animation for stats
+        function animateCountUp() {
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach(stat => {
+                const finalValue = parseInt(stat.textContent.replace(/,/g, ''));
+                const duration = 2000;
+                const step = finalValue / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= finalValue) {
+                        stat.textContent = finalValue.toLocaleString();
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 16);
+            });
+        }
+        
+        // Start count-up when stats are visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCountUp();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+        
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+        
+        // Newsletter form handling
+        const newsletterForm = document.querySelector('.newsletter form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[name=\"email\"]').value;
+                
+                // Simulate form submission
+                const submitBtn = this.querySelector('button[type=\"submit\"]');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class=\"fas fa-spinner fa-spin\"></i> Inscription...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class=\"fas fa-check\"></i> Inscrit!';
+                    submitBtn.style.background = 'var(--green-gradient)';
+                    
+                    // Reset after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        submitBtn.style.background = '';
+                        this.reset();
+                    }, 3000);
+                }, 1500);
+            });
+        }
+    });
+</script>
+{% endblock %}", "acceuil/acceuil.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\acceuil\\acceuil.html.twig");
+    }
+}
