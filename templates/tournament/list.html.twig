@@ -1,0 +1,262 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phantom Force – Tournois{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .tournament-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 25px;
+        transition: var(--transition);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tournament-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--red);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .tournament-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--red-gradient);
+        opacity: 0;
+        transition: var(--transition);
+    }
+
+    .tournament-card:hover::before {
+        opacity: 1;
+    }
+
+    .game-badge {
+        background: var(--red-soft);
+        color: var(--red);
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .status-badge {
+        font-size: 11px;
+        font-weight: 800;
+        padding: 4px 10px;
+        border-radius: 50px;
+    }
+
+    .status-active { background: var(--green-gradient); color: black; }
+    .status-closed { background: var(--border); color: var(--text-muted); }
+
+    .tournament-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 15px 0 10px;
+        color: white;
+    }
+
+    .tournament-info {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .tournament-actions {
+        margin-top: auto;
+        display: flex;
+        gap: 10px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border-light);
+    }
+
+    .btn-action {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.05);
+        color: var(--text-muted);
+        border: 1px solid var(--border-light);
+        transition: var(--transition);
+    }
+
+    .btn-action:hover {
+        background: var(--red-soft);
+        color: var(--red);
+        border-color: var(--red);
+        transform: scale(1.1);
+    }
+
+    .btn-view {
+        flex-grow: 1;
+        background: transparent;
+        border: 1px solid var(--red);
+        color: var(--red);
+        padding: 8px;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 13px;
+        transition: var(--transition);
+    }
+
+    .btn-view:hover {
+        background: var(--red);
+        color: white;
+    }
+
+    .btn-view:hover {
+        background: var(--red);
+        color: white;
+    }
+
+    .filter-bar {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 40px;
+        backdrop-filter: blur(10px);
+    }
+
+    .form-control-pf {
+        background: rgba(0,0,0,0.3);
+        border: 1px solid var(--border-light);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        width: 100%;
+    }
+
+    .form-control-pf:focus {
+        border-color: var(--red);
+        outline: none;
+        box-shadow: 0 0 0 2px var(--red-soft);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="hero mb-5">
+        <h1 class="mb-3">NOS TOURNOIS</h1>
+        <p class="mb-5">Rejoignez l'élite, participez aux tournois les plus prestigieux et gagnez des récompenses légendaires.</p>
+        
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ path('app_tournament_new') }}" class="btn-organiser">
+                <i class="fas fa-plus-circle"></i> ORGANISER UN TOURNOI
+            </a>
+            <a href="{{ path('app_tournament_stats') }}" class="btn-secondary-pf">
+                <i class="fas fa-chart-bar text-danger"></i> STATISTIQUES GLOBALES
+            </a>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+        <form action="{{ path('app_tournaments') }}" method="get" class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label class="small text-muted mb-2">RECHERCHER</label>
+                <div class="position-relative">
+                    <input type="text" name="q" class="form-control-pf" placeholder="Nom du tournoi, jeu..." value="{{ searchQuery }}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="small text-muted mb-2">TRIER PAR</label>
+                <select name="sort" class="form-control-pf">
+                    <option value="startDate" {% if currentSort == 'startDate' %}selected{% endif %}>📅 Date de début</option>
+                    <option value="name" {% if currentSort == 'name' %}selected{% endif %}>🔤 Nom</option>
+                    <option value="game" {% if currentSort == 'game' %}selected{% endif %}>🎮 Jeu</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="small text-muted mb-2">ORDRE</label>
+                <select name="order" class="form-control-pf">
+                    <option value="DESC" {% if currentOrder == 'DESC' %}selected{% endif %}>DÉCROISSANT</option>
+                    <option value="ASC" {% if currentOrder == 'ASC' %}selected{% endif %}>CROISSANT</option>
+                </select>
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn-organiser py-2 flex-grow-1" style="font-size: 13px;">FILTRER</button>
+                <a href="{{ path('app_tournaments') }}" class="btn-action" style="flex-shrink: 0;"><i class="fas fa-sync-alt"></i></a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Grid -->
+    <div class="row g-4">
+        {% for tournament in tournaments %}
+            <div class="col-lg-4 col-md-6">
+                <div class="tournament-card">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <span class="game-badge">{{ tournament.game }}</span>
+                        {% if not tournament.isActive %}
+                            <span class="status-badge status-closed text-uppercase">Fermé</span>
+                        {% else %}
+                            <span class="status-badge status-active text-uppercase">Ouvert</span>
+                        {% endif %}
+                    </div>
+                    
+                    <h3 class="tournament-title">{{ tournament.name }}</h3>
+                    
+                    <div class="tournament-info">
+                        <i class="far fa-calendar-alt text-danger"></i>
+                        {{ tournament.startDate|date('d/m/Y') }} – {{ tournament.endDate|date('d/m/Y') }}
+                    </div>
+
+                    <div class="tournament-info">
+                        <i class="fas fa-layer-group text-danger"></i>
+                        {{ tournament.phase }}
+                    </div>
+                    
+                    <div class="tournament-actions">
+                        <a href="{{ path('app_tournament_detail', {'id': tournament.id}) }}" class="btn-view">VOIR PLUS</a>
+                        
+                        <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}" class="btn-action" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        
+                        <form method="post" action="{{ path('app_tournament_toggle', {'id': tournament.id}) }}" style="display:inline-block;">
+                            <button class="btn-action">
+                                <i class="fas {% if tournament.isActive %}fa-eye-slash{% else %}fa-eye{% endif %}"></i>
+                            </button>
+                        </form>
+
+                        <form method="post" action="{{ path('app_tournament_delete', {'id': tournament.id}) }}" onsubmit="return confirm('Supprimer ce tournoi ?');" style="display:inline-block;">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tournament.id) }}">
+                            <button class="btn-action">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="pf-card">
+                    <p class="text-muted mb-0">Aucun tournoi n'a été trouvé.</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
