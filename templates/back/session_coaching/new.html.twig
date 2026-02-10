@@ -1,0 +1,93 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Nouvelle Session de Coaching{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <h1><i class="fas fa-calendar-plus"></i> Nouvelle Session de Coaching</h1>
+    <a href="{{ path('app_back_coaching_session_manage') }}" class="btn-admin btn-admin-secondary">
+        <i class="fas fa-arrow-left"></i> Retour à la liste
+    </a>
+</div>
+
+<div class="admin-card">
+    {{ form_start(form, {'attr': {'class': 'form-admin'}}) }}
+    
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px;">
+        <div>
+            {{ form_label(form.coach_id, 'ID du Coach') }}
+            {{ form_widget(form.coach_id, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.coach_id) %}
+                <div class="text-danger mt-1">{{ form_errors(form.coach_id) }}</div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form_label(form.team_id, 'ID de l\'Équipe') }}
+            {{ form_widget(form.team_id, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.team_id) %}
+                <div class="text-danger mt-1">{{ form_errors(form.team_id) }}</div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        {{ form_label(form.training_plan, 'Plan d\'Entraînement') }}
+        {{ form_widget(form.training_plan, {'attr': {'class': 'form-control'}}) }}
+        {% if form_errors(form.training_plan) %}
+            <div class="text-danger mt-1">{{ form_errors(form.training_plan) }}</div>
+        {% endif %}
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 20px;">
+        <div>
+            {{ form_label(form.session_date, 'Date et Heure de Session') }}
+            {{ form_widget(form.session_date, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.session_date) %}
+                <div class="text-danger mt-1">{{ form_errors(form.session_date) }}</div>
+            {% endif %}
+        </div>
+        <div>
+            {{ form_label(form.duration, 'Durée (minutes)') }}
+            {{ form_widget(form.duration, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.duration) %}
+                <div class="text-danger mt-1">{{ form_errors(form.duration) }}</div>
+            {% endif %}
+            <small style="color: rgba(255, 255, 255, 0.6);">Doit être un multiple de 15 (15, 30, 45, etc.)</small>
+        </div>
+    </div>
+    
+    <div style="margin-bottom: 30px;">
+        {{ form_label(form.notes, 'Notes') }}
+        {{ form_widget(form.notes, {'attr': {'class': 'form-control', 'rows': 4}}) }}
+        {% if form_errors(form.notes) %}
+            <div class="text-danger mt-1">{{ form_errors(form.notes) }}</div>
+        {% endif %}
+        <small style="color: rgba(255, 255, 255, 0.6);">Pour les sessions de plus de 2 heures, des notes détaillées sont requises</small>
+    </div>
+    
+    <div style="background: rgba(0, 243, 255, 0.1); border-left: 3px solid var(--admin-accent); padding: 15px; margin-bottom: 20px; border-radius: 6px;">
+        <h4 style="color: var(--admin-accent); margin-bottom: 10px;"><i class="fas fa-info-circle"></i> Règles de Validation</h4>
+        <ul style="margin: 0; padding-left: 20px; color: rgba(255, 255, 255, 0.8);">
+            <li>Les sessions doivent être programmées entre 8h et 20h</li>
+            <li>Les sessions doivent commencer à l'heure ou à la demi-heure</li>
+            <li>Pas de sessions le week-end</li>
+            <li>Durée minimum : 15 minutes, maximum : 8 heures</li>
+            <li>Un coach ne peut pas avoir plus de 2 sessions le même jour</li>
+        </ul>
+    </div>
+    
+    <div style="display: flex; gap: 10px;">
+        <button type="submit" class="btn-admin btn-admin-primary">
+            <i class="fas fa-calendar-plus"></i> Créer la Session
+        </button>
+        <button type="reset" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-redo"></i> Réinitialiser
+        </button>
+        <a href="{{ path('app_back_coaching_session_manage') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-times"></i> Annuler
+        </a>
+    </div>
+    
+    {{ form_end(form) }}
+</div>
+{% endblock %}

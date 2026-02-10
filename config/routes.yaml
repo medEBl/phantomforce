@@ -1,5 +1,246 @@
 # config/routes.yaml
 
+# ==================== ANCIENNE CONFIGURATION ====================
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+# ==================== ROUTES SPÉCIFIQUES POUR COACHING ====================
+# Routes détaillées pour CoachingSessionController
+app_coaching_session_index:
+    path: /coaching/session
+    controller: App\Controller\CoachingSessionController::index
+    methods: GET
+
+app_coaching_session_new:
+    path: /coaching/session/new
+    controller: App\Controller\CoachingSessionController::new
+    methods: [GET, POST]
+
+app_coaching_session_show:
+    path: /coaching/session/{id}
+    controller: App\Controller\CoachingSessionController::show
+    methods: GET
+
+app_coaching_session_edit:
+    path: /coaching/session/{id}/edit
+    controller: App\Controller\CoachingSessionController::edit
+    methods: [GET, POST]
+
+app_coaching_session_delete:
+    path: /coaching/session/{id}
+    controller: App\Controller\CoachingSessionController::delete
+    methods: POST
+    
+
+app_training_plan_index:
+    path: /training/plan
+    controller: App\Controller\TrainingPlanController::index
+    methods: GET
+
+app_training_plan_new:
+    path: /training/plan/new
+    controller: App\Controller\TrainingPlanController::new
+    methods: [GET, POST]
+
+app_training_plan_show:
+    path: /training/plan/{id}
+    controller: App\Controller\TrainingPlanController::show
+    methods: GET
+
+app_training_plan_edit:
+    path: /training/plan/{id}/edit
+    controller: App\Controller\TrainingPlanController::edit
+    methods: [GET, POST]
+
+app_training_plan_delete:
+    path: /training/plan/{id}
+    controller: App\Controller\TrainingPlanController::delete
+    methods: POST
+
+app_agent_index:
+    path: /agent
+    controller: App\Controller\AgentController::index
+    methods: [GET]
+
+app_agent_new:
+    path: /agent/new
+    controller: App\Controller\AgentController::new
+    methods: [GET, POST]
+
+app_agent_show:
+    path: /agent/{id}
+    controller: App\Controller\AgentController::show
+    methods: [GET]
+
+app_agent_edit:
+    path: /agent/{id}/edit
+    controller: App\Controller\AgentController::edit
+    methods: [GET, POST]
+
+app_agent_delete:
+    path: /agent/{id}
+    controller: App\Controller\AgentController::delete
+    methods: [POST]
+
+front_agent_index:
+    path: /front/agents
+    controller: App\Controller\Front\AgentProfileController::index
+    methods: [GET]
+
+front_agent_new:
+    path: /front/agents/new
+    controller: App\Controller\Front\AgentProfileController::new
+    methods: [GET, POST]
+
+front_agent_show:
+    path: /front/agents/{id}
+    controller: App\Controller\Front\AgentProfileController::show
+    methods: [GET]
+
+front_agent_edit:
+    path: /front/agents/{id}/edit
+    controller: App\Controller\Front\AgentProfileController::edit
+    methods: [GET, POST]
+
+front_agent_delete:
+    path: /front/agents/{id}/delete
+    controller: App\Controller\Front\AgentProfileController::delete
+    methods: [POST]
+
+front_agent_questionnaire_show:
+    path: /front/agents/{id}/questionnaire
+    controller: App\Controller\Front\ReponseQuestionnaireController::show
+    methods: [GET]
+
+front_agent_questionnaire_edit:
+    path: /front/agents/{id}/questionnaire/edit
+    controller: App\Controller\Front\ReponseQuestionnaireController::edit
+    methods: [GET, POST]
+
+app_tournaments:
+    path: /tournaments
+    controller: App\Controller\TournamentFrontController::list
+    methods: [GET]
+
+app_tournament_new:
+    path: /tournament/new
+    controller: App\Controller\TournamentFrontController::new
+    methods: [GET, POST]
+
+app_tournament_edit:
+    path: /tournament/{id}/edit
+    controller: App\Controller\TournamentFrontController::edit
+    methods: [GET, POST]
+    requirements:
+        id: '\d+'
+
+app_tournament_delete:
+    path: /tournament/{id}/delete
+    controller: App\Controller\TournamentFrontController::delete
+    methods: [POST]
+    requirements:
+        id: '\d+'
+
+app_tournament_detail:
+    path: /tournament/{id}/detail
+    controller: App\Controller\TournamentFrontController::show
+    methods: [GET]
+    requirements:
+        id: '\d+'
+
+app_tournament_toggle:
+    path: /tournament/{id}/toggle
+    controller: App\Controller\TournamentFrontController::toggleStatus
+    methods: [POST]
+    requirements:
+        id: '\d+'
+
+app_tournament_stats:
+    path: /stats
+    controller: App\Controller\TournamentFrontController::statistics
+    methods: [GET]
+
+app_admin_reward_index:
+    path: /tournament/{tournamentId}/reward/
+    controller: App\Controller\Admin\TournamentRewardController::index
+    methods: [GET]
+
+app_admin_reward_new:
+    path: /tournament/{tournamentId}/reward/new
+    controller: App\Controller\Admin\TournamentRewardController::new
+    methods: [GET, POST]
+
+app_admin_reward_edit:
+    path: /tournament/{tournamentId}/reward/{id}/edit
+    controller: App\Controller\Admin\TournamentRewardController::edit
+    methods: [GET, POST]
+
+app_admin_reward_delete:
+    path: /tournament/{tournamentId}/reward/{id}
+    controller: App\Controller\Admin\TournamentRewardController::delete
+    methods: [POST]
+
+app_payment_index:
+    path: /payment
+    controller: App\Controller\PaymentController::index
+    methods: GET
+
+# Créer un nouveau paiement
+app_payment_new:
+    path: /payment/new
+    controller: App\Controller\PaymentController::new
+    methods: [GET, POST]
+
+# Afficher un paiement
+app_payment_show:
+    path: /payment/{id}
+    controller: App\Controller\PaymentController::show
+    methods: GET
+
+# Éditer un paiement
+app_payment_edit:
+    path: /payment/{id}/edit
+    controller: App\Controller\PaymentController::edit
+    methods: [GET, POST]
+
+# Supprimer un paiement
+app_payment_delete:
+    path: /payment/{id}
+    controller: App\Controller\PaymentController::delete
+    methods: POST
+
+app_shop_item_index:
+    path: /shop
+    controller: App\Controller\ShopItemController::index
+    methods: GET
+
+# Créer un nouvel article
+app_shop_item_new:
+    path: /shop/new
+    controller: App\Controller\ShopItemController::new
+    methods: [GET, POST]
+
+# Afficher un article
+app_shop_item_show:
+    path: /shop/{id}
+    controller: App\Controller\ShopItemController::show
+    methods: GET
+
+# Éditer un article
+app_shop_item_edit:
+    path: /shop/{id}/edit
+    controller: App\Controller\ShopItemController::edit
+    methods: [GET, POST]
+
+# Supprimer un article
+app_shop_item_delete:
+    path: /shop/{id}
+    controller: App\Controller\ShopItemController::delete
+    methods: POST
+
 # Routes existantes
 app_login:
     path: /login
@@ -79,16 +320,7 @@ admin_user_show:
     controller: App\Controller\Admin\AdminUserController::show
     methods: GET
 
-# Routes pour les futurs modules
-admin_match_index:
-    path: /admin/matches
-    controller: App\Controller\Admin\AdminMatchController::index
-    methods: GET
 
-admin_team_index:
-    path: /admin/teams
-    controller: App\Controller\Admin\AdminTeamController::index
-    methods: GET
 app_acceuil:
     path: /acceuil
     controller: App\Controller\AcceuilController::index
@@ -116,4 +348,38 @@ admin_user_bulk_actions:
 admin_user_stats:
     path: /admin/users/stats
     controller: App\Controller\Admin\AdminUserController::stats
+    methods: GET
+app_questionnaire_agent_index:
+    path: /questionnaire/agent/
+    controller: App\Controller\QuestionnaireAgentController::index
+    methods: [GET]
+
+app_questionnaire_agent_new:
+    path: /questionnaire/agent/new
+    controller: App\Controller\QuestionnaireAgentController::new
+    methods: [GET, POST]
+
+app_questionnaire_agent_show:
+    path: /questionnaire/agent/{id}
+    controller: App\Controller\QuestionnaireAgentController::show
+    methods: [GET]
+
+app_questionnaire_agent_edit:
+    path: /questionnaire/agent/{id}/edit
+    controller: App\Controller\QuestionnaireAgentController::edit
+    methods: [GET, POST]
+
+app_questionnaire_agent_delete:
+    path: /questionnaire/agent/{id}
+    controller: App\Controller\QuestionnaireAgentController::delete
+    methods: [POST]
+# Route pour la réunion de coaching
+app_coaching_session_meet:
+    path: /coaching/session/{id}/meet
+    controller: App\Controller\CoachingSessionController::meet
+    methods: GET
+
+app_map:
+    path: /map
+    controller: App\Controller\MapController::index
     methods: GET

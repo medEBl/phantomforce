@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BIENVENUE SUR PHANTOM FORCE{% endblock %}
+
+{% block hero %}
+<div class="hero-section">
+    <div class="container">
+        <h1 class="hero-title text-white">BIENVENUE SUR <span style="color: var(--pf-red);">PHANTOM FORCE</span></h1>
+        <p class="hero-subtitle">Plateforme eSport professionnelle • Gestion d'équipe • Coaching • Tournois</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="row g-4 mb-5">
+    <div class="col-md-3">
+        <div class="pf-card">
+            <div style="width: 40px; height: 40px; background: var(--pf-red); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                <i class="bi bi-trophy" style="font-size: 1.2rem;"></i>
+            </div>
+            <h2 class="fw-bold mb-0">24</h2>
+            <p class="text-muted small mb-0">Tournois gagnés</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="pf-card">
+            <div style="width: 40px; height: 40px; border: 1px solid var(--pf-border); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                <i class="bi bi-people" style="font-size: 1.2rem;"></i>
+            </div>
+            <h2 class="fw-bold mb-0">156</h2>
+            <p class="text-muted small mb-0">Joueurs actifs</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="pf-card">
+            <div style="width: 40px; height: 40px; background: var(--pf-red); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                <i class="bi bi-bullseye" style="font-size: 1.2rem;"></i>
+            </div>
+            <h2 class="fw-bold mb-0">89%</h2>
+            <p class="text-muted small mb-0">Objectifs complétés</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="pf-card">
+            <div style="width: 40px; height: 40px; border: 1px solid var(--pf-border); border-radius: 4px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                <i class="bi bi-graph-up-arrow" style="font-size: 1.2rem;"></i>
+            </div>
+            <h2 class="fw-bold mb-0">73%</h2>
+            <p class="text-muted small mb-0">Win Rate</p>
+        </div>
+    </div>
+</div>
+
+<h3 class="fw-bold mb-4">Matchs Récents</h3>
+<div class="pf-card p-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-4">
+            <span class="fw-bold">Phantom Force</span>
+            <span class="fs-3 fw-bold">16 : 12</span>
+            <span class="text-muted">Shadow Gaming</span>
+        </div>
+        <div>
+            <span class="badge bg-danger px-3 py-2 me-3" style="text-transform: uppercase;">Victoire</span>
+            <span class="text-muted small">23 Jan 2026</span>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-5">
+    <a href="{{ path('app_tournaments') }}" class="btn btn-pf-red btn-lg px-5">Voir tous les tournois</a>
+</div>
+{% endblock %}

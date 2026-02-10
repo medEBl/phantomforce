@@ -1,0 +1,92 @@
+{# templates/back/matchy/edit.html.twig #}
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Admin - Modifier le match #{{ matchy.id }}{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-2">Modifier le match #{{ matchy.id }}</h1>
+            <p class="mb-0 text-muted">{{ matchy.game }} - {{ matchy.team1.name|default('Équipe 1') }} vs {{ matchy.team2.name|default('Équipe 2') }}</p>
+        </div>
+        <a href="{{ path('app_back_matchy_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+    </div>
+</div>
+
+<div class="admin-card">
+    {{ form_start(form, {'attr': {'class': 'form-admin'}}) }}
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.game, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.game, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.match_date, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.match_date, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.team1, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.team1, {'attr': {'class': 'form-select'}}) }}
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.team2, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.team2, {'attr': {'class': 'form-select'}}) }}
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.score_team1, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.score_team1, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.score_team2, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.score_team2, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.status, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.status, {'attr': {'class': 'form-select'}}) }}
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.winner_team, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.winner_team, {'attr': {'class': 'form-select'}}) }}
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <button type="submit" class="btn-admin btn-admin-primary">
+            <i class="fas fa-save"></i> Enregistrer les modifications
+        </button>
+        
+        <a href="{{ path('app_back_matchy_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-times"></i> Annuler
+        </a>
+    </div>
+    
+    {{ form_end(form) }}
+</div>
+
+<!-- Section de suppression -->
+<div class="admin-card mt-3" style="border-color: var(--admin-danger); background: rgba(255, 0, 60, 0.05);">
+    <h5 class="mb-3"><i class="fas fa-exclamation-triangle me-2"></i>Zone de suppression</h5>
+    <p class="text-muted mb-3">
+        Cette action supprimera définitivement le match et toutes ses données associées.
+    </p>
+    
+    <form method="post" action="{{ path('app_back_matchy_delete', {'id': matchy.id}) }}" 
+          onsubmit="return confirm('Êtes-vous ABSOLUMENT SÛR de vouloir supprimer ce match ?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matchy.id) }}">
+        <button type="submit" class="btn-admin btn-admin-danger">
+            <i class="fas fa-trash"></i> Supprimer définitivement ce match
+        </button>
+    </form>
+</div>
+{% endblock %}

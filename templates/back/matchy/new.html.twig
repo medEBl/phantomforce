@@ -1,0 +1,76 @@
+{# templates/back/matchy/new.html.twig #}
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Admin - Nouveau match{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-2">Créer un nouveau match</h1>
+            <p class="mb-0 text-muted">Ajoutez un match à l'arène e-sport</p>
+        </div>
+        <a href="{{ path('app_back_matchy_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+    </div>
+</div>
+
+<div class="admin-card">
+    {{ form_start(form, {'attr': {'class': 'form-admin'}}) }}
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.game, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.game, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.match_date, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.match_date, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.team1, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.team1, {'attr': {'class': 'form-select'}}) }}
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.team2, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.team2, {'attr': {'class': 'form-select'}}) }}
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.score_team1, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.score_team1, {'attr': {'class': 'form-control', 'placeholder': '0'}}) }}
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.score_team2, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.score_team2, {'attr': {'class': 'form-control', 'placeholder': '0'}}) }}
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.status, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.status, {'attr': {'class': 'form-select'}}) }}
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.winner_team, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.winner_team, {'attr': {'class': 'form-select'}}) }}
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <button type="submit" class="btn-admin btn-admin-primary">
+            <i class="fas fa-save"></i> Créer le match
+        </button>
+        
+        <a href="{{ path('app_back_matchy_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-times"></i> Annuler
+        </a>
+    </div>
+    
+    {{ form_end(form) }}
+</div>
+{% endblock %}

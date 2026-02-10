@@ -1,0 +1,8 @@
+<form method="post" action="{{ path('app_matchy_delete', {'id': matchy.id}) }}" 
+      onsubmit="return confirm('⚠️ Êtes-vous sûr de vouloir supprimer ce match ? Cette action est irréversible.');"
+      style="display: inline;">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matchy.id) }}">
+    <button type="submit" class="form-btn delete-btn-form">
+        🗑️ SUPPRIMER DÉFINITIVEMENT
+    </button>
+</form>

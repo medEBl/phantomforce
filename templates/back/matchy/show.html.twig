@@ -1,0 +1,166 @@
+{# templates/back/matchy/show.html.twig #}
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Admin - Match #{{ matchy.id }}{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-2">Détails du match</h1>
+            <p class="mb-0 text-muted">Match #{{ matchy.id }} - {{ matchy.game }}</p>
+        </div>
+        <div>
+            <a href="{{ path('app_back_matchy_index') }}" class="btn-admin btn-admin-secondary">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Informations principales -->
+    <div class="col-md-8">
+        <div class="admin-card">
+            <h5 class="mb-3"><i class="fas fa-info-circle me-2"></i>Informations du match</h5>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="text-muted">Jeu</label>
+                    <p class="h5">{{ matchy.game }}</p>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label class="text-muted">Date du match</label>
+                    <p class="h5">
+                        {% if matchy.matchDate %}
+                            {{ matchy.matchDate|date('d/m/Y à H:i') }}
+                        {% else %}
+                            <span class="text-muted">Non définie</span>
+                        {% endif %}
+                    </p>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label class="text-muted">Statut</label>
+                    <p>
+                        {% if matchy.status == 'planned' %}
+                            <span class="badge-admin badge-planned">Planifié</span>
+                        {% elseif matchy.status == 'ongoing' %}
+                            <span class="badge-admin badge-ongoing">En cours</span>
+                        {% elseif matchy.status == 'finished' %}
+                            <span class="badge-admin badge-finished">Terminé</span>
+                        {% elseif matchy.status == 'cancelled' %}
+                            <span class="badge-admin badge-cancelled">Annulé</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scores -->
+        <div class="admin-card">
+            <h5 class="mb-3"><i class="fas fa-chart-bar me-2"></i>Scores</h5>
+            
+            <div class="row text-center">
+                <div class="col-md-5">
+                    <div class="py-3">
+                        <h3 class="mb-2">{{ matchy.team1.name|default('Équipe 1') }}</h3>
+                        <div class="display-4" style="color: var(--admin-accent);">
+                            {{ matchy.scoreTeam1 ?? '0' }}
+                        </div>
+                        {% if matchy.winnerTeam and matchy.winnerTeam.id == matchy.team1.id %}
+                            <div class="mt-2">
+                                <span class="badge-admin badge-finished">
+                                    <i class="fas fa-crown"></i> GAGNANT
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="col-md-2 d-flex align-items-center justify-content-center">
+                    <div class="display-5">VS</div>
+                </div>
+                
+                <div class="col-md-5">
+                    <div class="py-3">
+                        <h3 class="mb-2">{{ matchy.team2.name|default('Équipe 2') }}</h3>
+                        <div class="display-4" style="color: var(--admin-accent);">
+                            {{ matchy.scoreTeam2 ?? '0' }}
+                        </div>
+                        {% if matchy.winnerTeam and matchy.winnerTeam.id == matchy.team2.id %}
+                            <div class="mt-2">
+                                <span class="badge-admin badge-finished">
+                                    <i class="fas fa-crown"></i> GAGNANT
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="col-md-4">
+        <div class="admin-card">
+            <h5 class="mb-3"><i class="fas fa-cogs me-2"></i>Actions</h5>
+            
+            <div class="d-grid gap-2">
+                <a href="{{ path('app_back_matchy_edit', {'id': matchy.id}) }}" 
+                   class="btn-admin btn-admin-primary">
+                    <i class="fas fa-edit"></i> Modifier ce match
+                </a>
+                
+                <a href="{{ path('app_matchy_show', {'id': matchy.id}) }}" 
+                   class="btn-admin btn-admin-secondary" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Voir sur le site
+                </a>
+                
+                <hr class="my-2">
+                
+                <form method="post" action="{{ path('app_back_matchy_delete', {'id': matchy.id}) }}" 
+                      onsubmit="return confirm('Supprimer définitivement ce match ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ matchy.id) }}">
+                    <button type="submit" class="btn-admin btn-admin-danger w-100">
+                        <i class="fas fa-trash"></i> Supprimer ce match
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Équipes -->
+        <div class="admin-card">
+            <h5 class="mb-3"><i class="fas fa-users me-2"></i>Équipes</h5>
+            
+            <div class="mb-3">
+                <label class="text-muted">Équipe 1</label>
+                <p class="mb-1">
+                    <strong>{{ matchy.team1.name|default('N/A') }}</strong>
+                </p>
+                {% if matchy.team1 and matchy.team1.game %}
+                    <small class="text-muted">Jeu: {{ matchy.team1.game }}</small>
+                {% endif %}
+            </div>
+            
+            <div class="mb-3">
+                <label class="text-muted">Équipe 2</label>
+                <p class="mb-1">
+                    <strong>{{ matchy.team2.name|default('N/A') }}</strong>
+                </p>
+                {% if matchy.team2 and matchy.team2.game %}
+                    <small class="text-muted">Jeu: {{ matchy.team2.game }}</small>
+                {% endif %}
+            </div>
+            
+            {% if matchy.winnerTeam %}
+                <div class="alert" style="background: rgba(0, 255, 136, 0.1); border-color: var(--admin-success);">
+                    <i class="fas fa-crown me-2"></i>
+                    <strong>Gagnant:</strong> {{ matchy.winnerTeam.name }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
