@@ -93,3 +93,27 @@ app_acceuil:
     path: /acceuil
     controller: App\Controller\AcceuilController::index
     methods: GET
+admin_user_export:
+    path: /admin/users/export
+    controller: App\Controller\Admin\AdminUserController::export
+    methods: GET
+admin_user_export_csv:
+    path: /admin/users/export/csv
+    controller: App\Controller\Admin\AdminUserController::exportCsv
+    methods: GET
+admin_user_export_pdf:
+    path: /admin/users/export/pdf
+    controller: App\Controller\Admin\AdminUserController::exportPdf
+    methods: GET
+admin_user_toggle_status:
+    path: /admin/users/{id}/toggle-status
+    controller: App\Controller\Admin\AdminUserController::toggleStatus
+    methods: POST
+admin_user_bulk_actions:
+    path: /admin/users/bulk/actions
+    controller: App\Controller\Admin\AdminUserController::bulkActions
+    methods: POST
+admin_user_stats:
+    path: /admin/users/stats
+    controller: App\Controller\Admin\AdminUserController::stats
+    methods: GET
