@@ -1,0 +1,89 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Admin - Gestion des équipes{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-2">👥 Gestion des équipes</h1>
+            <p class="mb-0 text-muted">Administrez les équipes de l'arène e-sport</p>
+        </div>
+        <a href="{{ path('app_back_team_new') }}" class="btn-admin btn-admin-primary">
+            <i class="fas fa-plus"></i> Nouvelle équipe
+        </a>
+    </div>
+</div>
+
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Jeu</th>
+                    <th>Date création</th>
+                    <th>Coach</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in teams %}
+                <tr>
+                    <td><strong>#{{ team.id }}</strong></td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-users me-2"></i>
+                            {{ team.name }}
+                        </div>
+                    </td>
+                    <td>{{ team.game|default('N/A') }}</td>
+                    <td>
+                        {% if team.creationDate %}
+                            {{ team.creationDate|date('d/m/Y') }}
+                        {% else %}
+                            <span class="text-muted">N/A</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ team.coach|default('N/A') }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="{{ path('app_back_team_show', {'id': team.id}) }}" 
+                               class="btn-admin btn-admin-secondary btn-sm">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ path('app_back_team_edit', {'id': team.id}) }}" 
+                               class="btn-admin btn-admin-primary btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form method="post" action="{{ path('app_back_team_delete', {'id': team.id}) }}" 
+                                  onsubmit="return confirm('Supprimer cette équipe ?');"
+                                  class="d-inline">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ team.id) }}">
+                                <button type="submit" class="btn-admin btn-admin-danger btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center py-4">
+                        <div class="py-4">
+                            <i class="fas fa-users fa-3x mb-3" style="color: rgba(255,255,255,0.1);"></i>
+                            <h5 class="text-muted">Aucune équipe trouvée</h5>
+                            <p class="text-muted">Commencez par créer une nouvelle équipe</p>
+                            <a href="{{ path('app_back_team_new') }}" class="btn-admin btn-admin-primary">
+                                <i class="fas fa-plus"></i> Créer la première équipe
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

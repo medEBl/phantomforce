@@ -1,0 +1,136 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Détails du Plan d'Entraînement{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <h1><i class="fas fa-dumbbell"></i> Détails du Plan d'Entraînement</h1>
+    <div style="display: flex; gap: 10px;">
+        <a href="{{ path('app_back_training_plan_manage') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+        </a>
+        <a href="{{ path('app_back_training_plan_edit', {'id': training_plan.id}) }}" class="btn-admin btn-admin-primary">
+            <i class="fas fa-edit"></i> Modifier
+        </a>
+    </div>
+</div>
+
+<div class="admin-card">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div>
+            <div style="margin-bottom: 20px;">
+                <label style="color: var(--admin-accent); font-weight: 600; display: block; margin-bottom: 5px;">ID</label>
+                <div class="info-value">{{ training_plan.id }}</div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="color: var(--admin-accent); font-weight: 600; display: block; margin-bottom: 5px;">Titre</label>
+                <div class="info-value">{{ training_plan.title }}</div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="color: var(--admin-accent); font-weight: 600; display: block; margin-bottom: 5px;">Coach ID</label>
+                <div class="info-value">{{ training_plan.coachId }}</div>
+            </div>
+        </div>
+        
+        <div>
+            <div style="margin-bottom: 20px;">
+                <label style="color: var(--admin-accent); font-weight: 600; display: block; margin-bottom: 5px;">Zone de Focus</label>
+                <span class="badge-admin" style="background: rgba(0, 243, 255, 0.2); color: var(--admin-accent);">
+                    {{ training_plan.focusArea }}
+                </span>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="color: var(--admin-accent); font-weight: 600; display: block; margin-bottom: 5px;">Niveau de Difficulté</label>
+                {% set difficultyColors = {
+                    'Débutant': '#4CAF50',
+                    'Intermédiaire': '#2196F3',
+                    'Avancé': '#FF9800',
+                    'Expert': '#F44336',
+                    'Professionnel': '#9C27B0'
+                } %}
+                <span class="badge-admin" style="background: {{ difficultyColors[training_plan.difficultyLevel] }}20; color: {{ difficultyColors[training_plan.difficultyLevel] }};">
+                    {{ training_plan.difficultyLevel }}
+                </span>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="color: var(--admin-accent); font-weight: 600; display: block; margin-bottom: 5px;">Date de Création</label>
+                <div class="info-value">{{ training_plan.createdAt|date('d/m/Y à H:i') }}</div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px; margin-bottom: 20px;">
+        <label style="color: var(--admin-accent); font-weight: 600; display: block; margin-bottom: 5px;">Description</label>
+        <div class="info-value" style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 6px; border-left: 3px solid var(--admin-accent);">
+            {{ training_plan.description|nl2br }}
+        </div>
+    </div>
+</div>
+
+<div class="admin-card">
+    <h3><i class="fas fa-calendar-check"></i> Sessions de Coaching Associées ({{ training_plan.coachingSessions|length }})</h3>
+    
+    {% if training_plan.coachingSessions|length > 0 %}
+        <div class="table-responsive" style="margin-top: 15px;">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Coach ID</th>
+                        <th>Équipe ID</th>
+                        <th>Durée</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in training_plan.coachingSessions %}
+                    <tr>
+                        <td>{{ session.id }}</td>
+                        <td>{{ session.sessionDate|date('d/m/Y H:i') }}</td>
+                        <td>{{ session.coachId }}</td>
+                        <td>{{ session.teamId }}</td>
+                        <td>{{ session.duration }} min</td>
+                        <td>
+                            {% if session.sessionDate > date() %}
+                                <span class="badge-admin badge-planned">Planifiée</span>
+                            {% else %}
+                                <span class="badge-admin badge-finished">Terminée</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_back_coaching_session_show', {'id': session.id}) }}" 
+                               class="btn-admin btn-admin-secondary" style="padding: 5px 10px; font-size: 0.9rem;">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 20px; color: rgba(255, 255, 255, 0.5);">
+            <i class="fas fa-calendar-times" style="font-size: 2rem; margin-bottom: 10px;"></i>
+            <p>Aucune session de coaching associée à ce plan.</p>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+.info-value {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+</style>
+{% endblock %}
