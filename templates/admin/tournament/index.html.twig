@@ -22,44 +22,44 @@
         <div class="col-md-2">
             <label class="small text-muted mb-2">JEU</label>
             <select name="game" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
-                <option value="">Tous les jeux</option>
-                <option value="Valorant" {% if filters.game|default('') == 'Valorant' %}selected{% endif %}>Valorant</option>
-                <option value="CS:GO" {% if filters.game|default('') == 'CS:GO' %}selected{% endif %}>CS:GO</option>
-                <option value="League of Legends" {% if filters.game|default('') == 'League of Legends' %}selected{% endif %}>League of Legends</option>
-                <option value="Rocket League" {% if filters.game|default('') == 'Rocket League' %}selected{% endif %}>Rocket League</option>
+                <option value="" style="background: #1a1a1a; color: white;">Tous les jeux</option>
+                <option value="Valorant" {% if filters.game|default('') == 'Valorant' %}selected{% endif %} style="background: #1a1a1a; color: white;">Valorant</option>
+                <option value="CS:GO" {% if filters.game|default('') == 'CS:GO' %}selected{% endif %} style="background: #1a1a1a; color: white;">CS:GO</option>
+                <option value="League of Legends" {% if filters.game|default('') == 'League of Legends' %}selected{% endif %} style="background: #1a1a1a; color: white;">League of Legends</option>
+                <option value="Rocket League" {% if filters.game|default('') == 'Rocket League' %}selected{% endif %} style="background: #1a1a1a; color: white;">Rocket League</option>
             </select>
         </div>
         <div class="col-md-2">
             <label class="small text-muted mb-2">PHASE</label>
             <select name="phase" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
-                <option value="">Toutes les phases</option>
-                <option value="Inscriptions" {% if filters.phase|default('') == 'Inscriptions' %}selected{% endif %}>Inscriptions</option>
-                <option value="Qualifications" {% if filters.phase|default('') == 'Qualifications' %}selected{% endif %}>Qualifications</option>
-                <option value="Playoffs" {% if filters.phase|default('') == 'Playoffs' %}selected{% endif %}>Playoffs</option>
-                <option value="Finale" {% if filters.phase|default('') == 'Finale' %}selected{% endif %}>Finale</option>
+                <option value="" style="background: #1a1a1a; color: white;">Toutes les phases</option>
+                <option value="Inscriptions" {% if filters.phase|default('') == 'Inscriptions' %}selected{% endif %} style="background: #1a1a1a; color: white;">Inscriptions</option>
+                <option value="Qualifications" {% if filters.phase|default('') == 'Qualifications' %}selected{% endif %} style="background: #1a1a1a; color: white;">Qualifications</option>
+                <option value="Playoffs" {% if filters.phase|default('') == 'Playoffs' %}selected{% endif %} style="background: #1a1a1a; color: white;">Playoffs</option>
+                <option value="Finale" {% if filters.phase|default('') == 'Finale' %}selected{% endif %} style="background: #1a1a1a; color: white;">Finale</option>
             </select>
         </div>
         <div class="col-md-2">
             <label class="small text-muted mb-2">STATUT</label>
             <select name="isActive" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
-                <option value="">Tous les statuts</option>
-                <option value="1" {% if filters.isActive|default('') == '1' %}selected{% endif %}>Actif</option>
-                <option value="0" {% if filters.isActive|default('') == '0' %}selected{% endif %}>Inactif</option>
+                <option value="" style="background: #1a1a1a; color: white;">Tous les statuts</option>
+                <option value="1" {% if filters.isActive|default('') == '1' %}selected{% endif %} style="background: #1a1a1a; color: white;">Actif</option>
+                <option value="0" {% if filters.isActive|default('') == '0' %}selected{% endif %} style="background: #1a1a1a; color: white;">Inactif</option>
             </select>
         </div>
         <div class="col-md-2">
             <label class="small text-muted mb-2">TRIER PAR</label>
             <select name="sort" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
-                <option value="startDate" {% if currentSort == 'startDate' %}selected{% endif %}>Date de début</option>
-                <option value="name" {% if currentSort == 'name' %}selected{% endif %}>Nom</option>
-                <option value="game" {% if currentSort == 'game' %}selected{% endif %}>Jeu</option>
+                <option value="startDate" {% if currentSort == 'startDate' %}selected{% endif %} style="background: #1a1a1a; color: white;">Date de début</option>
+                <option value="name" {% if currentSort == 'name' %}selected{% endif %} style="background: #1a1a1a; color: white;">Nom</option>
+                <option value="game" {% if currentSort == 'game' %}selected{% endif %} style="background: #1a1a1a; color: white;">Jeu</option>
             </select>
         </div>
         <div class="col-md-1">
             <label class="small text-muted mb-2">ORDRE</label>
             <select name="order" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
-                <option value="DESC" {% if currentOrder == 'DESC' %}selected{% endif %}>DESC</option>
-                <option value="ASC" {% if currentOrder == 'ASC' %}selected{% endif %}>ASC</option>
+                <option value="DESC" {% if currentOrder == 'DESC' %}selected{% endif %} style="background: #1a1a1a; color: white;">DESC</option>
+                <option value="ASC" {% if currentOrder == 'ASC' %}selected{% endif %} style="background: #1a1a1a; color: white;">ASC</option>
             </select>
         </div>
 
