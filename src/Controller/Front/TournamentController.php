@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Front;
 
 use App\Repository\TournamentRepository;
 use App\Service\NotificationService;
@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class TournamentFrontController extends AbstractController
+class TournamentController extends AbstractController
 {
     #[Route('/tournaments', name: 'app_tournaments')]
     public function list(Request $request, TournamentRepository $tournamentRepository): Response

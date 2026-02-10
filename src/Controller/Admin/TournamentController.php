@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin/tournament')]
-class AdminTournamentController extends AbstractController
+class TournamentController extends AbstractController
 {
     #[Route('/', name: 'app_back_matchy_index', methods: ['GET'])]
     public function index(Request $request, TournamentRepository $tournamentRepository): Response

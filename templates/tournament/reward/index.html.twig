@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phantom Force – Récompenses: {{ tournament.name }}{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .reward-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .reward-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+    }
+
+    .reward-header {
+        background: var(--red-soft);
+        padding: 30px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .reward-body {
+        padding: 30px;
+    }
+
+    .reward-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+
+    .reward-table th {
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 1px;
+        padding: 10px 20px;
+        text-align: left;
+    }
+
+    .reward-row {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--border-light);
+        transition: var(--transition);
+    }
+
+    .reward-row:hover {
+        background: rgba(255,255,255,0.05);
+        transform: scale(1.01);
+    }
+
+    .reward-cell {
+        padding: 15px 20px;
+        color: white;
+        font-weight: 500;
+    }
+
+    .reward-rank {
+        font-weight: 800;
+        color: var(--red);
+        font-size: 18px;
+    }
+
+    .reward-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+
+    .btn-action {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: var(--transition);
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn-edit { background: rgba(255,255,255,0.1); }
+    .btn-edit:hover { background: var(--red); }
+    .btn-delete { background: rgba(255,0,0,0.1); color: var(--red); }
+    .btn-delete:hover { background: var(--red); color: white; }
+
+    .empty-state {
+        padding: 40px;
+        text-align: center;
+        color: var(--text-muted);
+        border: 1px dashed var(--border);
+        border-radius: var(--radius);
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container py-5 reward-container">
+    <div class="mb-4">
+        <a href="{{ path('app_tournament_detail', {id: tournament.id}) }}" class="text-muted text-decoration-none small">
+            <i class="fas fa-arrow-left me-1"></i> Retour au tournoi
+        </a>
+    </div>
+
+    <div class="reward-card">
+        <div class="reward-header">
+            <div>
+                <h1 class="h4 fw-bold text-white mb-0">Récompenses</h1>
+                <p class="text-muted small mb-0">{{ tournament.name }}</p>
+            </div>
+            <a href="{{ path('app_tournament_reward_new', {tournamentId: tournament.id}) }}" class="btn-organiser">
+                <i class="fas fa-plus me-1"></i> AJOUTER
+            </a>
+        </div>
+
+        <div class="reward-body">
+            {% if rewards is not empty %}
+                <table class="reward-table">
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Type</th>
+                            <th>Valeur</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reward in rewards|sort((a,b) => a.rank <=> b.rank) %}
+                            <tr class="reward-row">
+                                <td class="reward-cell reward-rank">#{{ reward.rank }}</td>
+                                <td class="reward-cell">{{ reward.rewardType }}</td>
+                                <td class="reward-cell text-white fw-bold">{{ reward.rewardValue }}</td>
+                                <td class="reward-cell text-end">
+                                    <div class="reward-actions">
+                                        <a href="{{ path('app_tournament_reward_edit', {tournamentId: tournament.id, id: reward.id}) }}" class="btn-action btn-edit" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form method="post" action="{{ path('app_tournament_reward_delete', {tournamentId: tournament.id, id: reward.id}) }}" style="display:inline-block" onsubmit="return confirm('Supprimer cette récompense ?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reward.id) }}">
+                                            <button class="btn-action btn-delete" style="border:none; cursor:pointer;" title="Supprimer">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="empty-state">
+                    <i class="fas fa-trophy fa-3x mb-3" style="opacity: 0.2"></i>
+                    <p>Aucune récompense n'a encore été ajoutée.</p>
+                    <a href="{{ path('app_tournament_reward_new', {tournamentId: tournament.id}) }}" class="btn btn-sm btn-outline-danger mt-2">
+                        Créer la première récompense
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
