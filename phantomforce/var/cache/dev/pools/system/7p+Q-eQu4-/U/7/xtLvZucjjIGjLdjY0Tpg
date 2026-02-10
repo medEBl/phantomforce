@@ -1,0 +1,210 @@
+<?php //this.getWinnerTeam%2528%2529%2520%253D%253D%2520null%2520or%2520this.getWinnerTeam%2528%2529%2520%253D%253D%2520this.getTeam1%2528%2529%2520or%2520this.getWinnerTeam%2528%2529%2520%253D%253D%2520this.getTeam2%2528%2529%252F%252Fthis%257Cvalue
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Symfony\\Component\\ExpressionLanguage\\ParsedExpression'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\ExpressionLanguage\\ParsedExpression')),
+        clone ($p['Symfony\\Component\\ExpressionLanguage\\Node\\BinaryNode'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\ExpressionLanguage\\Node\\BinaryNode')),
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\BinaryNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\BinaryNode'],
+        clone ($p['Symfony\\Component\\ExpressionLanguage\\Node\\GetAttrNode'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\ExpressionLanguage\\Node\\GetAttrNode')),
+        clone ($p['Symfony\\Component\\ExpressionLanguage\\Node\\NameNode'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\ExpressionLanguage\\Node\\NameNode')),
+        clone ($p['Symfony\\Component\\ExpressionLanguage\\Node\\ConstantNode'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\ExpressionLanguage\\Node\\ConstantNode')),
+        clone ($p['Symfony\\Component\\ExpressionLanguage\\Node\\ArgumentsNode'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\ExpressionLanguage\\Node\\ArgumentsNode')),
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\ConstantNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\BinaryNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\GetAttrNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\NameNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\ConstantNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\ArgumentsNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\GetAttrNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\NameNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\ConstantNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\ArgumentsNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\BinaryNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\GetAttrNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\NameNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\ConstantNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\ArgumentsNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\GetAttrNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\NameNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\ConstantNode'],
+        clone $p['Symfony\\Component\\ExpressionLanguage\\Node\\ArgumentsNode'],
+    ],
+    null,
+    [
+        'Symfony\\Component\\ExpressionLanguage\\Expression' => [
+            'expression' => [
+                'this.getWinnerTeam() == null or this.getWinnerTeam() == this.getTeam1() or this.getWinnerTeam() == this.getTeam2()',
+            ],
+        ],
+        'Symfony\\Component\\ExpressionLanguage\\ParsedExpression' => [
+            'nodes' => [
+                $o[1],
+            ],
+        ],
+        'stdClass' => [
+            'nodes' => [
+                1 => [
+                    'left' => $o[2],
+                    'right' => $o[18],
+                ],
+                [
+                    'left' => $o[3],
+                    'right' => $o[9],
+                ],
+                [
+                    'left' => $o[4],
+                    'right' => $o[8],
+                ],
+                9 => [
+                    'left' => $o[10],
+                    'right' => $o[14],
+                ],
+                18 => [
+                    'left' => $o[19],
+                    'right' => $o[23],
+                ],
+            ],
+            'attributes' => [
+                1 => [
+                    'operator' => 'or',
+                ],
+                [
+                    'operator' => 'or',
+                ],
+                [
+                    'operator' => '==',
+                ],
+                5 => [
+                    'name' => 'this',
+                ],
+                [
+                    'value' => 'getWinnerTeam',
+                ],
+                8 => [
+                    'value' => null,
+                ],
+                [
+                    'operator' => '==',
+                ],
+                11 => [
+                    'name' => 'this',
+                ],
+                [
+                    'value' => 'getWinnerTeam',
+                ],
+                15 => [
+                    'name' => 'this',
+                ],
+                [
+                    'value' => 'getTeam1',
+                ],
+                18 => [
+                    'operator' => '==',
+                ],
+                20 => [
+                    'name' => 'this',
+                ],
+                [
+                    'value' => 'getWinnerTeam',
+                ],
+                24 => [
+                    'name' => 'this',
+                ],
+                [
+                    'value' => 'getTeam2',
+                ],
+            ],
+        ],
+        'Symfony\\Component\\ExpressionLanguage\\Node\\ConstantNode' => [
+            'isNullSafe' => [
+                6 => false,
+                8 => false,
+                12 => false,
+                16 => false,
+                21 => false,
+                25 => false,
+            ],
+            'isIdentifier' => [
+                6 => true,
+                8 => false,
+                12 => true,
+                16 => true,
+                21 => true,
+                25 => true,
+            ],
+        ],
+        'Symfony\\Component\\ExpressionLanguage\\Node\\ArrayNode' => [
+            'index' => [
+                7 => -1,
+                13 => -1,
+                17 => -1,
+                22 => -1,
+                26 => -1,
+            ],
+        ],
+    ],
+    $o[0],
+    [
+        -4 => [
+            'nodes' => [
+                'node' => $o[5],
+                'attribute' => $o[6],
+                'arguments' => $o[7],
+            ],
+            'attributes' => [
+                'type' => 2,
+                'is_null_coalesce' => false,
+                'is_short_circuited' => false,
+            ],
+        ],
+        -10 => [
+            'nodes' => [
+                'node' => $o[11],
+                'attribute' => $o[12],
+                'arguments' => $o[13],
+            ],
+            'attributes' => [
+                'type' => 2,
+                'is_null_coalesce' => false,
+                'is_short_circuited' => false,
+            ],
+        ],
+        -14 => [
+            'nodes' => [
+                'node' => $o[15],
+                'attribute' => $o[16],
+                'arguments' => $o[17],
+            ],
+            'attributes' => [
+                'type' => 2,
+                'is_null_coalesce' => false,
+                'is_short_circuited' => false,
+            ],
+        ],
+        -19 => [
+            'nodes' => [
+                'node' => $o[20],
+                'attribute' => $o[21],
+                'arguments' => $o[22],
+            ],
+            'attributes' => [
+                'type' => 2,
+                'is_null_coalesce' => false,
+                'is_short_circuited' => false,
+            ],
+        ],
+        -23 => [
+            'nodes' => [
+                'node' => $o[24],
+                'attribute' => $o[25],
+                'arguments' => $o[26],
+            ],
+            'attributes' => [
+                'type' => 2,
+                'is_null_coalesce' => false,
+                'is_short_circuited' => false,
+            ],
+        ],
+    ]
+); }];
