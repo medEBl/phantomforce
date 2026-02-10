@@ -14,31 +14,76 @@
 </div>
 
 <div class="admin-card mb-4">
-    <form action="{{ path('app_back_matchy_index') }}" method="get" class="row g-3">
-        <div class="col-md-5">
-            <input type="text" name="q" class="form-control" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;" placeholder="Rechercher par nom ou jeu..." value="{{ searchQuery }}">
-        </div>
+    <form id="filterForm" action="{{ path('app_back_matchy_index') }}" method="get" class="row g-3">
         <div class="col-md-3">
+            <label class="small text-muted mb-2">RECHERCHE</label>
+            <input type="text" name="query" class="form-control" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;" placeholder="Nom ou jeu..." value="{{ searchQuery }}">
+        </div>
+        <div class="col-md-2">
+            <label class="small text-muted mb-2">JEU</label>
+            <select name="game" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                <option value="">Tous les jeux</option>
+                <option value="Valorant" {% if filters.game|default('') == 'Valorant' %}selected{% endif %}>Valorant</option>
+                <option value="CS:GO" {% if filters.game|default('') == 'CS:GO' %}selected{% endif %}>CS:GO</option>
+                <option value="League of Legends" {% if filters.game|default('') == 'League of Legends' %}selected{% endif %}>League of Legends</option>
+                <option value="Rocket League" {% if filters.game|default('') == 'Rocket League' %}selected{% endif %}>Rocket League</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="small text-muted mb-2">PHASE</label>
+            <select name="phase" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                <option value="">Toutes les phases</option>
+                <option value="Inscriptions" {% if filters.phase|default('') == 'Inscriptions' %}selected{% endif %}>Inscriptions</option>
+                <option value="Qualifications" {% if filters.phase|default('') == 'Qualifications' %}selected{% endif %}>Qualifications</option>
+                <option value="Playoffs" {% if filters.phase|default('') == 'Playoffs' %}selected{% endif %}>Playoffs</option>
+                <option value="Finale" {% if filters.phase|default('') == 'Finale' %}selected{% endif %}>Finale</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="small text-muted mb-2">STATUT</label>
+            <select name="isActive" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                <option value="">Tous les statuts</option>
+                <option value="1" {% if filters.isActive|default('') == '1' %}selected{% endif %}>Actif</option>
+                <option value="0" {% if filters.isActive|default('') == '0' %}selected{% endif %}>Inactif</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="small text-muted mb-2">TRIER PAR</label>
             <select name="sort" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
                 <option value="startDate" {% if currentSort == 'startDate' %}selected{% endif %}>Date de début</option>
                 <option value="name" {% if currentSort == 'name' %}selected{% endif %}>Nom</option>
                 <option value="game" {% if currentSort == 'game' %}selected{% endif %}>Jeu</option>
             </select>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-1">
+            <label class="small text-muted mb-2">ORDRE</label>
             <select name="order" class="form-select" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
-                <option value="DESC" {% if currentOrder == 'DESC' %}selected{% endif %}>Décroissant</option>
-                <option value="ASC" {% if currentOrder == 'ASC' %}selected{% endif %}>Croissant</option>
+                <option value="DESC" {% if currentOrder == 'DESC' %}selected{% endif %}>DESC</option>
+                <option value="ASC" {% if currentOrder == 'ASC' %}selected{% endif %}>ASC</option>
             </select>
         </div>
-        <div class="col-md-2 d-flex gap-2">
-            <button type="submit" class="btn-admin btn-admin-primary flex-grow-1">Filtrer</button>
+
+        <div class="col-md-3">
+            <label class="small text-muted mb-2">DEBUT MIN</label>
+            <input type="date" name="minDate" class="form-control" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;" value="{{ filters.minDate|default('') }}">
+        </div>
+        <div class="col-md-3">
+            <label class="small text-muted mb-2">FIN MAX</label>
+            <input type="date" name="maxDate" class="form-control" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;" value="{{ filters.maxDate|default('') }}">
+        </div>
+        <div class="col-md-6 d-flex align-items-end gap-2">
+            <button type="submit" class="btn-admin btn-admin-primary flex-grow-1">Appliquer les Filtres</button>
             <a href="{{ path('app_back_matchy_index') }}" class="btn-admin btn-admin-secondary"><i class="fas fa-sync-alt"></i></a>
         </div>
     </form>
 </div>
 
-<div class="admin-card p-0 overflow-hidden">
+<div class="admin-card p-0 overflow-hidden position-relative">
+    <div id="adminLoadingSpinner" class="position-absolute top-50 start-50 translate-middle" style="display: none; z-index: 10;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <table class="admin-table mb-0">
         <thead>
             <tr>
@@ -49,53 +94,60 @@
                 <th class="text-end">Actions</th>
             </tr>
         </thead>
-        <tbody>
-            {% for tournament in tournaments %}
-                <tr>
-                    <td>
-                        <div class="fw-bold">{{ tournament.name }}</div>
-                        <div class="text-muted small">ID: #{{ tournament.id }}</div>
-                    </td>
-                    <td><span class="badge-admin badge-planned">{{ tournament.game }}</span></td>
-                    <td>
-                        <div><i class="far fa-calendar-alt me-2"></i>Du {{ tournament.startDate|date('d/m/Y') }}</div>
-                        <div class="text-muted small">Au {{ tournament.endDate|date('d/m/Y') }}</div>
-                    </td>
-                    <td>
-                        {% if tournament.isActive %}
-                            <span class="badge-admin badge-finished">ACTIF</span>
-                        {% else %}
-                            <span class="badge-admin badge-cancelled">INACTIF</span>
-                        {% endif %}
-                    </td>
-                    <td class="text-end">
-                        <div class="d-flex justify-content-end gap-2">
-                            <form action="{{ path('app_back_matchy_toggle', {id: tournament.id}) }}" method="post">
-                                <button class="btn-admin btn-admin-secondary p-2" title="Changer le statut">
-                                    <i class="fas {% if tournament.isActive %}fa-eye-slash{% else %}fa-eye{% endif %}"></i>
-                                </button>
-                            </form>
-                            <a href="{{ path('app_back_matchy_edit', {id: tournament.id}) }}" class="btn-admin btn-admin-secondary p-2" title="Modifier">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form action="{{ path('app_back_matchy_delete', {id: tournament.id}) }}" method="post" onsubmit="return confirm('Supprimer ce tournoi ?');">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tournament.id) }}">
-                                <button class="btn-admin btn-admin-danger p-2" title="Supprimer">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5" class="text-center py-5">
-                        <i class="fas fa-info-circle mb-2 d-block opacity-25" style="font-size: 2rem;"></i>
-                        <span class="text-muted">Aucun tournoi trouvé.</span>
-                    </td>
-                </tr>
-            {% endfor %}
+        <tbody id="tournamentTableBody">
+            {% include 'admin/tournament/_table_body.html.twig' %}
         </tbody>
     </table>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('filterForm');
+        const tableBody = document.getElementById('tournamentTableBody');
+        const spinner = document.getElementById('adminLoadingSpinner');
+        const inputs = form.querySelectorAll('input, select');
+        
+        let timeout = null;
+
+        function updateTable() {
+            spinner.style.display = 'block';
+            tableBody.style.opacity = '0.5';
+
+            const formData = new FormData(form);
+            const params = new URLSearchParams(formData);
+
+            fetch(`${window.location.pathname}?${params.toString()}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                tableBody.innerHTML = html;
+            })
+            .catch(error => console.error('Error:', error))
+            .finally(() => {
+                spinner.style.display = 'none';
+                tableBody.style.opacity = '1';
+            });
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                clearTimeout(timeout);
+                timeout = setTimeout(updateTable, 300);
+            });
+            
+            if (input.tagName === 'SELECT') {
+                input.addEventListener('change', updateTable);
+            }
+        });
+
+        // Prevent normal form submission to keep AJAX feel
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            updateTable();
+        });
+    });
+</script>
 {% endblock %}

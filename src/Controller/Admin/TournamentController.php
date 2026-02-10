@@ -18,17 +18,31 @@ class TournamentController extends AbstractController
     #[Route('/', name: 'app_back_matchy_index', methods: ['GET'])]
     public function index(Request $request, TournamentRepository $tournamentRepository): Response
     {
-        $query = $request->query->get('q');
-        $sort = $request->query->get('sort', 'startDate');
-        $order = $request->query->get('order', 'DESC');
+        $filters = [
+            'query' => $request->query->get('query') ?? $request->query->get('q'),
+            'game' => $request->query->get('game'),
+            'phase' => $request->query->get('phase'),
+            'isActive' => $request->query->get('isActive'),
+            'minDate' => $request->query->get('minDate'),
+            'maxDate' => $request->query->get('maxDate'),
+            'sort' => $request->query->get('sort', 'startDate'),
+            'order' => $request->query->get('order', 'DESC'),
+        ];
 
-        $tournaments = $tournamentRepository->searchAndSort($query, $sort, $order);
+        $tournaments = $tournamentRepository->findWithAdvancedSearch($filters);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->render('admin/tournament/_table_body.html.twig', [
+                'tournaments' => $tournaments,
+            ]);
+        }
 
         return $this->render('admin/tournament/index.html.twig', [
             'tournaments' => $tournaments,
-            'searchQuery' => $query,
-            'currentSort' => $sort,
-            'currentOrder' => $order,
+            'filters' => $filters,
+            'searchQuery' => $filters['query'],
+            'currentSort' => $filters['sort'],
+            'currentOrder' => $filters['order'],
         ]);
     }
 
