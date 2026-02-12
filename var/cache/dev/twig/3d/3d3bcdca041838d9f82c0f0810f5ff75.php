@@ -1,0 +1,5430 @@
+<?php
+
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Extension\CoreExtension;
+use Twig\Extension\SandboxExtension;
+use Twig\Markup;
+use Twig\Sandbox\SecurityError;
+use Twig\Sandbox\SecurityNotAllowedTagError;
+use Twig\Sandbox\SecurityNotAllowedFilterError;
+use Twig\Sandbox\SecurityNotAllowedFunctionError;
+use Twig\Source;
+use Twig\Template;
+use Twig\TemplateWrapper;
+
+/* shop_item/index.html.twig */
+class __TwigTemplate_d8b1e0506bc4856b7a41d2c86543bf67 extends Template
+{
+    private Source $source;
+    /**
+     * @var array<string, Template>
+     */
+    private array $macros = [];
+
+    public function __construct(Environment $env)
+    {
+        parent::__construct($env);
+
+        $this->source = $this->getSourceContext();
+
+        $this->blocks = [
+            'title' => [$this, 'block_title'],
+            'body' => [$this, 'block_body'],
+        ];
+    }
+
+    protected function doGetParent(array $context): bool|string|Template|TemplateWrapper
+    {
+        // line 1
+        return "base.html.twig";
+    }
+
+    protected function doDisplay(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "shop_item/index.html.twig"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "shop_item/index.html.twig"));
+
+        $this->parent = $this->load("base.html.twig", 1);
+        yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+    }
+
+    // line 3
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_title(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
+
+        yield "PHANTOM SHOP - DASHBOARD";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 5
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_body(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
+
+        // line 6
+        yield "<div class=\"aggressive-shop\">
+    <!-- HEADER AGGRESSIF -->
+    <div class=\"shop-header\">
+        <h1 class=\"shop-title\">🔥 <span>PHANTOM SHOP</span> 🔥</h1>
+        <p class=\"shop-subtitle\">ITEMS & PAYMENTS • REAL-TIME • ANALYTICS</p>
+        
+        <!-- QUICK ACTIONS -->
+        <div class=\"quick-actions\">
+                ";
+        // line 14
+        if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")))) {
+            // line 15
+            yield "
+            <a href=\"";
+            // line 16
+            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_shop_item_new");
+            yield "\" class=\"neon-btn red\">
+                <i class=\"fas fa-plus\"></i> NOUVEL ITEM
+            </a>
+            ";
+        }
+        // line 20
+        yield "             ";
+        if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")))) {
+            // line 21
+            yield "
+            <a href=\"";
+            // line 22
+            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_payment_new");
+            yield "\" class=\"neon-btn blue\">
+                <i class=\"fas fa-credit-card\"></i> NOUVEAU PAIEMENT
+            </a>
+            ";
+        }
+        // line 26
+        yield "            <a href=\"";
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_payment_index");
+        yield "\" class=\"neon-btn purple\">
+                <i class=\"fas fa-list\"></i> VOIR TOUS PAIEMENTS
+            </a>
+            <button class=\"neon-btn green\" onclick=\"exportAllData()\">
+                <i class=\"fas fa-file-export\"></i> EXPORTER TOUT
+            </button>
+        </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class=\"stats-bar\">
+        <div class=\"stat-item\">
+            <div class=\"stat-value\" id=\"total-items\">";
+        // line 38
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["shop_items"]) || array_key_exists("shop_items", $context) ? $context["shop_items"] : (function () { throw new RuntimeError('Variable "shop_items" does not exist.', 38, $this->source); })())), "html", null, true);
+        yield "</div>
+            <div class=\"stat-label\">ITEMS TOTAL</div>
+            <div class=\"stat-icon\"><i class=\"fas fa-box\"></i></div>
+        </div>
+        <div class=\"stat-item\">
+            <div class=\"stat-value\" id=\"total-payments\">";
+        // line 43
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["payments"]) || array_key_exists("payments", $context) ? $context["payments"] : (function () { throw new RuntimeError('Variable "payments" does not exist.', 43, $this->source); })())), "html", null, true);
+        yield "</div>
+            <div class=\"stat-label\">PAIEMENTS</div>
+            <div class=\"stat-icon\"><i class=\"fas fa-credit-card\"></i></div>
+        </div>
+        <div class=\"stat-item\">
+            <div class=\"stat-value\" id=\"total-sales\">
+                ";
+        // line 49
+        if (array_key_exists("total_sales", $context)) {
+            // line 50
+            yield "                    ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber((isset($context["total_sales"]) || array_key_exists("total_sales", $context) ? $context["total_sales"] : (function () { throw new RuntimeError('Variable "total_sales" does not exist.', 50, $this->source); })()), 2, ",", " "), "html", null, true);
+            yield " €
+                ";
+        } else {
+            // line 52
+            yield "                    0,00 €
+                ";
+        }
+        // line 54
+        yield "            </div>
+            <div class=\"stat-label\">CA TOTAL</div>
+            <div class=\"stat-icon\"><i class=\"fas fa-money-bill-wave\"></i></div>
+        </div>
+        <div class=\"stat-item\">
+            <div class=\"stat-value\" id=\"pending-items\">
+                ";
+        // line 60
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), Twig\Extension\CoreExtension::filter($this->env, (isset($context["shop_items"]) || array_key_exists("shop_items", $context) ? $context["shop_items"] : (function () { throw new RuntimeError('Variable "shop_items" does not exist.', 60, $this->source); })()), function ($__item__) use ($context, $macros) { $context["item"] = $__item__; return (CoreExtension::getAttribute($this->env, $this->source, (isset($context["item"]) || array_key_exists("item", $context) ? $context["item"] : (function () { throw new RuntimeError('Variable "item" does not exist.', 60, $this->source); })()), "status", [], "any", false, false, false, 60) == "pending"); })), "html", null, true);
+        yield "
+            </div>
+            <div class=\"stat-label\">EN ATTENTE</div>
+            <div class=\"stat-icon\"><i class=\"fas fa-clock\"></i></div>
+        </div>
+    </div>
+
+    <!-- CONTROLS BAR -->
+    <div class=\"controls-bar\">
+        <div class=\"controls-group\">
+            <button class=\"control-btn active\" data-filter=\"all\">
+                <i class=\"fas fa-filter\"></i> TOUT
+            </button>
+            <button class=\"control-btn\" data-filter=\"today\">
+                <i class=\"fas fa-calendar-day\"></i> AUJOURD'HUI
+            </button>
+            <button class=\"control-btn\" data-filter=\"week\">
+                <i class=\"fas fa-calendar-week\"></i> SEMAINE
+            </button>
+            <button class=\"control-btn\" data-filter=\"month\">
+                <i class=\"fas fa-calendar-alt\"></i> MOIS
+            </button>
+        </div>
+        
+        <div class=\"controls-group\">
+            <div class=\"search-box\">
+                <i class=\"fas fa-search\"></i>
+                <input type=\"text\" id=\"globalSearch\" placeholder=\"Rechercher dans tout...\">
+                <button class=\"search-clear\" onclick=\"clearGlobalSearch()\">
+                    <i class=\"fas fa-times\"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class=\"controls-group\">
+            <button class=\"control-btn print-btn\" onclick=\"printDashboard()\">
+                <i class=\"fas fa-print\"></i> IMPRIMER
+            </button>
+            <button class=\"control-btn export-btn\" onclick=\"exportDashboard()\">
+                <i class=\"fas fa-download\"></i> EXPORTER
+            </button>
+            <button class=\"control-btn refresh-btn\" onclick=\"refreshData()\">
+                <i class=\"fas fa-sync-alt\"></i> ACTUALISER
+            </button>
+        </div>
+    </div>
+
+    <!-- DEUX COLONNES CÔTE À CÔTE -->
+    <div class=\"dual-columns\">
+        <!-- COLONNE GAUCHE : SHOP ITEMS -->
+        <div class=\"column left-column\">
+            <div class=\"column-header\">
+                <div class=\"column-header-left\">
+                    <h2><i class=\"fas fa-shopping-bag\"></i> ITEMS DU SHOP</h2>
+                    <span class=\"badge-count\" id=\"items-count\">";
+        // line 114
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["shop_items"]) || array_key_exists("shop_items", $context) ? $context["shop_items"] : (function () { throw new RuntimeError('Variable "shop_items" does not exist.', 114, $this->source); })())), "html", null, true);
+        yield "</span>
+                </div>
+                <div class=\"column-header-right\">
+                    <div class=\"column-controls\">
+                        <div class=\"search-box mini\">
+                            <i class=\"fas fa-search\"></i>
+                            <input type=\"text\" id=\"itemSearch\" placeholder=\"Rechercher items...\">
+                        </div>
+                        <div class=\"dropdown\">
+                            <button class=\"dropdown-btn\" data-bs-toggle=\"dropdown\">
+                                <i class=\"fas fa-sort\"></i> TRIER
+                            </button>
+                            <ul class=\"dropdown-menu\">
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('name', 'asc')\">Nom (A-Z)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('name', 'desc')\">Nom (Z-A)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('price', 'asc')\">Prix (Croissant)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('price', 'desc')\">Prix (Décroissant)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('date', 'desc')\">Date récente</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('date', 'asc')\">Date ancienne</a></li>
+                            </ul>
+                        </div>
+                        <div class=\"dropdown\">
+                            <button class=\"dropdown-btn\" data-bs-toggle=\"dropdown\">
+                                <i class=\"fas fa-filter\"></i> FILTRER
+                            </button>
+                            <ul class=\"dropdown-menu\">
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('all')\">Tous les items</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('skin')\">Skins</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('abonnement')\">Abonnements</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('coaching')\">Coaching</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('merch')\">Merchandising</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('paid')\">Payés</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('pending')\">En attente</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('canceled')\">Annulés</a></li>
+                            </ul>
+                        </div>
+                        <button class=\"action-btn\" onclick=\"printItems()\" title=\"Imprimer items\">
+                            <i class=\"fas fa-print\"></i>
+                        </button>
+                        <button class=\"action-btn\" onclick=\"exportItems()\" title=\"Exporter items\">
+                            <i class=\"fas fa-file-export\"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class=\"items-grid\" id=\"itemsGrid\">
+                ";
+        // line 163
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["shop_items"]) || array_key_exists("shop_items", $context) ? $context["shop_items"] : (function () { throw new RuntimeError('Variable "shop_items" does not exist.', 163, $this->source); })()));
+        $context['_iterated'] = false;
+        foreach ($context['_seq'] as $context["_key"] => $context["item"]) {
+            // line 164
+            yield "                <div class=\"item-card ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "status", [], "any", false, false, false, 164), "html", null, true);
+            yield "\" 
+                     data-id=\"";
+            // line 165
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "id", [], "any", false, false, false, 165), "html", null, true);
+            yield "\"
+                     data-name=\"";
+            // line 166
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["item"], "itemName", [], "any", false, false, false, 166)), "html", null, true);
+            yield "\"
+                     data-category=\"";
+            // line 167
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "itemCategory", [], "any", false, false, false, 167), "html", null, true);
+            yield "\"
+                     data-status=\"";
+            // line 168
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "status", [], "any", false, false, false, 168), "html", null, true);
+            yield "\"
+                     data-price=\"";
+            // line 169
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "price", [], "any", false, false, false, 169), "html", null, true);
+            yield "\"
+                     data-date=\"";
+            // line 170
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "purchaseDate", [], "any", false, false, false, 170), "Y-m-d"), "html", null, true);
+            yield "\"
+                     data-description=\"";
+            // line 171
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["item"], "itemDescription", [], "any", false, false, false, 171)), "html", null, true);
+            yield "\">
+                    <div class=\"item-header\">
+                        <div class=\"item-category ";
+            // line 173
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "itemCategory", [], "any", false, false, false, 173), "html", null, true);
+            yield "\">
+                            <i class=\"fas fa-";
+            // line 174
+            yield (((CoreExtension::getAttribute($this->env, $this->source,             // line 175
+$context["item"], "itemCategory", [], "any", false, false, false, 175) == "skin")) ? ("gamepad") : ((((CoreExtension::getAttribute($this->env, $this->source,             // line 176
+$context["item"], "itemCategory", [], "any", false, false, false, 176) == "abonnement")) ? ("crown") : ((((CoreExtension::getAttribute($this->env, $this->source,             // line 177
+$context["item"], "itemCategory", [], "any", false, false, false, 177) == "coaching")) ? ("chalkboard-teacher") : ("tshirt"))))));
+            // line 179
+            yield "\"></i>
+                            ";
+            // line 180
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["item"], "itemCategory", [], "any", false, false, false, 180)), "html", null, true);
+            yield "
+                        </div>
+                        <div class=\"item-status ";
+            // line 182
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "status", [], "any", false, false, false, 182), "html", null, true);
+            yield "\">
+                            ";
+            // line 183
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["item"], "status", [], "any", false, false, false, 183)), "html", null, true);
+            yield "
+                        </div>
+                    </div>
+                    
+                    <div class=\"item-body\">
+                        <h3 class=\"item-title\">";
+            // line 188
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "itemName", [], "any", false, false, false, 188), "html", null, true);
+            yield "</h3>
+                        <p class=\"item-description\">";
+            // line 189
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::slice($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["item"], "itemDescription", [], "any", false, false, false, 189), 0, 100), "html", null, true);
+            yield "...</p>
+                        
+                        <div class=\"item-details\">
+                            <div class=\"detail\">
+                                <span class=\"label\">PRIX:</span>
+                                <span class=\"value neon-text red item-price\">
+                                    ";
+            // line 195
+            if (CoreExtension::getAttribute($this->env, $this->source, $context["item"], "price", [], "any", true, true, false, 195)) {
+                // line 196
+                yield "                                        ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "price", [], "any", false, false, false, 196), 2, ",", " "), "html", null, true);
+                yield " €
+                                    ";
+            } else {
+                // line 198
+                yield "                                        0,00 €
+                                    ";
+            }
+            // line 200
+            yield "                                </span>
+                            </div>
+                            <div class=\"detail\">
+                                <span class=\"label\">QTÉ:</span>
+                                <span class=\"value neon-text blue\">";
+            // line 204
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 204), "html", null, true);
+            yield "</span>
+                            </div>
+                            <div class=\"detail\">
+                                <span class=\"label\">TOTAL:</span>
+                                <span class=\"value neon-text green item-total\">
+                                    ";
+            // line 209
+            if (CoreExtension::getAttribute($this->env, $this->source, $context["item"], "totalPrice", [], "any", true, true, false, 209)) {
+                // line 210
+                yield "                                        ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "totalPrice", [], "any", false, false, false, 210), 2, ",", " "), "html", null, true);
+                yield " €
+                                    ";
+            } elseif ((CoreExtension::getAttribute($this->env, $this->source,             // line 211
+$context["item"], "price", [], "any", true, true, false, 211) && CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", true, true, false, 211))) {
+                // line 212
+                yield "                                        ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber((CoreExtension::getAttribute($this->env, $this->source, $context["item"], "price", [], "any", false, false, false, 212) * CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 212)), 2, ",", " "), "html", null, true);
+                yield " €
+                                    ";
+            } else {
+                // line 214
+                yield "                                        0,00 €
+                                    ";
+            }
+            // line 216
+            yield "                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class=\"item-footer\">
+                        <div class=\"item-date\" data-date=\"";
+            // line 222
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "purchaseDate", [], "any", false, false, false, 222), "Y-m-d H:i:s"), "html", null, true);
+            yield "\">
+                            <i class=\"far fa-calendar\"></i>
+                            ";
+            // line 224
+            if (CoreExtension::getAttribute($this->env, $this->source, $context["item"], "purchaseDate", [], "any", true, true, false, 224)) {
+                // line 225
+                yield "                                ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "purchaseDate", [], "any", false, false, false, 225), "d/m/Y H:i"), "html", null, true);
+                yield "
+                            ";
+            } else {
+                // line 227
+                yield "                                N/A
+                            ";
+            }
+            // line 229
+            yield "                        </div>
+                        <div class=\"item-actions\">
+                            <a href=\"";
+            // line 231
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_shop_item_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["item"], "id", [], "any", false, false, false, 231)]), "html", null, true);
+            yield "\" class=\"btn-action view\">
+                                <i class=\"fas fa-eye\"></i>
+                            </a>
+ ";
+            // line 234
+            if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")))) {
+                // line 235
+                yield "
+                            <a href=\"";
+                // line 236
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_shop_item_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["item"], "id", [], "any", false, false, false, 236)]), "html", null, true);
+                yield "\" class=\"btn-action edit\">
+                                <i class=\"fas fa-edit\"></i>
+                            </a>
+                            ";
+            }
+            // line 240
+            yield "                             ";
+            if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")))) {
+                // line 241
+                yield "
+                            <button class=\"btn-action delete\" onclick=\"quickDeleteItem(";
+                // line 242
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "id", [], "any", false, false, false, 242), "html", null, true);
+                yield ", '";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "itemName", [], "any", false, false, false, 242), "html", null, true);
+                yield "')\">
+                                <i class=\"fas fa-trash\"></i>
+                            </button>
+                            ";
+            }
+            // line 246
+            yield "                        </div>
+                    </div>
+                </div>
+                ";
+            $context['_iterated'] = true;
+        }
+        // line 249
+        if (!$context['_iterated']) {
+            // line 250
+            yield "                <div class=\"empty-state\">
+                    <i class=\"fas fa-shopping-cart fa-3x\"></i>
+                    <p>AUCUN ITEM DISPONIBLE</p>
+                </div>
+                ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_key'], $context['item'], $context['_parent'], $context['_iterated']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 255
+        yield "            </div>
+        </div>
+
+        <!-- COLONNE DROITE : PAYMENTS -->
+        <div class=\"column right-column\">
+            <div class=\"column-header\">
+                <div class=\"column-header-left\">
+                    <h2><i class=\"fas fa-credit-card\"></i> DERNIERS PAIEMENTS</h2>
+                    <span class=\"badge-count\" id=\"payments-count\">";
+        // line 263
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["payments"]) || array_key_exists("payments", $context) ? $context["payments"] : (function () { throw new RuntimeError('Variable "payments" does not exist.', 263, $this->source); })())), "html", null, true);
+        yield "</span>
+                </div>
+                <div class=\"column-header-right\">
+                    <div class=\"column-controls\">
+                        <div class=\"search-box mini\">
+                            <i class=\"fas fa-search\"></i>
+                            <input type=\"text\" id=\"paymentSearch\" placeholder=\"Rechercher paiements...\">
+                        </div>
+                        <div class=\"dropdown\">
+                            <button class=\"dropdown-btn\" data-bs-toggle=\"dropdown\">
+                                <i class=\"fas fa-sort\"></i> TRIER
+                            </button>
+                            <ul class=\"dropdown-menu\">
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('date', 'desc')\">Date récente</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('date', 'asc')\">Date ancienne</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('amount', 'desc')\">Montant (↓)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('amount', 'asc')\">Montant (↑)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('ref', 'asc')\">Référence (A-Z)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('ref', 'desc')\">Référence (Z-A)</a></li>
+                            </ul>
+                        </div>
+                        <div class=\"dropdown\">
+                            <button class=\"dropdown-btn\" data-bs-toggle=\"dropdown\">
+                                <i class=\"fas fa-filter\"></i> FILTRER
+                            </button>
+                            <ul class=\"dropdown-menu\">
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('all')\">Tous les paiements</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('success')\">Payés</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('pending')\">En attente</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('failed')\">Échoués</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('cancelled')\">Annulés</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('card')\">Carte</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('paypal')\">PayPal</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('cash')\">Espèces</a></li>
+                            </ul>
+                        </div>
+                        <button class=\"action-btn\" onclick=\"printPayments()\" title=\"Imprimer paiements\">
+                            <i class=\"fas fa-print\"></i>
+                        </button>
+                        <button class=\"action-btn\" onclick=\"exportPayments()\" title=\"Exporter paiements\">
+                            <i class=\"fas fa-file-export\"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class=\"payments-list\" id=\"paymentsList\">
+                ";
+        // line 312
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["payments"]) || array_key_exists("payments", $context) ? $context["payments"] : (function () { throw new RuntimeError('Variable "payments" does not exist.', 312, $this->source); })()));
+        $context['_iterated'] = false;
+        foreach ($context['_seq'] as $context["_key"] => $context["payment"]) {
+            // line 313
+            yield "                <div class=\"payment-card ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "paymentStatus", [], "any", false, false, false, 313), "html", null, true);
+            yield "\"
+                     data-id=\"";
+            // line 314
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "id", [], "any", false, false, false, 314), "html", null, true);
+            yield "\"
+                     data-ref=\"";
+            // line 315
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "transactionRef", [], "any", false, false, false, 315)), "html", null, true);
+            yield "\"
+                     data-status=\"";
+            // line 316
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "paymentStatus", [], "any", false, false, false, 316), "html", null, true);
+            yield "\"
+                     data-method=\"";
+            // line 317
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "paymentMethod", [], "any", false, false, false, 317), "html", null, true);
+            yield "\"
+                     data-amount=\"";
+            // line 318
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "amount", [], "any", false, false, false, 318), "html", null, true);
+            yield "\"
+                     data-date=\"";
+            // line 319
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "paymentDate", [], "any", false, false, false, 319), "Y-m-d H:i:s"), "html", null, true);
+            yield "\">
+                    <div class=\"payment-header\">
+                        <div class=\"payment-ref\">
+                            <i class=\"fas fa-hashtag\"></i>
+                            ";
+            // line 323
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "transactionRef", [], "any", false, false, false, 323), "html", null, true);
+            yield "
+                        </div>
+                        <div class=\"payment-status ";
+            // line 325
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "paymentStatus", [], "any", false, false, false, 325), "html", null, true);
+            yield "\">
+                            ";
+            // line 326
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "paymentStatus", [], "any", false, false, false, 326)), "html", null, true);
+            yield "
+                        </div>
+                    </div>
+                    
+                    <div class=\"payment-body\">
+                        <div class=\"payment-amount neon-text green\">
+                            ";
+            // line 332
+            if (CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "amount", [], "any", true, true, false, 332)) {
+                // line 333
+                yield "                                ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "amount", [], "any", false, false, false, 333), 2, ",", " "), "html", null, true);
+                yield " €
+                            ";
+            } else {
+                // line 335
+                yield "                                0,00 €
+                            ";
+            }
+            // line 337
+            yield "                        </div>
+                        
+                        <div class=\"payment-details\">
+                            <div class=\"detail\">
+                                <span class=\"label\">MÉTHODE:</span>
+                                <span class=\"value payment-method\">
+                                    ";
+            // line 343
+            if ((CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "paymentMethod", [], "any", false, false, false, 343) == "card")) {
+                // line 344
+                yield "                                        <i class=\"fas fa-credit-card\"></i> CARTE
+                                    ";
+            } elseif ((CoreExtension::getAttribute($this->env, $this->source,             // line 345
+$context["payment"], "paymentMethod", [], "any", false, false, false, 345) == "paypal")) {
+                // line 346
+                yield "                                        <i class=\"fab fa-paypal\"></i> PAYPAL
+                                    ";
+            } else {
+                // line 348
+                yield "                                        <i class=\"fas fa-wallet\"></i> WALLET
+                                    ";
+            }
+            // line 350
+            yield "                                </span>
+                            </div>
+                            <div class=\"detail\">
+                                <span class=\"label\">DATE:</span>
+                                <span class=\"value payment-date\">
+                                    ";
+            // line 355
+            if (CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "paymentDate", [], "any", true, true, false, 355)) {
+                // line 356
+                yield "                                        ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "paymentDate", [], "any", false, false, false, 356), "d/m/Y H:i"), "html", null, true);
+                yield "
+                                    ";
+            } else {
+                // line 358
+                yield "                                        N/A
+                                    ";
+            }
+            // line 360
+            yield "                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class=\"payment-footer\">
+                        <div class=\"payment-actions\">
+                            <a href=\"";
+            // line 367
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_payment_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "id", [], "any", false, false, false, 367)]), "html", null, true);
+            yield "\" class=\"btn-action view\">
+                                <i class=\"fas fa-eye\"></i>
+                            </a>
+                            <a href=\"";
+            // line 370
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_payment_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "id", [], "any", false, false, false, 370)]), "html", null, true);
+            yield "\" class=\"btn-action edit\">
+                                <i class=\"fas fa-edit\"></i>
+                            </a>
+                            <button class=\"btn-action delete\" onclick=\"quickDeletePayment(";
+            // line 373
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "id", [], "any", false, false, false, 373), "html", null, true);
+            yield ", '";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["payment"], "transactionRef", [], "any", false, false, false, 373), "html", null, true);
+            yield "')\">
+                                <i class=\"fas fa-trash\"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                ";
+            $context['_iterated'] = true;
+        }
+        // line 379
+        if (!$context['_iterated']) {
+            // line 380
+            yield "                <div class=\"empty-state\">
+                    <i class=\"fas fa-credit-card fa-3x\"></i>
+                    <p>AUCUN PAIEMENT</p>
+                </div>
+                ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_key'], $context['payment'], $context['_parent'], $context['_iterated']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 385
+        yield "            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM STATS -->
+    <div class=\"bottom-stats\">
+        <div class=\"stat-card\">
+            <div class=\"stat-title\">ITEMS PAYÉS</div>
+            <div class=\"stat-number neon-text green\" id=\"paid-items\">
+                ";
+        // line 394
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), Twig\Extension\CoreExtension::filter($this->env, (isset($context["shop_items"]) || array_key_exists("shop_items", $context) ? $context["shop_items"] : (function () { throw new RuntimeError('Variable "shop_items" does not exist.', 394, $this->source); })()), function ($__item__) use ($context, $macros) { $context["item"] = $__item__; return (CoreExtension::getAttribute($this->env, $this->source, (isset($context["item"]) || array_key_exists("item", $context) ? $context["item"] : (function () { throw new RuntimeError('Variable "item" does not exist.', 394, $this->source); })()), "status", [], "any", false, false, false, 394) == "paid"); })), "html", null, true);
+        yield "
+            </div>
+        </div>
+        <div class=\"stat-card\">
+            <div class=\"stat-title\">PAIEMENTS SUCCESS</div>
+            <div class=\"stat-number neon-text green\" id=\"success-payments\">
+                ";
+        // line 400
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), Twig\Extension\CoreExtension::filter($this->env, (isset($context["payments"]) || array_key_exists("payments", $context) ? $context["payments"] : (function () { throw new RuntimeError('Variable "payments" does not exist.', 400, $this->source); })()), function ($__p__) use ($context, $macros) { $context["p"] = $__p__; return (CoreExtension::getAttribute($this->env, $this->source, (isset($context["p"]) || array_key_exists("p", $context) ? $context["p"] : (function () { throw new RuntimeError('Variable "p" does not exist.', 400, $this->source); })()), "paymentStatus", [], "any", false, false, false, 400) == "success"); })), "html", null, true);
+        yield "
+            </div>
+        </div>
+        <div class=\"stat-card\">
+            <div class=\"stat-title\">PAIEMENTS EN ATTENTE</div>
+            <div class=\"stat-number neon-text yellow\" id=\"pending-payments\">
+                ";
+        // line 406
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), Twig\Extension\CoreExtension::filter($this->env, (isset($context["payments"]) || array_key_exists("payments", $context) ? $context["payments"] : (function () { throw new RuntimeError('Variable "payments" does not exist.', 406, $this->source); })()), function ($__p__) use ($context, $macros) { $context["p"] = $__p__; return (CoreExtension::getAttribute($this->env, $this->source, (isset($context["p"]) || array_key_exists("p", $context) ? $context["p"] : (function () { throw new RuntimeError('Variable "p" does not exist.', 406, $this->source); })()), "paymentStatus", [], "any", false, false, false, 406) == "pending"); })), "html", null, true);
+        yield "
+            </div>
+        </div>
+        <div class=\"stat-card\">
+            <div class=\"stat-title\">MOYENNE PANIER</div>
+            <div class=\"stat-number neon-text blue\" id=\"average-basket\">
+                ";
+        // line 412
+        if (((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["shop_items"]) || array_key_exists("shop_items", $context) ? $context["shop_items"] : (function () { throw new RuntimeError('Variable "shop_items" does not exist.', 412, $this->source); })())) > 0) && array_key_exists("total_sales", $context))) {
+            // line 413
+            yield "                    ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber(((isset($context["total_sales"]) || array_key_exists("total_sales", $context) ? $context["total_sales"] : (function () { throw new RuntimeError('Variable "total_sales" does not exist.', 413, $this->source); })()) / Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["shop_items"]) || array_key_exists("shop_items", $context) ? $context["shop_items"] : (function () { throw new RuntimeError('Variable "shop_items" does not exist.', 413, $this->source); })()))), 2, ",", " "), "html", null, true);
+            yield " €
+                ";
+        } else {
+            // line 415
+            yield "                    0,00 €
+                ";
+        }
+        // line 417
+        yield "            </div>
+        </div>
+    </div>
+
+    <!-- QUICK STATS -->
+    <div class=\"quick-stats\">
+        <div class=\"quick-stat\">
+            <span class=\"label\">DERNIER ITEM:</span>
+            <span class=\"value\">
+                ";
+        // line 426
+        if ((($tmp = Twig\Extension\CoreExtension::last($this->env->getCharset(), (isset($context["shop_items"]) || array_key_exists("shop_items", $context) ? $context["shop_items"] : (function () { throw new RuntimeError('Variable "shop_items" does not exist.', 426, $this->source); })()))) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 427
+            yield "                    ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, Twig\Extension\CoreExtension::last($this->env->getCharset(), (isset($context["shop_items"]) || array_key_exists("shop_items", $context) ? $context["shop_items"] : (function () { throw new RuntimeError('Variable "shop_items" does not exist.', 427, $this->source); })())), "itemName", [], "any", false, false, false, 427), "html", null, true);
+            yield "
+                ";
+        } else {
+            // line 429
+            yield "                    Aucun
+                ";
+        }
+        // line 431
+        yield "            </span>
+        </div>
+        <div class=\"quick-stat\">
+            <span class=\"label\">DERNIER PAIEMENT:</span>
+            <span class=\"value\">
+                ";
+        // line 436
+        if ((($tmp = Twig\Extension\CoreExtension::last($this->env->getCharset(), (isset($context["payments"]) || array_key_exists("payments", $context) ? $context["payments"] : (function () { throw new RuntimeError('Variable "payments" does not exist.', 436, $this->source); })()))) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 437
+            yield "                    ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, Twig\Extension\CoreExtension::last($this->env->getCharset(), (isset($context["payments"]) || array_key_exists("payments", $context) ? $context["payments"] : (function () { throw new RuntimeError('Variable "payments" does not exist.', 437, $this->source); })())), "transactionRef", [], "any", false, false, false, 437), "html", null, true);
+            yield " (";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber(CoreExtension::getAttribute($this->env, $this->source, Twig\Extension\CoreExtension::last($this->env->getCharset(), (isset($context["payments"]) || array_key_exists("payments", $context) ? $context["payments"] : (function () { throw new RuntimeError('Variable "payments" does not exist.', 437, $this->source); })())), "amount", [], "any", false, false, false, 437), 2, ",", " "), "html", null, true);
+            yield " €)
+                ";
+        } else {
+            // line 439
+            yield "                    Aucun
+                ";
+        }
+        // line 441
+        yield "            </span>
+        </div>
+        <div class=\"quick-stat\">
+            <span class=\"label\">EN LIGNE:</span>
+            <span class=\"value\" id=\"online-users\">15</span>
+        </div>
+        <div class=\"quick-stat\">
+            <span class=\"label\">ACTIVITÉ:</span>
+            <span class=\"value\" id=\"activity-indicator\">
+                <i class=\"fas fa-circle\" style=\"color: var(--neon-green);\"></i> HAUTE
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE SUPPRESSION -->
+<div class=\"modal fade\" id=\"deleteModal\" tabindex=\"-1\" aria-hidden=\"true\">
+    <div class=\"modal-dialog modal-dialog-centered\">
+        <div class=\"modal-content aggressive-modal\">
+            <div class=\"modal-header\">
+                <h5 class=\"modal-title\">
+                    <i class=\"fas fa-exclamation-triangle neon-text red\"></i>
+                    CONFIRMER LA SUPPRESSION
+                </h5>
+                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"></button>
+            </div>
+            <div class=\"modal-body\">
+                <div class=\"warning-message\">
+                    <i class=\"fas fa-radiation fa-2x\"></i>
+                    <h4 id=\"delete-title\">ATTENTION : ACTION IRRÉVERSIBLE</h4>
+                    <p id=\"delete-message\">Vous êtes sur le point de supprimer cet élément.</p>
+                </div>
+            </div>
+            <div class=\"modal-footer\">
+                <button type=\"button\" class=\"btn-modal btn-cancel\" data-bs-dismiss=\"modal\">
+                    <i class=\"fas fa-times\"></i> ANNULER
+                </button>
+                 ";
+        // line 478
+        if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")))) {
+            // line 479
+            yield "
+                <button type=\"button\" class=\"btn-modal btn-delete\" id=\"confirm-delete\">
+                    <i class=\"fas fa-trash\"></i> SUPPRIMER
+                </button>
+                ";
+        }
+        // line 484
+        yield "            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TOUT LE CSS RESTE IDENTIQUE + AJOUT DES NOUVEAUX STYLES -->
+<style>
+/* STYLES AGGRESSIFS */
+:root {
+    --neon-red: #ff0033;
+    --neon-blue: #00f3ff;
+    --neon-green: #00ff41;
+    --neon-purple: #9d00ff;
+    --neon-yellow: #ffcc00;
+    --dark-bg: #0a0a0f;
+    --darker-bg: #050508;
+}
+
+.aggressive-shop {
+    background: var(--dark-bg);
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+.shop-header {
+    text-align: center;
+    padding: 40px 0;
+    margin-bottom: 40px;
+    border-bottom: 3px solid var(--neon-red);
+    position: relative;
+}
+
+.shop-header::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        var(--neon-red), 
+        var(--neon-blue), 
+        var(--neon-green), 
+        var(--neon-purple));
+    animation: borderFlow 3s linear infinite;
+}
+
+@keyframes borderFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.shop-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, var(--neon-red), var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: textGlow 2s infinite alternate;
+    text-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+}
+
+@keyframes textGlow {
+    0% { filter: drop-shadow(0 0 5px var(--neon-red)); }
+    100% { filter: drop-shadow(0 0 20px var(--neon-blue)); }
+}
+
+.shop-subtitle {
+    font-size: 1.2rem;
+    color: var(--neon-blue);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+.quick-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.neon-btn {
+    padding: 12px 24px;
+    border: 2px solid;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    animation: btnPulse 2s infinite;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.neon-btn.red {
+    border-color: var(--neon-red);
+    color: var(--neon-red);
+    box-shadow: 0 0 10px rgba(255, 0, 51, 0.3);
+}
+
+.neon-btn.blue {
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+.neon-btn.purple {
+    border-color: var(--neon-purple);
+    color: var(--neon-purple);
+    box-shadow: 0 0 10px rgba(157, 0, 255, 0.3);
+}
+
+.neon-btn.green {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.neon-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px;
+}
+
+.neon-btn.red:hover {
+    background: var(--neon-red);
+    color: black;
+}
+
+.neon-btn.blue:hover {
+    background: var(--neon-blue);
+    color: black;
+}
+
+.neon-btn.purple:hover {
+    background: var(--neon-purple);
+    color: white;
+}
+
+.neon-btn.green:hover {
+    background: var(--neon-green);
+    color: black;
+}
+
+@keyframes btnPulse {
+    0%, 100% { box-shadow: 0 0 10px; }
+    50% { box-shadow: 0 0 20px; }
+}
+
+/* STATS BAR */
+.stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--neon-red);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    animation: statsGlow 3s infinite alternate;
+}
+
+@keyframes statsGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 0, 51, 0.3); }
+    100% { box-shadow: 0 0 40px rgba(255, 0, 51, 0.7); }
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 0, 51, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.stat-item:hover {
+    border-color: var(--neon-red);
+    transform: translateY(-5px);
+}
+
+.stat-value {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--neon-red), var(--neon-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--neon-blue);
+    margin-bottom: 15px;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: var(--neon-red);
+}
+
+/* CONTROLS BAR */
+.controls-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--neon-blue);
+    border-radius: 15px;
+    margin: 30px 0;
+    backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.controls-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--neon-blue);
+    background: transparent;
+    color: var(--neon-blue);
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.control-btn.active {
+    background: var(--neon-blue);
+    color: black;
+}
+
+.control-btn:hover:not(.active) {
+    background: rgba(0, 243, 255, 0.2);
+}
+
+.print-btn {
+    border-color: var(--neon-purple);
+    color: var(--neon-purple);
+}
+
+.print-btn:hover {
+    background: var(--neon-purple);
+    color: white;
+}
+
+.export-btn {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+}
+
+.export-btn:hover {
+    background: var(--neon-green);
+    color: black;
+}
+
+.refresh-btn {
+    border-color: var(--neon-yellow);
+    color: var(--neon-yellow);
+}
+
+.refresh-btn:hover {
+    background: var(--neon-yellow);
+    color: black;
+}
+
+.search-box {
+    position: relative;
+    min-width: 250px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--neon-blue);
+    z-index: 1;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px 10px 45px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-box.mini {
+    min-width: 200px;
+}
+
+.search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #777;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.search-clear:hover {
+    color: var(--neon-red);
+}
+
+/* DEUX COLONNES */
+.dual-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 40px 0;
+}
+
+@media (max-width: 1200px) {
+    .dual-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+.column {
+    background: rgba(10, 10, 15, 0.9);
+    border: 2px solid;
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.left-column {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 30px rgba(255, 0, 51, 0.2);
+}
+
+.right-column {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+}
+
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.left-column .column-header {
+    border-bottom-color: var(--neon-red);
+}
+
+.right-column .column-header {
+    border-bottom-color: var(--neon-blue);
+}
+
+.column-header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.column-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.column-header h2 {
+    font-size: 1.8rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.badge-count {
+    background: var(--neon-red);
+    color: black;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 900;
+    font-size: 1.2rem;
+    animation: countPulse 2s infinite;
+}
+
+.right-column .badge-count {
+    background: var(--neon-blue);
+}
+
+@keyframes countPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.column-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--neon-blue);
+    background: transparent;
+    color: var(--neon-blue);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-btn:hover {
+    background: rgba(0, 243, 255, 0.1);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: rgba(20, 20, 30, 0.95);
+    border: 2px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 10px 0;
+    min-width: 200px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 243, 255, 0.2);
+    color: var(--neon-blue);
+}
+
+.dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+}
+
+.action-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--neon-purple);
+    background: transparent;
+    color: var(--neon-purple);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    background: var(--neon-purple);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ITEMS GRID */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.items-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.items-grid::-webkit-scrollbar-track {
+    background: rgba(255, 0, 51, 0.1);
+    border-radius: 4px;
+}
+
+.items-grid::-webkit-scrollbar-thumb {
+    background: var(--neon-red);
+    border-radius: 4px;
+}
+
+.item-card {
+    background: rgba(20, 20, 30, 0.9);
+    border: 1px solid rgba(255, 0, 51, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-red);
+    box-shadow: 0 0 20px rgba(255, 0, 51, 0.4);
+}
+
+.item-card.paid {
+    border-left: 4px solid var(--neon-green);
+}
+
+.item-card.pending {
+    border-left: 4px solid var(--neon-yellow);
+}
+
+.item-card.canceled {
+    border-left: 4px solid var(--neon-red);
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.item-category {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-category.skin {
+    background: rgba(255, 0, 51, 0.2);
+    color: var(--neon-red);
+}
+
+.item-category.abonnement {
+    background: rgba(0, 243, 255, 0.2);
+    color: var(--neon-blue);
+}
+
+.item-category.coaching {
+    background: rgba(157, 0, 255, 0.2);
+    color: var(--neon-purple);
+}
+
+.item-category.merch {
+    background: rgba(255, 204, 0, 0.2);
+    color: var(--neon-yellow);
+}
+
+.item-status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.item-status.paid {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--neon-green);
+}
+
+.item-status.pending {
+    background: rgba(255, 204, 0, 0.2);
+    color: var(--neon-yellow);
+}
+
+.item-status.canceled {
+    background: rgba(255, 0, 51, 0.2);
+    color: var(--neon-red);
+}
+
+.item-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.item-description {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.item-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: 0.8rem;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.value {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.neon-text.red {
+    color: var(--neon-red);
+    text-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+}
+
+.neon-text.blue {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.neon-text.green {
+    color: var(--neon-green);
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.item-date {
+    color: #777;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-action.view {
+    background: rgba(0, 243, 255, 0.2);
+    color: var(--neon-blue);
+    border: 1px solid var(--neon-blue);
+}
+
+.btn-action.edit {
+    background: rgba(255, 0, 51, 0.2);
+    color: var(--neon-red);
+    border: 1px solid var(--neon-red);
+}
+
+.btn-action.delete {
+    background: rgba(157, 0, 255, 0.2);
+    color: var(--neon-purple);
+    border: 1px solid var(--neon-purple);
+}
+
+.btn-action:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px;
+}
+
+/* PAYMENTS LIST */
+.payments-list {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.payments-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.payments-list::-webkit-scrollbar-track {
+    background: rgba(0, 243, 255, 0.1);
+    border-radius: 4px;
+}
+
+.payments-list::-webkit-scrollbar-thumb {
+    background: var(--neon-blue);
+    border-radius: 4px;
+}
+
+.payment-card {
+    background: rgba(20, 20, 30, 0.9);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: all 0.3s;
+}
+
+.payment-card:hover {
+    transform: translateX(5px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+}
+
+.payment-card.success {
+    border-left: 4px solid var(--neon-green);
+}
+
+.payment-card.pending {
+    border-left: 4px solid var(--neon-yellow);
+}
+
+.payment-card.failed {
+    border-left: 4px solid var(--neon-red);
+}
+
+.payment-card.cancelled {
+    border-left: 4px solid #777;
+}
+
+.payment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.payment-ref {
+    font-family: monospace;
+    font-size: 1rem;
+    color: var(--neon-blue);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.payment-status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.payment-status.success {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--neon-green);
+}
+
+.payment-status.pending {
+    background: rgba(255, 204, 0, 0.2);
+    color: var(--neon-yellow);
+}
+
+.payment-status.failed {
+    background: rgba(255, 0, 51, 0.2);
+    color: var(--neon-red);
+}
+
+.payment-status.cancelled {
+    background: rgba(119, 119, 119, 0.2);
+    color: #777;
+}
+
+.payment-amount {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.payment-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.payment-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.payment-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* BOTTOM STATS */
+.bottom-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--neon-purple);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.stat-card {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid rgba(157, 0, 255, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    border-color: var(--neon-purple);
+    transform: translateY(-5px);
+}
+
+.stat-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+/* QUICK STATS */
+.quick-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--neon-yellow);
+    border-radius: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.quick-stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quick-stat .label {
+    color: var(--neon-yellow);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.quick-stat .value {
+    color: white;
+    font-weight: 700;
+}
+
+/* EMPTY STATE */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #777;
+}
+
+.empty-state i {
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+/* MODAL */
+.aggressive-modal {
+    background: rgba(20, 20, 30, 0.95);
+    border: 3px solid var(--neon-red);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 50px rgba(255, 0, 51, 0.5);
+    animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-header {
+    border-bottom: 2px solid rgba(255, 0, 51, 0.3);
+    padding: 20px 30px;
+}
+
+.modal-title {
+    color: var(--neon-red);
+    font-size: 1.3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.btn-close {
+    filter: invert(1) brightness(2);
+    opacity: 0.7;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.warning-message {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(255, 0, 51, 0.1);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 0, 51, 0.3);
+}
+
+.warning-message i {
+    color: var(--neon-red);
+    margin-bottom: 15px;
+}
+
+.warning-message h4 {
+    color: var(--neon-red);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.warning-message p {
+    color: #aaa;
+    margin: 0;
+}
+
+.modal-footer {
+    border-top: 2px solid rgba(255, 0, 51, 0.3);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-modal {
+    padding: 12px 30px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #777;
+    color: #777;
+}
+
+.btn-cancel:hover {
+    background: #777;
+    color: black;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: var(--neon-red);
+    border-color: var(--neon-red);
+    color: black;
+}
+
+.btn-delete:hover {
+    background: transparent;
+    color: var(--neon-red);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 51, 0.4);
+}
+
+/* ANIMATIONS DE BASE */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .shop-title {
+        font-size: 2.5rem;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .neon-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    .controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .controls-group {
+        justify-content: center;
+    }
+    
+    .column-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .column-header-right {
+        justify-content: center;
+    }
+    
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .item-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .payment-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-stats {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+</style>
+
+<script>
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialiser les compteurs
+    updateCounters();
+    
+    // Animation des cartes au chargement
+    const cards = document.querySelectorAll('.item-card, .payment-card, .stat-card');
+    cards.forEach((card, index) => {
+        card.style.animationDelay = `\${index * 0.05}s`;
+        card.style.animation = 'fadeInUp 0.5s ease-out forwards';
+    });
+
+    // Initialiser Bootstrap dropdowns
+    initDropdowns();
+    
+    // Initialiser la recherche globale
+    initGlobalSearch();
+    
+    // Initialiser la recherche par colonne
+    initColumnSearch();
+    
+    // Initialiser les filtres par date
+    initDateFilters();
+    
+    // Mettre à jour les statistiques en temps réel
+    startLiveUpdates();
+});
+
+// Variables globales
+let deleteItemId = null;
+let deletePaymentId = null;
+
+// Fonctions pour les Items
+function sortItems(criteria, order) {
+    const grid = document.getElementById('itemsGrid');
+    const items = Array.from(grid.querySelectorAll('.item-card'));
+    
+    items.sort((a, b) => {
+        let aValue, bValue;
+        
+        switch(criteria) {
+            case 'name':
+                aValue = a.dataset.name;
+                bValue = b.dataset.name;
+                return order === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                
+            case 'price':
+                aValue = parseFloat(a.dataset.price) || 0;
+                bValue = parseFloat(b.dataset.price) || 0;
+                return order === 'asc' ? aValue - bValue : bValue - aValue;
+                
+            case 'date':
+                aValue = new Date(a.dataset.date);
+                bValue = new Date(b.dataset.date);
+                return order === 'asc' ? aValue - bValue : bValue - aValue;
+                
+            default:
+                return 0;
+        }
+    });
+    
+    // Réorganiser les items
+    items.forEach(item => grid.appendChild(item));
+    
+    // Animation
+    animateSort(items);
+    
+    // Mettre à jour l'interface
+    showNotification(`Items triés par \${criteria} (\${order === 'asc' ? 'croissant' : 'décroissant'})`);
+}
+
+function filterItems(filter) {
+    const items = document.querySelectorAll('.item-card');
+    let visibleCount = 0;
+    
+    items.forEach(item => {
+        if (filter === 'all') {
+            item.style.display = 'block';
+            visibleCount++;
+        } else if (filter === 'skin' || filter === 'abonnement' || filter === 'coaching' || filter === 'merch') {
+            if (item.dataset.category === filter) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        } else if (filter === 'paid' || filter === 'pending' || filter === 'canceled') {
+            if (item.dataset.status === filter) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        }
+    });
+    
+    // Mettre à jour le compteur
+    document.getElementById('items-count').textContent = visibleCount;
+    
+    // Mettre à jour les statistiques
+    updateItemStats();
+    
+    showNotification(`Filtre appliqué : \${filter}`);
+}
+
+function searchItems(query) {
+    const items = document.querySelectorAll('.item-card');
+    const searchTerm = query.toLowerCase();
+    let visibleCount = 0;
+    
+    items.forEach(item => {
+        const name = item.dataset.name || '';
+        const description = item.dataset.description || '';
+        const category = item.dataset.category || '';
+        
+        if (name.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm)) {
+            item.style.display = 'block';
+            visibleCount++;
+        } else {
+            item.style.display = 'none';
+        }
+    });
+    
+    document.getElementById('items-count').textContent = visibleCount;
+}
+
+// Fonctions pour les Paiements
+function sortPayments(criteria, order) {
+    const list = document.getElementById('paymentsList');
+    const payments = Array.from(list.querySelectorAll('.payment-card'));
+    
+    payments.sort((a, b) => {
+        let aValue, bValue;
+        
+        switch(criteria) {
+            case 'date':
+                aValue = new Date(a.dataset.date);
+                bValue = new Date(b.dataset.date);
+                return order === 'asc' ? aValue - bValue : bValue - aValue;
+                
+            case 'amount':
+                aValue = parseFloat(a.dataset.amount) || 0;
+                bValue = parseFloat(b.dataset.amount) || 0;
+                return order === 'asc' ? aValue - bValue : bValue - aValue;
+                
+            case 'ref':
+                aValue = a.dataset.ref || '';
+                bValue = b.dataset.ref || '';
+                return order === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                
+            default:
+                return 0;
+        }
+    });
+    
+    // Réorganiser les paiements
+    payments.forEach(payment => list.appendChild(payment));
+    
+    // Animation
+    animateSort(payments);
+    
+    showNotification(`Paiements triés par \${criteria} (\${order === 'asc' ? 'croissant' : 'décroissant'})`);
+}
+
+function filterPayments(filter) {
+    const payments = document.querySelectorAll('.payment-card');
+    let visibleCount = 0;
+    
+    payments.forEach(payment => {
+        if (filter === 'all') {
+            payment.style.display = 'block';
+            visibleCount++;
+        } else if (payment.dataset.status === filter || payment.dataset.method === filter) {
+            payment.style.display = 'block';
+            visibleCount++;
+        } else {
+            payment.style.display = 'none';
+        }
+    });
+    
+    // Mettre à jour le compteur
+    document.getElementById('payments-count').textContent = visibleCount;
+    
+    // Mettre à jour les statistiques
+    updatePaymentStats();
+    
+    showNotification(`Filtre appliqué : \${filter}`);
+}
+
+function searchPayments(query) {
+    const payments = document.querySelectorAll('.payment-card');
+    const searchTerm = query.toLowerCase();
+    let visibleCount = 0;
+    
+    payments.forEach(payment => {
+        const ref = payment.dataset.ref || '';
+        const amount = payment.dataset.amount || '';
+        const method = payment.dataset.method || '';
+        
+        if (ref.includes(searchTerm) || amount.includes(searchTerm) || method.includes(searchTerm)) {
+            payment.style.display = 'block';
+            visibleCount++;
+        } else {
+            payment.style.display = 'none';
+        }
+    });
+    
+    document.getElementById('payments-count').textContent = visibleCount;
+}
+
+// Fonctions d'export et d'impression
+function printItems() {
+    const items = document.querySelectorAll('.item-card');
+    let printContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>PHANTOM SHOP - Liste des Items</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                h1 { color: #333; }
+                .item { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+                .item-header { display: flex; justify-content: space-between; }
+                .item-details { margin-top: 10px; }
+                .label { font-weight: bold; color: #666; }
+            </style>
+        </head>
+        <body>
+            <h1>PHANTOM SHOP - Liste des Items</h1>
+            <p>Date d'export: \${new Date().toLocaleDateString('fr-FR')}</p>
+            <p>Total: \${items.length} items</p>
+    `;
+    
+    items.forEach(item => {
+        if (item.style.display !== 'none') {
+            const name = item.querySelector('.item-title').textContent;
+            const category = item.querySelector('.item-category').textContent;
+            const status = item.querySelector('.item-status').textContent;
+            const price = item.querySelector('.item-price').textContent;
+            const total = item.querySelector('.item-total').textContent;
+            const date = item.querySelector('.item-date').textContent;
+            
+            printContent += `
+                <div class=\"item\">
+                    <div class=\"item-header\">
+                        <h3>\${name}</h3>
+                        <span>\${status}</span>
+                    </div>
+                    <div class=\"item-details\">
+                        <p><span class=\"label\">Catégorie:</span> \${category}</p>
+                        <p><span class=\"label\">Prix:</span> \${price}</p>
+                        <p><span class=\"label\">Total:</span> \${total}</p>
+                        <p><span class=\"label\">Date:</span> \${date}</p>
+                    </div>
+                </div>
+            `;
+        }
+    });
+    
+    printContent += '</body></html>';
+    
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    printWindow.print();
+    
+    showNotification('Impression des items lancée');
+}
+
+function printPayments() {
+    const payments = document.querySelectorAll('.payment-card');
+    let printContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>PHANTOM SHOP - Liste des Paiements</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                h1 { color: #333; }
+                .payment { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+                .payment-header { display: flex; justify-content: space-between; }
+                .payment-details { margin-top: 10px; }
+                .label { font-weight: bold; color: #666; }
+                .success { color: green; }
+                .pending { color: orange; }
+                .failed { color: red; }
+            </style>
+        </head>
+        <body>
+            <h1>PHANTOM SHOP - Liste des Paiements</h1>
+            <p>Date d'export: \${new Date().toLocaleDateString('fr-FR')}</p>
+            <p>Total: \${payments.length} paiements</p>
+    `;
+    
+    payments.forEach(payment => {
+        if (payment.style.display !== 'none') {
+            const ref = payment.querySelector('.payment-ref').textContent;
+            const status = payment.querySelector('.payment-status').textContent;
+            const amount = payment.querySelector('.payment-amount').textContent;
+            const method = payment.querySelector('.payment-method').textContent;
+            const date = payment.querySelector('.payment-date').textContent;
+            
+            printContent += `
+                <div class=\"payment\">
+                    <div class=\"payment-header\">
+                        <h3>\${ref}</h3>
+                        <span class=\"\${status.toLowerCase()}\">\${status}</span>
+                    </div>
+                    <div class=\"payment-details\">
+                        <p><span class=\"label\">Montant:</span> \${amount}</p>
+                        <p><span class=\"label\">Méthode:</span> \${method}</p>
+                        <p><span class=\"label\">Date:</span> \${date}</p>
+                    </div>
+                </div>
+            `;
+        }
+    });
+    
+    printContent += '</body></html>';
+    
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    printWindow.print();
+    
+    showNotification('Impression des paiements lancée');
+}
+
+function printDashboard() {
+    window.print();
+    showNotification('Impression du dashboard lancée');
+}
+
+function exportItems() {
+    const items = document.querySelectorAll('.item-card');
+    let csvContent = \"data:text/csv;charset=utf-8,\";
+    csvContent += \"Nom,Catégorie,Statut,Prix,Quantité,Total,Date\\n\";
+    
+    items.forEach(item => {
+        if (item.style.display !== 'none') {
+            const name = item.querySelector('.item-title').textContent;
+            const category = item.querySelector('.item-category').textContent;
+            const status = item.querySelector('.item-status').textContent;
+            const price = item.querySelector('.item-price').textContent.replace(' €', '').replace(',', '.');
+            const quantity = item.querySelector('.detail:nth-child(2) .value').textContent;
+            const total = item.querySelector('.item-total').textContent.replace(' €', '').replace(',', '.');
+            const date = item.querySelector('.item-date').textContent;
+            
+            csvContent += `\"\${name}\",\"\${category}\",\"\${status}\",\${price},\${quantity},\${total},\"\${date}\"\\n`;
+        }
+    });
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement(\"a\");
+    link.setAttribute(\"href\", encodedUri);
+    link.setAttribute(\"download\", `phantom-shop-items-\${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showNotification('Export des items en CSV');
+}
+
+function exportPayments() {
+    const payments = document.querySelectorAll('.payment-card');
+    let csvContent = \"data:text/csv;charset=utf-8,\";
+    csvContent += \"Référence,Statut,Montant,Méthode,Date\\n\";
+    
+    payments.forEach(payment => {
+        if (payment.style.display !== 'none') {
+            const ref = payment.querySelector('.payment-ref').textContent;
+            const status = payment.querySelector('.payment-status').textContent;
+            const amount = payment.querySelector('.payment-amount').textContent.replace(' €', '').replace(',', '.');
+            const method = payment.querySelector('.payment-method').textContent;
+            const date = payment.querySelector('.payment-date').textContent;
+            
+            csvContent += `\"\${ref}\",\"\${status}\",\${amount},\"\${method}\",\"\${date}\"\\n`;
+        }
+    });
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement(\"a\");
+    link.setAttribute(\"href\", encodedUri);
+    link.setAttribute(\"download\", `phantom-shop-payments-\${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showNotification('Export des paiements en CSV');
+}
+
+function exportDashboard() {
+    exportItems();
+    setTimeout(exportPayments, 500);
+    showNotification('Export complet lancé');
+}
+
+function exportAllData() {
+    const data = {
+        items: [],
+        payments: [],
+        stats: {
+            totalItems: document.getElementById('total-items').textContent,
+            totalPayments: document.getElementById('total-payments').textContent,
+            totalSales: document.getElementById('total-sales').textContent,
+            timestamp: new Date().toISOString()
+        }
+    };
+    
+    // Collecter les items
+    document.querySelectorAll('.item-card').forEach(item => {
+        if (item.style.display !== 'none') {
+            data.items.push({
+                name: item.querySelector('.item-title').textContent,
+                category: item.querySelector('.item-category').textContent,
+                status: item.querySelector('.item-status').textContent,
+                price: item.querySelector('.item-price').textContent,
+                quantity: item.querySelector('.detail:nth-child(2) .value').textContent,
+                total: item.querySelector('.item-total').textContent,
+                date: item.querySelector('.item-date').textContent
+            });
+        }
+    });
+    
+    // Collecter les paiements
+    document.querySelectorAll('.payment-card').forEach(payment => {
+        if (payment.style.display !== 'none') {
+            data.payments.push({
+                reference: payment.querySelector('.payment-ref').textContent,
+                status: payment.querySelector('.payment-status').textContent,
+                amount: payment.querySelector('.payment-amount').textContent,
+                method: payment.querySelector('.payment-method').textContent,
+                date: payment.querySelector('.payment-date').textContent
+            });
+        }
+    });
+    
+    // Créer le fichier JSON
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement(\"a\");
+    link.href = url;
+    link.download = `phantom-shop-data-\${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Nettoyer l'URL
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+    
+    showNotification('Export complet en JSON');
+}
+
+// Fonctions utilitaires
+function updateCounters() {
+    const items = document.querySelectorAll('.item-card');
+    const payments = document.querySelectorAll('.payment-card');
+    
+    // Compter les items visibles
+    let visibleItems = 0;
+    items.forEach(item => {
+        if (item.style.display !== 'none') visibleItems++;
+    });
+    document.getElementById('items-count').textContent = visibleItems;
+    
+    // Compter les paiements visibles
+    let visiblePayments = 0;
+    payments.forEach(payment => {
+        if (payment.style.display !== 'none') visiblePayments++;
+    });
+    document.getElementById('payments-count').textContent = visiblePayments;
+}
+
+function updateItemStats() {
+    const items = document.querySelectorAll('.item-card');
+    let paid = 0, pending = 0, total = 0;
+    
+    items.forEach(item => {
+        if (item.style.display !== 'none') {
+            if (item.dataset.status === 'paid') paid++;
+            if (item.dataset.status === 'pending') pending++;
+            total++;
+        }
+    });
+    
+    document.getElementById('paid-items').textContent = paid;
+    document.getElementById('pending-items').textContent = pending;
+    document.getElementById('total-items').textContent = total;
+}
+
+function updatePaymentStats() {
+    const payments = document.querySelectorAll('.payment-card');
+    let success = 0, pending = 0, total = 0;
+    let totalAmount = 0;
+    
+    payments.forEach(payment => {
+        if (payment.style.display !== 'none') {
+            if (payment.dataset.status === 'success') success++;
+            if (payment.dataset.status === 'pending') pending++;
+            totalAmount += parseFloat(payment.dataset.amount) || 0;
+            total++;
+        }
+    });
+    
+    document.getElementById('success-payments').textContent = success;
+    document.getElementById('pending-payments').textContent = pending;
+    document.getElementById('total-payments').textContent = total;
+    document.getElementById('total-sales').textContent = totalAmount.toFixed(2).replace('.', ',') + ' €';
+    
+    // Calculer la moyenne du panier
+    const average = total > 0 ? totalAmount / total : 0;
+    document.getElementById('average-basket').textContent = average.toFixed(2).replace('.', ',') + ' €';
+}
+
+function animateSort(elements) {
+    elements.forEach((el, index) => {
+        el.style.animationDelay = `\${index * 0.03}s`;
+        el.style.animation = 'slideIn 0.3s ease-out forwards';
+    });
+    
+    // Ajouter l'animation CSS si nécessaire
+    if (!document.getElementById('slideInAnimation')) {
+        const style = document.createElement('style');
+        style.id = 'slideInAnimation';
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+function showNotification(message) {
+    // Créer la notification
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerHTML = `
+        <i class=\"fas fa-info-circle\"></i>
+        <span>\${message}</span>
+    `;
+    
+    // Style de la notification
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 243, 255, 0.9);
+        color: black;
+        padding: 15px 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        z-index: 9999;
+        animation: slideInRight 0.3s ease-out, fadeOut 0.3s ease-out 2.7s forwards;
+    `;
+    
+    // Ajouter les animations CSS
+    if (!document.getElementById('notificationAnimations')) {
+        const style = document.createElement('style');
+        style.id = 'notificationAnimations';
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Supprimer la notification après 3 secondes
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 3000);
+}
+
+function refreshData() {
+    const btn = event?.target || document.querySelector('.refresh-btn');
+    const originalHTML = btn.innerHTML;
+    
+    btn.innerHTML = '<i class=\"fas fa-spinner fa-spin\"></i> ACTUALISATION...';
+    btn.disabled = true;
+    
+    // Simuler un rafraîchissement
+    setTimeout(() => {
+        window.location.reload();
+    }, 1000);
+}
+
+function clearGlobalSearch() {
+    document.getElementById('globalSearch').value = '';
+    searchItems('');
+    searchPayments('');
+    showNotification('Recherche globale effacée');
+}
+
+function quickDeleteItem(id, name) {
+    deleteItemId = id;
+    document.getElementById('delete-title').textContent = `SUPPRIMER L'ITEM : \${name}`;
+    document.getElementById('delete-message').textContent = `Êtes-vous sûr de vouloir supprimer définitivement l'item \"\${name}\" ?`;
+    
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    modal.show();
+    
+    // Configurer le bouton de confirmation
+    document.getElementById('confirm-delete').onclick = function() {
+        // Ici, vous devriez faire un appel AJAX pour supprimer l'item
+        // Pour l'instant, on simule la suppression
+        const item = document.querySelector(`.item-card[data-id=\"\${id}\"]`);
+        if (item) {
+            item.style.animation = 'fadeOut 0.3s ease-out forwards';
+            setTimeout(() => {
+                if (item.parentNode) {
+                    item.parentNode.removeChild(item);
+                    updateCounters();
+                    updateItemStats();
+                    showNotification(`Item \"\${name}\" supprimé`);
+                }
+            }, 300);
+        }
+        modal.hide();
+    };
+}
+
+function quickDeletePayment(id, ref) {
+    deletePaymentId = id;
+    document.getElementById('delete-title').textContent = `SUPPRIMER LE PAIEMENT : \${ref}`;
+    document.getElementById('delete-message').textContent = `Êtes-vous sûr de vouloir supprimer définitivement le paiement \"\${ref}\" ?`;
+    
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    modal.show();
+    
+    // Configurer le bouton de confirmation
+    document.getElementById('confirm-delete').onclick = function() {
+        // Ici, vous devriez faire un appel AJAX pour supprimer le paiement
+        // Pour l'instant, on simule la suppression
+        const payment = document.querySelector(`.payment-card[data-id=\"\${id}\"]`);
+        if (payment) {
+            payment.style.animation = 'fadeOut 0.3s ease-out forwards';
+            setTimeout(() => {
+                if (payment.parentNode) {
+                    payment.parentNode.removeChild(payment);
+                    updateCounters();
+                    updatePaymentStats();
+                    showNotification(`Paiement \"\${ref}\" supprimé`);
+                }
+            }, 300);
+        }
+        modal.hide();
+    };
+}
+
+// Initialisation des composants
+function initDropdowns() {
+    // Activer les dropdowns Bootstrap
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+}
+
+function initGlobalSearch() {
+    const searchInput = document.getElementById('globalSearch');
+    if (searchInput) {
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const query = this.value.toLowerCase();
+                searchItems(query);
+                searchPayments(query);
+                
+                if (query) {
+                    showNotification(`Recherche globale : \"\${query}\"`);
+                }
+            }, 300);
+        });
+    }
+}
+
+function initColumnSearch() {
+    // Recherche des items
+    const itemSearch = document.getElementById('itemSearch');
+    if (itemSearch) {
+        let itemSearchTimeout;
+        
+        itemSearch.addEventListener('input', function() {
+            clearTimeout(itemSearchTimeout);
+            itemSearchTimeout = setTimeout(() => {
+                searchItems(this.value.toLowerCase());
+            }, 300);
+        });
+    }
+    
+    // Recherche des paiements
+    const paymentSearch = document.getElementById('paymentSearch');
+    if (paymentSearch) {
+        let paymentSearchTimeout;
+        
+        paymentSearch.addEventListener('input', function() {
+            clearTimeout(paymentSearchTimeout);
+            paymentSearchTimeout = setTimeout(() => {
+                searchPayments(this.value.toLowerCase());
+            }, 300);
+        });
+    }
+}
+
+function initDateFilters() {
+    const dateButtons = document.querySelectorAll('.control-btn[data-filter]');
+    dateButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Retirer la classe active de tous les boutons
+            dateButtons.forEach(b => b.classList.remove('active'));
+            // Ajouter la classe active au bouton cliqué
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const items = document.querySelectorAll('.item-card');
+            const payments = document.querySelectorAll('.payment-card');
+            
+            items.forEach(item => {
+                const itemDate = new Date(item.dataset.date);
+                itemDate.setHours(0, 0, 0, 0);
+                
+                switch(filter) {
+                    case 'today':
+                        item.style.display = itemDate.getTime() === today.getTime() ? 'block' : 'none';
+                        break;
+                    case 'week':
+                        const weekAgo = new Date(today);
+                        weekAgo.setDate(today.getDate() - 7);
+                        item.style.display = itemDate >= weekAgo ? 'block' : 'none';
+                        break;
+                    case 'month':
+                        const monthAgo = new Date(today);
+                        monthAgo.setMonth(today.getMonth() - 1);
+                        item.style.display = itemDate >= monthAgo ? 'block' : 'none';
+                        break;
+                    default:
+                        item.style.display = 'block';
+                }
+            });
+            
+            payments.forEach(payment => {
+                const paymentDate = new Date(payment.dataset.date);
+                paymentDate.setHours(0, 0, 0, 0);
+                
+                switch(filter) {
+                    case 'today':
+                        payment.style.display = paymentDate.getTime() === today.getTime() ? 'block' : 'none';
+                        break;
+                    case 'week':
+                        const weekAgo = new Date(today);
+                        weekAgo.setDate(today.getDate() - 7);
+                        payment.style.display = paymentDate >= weekAgo ? 'block' : 'none';
+                        break;
+                    case 'month':
+                        const monthAgo = new Date(today);
+                        monthAgo.setMonth(today.getMonth() - 1);
+                        payment.style.display = paymentDate >= monthAgo ? 'block' : 'none';
+                        break;
+                    default:
+                        payment.style.display = 'block';
+                }
+            });
+            
+            updateCounters();
+            updateItemStats();
+            updatePaymentStats();
+            
+            showNotification(`Filtre temporel : \${filter}`);
+        });
+    });
+}
+
+function startLiveUpdates() {
+    // Mettre à jour les utilisateurs en ligne
+    setInterval(() => {
+        const onlineUsers = document.getElementById('online-users');
+        if (onlineUsers) {
+            const current = parseInt(onlineUsers.textContent);
+            const change = Math.random() > 0.5 ? 1 : -1;
+            const newValue = Math.max(1, current + change);
+            onlineUsers.textContent = newValue;
+        }
+    }, 10000);
+    
+    // Mettre à jour l'indicateur d'activité
+    setInterval(() => {
+        const indicator = document.getElementById('activity-indicator');
+        if (indicator) {
+            const colors = ['var(--neon-green)', 'var(--neon-yellow)', 'var(--neon-red)'];
+            const levels = ['HAUTE', 'MOYENNE', 'FAIBLE'];
+            const random = Math.floor(Math.random() * 3);
+            
+            indicator.innerHTML = `<i class=\"fas fa-circle\" style=\"color: \${colors[random]};\"></i> \${levels[random]}`;
+        }
+    }, 15000);
+    
+    // Ajouter l'animation de fadeOut
+    if (!document.getElementById('fadeOutAnimation')) {
+        const style = document.createElement('style');
+        style.id = 'fadeOutAnimation';
+        style.textContent = `
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// Ajouter l'animation CSS pour les cartes
+const animationsStyle = document.createElement('style');
+animationsStyle.textContent = `
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .item-card, .payment-card, .stat-card {
+        opacity: 0;
+    }
+`;
+document.head.appendChild(animationsStyle);
+
+// Animation du titre
+const title = document.querySelector('.shop-title');
+if (title) {
+    let hue = 0;
+    setInterval(() => {
+        hue = (hue + 1) % 360;
+        title.style.filter = `hue-rotate(\${hue}deg) drop-shadow(0 0 10px hsl(\${hue}, 100%, 50%))`;
+    }, 50);
+}
+</script>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getTemplateName(): string
+    {
+        return "shop_item/index.html.twig";
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function isTraitable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getDebugInfo(): array
+    {
+        return array (  863 => 484,  856 => 479,  854 => 478,  815 => 441,  811 => 439,  803 => 437,  801 => 436,  794 => 431,  790 => 429,  784 => 427,  782 => 426,  771 => 417,  767 => 415,  761 => 413,  759 => 412,  750 => 406,  741 => 400,  732 => 394,  721 => 385,  711 => 380,  709 => 379,  696 => 373,  690 => 370,  684 => 367,  675 => 360,  671 => 358,  665 => 356,  663 => 355,  656 => 350,  652 => 348,  648 => 346,  646 => 345,  643 => 344,  641 => 343,  633 => 337,  629 => 335,  623 => 333,  621 => 332,  612 => 326,  608 => 325,  603 => 323,  596 => 319,  592 => 318,  588 => 317,  584 => 316,  580 => 315,  576 => 314,  571 => 313,  566 => 312,  514 => 263,  504 => 255,  494 => 250,  492 => 249,  485 => 246,  476 => 242,  473 => 241,  470 => 240,  463 => 236,  460 => 235,  458 => 234,  452 => 231,  448 => 229,  444 => 227,  438 => 225,  436 => 224,  431 => 222,  423 => 216,  419 => 214,  413 => 212,  411 => 211,  406 => 210,  404 => 209,  396 => 204,  390 => 200,  386 => 198,  380 => 196,  378 => 195,  369 => 189,  365 => 188,  357 => 183,  353 => 182,  348 => 180,  345 => 179,  343 => 177,  342 => 176,  341 => 175,  340 => 174,  336 => 173,  331 => 171,  327 => 170,  323 => 169,  319 => 168,  315 => 167,  311 => 166,  307 => 165,  302 => 164,  297 => 163,  245 => 114,  188 => 60,  180 => 54,  176 => 52,  170 => 50,  168 => 49,  159 => 43,  151 => 38,  135 => 26,  128 => 22,  125 => 21,  122 => 20,  115 => 16,  112 => 15,  110 => 14,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+    }
+
+    public function getSourceContext(): Source
+    {
+        return new Source("{% extends 'base.html.twig' %}
+
+{% block title %}PHANTOM SHOP - DASHBOARD{% endblock %}
+
+{% block body %}
+<div class=\"aggressive-shop\">
+    <!-- HEADER AGGRESSIF -->
+    <div class=\"shop-header\">
+        <h1 class=\"shop-title\">🔥 <span>PHANTOM SHOP</span> 🔥</h1>
+        <p class=\"shop-subtitle\">ITEMS & PAYMENTS • REAL-TIME • ANALYTICS</p>
+        
+        <!-- QUICK ACTIONS -->
+        <div class=\"quick-actions\">
+                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_PLAYER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER')) %}
+
+            <a href=\"{{ path('app_shop_item_new') }}\" class=\"neon-btn red\">
+                <i class=\"fas fa-plus\"></i> NOUVEL ITEM
+            </a>
+            {% endif %}
+             {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_PLAYER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER')) %}
+
+            <a href=\"{{ path('app_payment_new') }}\" class=\"neon-btn blue\">
+                <i class=\"fas fa-credit-card\"></i> NOUVEAU PAIEMENT
+            </a>
+            {% endif %}
+            <a href=\"{{ path('app_payment_index') }}\" class=\"neon-btn purple\">
+                <i class=\"fas fa-list\"></i> VOIR TOUS PAIEMENTS
+            </a>
+            <button class=\"neon-btn green\" onclick=\"exportAllData()\">
+                <i class=\"fas fa-file-export\"></i> EXPORTER TOUT
+            </button>
+        </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class=\"stats-bar\">
+        <div class=\"stat-item\">
+            <div class=\"stat-value\" id=\"total-items\">{{ shop_items|length }}</div>
+            <div class=\"stat-label\">ITEMS TOTAL</div>
+            <div class=\"stat-icon\"><i class=\"fas fa-box\"></i></div>
+        </div>
+        <div class=\"stat-item\">
+            <div class=\"stat-value\" id=\"total-payments\">{{ payments|length }}</div>
+            <div class=\"stat-label\">PAIEMENTS</div>
+            <div class=\"stat-icon\"><i class=\"fas fa-credit-card\"></i></div>
+        </div>
+        <div class=\"stat-item\">
+            <div class=\"stat-value\" id=\"total-sales\">
+                {% if total_sales is defined %}
+                    {{ total_sales|number_format(2, ',', ' ') }} €
+                {% else %}
+                    0,00 €
+                {% endif %}
+            </div>
+            <div class=\"stat-label\">CA TOTAL</div>
+            <div class=\"stat-icon\"><i class=\"fas fa-money-bill-wave\"></i></div>
+        </div>
+        <div class=\"stat-item\">
+            <div class=\"stat-value\" id=\"pending-items\">
+                {{ shop_items|filter(item => item.status == 'pending')|length }}
+            </div>
+            <div class=\"stat-label\">EN ATTENTE</div>
+            <div class=\"stat-icon\"><i class=\"fas fa-clock\"></i></div>
+        </div>
+    </div>
+
+    <!-- CONTROLS BAR -->
+    <div class=\"controls-bar\">
+        <div class=\"controls-group\">
+            <button class=\"control-btn active\" data-filter=\"all\">
+                <i class=\"fas fa-filter\"></i> TOUT
+            </button>
+            <button class=\"control-btn\" data-filter=\"today\">
+                <i class=\"fas fa-calendar-day\"></i> AUJOURD'HUI
+            </button>
+            <button class=\"control-btn\" data-filter=\"week\">
+                <i class=\"fas fa-calendar-week\"></i> SEMAINE
+            </button>
+            <button class=\"control-btn\" data-filter=\"month\">
+                <i class=\"fas fa-calendar-alt\"></i> MOIS
+            </button>
+        </div>
+        
+        <div class=\"controls-group\">
+            <div class=\"search-box\">
+                <i class=\"fas fa-search\"></i>
+                <input type=\"text\" id=\"globalSearch\" placeholder=\"Rechercher dans tout...\">
+                <button class=\"search-clear\" onclick=\"clearGlobalSearch()\">
+                    <i class=\"fas fa-times\"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class=\"controls-group\">
+            <button class=\"control-btn print-btn\" onclick=\"printDashboard()\">
+                <i class=\"fas fa-print\"></i> IMPRIMER
+            </button>
+            <button class=\"control-btn export-btn\" onclick=\"exportDashboard()\">
+                <i class=\"fas fa-download\"></i> EXPORTER
+            </button>
+            <button class=\"control-btn refresh-btn\" onclick=\"refreshData()\">
+                <i class=\"fas fa-sync-alt\"></i> ACTUALISER
+            </button>
+        </div>
+    </div>
+
+    <!-- DEUX COLONNES CÔTE À CÔTE -->
+    <div class=\"dual-columns\">
+        <!-- COLONNE GAUCHE : SHOP ITEMS -->
+        <div class=\"column left-column\">
+            <div class=\"column-header\">
+                <div class=\"column-header-left\">
+                    <h2><i class=\"fas fa-shopping-bag\"></i> ITEMS DU SHOP</h2>
+                    <span class=\"badge-count\" id=\"items-count\">{{ shop_items|length }}</span>
+                </div>
+                <div class=\"column-header-right\">
+                    <div class=\"column-controls\">
+                        <div class=\"search-box mini\">
+                            <i class=\"fas fa-search\"></i>
+                            <input type=\"text\" id=\"itemSearch\" placeholder=\"Rechercher items...\">
+                        </div>
+                        <div class=\"dropdown\">
+                            <button class=\"dropdown-btn\" data-bs-toggle=\"dropdown\">
+                                <i class=\"fas fa-sort\"></i> TRIER
+                            </button>
+                            <ul class=\"dropdown-menu\">
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('name', 'asc')\">Nom (A-Z)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('name', 'desc')\">Nom (Z-A)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('price', 'asc')\">Prix (Croissant)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('price', 'desc')\">Prix (Décroissant)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('date', 'desc')\">Date récente</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortItems('date', 'asc')\">Date ancienne</a></li>
+                            </ul>
+                        </div>
+                        <div class=\"dropdown\">
+                            <button class=\"dropdown-btn\" data-bs-toggle=\"dropdown\">
+                                <i class=\"fas fa-filter\"></i> FILTRER
+                            </button>
+                            <ul class=\"dropdown-menu\">
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('all')\">Tous les items</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('skin')\">Skins</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('abonnement')\">Abonnements</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('coaching')\">Coaching</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('merch')\">Merchandising</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('paid')\">Payés</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('pending')\">En attente</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterItems('canceled')\">Annulés</a></li>
+                            </ul>
+                        </div>
+                        <button class=\"action-btn\" onclick=\"printItems()\" title=\"Imprimer items\">
+                            <i class=\"fas fa-print\"></i>
+                        </button>
+                        <button class=\"action-btn\" onclick=\"exportItems()\" title=\"Exporter items\">
+                            <i class=\"fas fa-file-export\"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class=\"items-grid\" id=\"itemsGrid\">
+                {% for item in shop_items %}
+                <div class=\"item-card {{ item.status }}\" 
+                     data-id=\"{{ item.id }}\"
+                     data-name=\"{{ item.itemName|lower }}\"
+                     data-category=\"{{ item.itemCategory }}\"
+                     data-status=\"{{ item.status }}\"
+                     data-price=\"{{ item.price }}\"
+                     data-date=\"{{ item.purchaseDate|date('Y-m-d') }}\"
+                     data-description=\"{{ item.itemDescription|lower }}\">
+                    <div class=\"item-header\">
+                        <div class=\"item-category {{ item.itemCategory }}\">
+                            <i class=\"fas fa-{{ 
+                                item.itemCategory == 'skin' ? 'gamepad' : 
+                                item.itemCategory == 'abonnement' ? 'crown' : 
+                                item.itemCategory == 'coaching' ? 'chalkboard-teacher' : 
+                                'tshirt' 
+                            }}\"></i>
+                            {{ item.itemCategory|upper }}
+                        </div>
+                        <div class=\"item-status {{ item.status }}\">
+                            {{ item.status|upper }}
+                        </div>
+                    </div>
+                    
+                    <div class=\"item-body\">
+                        <h3 class=\"item-title\">{{ item.itemName }}</h3>
+                        <p class=\"item-description\">{{ item.itemDescription|slice(0, 100) }}...</p>
+                        
+                        <div class=\"item-details\">
+                            <div class=\"detail\">
+                                <span class=\"label\">PRIX:</span>
+                                <span class=\"value neon-text red item-price\">
+                                    {% if item.price is defined %}
+                                        {{ item.price|number_format(2, ',', ' ') }} €
+                                    {% else %}
+                                        0,00 €
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class=\"detail\">
+                                <span class=\"label\">QTÉ:</span>
+                                <span class=\"value neon-text blue\">{{ item.quantity }}</span>
+                            </div>
+                            <div class=\"detail\">
+                                <span class=\"label\">TOTAL:</span>
+                                <span class=\"value neon-text green item-total\">
+                                    {% if item.totalPrice is defined %}
+                                        {{ item.totalPrice|number_format(2, ',', ' ') }} €
+                                    {% elseif item.price is defined and item.quantity is defined %}
+                                        {{ (item.price * item.quantity)|number_format(2, ',', ' ') }} €
+                                    {% else %}
+                                        0,00 €
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class=\"item-footer\">
+                        <div class=\"item-date\" data-date=\"{{ item.purchaseDate|date('Y-m-d H:i:s') }}\">
+                            <i class=\"far fa-calendar\"></i>
+                            {% if item.purchaseDate is defined %}
+                                {{ item.purchaseDate|date('d/m/Y H:i') }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </div>
+                        <div class=\"item-actions\">
+                            <a href=\"{{ path('app_shop_item_show', {'id': item.id}) }}\" class=\"btn-action view\">
+                                <i class=\"fas fa-eye\"></i>
+                            </a>
+ {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_PLAYER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER')) %}
+
+                            <a href=\"{{ path('app_shop_item_edit', {'id': item.id}) }}\" class=\"btn-action edit\">
+                                <i class=\"fas fa-edit\"></i>
+                            </a>
+                            {% endif %}
+                             {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_PLAYER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER')) %}
+
+                            <button class=\"btn-action delete\" onclick=\"quickDeleteItem({{ item.id }}, '{{ item.itemName }}')\">
+                                <i class=\"fas fa-trash\"></i>
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class=\"empty-state\">
+                    <i class=\"fas fa-shopping-cart fa-3x\"></i>
+                    <p>AUCUN ITEM DISPONIBLE</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- COLONNE DROITE : PAYMENTS -->
+        <div class=\"column right-column\">
+            <div class=\"column-header\">
+                <div class=\"column-header-left\">
+                    <h2><i class=\"fas fa-credit-card\"></i> DERNIERS PAIEMENTS</h2>
+                    <span class=\"badge-count\" id=\"payments-count\">{{ payments|length }}</span>
+                </div>
+                <div class=\"column-header-right\">
+                    <div class=\"column-controls\">
+                        <div class=\"search-box mini\">
+                            <i class=\"fas fa-search\"></i>
+                            <input type=\"text\" id=\"paymentSearch\" placeholder=\"Rechercher paiements...\">
+                        </div>
+                        <div class=\"dropdown\">
+                            <button class=\"dropdown-btn\" data-bs-toggle=\"dropdown\">
+                                <i class=\"fas fa-sort\"></i> TRIER
+                            </button>
+                            <ul class=\"dropdown-menu\">
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('date', 'desc')\">Date récente</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('date', 'asc')\">Date ancienne</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('amount', 'desc')\">Montant (↓)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('amount', 'asc')\">Montant (↑)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('ref', 'asc')\">Référence (A-Z)</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"sortPayments('ref', 'desc')\">Référence (Z-A)</a></li>
+                            </ul>
+                        </div>
+                        <div class=\"dropdown\">
+                            <button class=\"dropdown-btn\" data-bs-toggle=\"dropdown\">
+                                <i class=\"fas fa-filter\"></i> FILTRER
+                            </button>
+                            <ul class=\"dropdown-menu\">
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('all')\">Tous les paiements</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('success')\">Payés</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('pending')\">En attente</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('failed')\">Échoués</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('cancelled')\">Annulés</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('card')\">Carte</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('paypal')\">PayPal</a></li>
+                                <li><a class=\"dropdown-item\" href=\"#\" onclick=\"filterPayments('cash')\">Espèces</a></li>
+                            </ul>
+                        </div>
+                        <button class=\"action-btn\" onclick=\"printPayments()\" title=\"Imprimer paiements\">
+                            <i class=\"fas fa-print\"></i>
+                        </button>
+                        <button class=\"action-btn\" onclick=\"exportPayments()\" title=\"Exporter paiements\">
+                            <i class=\"fas fa-file-export\"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class=\"payments-list\" id=\"paymentsList\">
+                {% for payment in payments %}
+                <div class=\"payment-card {{ payment.paymentStatus }}\"
+                     data-id=\"{{ payment.id }}\"
+                     data-ref=\"{{ payment.transactionRef|lower }}\"
+                     data-status=\"{{ payment.paymentStatus }}\"
+                     data-method=\"{{ payment.paymentMethod }}\"
+                     data-amount=\"{{ payment.amount }}\"
+                     data-date=\"{{ payment.paymentDate|date('Y-m-d H:i:s') }}\">
+                    <div class=\"payment-header\">
+                        <div class=\"payment-ref\">
+                            <i class=\"fas fa-hashtag\"></i>
+                            {{ payment.transactionRef }}
+                        </div>
+                        <div class=\"payment-status {{ payment.paymentStatus }}\">
+                            {{ payment.paymentStatus|upper }}
+                        </div>
+                    </div>
+                    
+                    <div class=\"payment-body\">
+                        <div class=\"payment-amount neon-text green\">
+                            {% if payment.amount is defined %}
+                                {{ payment.amount|number_format(2, ',', ' ') }} €
+                            {% else %}
+                                0,00 €
+                            {% endif %}
+                        </div>
+                        
+                        <div class=\"payment-details\">
+                            <div class=\"detail\">
+                                <span class=\"label\">MÉTHODE:</span>
+                                <span class=\"value payment-method\">
+                                    {% if payment.paymentMethod == 'card' %}
+                                        <i class=\"fas fa-credit-card\"></i> CARTE
+                                    {% elseif payment.paymentMethod == 'paypal' %}
+                                        <i class=\"fab fa-paypal\"></i> PAYPAL
+                                    {% else %}
+                                        <i class=\"fas fa-wallet\"></i> WALLET
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class=\"detail\">
+                                <span class=\"label\">DATE:</span>
+                                <span class=\"value payment-date\">
+                                    {% if payment.paymentDate is defined %}
+                                        {{ payment.paymentDate|date('d/m/Y H:i') }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class=\"payment-footer\">
+                        <div class=\"payment-actions\">
+                            <a href=\"{{ path('app_payment_show', {'id': payment.id}) }}\" class=\"btn-action view\">
+                                <i class=\"fas fa-eye\"></i>
+                            </a>
+                            <a href=\"{{ path('app_payment_edit', {'id': payment.id}) }}\" class=\"btn-action edit\">
+                                <i class=\"fas fa-edit\"></i>
+                            </a>
+                            <button class=\"btn-action delete\" onclick=\"quickDeletePayment({{ payment.id }}, '{{ payment.transactionRef }}')\">
+                                <i class=\"fas fa-trash\"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class=\"empty-state\">
+                    <i class=\"fas fa-credit-card fa-3x\"></i>
+                    <p>AUCUN PAIEMENT</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM STATS -->
+    <div class=\"bottom-stats\">
+        <div class=\"stat-card\">
+            <div class=\"stat-title\">ITEMS PAYÉS</div>
+            <div class=\"stat-number neon-text green\" id=\"paid-items\">
+                {{ shop_items|filter(item => item.status == 'paid')|length }}
+            </div>
+        </div>
+        <div class=\"stat-card\">
+            <div class=\"stat-title\">PAIEMENTS SUCCESS</div>
+            <div class=\"stat-number neon-text green\" id=\"success-payments\">
+                {{ payments|filter(p => p.paymentStatus == 'success')|length }}
+            </div>
+        </div>
+        <div class=\"stat-card\">
+            <div class=\"stat-title\">PAIEMENTS EN ATTENTE</div>
+            <div class=\"stat-number neon-text yellow\" id=\"pending-payments\">
+                {{ payments|filter(p => p.paymentStatus == 'pending')|length }}
+            </div>
+        </div>
+        <div class=\"stat-card\">
+            <div class=\"stat-title\">MOYENNE PANIER</div>
+            <div class=\"stat-number neon-text blue\" id=\"average-basket\">
+                {% if shop_items|length > 0 and total_sales is defined %}
+                    {{ (total_sales / shop_items|length)|number_format(2, ',', ' ') }} €
+                {% else %}
+                    0,00 €
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- QUICK STATS -->
+    <div class=\"quick-stats\">
+        <div class=\"quick-stat\">
+            <span class=\"label\">DERNIER ITEM:</span>
+            <span class=\"value\">
+                {% if shop_items|last %}
+                    {{ shop_items|last.itemName }}
+                {% else %}
+                    Aucun
+                {% endif %}
+            </span>
+        </div>
+        <div class=\"quick-stat\">
+            <span class=\"label\">DERNIER PAIEMENT:</span>
+            <span class=\"value\">
+                {% if payments|last %}
+                    {{ payments|last.transactionRef }} ({{ payments|last.amount|number_format(2, ',', ' ') }} €)
+                {% else %}
+                    Aucun
+                {% endif %}
+            </span>
+        </div>
+        <div class=\"quick-stat\">
+            <span class=\"label\">EN LIGNE:</span>
+            <span class=\"value\" id=\"online-users\">15</span>
+        </div>
+        <div class=\"quick-stat\">
+            <span class=\"label\">ACTIVITÉ:</span>
+            <span class=\"value\" id=\"activity-indicator\">
+                <i class=\"fas fa-circle\" style=\"color: var(--neon-green);\"></i> HAUTE
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DE SUPPRESSION -->
+<div class=\"modal fade\" id=\"deleteModal\" tabindex=\"-1\" aria-hidden=\"true\">
+    <div class=\"modal-dialog modal-dialog-centered\">
+        <div class=\"modal-content aggressive-modal\">
+            <div class=\"modal-header\">
+                <h5 class=\"modal-title\">
+                    <i class=\"fas fa-exclamation-triangle neon-text red\"></i>
+                    CONFIRMER LA SUPPRESSION
+                </h5>
+                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\"></button>
+            </div>
+            <div class=\"modal-body\">
+                <div class=\"warning-message\">
+                    <i class=\"fas fa-radiation fa-2x\"></i>
+                    <h4 id=\"delete-title\">ATTENTION : ACTION IRRÉVERSIBLE</h4>
+                    <p id=\"delete-message\">Vous êtes sur le point de supprimer cet élément.</p>
+                </div>
+            </div>
+            <div class=\"modal-footer\">
+                <button type=\"button\" class=\"btn-modal btn-cancel\" data-bs-dismiss=\"modal\">
+                    <i class=\"fas fa-times\"></i> ANNULER
+                </button>
+                 {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_PLAYER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER')) %}
+
+                <button type=\"button\" class=\"btn-modal btn-delete\" id=\"confirm-delete\">
+                    <i class=\"fas fa-trash\"></i> SUPPRIMER
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TOUT LE CSS RESTE IDENTIQUE + AJOUT DES NOUVEAUX STYLES -->
+<style>
+/* STYLES AGGRESSIFS */
+:root {
+    --neon-red: #ff0033;
+    --neon-blue: #00f3ff;
+    --neon-green: #00ff41;
+    --neon-purple: #9d00ff;
+    --neon-yellow: #ffcc00;
+    --dark-bg: #0a0a0f;
+    --darker-bg: #050508;
+}
+
+.aggressive-shop {
+    background: var(--dark-bg);
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+.shop-header {
+    text-align: center;
+    padding: 40px 0;
+    margin-bottom: 40px;
+    border-bottom: 3px solid var(--neon-red);
+    position: relative;
+}
+
+.shop-header::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, 
+        var(--neon-red), 
+        var(--neon-blue), 
+        var(--neon-green), 
+        var(--neon-purple));
+    animation: borderFlow 3s linear infinite;
+}
+
+@keyframes borderFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.shop-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, var(--neon-red), var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: textGlow 2s infinite alternate;
+    text-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+}
+
+@keyframes textGlow {
+    0% { filter: drop-shadow(0 0 5px var(--neon-red)); }
+    100% { filter: drop-shadow(0 0 20px var(--neon-blue)); }
+}
+
+.shop-subtitle {
+    font-size: 1.2rem;
+    color: var(--neon-blue);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+.quick-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.neon-btn {
+    padding: 12px 24px;
+    border: 2px solid;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    animation: btnPulse 2s infinite;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.neon-btn.red {
+    border-color: var(--neon-red);
+    color: var(--neon-red);
+    box-shadow: 0 0 10px rgba(255, 0, 51, 0.3);
+}
+
+.neon-btn.blue {
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+.neon-btn.purple {
+    border-color: var(--neon-purple);
+    color: var(--neon-purple);
+    box-shadow: 0 0 10px rgba(157, 0, 255, 0.3);
+}
+
+.neon-btn.green {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.neon-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px;
+}
+
+.neon-btn.red:hover {
+    background: var(--neon-red);
+    color: black;
+}
+
+.neon-btn.blue:hover {
+    background: var(--neon-blue);
+    color: black;
+}
+
+.neon-btn.purple:hover {
+    background: var(--neon-purple);
+    color: white;
+}
+
+.neon-btn.green:hover {
+    background: var(--neon-green);
+    color: black;
+}
+
+@keyframes btnPulse {
+    0%, 100% { box-shadow: 0 0 10px; }
+    50% { box-shadow: 0 0 20px; }
+}
+
+/* STATS BAR */
+.stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--neon-red);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    animation: statsGlow 3s infinite alternate;
+}
+
+@keyframes statsGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 0, 51, 0.3); }
+    100% { box-shadow: 0 0 40px rgba(255, 0, 51, 0.7); }
+}
+
+.stat-item {
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 0, 51, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.stat-item:hover {
+    border-color: var(--neon-red);
+    transform: translateY(-5px);
+}
+
+.stat-value {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--neon-red), var(--neon-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--neon-blue);
+    margin-bottom: 15px;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: var(--neon-red);
+}
+
+/* CONTROLS BAR */
+.controls-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--neon-blue);
+    border-radius: 15px;
+    margin: 30px 0;
+    backdrop-filter: blur(10px);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.controls-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--neon-blue);
+    background: transparent;
+    color: var(--neon-blue);
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.control-btn.active {
+    background: var(--neon-blue);
+    color: black;
+}
+
+.control-btn:hover:not(.active) {
+    background: rgba(0, 243, 255, 0.2);
+}
+
+.print-btn {
+    border-color: var(--neon-purple);
+    color: var(--neon-purple);
+}
+
+.print-btn:hover {
+    background: var(--neon-purple);
+    color: white;
+}
+
+.export-btn {
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+}
+
+.export-btn:hover {
+    background: var(--neon-green);
+    color: black;
+}
+
+.refresh-btn {
+    border-color: var(--neon-yellow);
+    color: var(--neon-yellow);
+}
+
+.refresh-btn:hover {
+    background: var(--neon-yellow);
+    color: black;
+}
+
+.search-box {
+    position: relative;
+    min-width: 250px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--neon-blue);
+    z-index: 1;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px 10px 45px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(0, 243, 255, 0.3);
+    border-radius: 8px;
+    color: white;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.search-box.mini {
+    min-width: 200px;
+}
+
+.search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #777;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.search-clear:hover {
+    color: var(--neon-red);
+}
+
+/* DEUX COLONNES */
+.dual-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 40px 0;
+}
+
+@media (max-width: 1200px) {
+    .dual-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+.column {
+    background: rgba(10, 10, 15, 0.9);
+    border: 2px solid;
+    border-radius: 15px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+}
+
+.left-column {
+    border-color: var(--neon-red);
+    box-shadow: 0 0 30px rgba(255, 0, 51, 0.2);
+}
+
+.right-column {
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+}
+
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.left-column .column-header {
+    border-bottom-color: var(--neon-red);
+}
+
+.right-column .column-header {
+    border-bottom-color: var(--neon-blue);
+}
+
+.column-header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.column-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.column-header h2 {
+    font-size: 1.8rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.badge-count {
+    background: var(--neon-red);
+    color: black;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 900;
+    font-size: 1.2rem;
+    animation: countPulse 2s infinite;
+}
+
+.right-column .badge-count {
+    background: var(--neon-blue);
+}
+
+@keyframes countPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.column-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--neon-blue);
+    background: transparent;
+    color: var(--neon-blue);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dropdown-btn:hover {
+    background: rgba(0, 243, 255, 0.1);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background: rgba(20, 20, 30, 0.95);
+    border: 2px solid var(--neon-blue);
+    border-radius: 8px;
+    padding: 10px 0;
+    min-width: 200px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 243, 255, 0.2);
+    color: var(--neon-blue);
+}
+
+.dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+}
+
+.action-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--neon-purple);
+    background: transparent;
+    color: var(--neon-purple);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    background: var(--neon-purple);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ITEMS GRID */
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.items-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.items-grid::-webkit-scrollbar-track {
+    background: rgba(255, 0, 51, 0.1);
+    border-radius: 4px;
+}
+
+.items-grid::-webkit-scrollbar-thumb {
+    background: var(--neon-red);
+    border-radius: 4px;
+}
+
+.item-card {
+    background: rgba(20, 20, 30, 0.9);
+    border: 1px solid rgba(255, 0, 51, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-red);
+    box-shadow: 0 0 20px rgba(255, 0, 51, 0.4);
+}
+
+.item-card.paid {
+    border-left: 4px solid var(--neon-green);
+}
+
+.item-card.pending {
+    border-left: 4px solid var(--neon-yellow);
+}
+
+.item-card.canceled {
+    border-left: 4px solid var(--neon-red);
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.item-category {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-category.skin {
+    background: rgba(255, 0, 51, 0.2);
+    color: var(--neon-red);
+}
+
+.item-category.abonnement {
+    background: rgba(0, 243, 255, 0.2);
+    color: var(--neon-blue);
+}
+
+.item-category.coaching {
+    background: rgba(157, 0, 255, 0.2);
+    color: var(--neon-purple);
+}
+
+.item-category.merch {
+    background: rgba(255, 204, 0, 0.2);
+    color: var(--neon-yellow);
+}
+
+.item-status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.item-status.paid {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--neon-green);
+}
+
+.item-status.pending {
+    background: rgba(255, 204, 0, 0.2);
+    color: var(--neon-yellow);
+}
+
+.item-status.canceled {
+    background: rgba(255, 0, 51, 0.2);
+    color: var(--neon-red);
+}
+
+.item-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.item-description {
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.item-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: 0.8rem;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.value {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.neon-text.red {
+    color: var(--neon-red);
+    text-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+}
+
+.neon-text.blue {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.neon-text.green {
+    color: var(--neon-green);
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+.item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.item-date {
+    color: #777;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-action.view {
+    background: rgba(0, 243, 255, 0.2);
+    color: var(--neon-blue);
+    border: 1px solid var(--neon-blue);
+}
+
+.btn-action.edit {
+    background: rgba(255, 0, 51, 0.2);
+    color: var(--neon-red);
+    border: 1px solid var(--neon-red);
+}
+
+.btn-action.delete {
+    background: rgba(157, 0, 255, 0.2);
+    color: var(--neon-purple);
+    border: 1px solid var(--neon-purple);
+}
+
+.btn-action:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px;
+}
+
+/* PAYMENTS LIST */
+.payments-list {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.payments-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.payments-list::-webkit-scrollbar-track {
+    background: rgba(0, 243, 255, 0.1);
+    border-radius: 4px;
+}
+
+.payments-list::-webkit-scrollbar-thumb {
+    background: var(--neon-blue);
+    border-radius: 4px;
+}
+
+.payment-card {
+    background: rgba(20, 20, 30, 0.9);
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: all 0.3s;
+}
+
+.payment-card:hover {
+    transform: translateX(5px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+}
+
+.payment-card.success {
+    border-left: 4px solid var(--neon-green);
+}
+
+.payment-card.pending {
+    border-left: 4px solid var(--neon-yellow);
+}
+
+.payment-card.failed {
+    border-left: 4px solid var(--neon-red);
+}
+
+.payment-card.cancelled {
+    border-left: 4px solid #777;
+}
+
+.payment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.payment-ref {
+    font-family: monospace;
+    font-size: 1rem;
+    color: var(--neon-blue);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.payment-status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.payment-status.success {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--neon-green);
+}
+
+.payment-status.pending {
+    background: rgba(255, 204, 0, 0.2);
+    color: var(--neon-yellow);
+}
+
+.payment-status.failed {
+    background: rgba(255, 0, 51, 0.2);
+    color: var(--neon-red);
+}
+
+.payment-status.cancelled {
+    background: rgba(119, 119, 119, 0.2);
+    color: #777;
+}
+
+.payment-amount {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.payment-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.payment-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.payment-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* BOTTOM STATS */
+.bottom-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--neon-purple);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.stat-card {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid rgba(157, 0, 255, 0.2);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    border-color: var(--neon-purple);
+    transform: translateY(-5px);
+}
+
+.stat-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+/* QUICK STATS */
+.quick-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--neon-yellow);
+    border-radius: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.quick-stat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quick-stat .label {
+    color: var(--neon-yellow);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.quick-stat .value {
+    color: white;
+    font-weight: 700;
+}
+
+/* EMPTY STATE */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #777;
+}
+
+.empty-state i {
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+/* MODAL */
+.aggressive-modal {
+    background: rgba(20, 20, 30, 0.95);
+    border: 3px solid var(--neon-red);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 50px rgba(255, 0, 51, 0.5);
+    animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-header {
+    border-bottom: 2px solid rgba(255, 0, 51, 0.3);
+    padding: 20px 30px;
+}
+
+.modal-title {
+    color: var(--neon-red);
+    font-size: 1.3rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.btn-close {
+    filter: invert(1) brightness(2);
+    opacity: 0.7;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.warning-message {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(255, 0, 51, 0.1);
+    border-radius: 10px;
+    border: 2px solid rgba(255, 0, 51, 0.3);
+}
+
+.warning-message i {
+    color: var(--neon-red);
+    margin-bottom: 15px;
+}
+
+.warning-message h4 {
+    color: var(--neon-red);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.warning-message p {
+    color: #aaa;
+    margin: 0;
+}
+
+.modal-footer {
+    border-top: 2px solid rgba(255, 0, 51, 0.3);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-modal {
+    padding: 12px 30px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #777;
+    color: #777;
+}
+
+.btn-cancel:hover {
+    background: #777;
+    color: black;
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: var(--neon-red);
+    border-color: var(--neon-red);
+    color: black;
+}
+
+.btn-delete:hover {
+    background: transparent;
+    color: var(--neon-red);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 51, 0.4);
+}
+
+/* ANIMATIONS DE BASE */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .shop-title {
+        font-size: 2.5rem;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .neon-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    .controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .controls-group {
+        justify-content: center;
+    }
+    
+    .column-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .column-header-right {
+        justify-content: center;
+    }
+    
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .item-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .payment-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-stats {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+</style>
+
+<script>
+// Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialiser les compteurs
+    updateCounters();
+    
+    // Animation des cartes au chargement
+    const cards = document.querySelectorAll('.item-card, .payment-card, .stat-card');
+    cards.forEach((card, index) => {
+        card.style.animationDelay = `\${index * 0.05}s`;
+        card.style.animation = 'fadeInUp 0.5s ease-out forwards';
+    });
+
+    // Initialiser Bootstrap dropdowns
+    initDropdowns();
+    
+    // Initialiser la recherche globale
+    initGlobalSearch();
+    
+    // Initialiser la recherche par colonne
+    initColumnSearch();
+    
+    // Initialiser les filtres par date
+    initDateFilters();
+    
+    // Mettre à jour les statistiques en temps réel
+    startLiveUpdates();
+});
+
+// Variables globales
+let deleteItemId = null;
+let deletePaymentId = null;
+
+// Fonctions pour les Items
+function sortItems(criteria, order) {
+    const grid = document.getElementById('itemsGrid');
+    const items = Array.from(grid.querySelectorAll('.item-card'));
+    
+    items.sort((a, b) => {
+        let aValue, bValue;
+        
+        switch(criteria) {
+            case 'name':
+                aValue = a.dataset.name;
+                bValue = b.dataset.name;
+                return order === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                
+            case 'price':
+                aValue = parseFloat(a.dataset.price) || 0;
+                bValue = parseFloat(b.dataset.price) || 0;
+                return order === 'asc' ? aValue - bValue : bValue - aValue;
+                
+            case 'date':
+                aValue = new Date(a.dataset.date);
+                bValue = new Date(b.dataset.date);
+                return order === 'asc' ? aValue - bValue : bValue - aValue;
+                
+            default:
+                return 0;
+        }
+    });
+    
+    // Réorganiser les items
+    items.forEach(item => grid.appendChild(item));
+    
+    // Animation
+    animateSort(items);
+    
+    // Mettre à jour l'interface
+    showNotification(`Items triés par \${criteria} (\${order === 'asc' ? 'croissant' : 'décroissant'})`);
+}
+
+function filterItems(filter) {
+    const items = document.querySelectorAll('.item-card');
+    let visibleCount = 0;
+    
+    items.forEach(item => {
+        if (filter === 'all') {
+            item.style.display = 'block';
+            visibleCount++;
+        } else if (filter === 'skin' || filter === 'abonnement' || filter === 'coaching' || filter === 'merch') {
+            if (item.dataset.category === filter) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        } else if (filter === 'paid' || filter === 'pending' || filter === 'canceled') {
+            if (item.dataset.status === filter) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        }
+    });
+    
+    // Mettre à jour le compteur
+    document.getElementById('items-count').textContent = visibleCount;
+    
+    // Mettre à jour les statistiques
+    updateItemStats();
+    
+    showNotification(`Filtre appliqué : \${filter}`);
+}
+
+function searchItems(query) {
+    const items = document.querySelectorAll('.item-card');
+    const searchTerm = query.toLowerCase();
+    let visibleCount = 0;
+    
+    items.forEach(item => {
+        const name = item.dataset.name || '';
+        const description = item.dataset.description || '';
+        const category = item.dataset.category || '';
+        
+        if (name.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm)) {
+            item.style.display = 'block';
+            visibleCount++;
+        } else {
+            item.style.display = 'none';
+        }
+    });
+    
+    document.getElementById('items-count').textContent = visibleCount;
+}
+
+// Fonctions pour les Paiements
+function sortPayments(criteria, order) {
+    const list = document.getElementById('paymentsList');
+    const payments = Array.from(list.querySelectorAll('.payment-card'));
+    
+    payments.sort((a, b) => {
+        let aValue, bValue;
+        
+        switch(criteria) {
+            case 'date':
+                aValue = new Date(a.dataset.date);
+                bValue = new Date(b.dataset.date);
+                return order === 'asc' ? aValue - bValue : bValue - aValue;
+                
+            case 'amount':
+                aValue = parseFloat(a.dataset.amount) || 0;
+                bValue = parseFloat(b.dataset.amount) || 0;
+                return order === 'asc' ? aValue - bValue : bValue - aValue;
+                
+            case 'ref':
+                aValue = a.dataset.ref || '';
+                bValue = b.dataset.ref || '';
+                return order === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                
+            default:
+                return 0;
+        }
+    });
+    
+    // Réorganiser les paiements
+    payments.forEach(payment => list.appendChild(payment));
+    
+    // Animation
+    animateSort(payments);
+    
+    showNotification(`Paiements triés par \${criteria} (\${order === 'asc' ? 'croissant' : 'décroissant'})`);
+}
+
+function filterPayments(filter) {
+    const payments = document.querySelectorAll('.payment-card');
+    let visibleCount = 0;
+    
+    payments.forEach(payment => {
+        if (filter === 'all') {
+            payment.style.display = 'block';
+            visibleCount++;
+        } else if (payment.dataset.status === filter || payment.dataset.method === filter) {
+            payment.style.display = 'block';
+            visibleCount++;
+        } else {
+            payment.style.display = 'none';
+        }
+    });
+    
+    // Mettre à jour le compteur
+    document.getElementById('payments-count').textContent = visibleCount;
+    
+    // Mettre à jour les statistiques
+    updatePaymentStats();
+    
+    showNotification(`Filtre appliqué : \${filter}`);
+}
+
+function searchPayments(query) {
+    const payments = document.querySelectorAll('.payment-card');
+    const searchTerm = query.toLowerCase();
+    let visibleCount = 0;
+    
+    payments.forEach(payment => {
+        const ref = payment.dataset.ref || '';
+        const amount = payment.dataset.amount || '';
+        const method = payment.dataset.method || '';
+        
+        if (ref.includes(searchTerm) || amount.includes(searchTerm) || method.includes(searchTerm)) {
+            payment.style.display = 'block';
+            visibleCount++;
+        } else {
+            payment.style.display = 'none';
+        }
+    });
+    
+    document.getElementById('payments-count').textContent = visibleCount;
+}
+
+// Fonctions d'export et d'impression
+function printItems() {
+    const items = document.querySelectorAll('.item-card');
+    let printContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>PHANTOM SHOP - Liste des Items</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                h1 { color: #333; }
+                .item { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+                .item-header { display: flex; justify-content: space-between; }
+                .item-details { margin-top: 10px; }
+                .label { font-weight: bold; color: #666; }
+            </style>
+        </head>
+        <body>
+            <h1>PHANTOM SHOP - Liste des Items</h1>
+            <p>Date d'export: \${new Date().toLocaleDateString('fr-FR')}</p>
+            <p>Total: \${items.length} items</p>
+    `;
+    
+    items.forEach(item => {
+        if (item.style.display !== 'none') {
+            const name = item.querySelector('.item-title').textContent;
+            const category = item.querySelector('.item-category').textContent;
+            const status = item.querySelector('.item-status').textContent;
+            const price = item.querySelector('.item-price').textContent;
+            const total = item.querySelector('.item-total').textContent;
+            const date = item.querySelector('.item-date').textContent;
+            
+            printContent += `
+                <div class=\"item\">
+                    <div class=\"item-header\">
+                        <h3>\${name}</h3>
+                        <span>\${status}</span>
+                    </div>
+                    <div class=\"item-details\">
+                        <p><span class=\"label\">Catégorie:</span> \${category}</p>
+                        <p><span class=\"label\">Prix:</span> \${price}</p>
+                        <p><span class=\"label\">Total:</span> \${total}</p>
+                        <p><span class=\"label\">Date:</span> \${date}</p>
+                    </div>
+                </div>
+            `;
+        }
+    });
+    
+    printContent += '</body></html>';
+    
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    printWindow.print();
+    
+    showNotification('Impression des items lancée');
+}
+
+function printPayments() {
+    const payments = document.querySelectorAll('.payment-card');
+    let printContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>PHANTOM SHOP - Liste des Paiements</title>
+            <style>
+                body { font-family: Arial, sans-serif; margin: 20px; }
+                h1 { color: #333; }
+                .payment { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+                .payment-header { display: flex; justify-content: space-between; }
+                .payment-details { margin-top: 10px; }
+                .label { font-weight: bold; color: #666; }
+                .success { color: green; }
+                .pending { color: orange; }
+                .failed { color: red; }
+            </style>
+        </head>
+        <body>
+            <h1>PHANTOM SHOP - Liste des Paiements</h1>
+            <p>Date d'export: \${new Date().toLocaleDateString('fr-FR')}</p>
+            <p>Total: \${payments.length} paiements</p>
+    `;
+    
+    payments.forEach(payment => {
+        if (payment.style.display !== 'none') {
+            const ref = payment.querySelector('.payment-ref').textContent;
+            const status = payment.querySelector('.payment-status').textContent;
+            const amount = payment.querySelector('.payment-amount').textContent;
+            const method = payment.querySelector('.payment-method').textContent;
+            const date = payment.querySelector('.payment-date').textContent;
+            
+            printContent += `
+                <div class=\"payment\">
+                    <div class=\"payment-header\">
+                        <h3>\${ref}</h3>
+                        <span class=\"\${status.toLowerCase()}\">\${status}</span>
+                    </div>
+                    <div class=\"payment-details\">
+                        <p><span class=\"label\">Montant:</span> \${amount}</p>
+                        <p><span class=\"label\">Méthode:</span> \${method}</p>
+                        <p><span class=\"label\">Date:</span> \${date}</p>
+                    </div>
+                </div>
+            `;
+        }
+    });
+    
+    printContent += '</body></html>';
+    
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    printWindow.print();
+    
+    showNotification('Impression des paiements lancée');
+}
+
+function printDashboard() {
+    window.print();
+    showNotification('Impression du dashboard lancée');
+}
+
+function exportItems() {
+    const items = document.querySelectorAll('.item-card');
+    let csvContent = \"data:text/csv;charset=utf-8,\";
+    csvContent += \"Nom,Catégorie,Statut,Prix,Quantité,Total,Date\\n\";
+    
+    items.forEach(item => {
+        if (item.style.display !== 'none') {
+            const name = item.querySelector('.item-title').textContent;
+            const category = item.querySelector('.item-category').textContent;
+            const status = item.querySelector('.item-status').textContent;
+            const price = item.querySelector('.item-price').textContent.replace(' €', '').replace(',', '.');
+            const quantity = item.querySelector('.detail:nth-child(2) .value').textContent;
+            const total = item.querySelector('.item-total').textContent.replace(' €', '').replace(',', '.');
+            const date = item.querySelector('.item-date').textContent;
+            
+            csvContent += `\"\${name}\",\"\${category}\",\"\${status}\",\${price},\${quantity},\${total},\"\${date}\"\\n`;
+        }
+    });
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement(\"a\");
+    link.setAttribute(\"href\", encodedUri);
+    link.setAttribute(\"download\", `phantom-shop-items-\${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showNotification('Export des items en CSV');
+}
+
+function exportPayments() {
+    const payments = document.querySelectorAll('.payment-card');
+    let csvContent = \"data:text/csv;charset=utf-8,\";
+    csvContent += \"Référence,Statut,Montant,Méthode,Date\\n\";
+    
+    payments.forEach(payment => {
+        if (payment.style.display !== 'none') {
+            const ref = payment.querySelector('.payment-ref').textContent;
+            const status = payment.querySelector('.payment-status').textContent;
+            const amount = payment.querySelector('.payment-amount').textContent.replace(' €', '').replace(',', '.');
+            const method = payment.querySelector('.payment-method').textContent;
+            const date = payment.querySelector('.payment-date').textContent;
+            
+            csvContent += `\"\${ref}\",\"\${status}\",\${amount},\"\${method}\",\"\${date}\"\\n`;
+        }
+    });
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement(\"a\");
+    link.setAttribute(\"href\", encodedUri);
+    link.setAttribute(\"download\", `phantom-shop-payments-\${new Date().toISOString().slice(0,10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    showNotification('Export des paiements en CSV');
+}
+
+function exportDashboard() {
+    exportItems();
+    setTimeout(exportPayments, 500);
+    showNotification('Export complet lancé');
+}
+
+function exportAllData() {
+    const data = {
+        items: [],
+        payments: [],
+        stats: {
+            totalItems: document.getElementById('total-items').textContent,
+            totalPayments: document.getElementById('total-payments').textContent,
+            totalSales: document.getElementById('total-sales').textContent,
+            timestamp: new Date().toISOString()
+        }
+    };
+    
+    // Collecter les items
+    document.querySelectorAll('.item-card').forEach(item => {
+        if (item.style.display !== 'none') {
+            data.items.push({
+                name: item.querySelector('.item-title').textContent,
+                category: item.querySelector('.item-category').textContent,
+                status: item.querySelector('.item-status').textContent,
+                price: item.querySelector('.item-price').textContent,
+                quantity: item.querySelector('.detail:nth-child(2) .value').textContent,
+                total: item.querySelector('.item-total').textContent,
+                date: item.querySelector('.item-date').textContent
+            });
+        }
+    });
+    
+    // Collecter les paiements
+    document.querySelectorAll('.payment-card').forEach(payment => {
+        if (payment.style.display !== 'none') {
+            data.payments.push({
+                reference: payment.querySelector('.payment-ref').textContent,
+                status: payment.querySelector('.payment-status').textContent,
+                amount: payment.querySelector('.payment-amount').textContent,
+                method: payment.querySelector('.payment-method').textContent,
+                date: payment.querySelector('.payment-date').textContent
+            });
+        }
+    });
+    
+    // Créer le fichier JSON
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement(\"a\");
+    link.href = url;
+    link.download = `phantom-shop-data-\${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Nettoyer l'URL
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+    
+    showNotification('Export complet en JSON');
+}
+
+// Fonctions utilitaires
+function updateCounters() {
+    const items = document.querySelectorAll('.item-card');
+    const payments = document.querySelectorAll('.payment-card');
+    
+    // Compter les items visibles
+    let visibleItems = 0;
+    items.forEach(item => {
+        if (item.style.display !== 'none') visibleItems++;
+    });
+    document.getElementById('items-count').textContent = visibleItems;
+    
+    // Compter les paiements visibles
+    let visiblePayments = 0;
+    payments.forEach(payment => {
+        if (payment.style.display !== 'none') visiblePayments++;
+    });
+    document.getElementById('payments-count').textContent = visiblePayments;
+}
+
+function updateItemStats() {
+    const items = document.querySelectorAll('.item-card');
+    let paid = 0, pending = 0, total = 0;
+    
+    items.forEach(item => {
+        if (item.style.display !== 'none') {
+            if (item.dataset.status === 'paid') paid++;
+            if (item.dataset.status === 'pending') pending++;
+            total++;
+        }
+    });
+    
+    document.getElementById('paid-items').textContent = paid;
+    document.getElementById('pending-items').textContent = pending;
+    document.getElementById('total-items').textContent = total;
+}
+
+function updatePaymentStats() {
+    const payments = document.querySelectorAll('.payment-card');
+    let success = 0, pending = 0, total = 0;
+    let totalAmount = 0;
+    
+    payments.forEach(payment => {
+        if (payment.style.display !== 'none') {
+            if (payment.dataset.status === 'success') success++;
+            if (payment.dataset.status === 'pending') pending++;
+            totalAmount += parseFloat(payment.dataset.amount) || 0;
+            total++;
+        }
+    });
+    
+    document.getElementById('success-payments').textContent = success;
+    document.getElementById('pending-payments').textContent = pending;
+    document.getElementById('total-payments').textContent = total;
+    document.getElementById('total-sales').textContent = totalAmount.toFixed(2).replace('.', ',') + ' €';
+    
+    // Calculer la moyenne du panier
+    const average = total > 0 ? totalAmount / total : 0;
+    document.getElementById('average-basket').textContent = average.toFixed(2).replace('.', ',') + ' €';
+}
+
+function animateSort(elements) {
+    elements.forEach((el, index) => {
+        el.style.animationDelay = `\${index * 0.03}s`;
+        el.style.animation = 'slideIn 0.3s ease-out forwards';
+    });
+    
+    // Ajouter l'animation CSS si nécessaire
+    if (!document.getElementById('slideInAnimation')) {
+        const style = document.createElement('style');
+        style.id = 'slideInAnimation';
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+function showNotification(message) {
+    // Créer la notification
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerHTML = `
+        <i class=\"fas fa-info-circle\"></i>
+        <span>\${message}</span>
+    `;
+    
+    // Style de la notification
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 243, 255, 0.9);
+        color: black;
+        padding: 15px 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        z-index: 9999;
+        animation: slideInRight 0.3s ease-out, fadeOut 0.3s ease-out 2.7s forwards;
+    `;
+    
+    // Ajouter les animations CSS
+    if (!document.getElementById('notificationAnimations')) {
+        const style = document.createElement('style');
+        style.id = 'notificationAnimations';
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Supprimer la notification après 3 secondes
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    }, 3000);
+}
+
+function refreshData() {
+    const btn = event?.target || document.querySelector('.refresh-btn');
+    const originalHTML = btn.innerHTML;
+    
+    btn.innerHTML = '<i class=\"fas fa-spinner fa-spin\"></i> ACTUALISATION...';
+    btn.disabled = true;
+    
+    // Simuler un rafraîchissement
+    setTimeout(() => {
+        window.location.reload();
+    }, 1000);
+}
+
+function clearGlobalSearch() {
+    document.getElementById('globalSearch').value = '';
+    searchItems('');
+    searchPayments('');
+    showNotification('Recherche globale effacée');
+}
+
+function quickDeleteItem(id, name) {
+    deleteItemId = id;
+    document.getElementById('delete-title').textContent = `SUPPRIMER L'ITEM : \${name}`;
+    document.getElementById('delete-message').textContent = `Êtes-vous sûr de vouloir supprimer définitivement l'item \"\${name}\" ?`;
+    
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    modal.show();
+    
+    // Configurer le bouton de confirmation
+    document.getElementById('confirm-delete').onclick = function() {
+        // Ici, vous devriez faire un appel AJAX pour supprimer l'item
+        // Pour l'instant, on simule la suppression
+        const item = document.querySelector(`.item-card[data-id=\"\${id}\"]`);
+        if (item) {
+            item.style.animation = 'fadeOut 0.3s ease-out forwards';
+            setTimeout(() => {
+                if (item.parentNode) {
+                    item.parentNode.removeChild(item);
+                    updateCounters();
+                    updateItemStats();
+                    showNotification(`Item \"\${name}\" supprimé`);
+                }
+            }, 300);
+        }
+        modal.hide();
+    };
+}
+
+function quickDeletePayment(id, ref) {
+    deletePaymentId = id;
+    document.getElementById('delete-title').textContent = `SUPPRIMER LE PAIEMENT : \${ref}`;
+    document.getElementById('delete-message').textContent = `Êtes-vous sûr de vouloir supprimer définitivement le paiement \"\${ref}\" ?`;
+    
+    const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+    modal.show();
+    
+    // Configurer le bouton de confirmation
+    document.getElementById('confirm-delete').onclick = function() {
+        // Ici, vous devriez faire un appel AJAX pour supprimer le paiement
+        // Pour l'instant, on simule la suppression
+        const payment = document.querySelector(`.payment-card[data-id=\"\${id}\"]`);
+        if (payment) {
+            payment.style.animation = 'fadeOut 0.3s ease-out forwards';
+            setTimeout(() => {
+                if (payment.parentNode) {
+                    payment.parentNode.removeChild(payment);
+                    updateCounters();
+                    updatePaymentStats();
+                    showNotification(`Paiement \"\${ref}\" supprimé`);
+                }
+            }, 300);
+        }
+        modal.hide();
+    };
+}
+
+// Initialisation des composants
+function initDropdowns() {
+    // Activer les dropdowns Bootstrap
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    });
+}
+
+function initGlobalSearch() {
+    const searchInput = document.getElementById('globalSearch');
+    if (searchInput) {
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const query = this.value.toLowerCase();
+                searchItems(query);
+                searchPayments(query);
+                
+                if (query) {
+                    showNotification(`Recherche globale : \"\${query}\"`);
+                }
+            }, 300);
+        });
+    }
+}
+
+function initColumnSearch() {
+    // Recherche des items
+    const itemSearch = document.getElementById('itemSearch');
+    if (itemSearch) {
+        let itemSearchTimeout;
+        
+        itemSearch.addEventListener('input', function() {
+            clearTimeout(itemSearchTimeout);
+            itemSearchTimeout = setTimeout(() => {
+                searchItems(this.value.toLowerCase());
+            }, 300);
+        });
+    }
+    
+    // Recherche des paiements
+    const paymentSearch = document.getElementById('paymentSearch');
+    if (paymentSearch) {
+        let paymentSearchTimeout;
+        
+        paymentSearch.addEventListener('input', function() {
+            clearTimeout(paymentSearchTimeout);
+            paymentSearchTimeout = setTimeout(() => {
+                searchPayments(this.value.toLowerCase());
+            }, 300);
+        });
+    }
+}
+
+function initDateFilters() {
+    const dateButtons = document.querySelectorAll('.control-btn[data-filter]');
+    dateButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Retirer la classe active de tous les boutons
+            dateButtons.forEach(b => b.classList.remove('active'));
+            // Ajouter la classe active au bouton cliqué
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const items = document.querySelectorAll('.item-card');
+            const payments = document.querySelectorAll('.payment-card');
+            
+            items.forEach(item => {
+                const itemDate = new Date(item.dataset.date);
+                itemDate.setHours(0, 0, 0, 0);
+                
+                switch(filter) {
+                    case 'today':
+                        item.style.display = itemDate.getTime() === today.getTime() ? 'block' : 'none';
+                        break;
+                    case 'week':
+                        const weekAgo = new Date(today);
+                        weekAgo.setDate(today.getDate() - 7);
+                        item.style.display = itemDate >= weekAgo ? 'block' : 'none';
+                        break;
+                    case 'month':
+                        const monthAgo = new Date(today);
+                        monthAgo.setMonth(today.getMonth() - 1);
+                        item.style.display = itemDate >= monthAgo ? 'block' : 'none';
+                        break;
+                    default:
+                        item.style.display = 'block';
+                }
+            });
+            
+            payments.forEach(payment => {
+                const paymentDate = new Date(payment.dataset.date);
+                paymentDate.setHours(0, 0, 0, 0);
+                
+                switch(filter) {
+                    case 'today':
+                        payment.style.display = paymentDate.getTime() === today.getTime() ? 'block' : 'none';
+                        break;
+                    case 'week':
+                        const weekAgo = new Date(today);
+                        weekAgo.setDate(today.getDate() - 7);
+                        payment.style.display = paymentDate >= weekAgo ? 'block' : 'none';
+                        break;
+                    case 'month':
+                        const monthAgo = new Date(today);
+                        monthAgo.setMonth(today.getMonth() - 1);
+                        payment.style.display = paymentDate >= monthAgo ? 'block' : 'none';
+                        break;
+                    default:
+                        payment.style.display = 'block';
+                }
+            });
+            
+            updateCounters();
+            updateItemStats();
+            updatePaymentStats();
+            
+            showNotification(`Filtre temporel : \${filter}`);
+        });
+    });
+}
+
+function startLiveUpdates() {
+    // Mettre à jour les utilisateurs en ligne
+    setInterval(() => {
+        const onlineUsers = document.getElementById('online-users');
+        if (onlineUsers) {
+            const current = parseInt(onlineUsers.textContent);
+            const change = Math.random() > 0.5 ? 1 : -1;
+            const newValue = Math.max(1, current + change);
+            onlineUsers.textContent = newValue;
+        }
+    }, 10000);
+    
+    // Mettre à jour l'indicateur d'activité
+    setInterval(() => {
+        const indicator = document.getElementById('activity-indicator');
+        if (indicator) {
+            const colors = ['var(--neon-green)', 'var(--neon-yellow)', 'var(--neon-red)'];
+            const levels = ['HAUTE', 'MOYENNE', 'FAIBLE'];
+            const random = Math.floor(Math.random() * 3);
+            
+            indicator.innerHTML = `<i class=\"fas fa-circle\" style=\"color: \${colors[random]};\"></i> \${levels[random]}`;
+        }
+    }, 15000);
+    
+    // Ajouter l'animation de fadeOut
+    if (!document.getElementById('fadeOutAnimation')) {
+        const style = document.createElement('style');
+        style.id = 'fadeOutAnimation';
+        style.textContent = `
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// Ajouter l'animation CSS pour les cartes
+const animationsStyle = document.createElement('style');
+animationsStyle.textContent = `
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .item-card, .payment-card, .stat-card {
+        opacity: 0;
+    }
+`;
+document.head.appendChild(animationsStyle);
+
+// Animation du titre
+const title = document.querySelector('.shop-title');
+if (title) {
+    let hue = 0;
+    setInterval(() => {
+        hue = (hue + 1) % 360;
+        title.style.filter = `hue-rotate(\${hue}deg) drop-shadow(0 0 10px hsl(\${hue}, 100%, 50%))`;
+    }, 50);
+}
+</script>
+{% endblock %}", "shop_item/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\shop_item\\index.html.twig");
+    }
+}
