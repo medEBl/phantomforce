@@ -20,6 +20,17 @@ class MatchyRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Matchy::class);
     }
+    public function findAllWithTeams(): array
+{
+    return $this->createQueryBuilder('m')
+        ->leftJoin('m.team1', 't1')
+        ->leftJoin('m.team2', 't2')
+        ->leftJoin('m.winnerTeam', 'w')
+        ->addSelect('t1', 't2', 'w')
+        ->orderBy('m.matchDate', 'DESC')
+        ->getQuery()
+        ->getResult();
+}
 
 //    /**
 //     * @return Matchy[] Returns an array of Matchy objects

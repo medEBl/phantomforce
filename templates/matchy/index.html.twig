@@ -762,9 +762,11 @@
     
     <!-- Contrôles principaux -->
     <div class="controls-container">
+    {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_PLAYER')) %}
         <a href="{{ path('app_matchy_new') }}" class="add-match-btn">
             ⚡ PROGRAMMER UN MATCH
         </a>
+        {% endif %}
     </div>
     
     <!-- Barre de recherche et filtres -->
@@ -899,12 +901,13 @@
                            title="Voir les détails du match">
                             👁️ VOIR
                         </a>
-                        
+                        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_PLAYER')) %}
                         <a href="{{ path('app_matchy_edit', {'id': match.id}) }}" 
                            class="action-btn edit-btn"
                            title="Modifier le match">
                             ✏️ MODIFIER
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

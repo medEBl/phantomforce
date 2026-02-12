@@ -710,53 +710,64 @@
 
         {% if coaching_sessions|length > 0 %}
             <div id="sessions-list">
-                {% for coaching_session in coaching_sessions %}
-                    <div class="table-row session-item" 
-                         data-id="{{ coaching_session.id }}"
-                         data-coach="{{ coaching_session.coachId }}"
-                         data-duration="{{ coaching_session.duration }}"
-                         data-date="{{ coaching_session.sessionDate ? coaching_session.sessionDate|date('Y-m-d H:i') : '' }}"
-                         data-team="{{ coaching_session.teamId }}">
-                        <div class="table-cell cell-id" data-label="ID">#{{ coaching_session.id }}</div>
-                        <div class="table-cell" data-label="Coach">Coach #{{ coaching_session.coachId }}</div>
-                        <div class="table-cell" data-label="Équipe">Équipe #{{ coaching_session.teamId }}</div>
-                        <div class="table-cell cell-date" data-label="Date">
-                            {{ coaching_session.sessionDate ? coaching_session.sessionDate|date('d/m/Y H:i') : 'N/A' }}
-                        </div>
-                        <div class="table-cell cell-duration" data-label="Durée">{{ coaching_session.duration }}</div>
-                        <div class="table-cell cell-trainingplan" data-label="Training Plan">
-                            {% if coaching_session.trainingPlan %}
-                                <strong>{{ coaching_session.trainingPlan.title }}</strong><br>
-                                <small>{{ coaching_session.trainingPlan.focusArea }}</small>
-                            {% else %}
-                                <span class="text-muted">Aucun plan assigné</span>
-                            {% endif %}
-                        </div>
-                        <div class="table-cell action-buttons" data-label="Actions">
-                            <a href="{{ path('app_coaching_session_show', {'id': coaching_session.id}) }}" class="btn-show">
-                                <i class="fas fa-eye"></i> Voir
-                            </a>
-                            <a href="{{ path('app_coaching_session_edit', {'id': coaching_session.id}) }}" class="btn-edit">
-                                <i class="fas fa-edit"></i> Éditer
-                            </a>
-                        </div>
-                    </div>
-                {% endfor %}
+               <!-- Dans la boucle FOR des sessions -->
+{% for coaching_session in coaching_sessions %}
+    <div class="table-row session-item" 
+         data-id="{{ coaching_session.id }}"
+         data-coach="{{ coaching_session.coachId }}"
+         data-duration="{{ coaching_session.duration }}"
+         data-date="{{ coaching_session.sessionDate ? coaching_session.sessionDate|date('Y-m-d H:i') : '' }}"
+         data-team="{{ coaching_session.teamId }}">
+        <div class="table-cell cell-id" data-label="ID">#{{ coaching_session.id }}</div>
+        <div class="table-cell" data-label="Coach">Coach #{{ coaching_session.coachId }}</div>
+        <div class="table-cell" data-label="Équipe">Équipe #{{ coaching_session.teamId }}</div>
+        <div class="table-cell cell-date" data-label="Date">
+            {{ coaching_session.sessionDate ? coaching_session.sessionDate|date('d/m/Y H:i') : 'N/A' }}
+        </div>
+        <div class="table-cell cell-duration" data-label="Durée">{{ coaching_session.duration }}</div>
+        <div class="table-cell cell-trainingplan" data-label="Training Plan">
+            {% if coaching_session.trainingPlan %}
+                <strong>{{ coaching_session.trainingPlan.title }}</strong><br>
+                <small>{{ coaching_session.trainingPlan.focusArea }}</small>
+            {% else %}
+                <span class="text-muted">Aucun plan assigné</span>
+            {% endif %}
+        </div>
+        <div class="table-cell action-buttons" data-label="Actions">
+            <a href="{{ path('app_coaching_session_show', {'id': coaching_session.id}) }}" class="btn-show">
+                <i class="fas fa-eye"></i> Voir
+            </a>
+            <a href="{{ path('app_coaching_session_edit', {'id': coaching_session.id}) }}" class="btn-edit">
+                <i class="fas fa-edit"></i> Éditer
+            </a>
+            <!-- BOUTON SIMPLE POUR REJOINDRE LA MEETING -->
+            <a href="{{ path('app_coaching_session_meet', {'id': coaching_session.id}) }}" 
+               class="btn-show" 
+               style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                <i class="fas fa-video"></i> Rejoindre
+            </a>
+        </div>
+    </div>
+{% endfor %}
             </div>
         {% else %}
             <div class="empty-state">
                 <div class="empty-state-icon">🎮</div>
                 <h3>Aucune session de coaching trouvée</h3>
                 <p>Commencez par créer votre première session de coaching pour améliorer les performances de votre équipe.</p>
-                <a href="{{ path('app_coaching_session_new') }}" class="btn btn-new">Créer une session</a>
+                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGINAZER') and not is_granted('ROLE_PLAYER')) %}
+                    <a href="{{ path('app_coaching_session_new') }}" class="btn btn-new">Créer une session</a>
+                {% endif %}
             </div>
         {% endif %}
     </div>
 
     <div style="text-align: center; margin-top: 40px;">
-        <a href="{{ path('app_coaching_session_new') }}" class="btn-new">
-            <i class="fas fa-plus-circle"></i> Nouvelle Session
-        </a>
+        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
+            <a href="{{ path('app_coaching_session_new') }}" class="btn-new">
+                <i class="fas fa-plus-circle"></i> Nouvelle Session
+            </a>
+        {% endif %}
     </div>
 </div>
 
@@ -842,16 +853,20 @@
                             <a href="{{ path('app_training_plan_show', {'id': training_plan.id}) }}" class="btn-show">
                                 <i class="fas fa-eye"></i> Voir
                             </a>
-                            <a href="{{ path('app_training_plan_edit', {'id': training_plan.id}) }}" class="btn-edit">
-                                <i class="fas fa-edit"></i> Éditer
-                            </a>
+                            {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
+                                <a href="{{ path('app_training_plan_edit', {'id': training_plan.id}) }}" class="btn-edit">
+                                    <i class="fas fa-edit"></i> Éditer
+                                </a>
+                            {% endif %}
                             <form method="post" action="{{ path('app_training_plan_delete', {'id': training_plan.id}) }}" 
                                   onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce plan d\'entraînement ?');" 
                                   style="display: inline;">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ training_plan.id) }}">
-                                <button type="submit" class="btn-delete">
-                                    <i class="fas fa-trash"></i> Supprimer
-                                </button>
+                                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
+                                    <button type="submit" class="btn-delete">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                {% endif %}
                             </form>
                         </div>
                     </div>
@@ -862,15 +877,19 @@
                 <div class="empty-state-icon">📋</div>
                 <h3>Aucun plan d'entraînement trouvé</h3>
                 <p>Créez votre premier plan d'entraînement pour structurer vos sessions de coaching.</p>
-                <a href="{{ path('app_training_plan_new') }}" class="btn btn-new">Créer un plan</a>
+                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
+                    <a href="{{ path('app_training_plan_new') }}" class="btn btn-new">Créer un plan</a>
+                {% endif %}
             </div>
         {% endif %}
     </div>
 
     <div style="text-align: center; margin-top: 40px;">
-        <a href="{{ path('app_training_plan_new') }}" class="btn-new">
-            <i class="fas fa-plus-circle"></i> Nouveau Plan d'Entraînement
-        </a>
+        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
+            <a href="{{ path('app_training_plan_new') }}" class="btn-new">
+                <i class="fas fa-plus-circle"></i> Nouveau Plan d'Entraînement
+            </a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
@@ -1151,5 +1170,48 @@ document.addEventListener('DOMContentLoaded', function() {
         showTab('training-plans');
     }
 });
+</script>
+<script>
+// ==================== NOTIFICATIONS 15 MINUTES AVANT SESSION ====================
+function checkSessionNotifications() {
+    const sessions = document.querySelectorAll('.session-item');
+    const now = new Date();
+
+    sessions.forEach(session => {
+        const dateStr = session.dataset.date; // format 'YYYY-MM-DD HH:mm'
+        if (!dateStr) return;
+
+        const sessionDate = new Date(dateStr.replace(' ', 'T'));
+        const diffMinutes = (sessionDate - now) / 1000 / 60; // différence en minutes
+
+        // Notification si session dans les 15 prochaines minutes et pas déjà notifiée
+        if (diffMinutes > 0 && diffMinutes <= 10 && !session.dataset.notified) {
+            showNotification(
+                Session prochaine !,
+                La session #${session.dataset.id} commence à ${sessionDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+            );
+            session.dataset.notified = 'true';
+        }
+    });
+}
+
+// Fonction pour afficher la notification
+function showNotification(title, message) {
+    if (Notification.permission === 'granted') {
+        new Notification(title, { body: message, icon: '/favicon.ico' });
+    } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                new Notification(title, { body: message, icon: '/favicon.ico' });
+            }
+        });
+    }
+}
+
+// Vérification toutes les minutes
+setInterval(checkSessionNotifications, 60000);
+
+// Vérification au chargement
+document.addEventListener('DOMContentLoaded', checkSessionNotifications);
 </script>
 {% endblock %}

@@ -86,4 +86,5 @@ class MatchyController extends AbstractController
 
         return $this->redirectToRoute('app_matchy_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 }

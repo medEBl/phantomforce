@@ -321,6 +321,12 @@
                         <span>Dashboard</span>
                     </a>
                 </div>
+                  <div class="nav-item">
+                    <a href="{{ path('admin_user_index') }}" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </div>
                 
                 <div class="nav-item">
                     <a href="{{ path('app_back_matchy_index') }}" class="nav-link">
@@ -333,6 +339,18 @@
                     <a href="{{ path('app_back_team_index') }}" class="nav-link">
                         <i class="fas fa-users"></i>
                         <span>Équipes</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="{{ path('app_agent_index') }}" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Champions</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="{{ path('app_questionnaire_agent_index') }}" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Questionnaires</span>
                     </a>
                 </div>
                 <!-- AJOUT DES NOUVEAUX BOUTONS -->
@@ -349,13 +367,24 @@
                         <span>Sessions de Coaching</span>
                     </a>
                 </div>
-
+                <div class="nav-item">
+                    <a href="{{ path('app_back_payment_index') }}" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Boutique</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Tournois</span>
+                    </a>
+                </div>
                 
                 <!-- Séparateur -->
                 <div style="margin: 20px 15px; border-top: 1px solid rgba(255, 255, 255, 0.1);"></div>
                 
                 <div class="nav-item">
-                    <a href="{{ path('app_matchy_index') }}" class="nav-link">
+                    <a href="{{ path('app_acceuil') }}" class="nav-link">
                         <i class="fas fa-external-link-alt"></i>
                         <span>Voir le site</span>
                     </a>

@@ -1,0 +1,65 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Récompenses - {{ tournament.name }} - Admin{% endblock %}
+
+{% block body %}
+<div class="admin-header d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="h3 mb-1">Récompenses : {{ tournament.name }}</h1>
+        <p class="text-muted small mb-0">Définissez les récompenses par rang pour cette compétition.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{{ path('app_admin_reward_new', {'tournamentId': tournament.id}) }}" class="btn-admin btn-admin-primary">
+            <i class="fas fa-plus"></i> Ajouter
+        </a>
+        <a href="{{ path('app_back_matchy_edit', {'id': tournament.id}) }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-arrow-left"></i> Retour au Tournoi
+        </a>
+    </div>
+</div>
+
+<div class="admin-card p-0 overflow-hidden">
+    <table class="admin-table mb-0">
+        <thead>
+            <tr>
+                <th>Rang</th>
+                <th>Type</th>
+                <th>Valeur</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reward in rewards %}
+                <tr>
+                    <td>
+                        <span class="badge-admin {% if reward.rank == 1 %}badge-ongoing{% else %}badge-planned{% endif %}">
+                            RANK #{{ reward.rank }}
+                        </span>
+                    </td>
+                    <td>{{ reward.rewardType }}</td>
+                    <td class="fw-bold text-info">{{ reward.rewardValue }}</td>
+                    <td class="text-end">
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{{ path('app_admin_reward_edit', {'tournamentId': tournament.id, 'id': reward.id}) }}" class="btn-admin btn-admin-secondary p-2">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{{ path('app_admin_reward_delete', {'tournamentId': tournament.id, 'id': reward.id}) }}" method="post" onsubmit="return confirm('Supprimer cette récompense ?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reward.id) }}">
+                                <button class="btn-admin btn-admin-danger p-2">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center py-5">
+                        <span class="text-muted italic">Aucune récompense définie pour ce tournoi.</span>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

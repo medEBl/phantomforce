@@ -54,6 +54,8 @@ class Team
     #[ORM\OneToMany(mappedBy: 'winner_team', targetEntity: Matchy::class)]
     private Collection $matchesWon;
 
+    
+
     public function __construct()
     {
         $this->matchesAsTeam1 = new ArrayCollection();
