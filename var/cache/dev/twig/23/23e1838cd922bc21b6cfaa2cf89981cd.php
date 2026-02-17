@@ -117,6 +117,8 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         --text-muted: #aaaaaa;
         --success-green: #00ff88;
         --warning-orange: #ff9900;
+        --neon-blue: #00ffff;
+        --neon-purple: #9900ff;
     }
     
     body {
@@ -146,7 +148,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         position: relative;
         padding: 2rem;
         animation: fadeIn 1s ease-out;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
     }
     
@@ -338,28 +340,270 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         transform: translateY(-2px);
     }
     
-    .form-textarea {
-        width: 100%;
-        padding: 1.2rem 1.5rem;
+    /* Styles pour la sélection multiple améliorée */
+    .members-select {
+        min-height: 200px;
+        padding: 0.5rem;
         background: rgba(0, 0, 0, 0.8);
         border: 2px solid var(--blood-orange);
         border-radius: 12px;
         color: white;
         font-family: 'Rajdhani', sans-serif;
-        font-size: 1.2rem;
-        font-weight: 500;
+        font-size: 1.1rem;
         transition: all 0.3s ease;
-        letter-spacing: 0.5px;
-        resize: vertical;
-        min-height: 150px;
     }
     
-    .form-textarea:focus {
+    .members-select option {
+        padding: 0.8rem 1rem;
+        background: rgba(34, 34, 34, 0.9);
+        border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .members-select option:hover {
+        background: rgba(255, 102, 0, 0.3);
+    }
+    
+    .members-select option:checked {
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        color: white;
+        font-weight: bold;
+    }
+    
+    .members-select option:checked::before {
+        content: '✓ ';
+        color: var(--fire-yellow);
+    }
+    
+    .members-select option:checked:hover {
+        background: linear-gradient(45deg, var(--blood-orange), var(--fire-yellow));
+    }
+    
+    .members-select option:disabled {
+        opacity: 0.5;
+        font-style: italic;
+    }
+    
+    .members-select option:first-child {
+        color: var(--text-muted);
+        font-style: italic;
+    }
+    
+    .members-select:focus {
         outline: none;
         border-color: var(--fire-yellow);
         box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
-        background: rgba(0, 0, 0, 0.9);
-        transform: translateY(-2px);
+    }
+    
+    .members-select option:active,
+    .members-select option:focus {
+        background: var(--blood-red);
+    }
+    
+    /* Sélecteur de membres avec tags */
+    .members-tag-container {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid var(--blood-orange);
+        border-radius: 12px;
+        padding: 0.8rem;
+        min-height: 120px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+    
+    .members-tag-container:focus-within {
+        border-color: var(--fire-yellow);
+        box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
+    }
+    
+    .member-tag {
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        border-radius: 20px;
+        padding: 0.4rem 1rem 0.4rem 1.2rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+        box-shadow: 0 2px 8px rgba(255, 0, 60, 0.3);
+        animation: tagAppear 0.3s ease;
+    }
+    
+    @keyframes tagAppear {
+        from { transform: scale(0); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    
+    .member-tag .member-role {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 0.2rem 0.6rem;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+    
+    .member-tag .remove-tag {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0 0.2rem;
+        line-height: 1;
+        opacity: 0.7;
+        transition: all 0.2s ease;
+    }
+    
+    .member-tag .remove-tag:hover {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    
+    .members-search {
+        flex: 1;
+        min-width: 200px;
+        background: none;
+        border: none;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+    
+    .members-search:focus {
+        outline: none;
+    }
+    
+    .members-search::placeholder {
+        color: var(--text-muted);
+        font-style: italic;
+    }
+    
+    .members-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(34, 34, 34, 0.98);
+        border: 2px solid var(--blood-orange);
+        border-radius: 12px;
+        margin-top: 0.5rem;
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+    
+    .members-dropdown.active {
+        display: block;
+        animation: dropdownFade 0.3s ease;
+    }
+    
+    @keyframes dropdownFade {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .member-item {
+        padding: 1rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .member-item:hover {
+        background: rgba(255, 102, 0, 0.2);
+        transform: translateX(5px);
+    }
+    
+    .member-item.selected {
+        background: rgba(255, 0, 60, 0.3);
+        border-left: 4px solid var(--fire-yellow);
+    }
+    
+    .member-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+    }
+    
+    .member-info {
+        flex: 1;
+    }
+    
+    .member-name {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--fire-yellow);
+    }
+    
+    .member-details {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+    
+    .member-rank {
+        color: var(--blood-orange);
+    }
+    
+    .member-game {
+        color: var(--neon-blue);
+    }
+    
+    .no-members {
+        padding: 2rem;
+        text-align: center;
+        color: var(--text-muted);
+        font-style: italic;
+    }
+    
+    /* Style pour le compteur de membres sélectionnés */
+    .selected-counter {
+        display: inline-block;
+        background: var(--blood-red);
+        color: white;
+        border-radius: 20px;
+        padding: 0.2rem 1rem;
+        font-size: 0.9rem;
+        margin-left: 1rem;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 5px var(--blood-red); }
+        50% { box-shadow: 0 0 15px var(--blood-red); }
+    }
+    
+    .members-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+    
+    .members-stats span {
+        color: var(--fire-yellow);
+        font-weight: bold;
     }
     
     .input-icon {
@@ -653,6 +897,12 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         .game-grid {
             grid-template-columns: repeat(2, 1fr);
         }
+        
+        .members-stats {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
     }
 </style>
 ";
@@ -665,7 +915,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         yield from [];
     }
 
-    // line 564
+    // line 814
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -678,49 +928,49 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 565
+        // line 815
         yield "<div class=\"creation-container\">
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class=\"floating-elements\">
         ";
-        // line 569
+        // line 819
         $context["icons"] = ["🎮", "⚡", "🔥", "👑", "🕹️", "🎯", "🏆", "💥", "🚀", "⭐"];
-        // line 570
+        // line 820
         yield "        ";
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(range(1, 10));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 571
+            // line 821
             yield "            ";
-            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 571, $this->source); })())));
-            // line 572
+            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 821, $this->source); })())));
+            // line 822
             yield "            ";
             $context["leftPosition"] = (5 + (($context["i"] * 9) % 90));
-            // line 573
+            // line 823
             yield "            ";
             $context["delay"] = (($context["i"] * 1.3) % 21);
-            // line 574
+            // line 824
             yield "            ";
             $context["duration"] = (15 + (($context["i"] * 1.7) % 11));
-            // line 575
+            // line 825
             yield "            <div class=\"floating-element\" style=\"
                 left: ";
-            // line 576
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 576, $this->source); })()), "html", null, true);
+            // line 826
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 826, $this->source); })()), "html", null, true);
             yield "%;
                 animation-delay: ";
-            // line 577
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 577, $this->source); })()), "html", null, true);
+            // line 827
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 827, $this->source); })()), "html", null, true);
             yield "s;
                 animation-duration: ";
-            // line 578
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 578, $this->source); })()), "html", null, true);
+            // line 828
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 828, $this->source); })()), "html", null, true);
             yield "s;
             \">
                 ";
-            // line 580
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 580, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 580, $this->source); })()), [], "array", false, false, false, 580), "html", null, true);
+            // line 830
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 830, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 830, $this->source); })()), [], "array", false, false, false, 830), "html", null, true);
             yield "
             </div>
         ";
@@ -728,7 +978,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['i'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 583
+        // line 833
         yield "    </div>
     
     <!-- En-tête avec effet néon -->
@@ -742,42 +992,42 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
     <!-- Carte du formulaire -->
     <div class=\"form-card\">
         ";
-        // line 595
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 595, $this->source); })()), 'form_start');
+        // line 845
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 845, $this->source); })()), 'form_start');
         yield "
         
         ";
-        // line 598
+        // line 848
         yield "        ";
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 598, $this->source); })()), "vars", [], "any", false, false, false, 598), "errors", [], "any", false, false, false, 598)) > 0)) {
-            // line 599
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 848, $this->source); })()), "vars", [], "any", false, false, false, 848), "errors", [], "any", false, false, false, 848)) > 0)) {
+            // line 849
             yield "        <div class=\"form-global-error\">
             <strong style=\"display: block; margin-bottom: 0.5rem;\">⚠️ ERREURS DANS LE FORMULAIRE :</strong>
             ";
-            // line 601
-            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 601, $this->source); })()), 'errors');
+            // line 851
+            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 851, $this->source); })()), 'errors');
             yield "
         </div>
         ";
         }
-        // line 604
+        // line 854
         yield "        
         <div class=\"form-group\">
             <label class=\"form-label\">
                 <span>⚡ NOM DE L'ÉQUIPE</span>
             </label>
             ";
-        // line 609
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 609, $this->source); })()), "name", [], "any", false, false, false, 609), 'widget', ["attr" => ["class" => "form-input", "placeholder" => "EX: BLOOD WARRIORS", "maxlength" => 50]]);
-        // line 615
+        // line 859
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 859, $this->source); })()), "name", [], "any", false, false, false, 859), 'widget', ["attr" => ["class" => "form-input", "placeholder" => "EX: BLOOD WARRIORS", "maxlength" => 50]]);
+        // line 865
         yield "
             <div class=\"input-icon\">🏆</div>
             
             ";
-        // line 619
+        // line 869
         yield "            ";
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 619, $this->source); })()), "name", [], "any", false, false, false, 619), 'errors', ["attr" => ["class" => "form-error"]]);
-        // line 621
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 869, $this->source); })()), "name", [], "any", false, false, false, 869), 'errors', ["attr" => ["class" => "form-error"]]);
+        // line 871
         yield "
             
             <div class=\"character-counter\" id=\"nameCounter\">0/50</div>
@@ -788,17 +1038,17 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
                 <span>🎮 JEU PRINCIPAL</span>
             </label>
             ";
-        // line 630
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 630, $this->source); })()), "game", [], "any", false, false, false, 630), 'widget', ["attr" => ["class" => "form-select", "placeholder" => "SÉLECTIONNEZ UN JEU"]]);
-        // line 635
+        // line 880
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 880, $this->source); })()), "game", [], "any", false, false, false, 880), 'widget', ["attr" => ["class" => "form-select", "placeholder" => "SÉLECTIONNEZ UN JEU"]]);
+        // line 885
         yield "
             <div class=\"input-icon\">🕹️</div>
             
             ";
-        // line 639
+        // line 889
         yield "            ";
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 639, $this->source); })()), "game", [], "any", false, false, false, 639), 'errors', ["attr" => ["class" => "form-error"]]);
-        // line 641
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 889, $this->source); })()), "game", [], "any", false, false, false, 889), 'errors', ["attr" => ["class" => "form-error"]]);
+        // line 891
         yield "
             
             <!-- Suggestions de jeux populaires -->
@@ -843,36 +1093,71 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
                 <span>📅 DATE DE CRÉATION</span>
             </label>
             ";
-        // line 684
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 684, $this->source); })()), "creation_date", [], "any", false, false, false, 684), 'widget', ["attr" => ["class" => "form-input", "placeholder" => "JJ/MM/AAAA"]]);
-        // line 689
+        // line 934
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 934, $this->source); })()), "creation_date", [], "any", false, false, false, 934), 'widget', ["attr" => ["class" => "form-input", "placeholder" => "JJ/MM/AAAA"]]);
+        // line 939
         yield "
             <div class=\"input-icon\">📅</div>
             
             ";
-        // line 693
+        // line 943
         yield "            ";
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 693, $this->source); })()), "creation_date", [], "any", false, false, false, 693), 'errors', ["attr" => ["class" => "form-error"]]);
-        // line 695
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 943, $this->source); })()), "creation_date", [], "any", false, false, false, 943), 'errors', ["attr" => ["class" => "form-error"]]);
+        // line 945
         yield "
         </div>
         
         <div class=\"form-group\">
             <label class=\"form-label\">
-                <span>👑 COACH (FACULTATIF)</span>
+                <span>👑 COACH DE L'ÉQUIPE</span>
             </label>
             ";
-        // line 702
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 702, $this->source); })()), "coach_id", [], "any", false, false, false, 702), 'widget', ["attr" => ["class" => "form-input", "placeholder" => "ID du coach (ex: 1, 2, 3...)"]]);
-        // line 707
+        // line 952
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 952, $this->source); })()), "coach", [], "any", false, false, false, 952), 'widget', ["attr" => ["class" => "form-select", "placeholder" => "Sélectionnez un coach"]]);
+        // line 957
         yield "
             <div class=\"input-icon\">👑</div>
             
             ";
-        // line 711
+        // line 961
         yield "            ";
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 711, $this->source); })()), "coach_id", [], "any", false, false, false, 711), 'errors', ["attr" => ["class" => "form-error"]]);
-        // line 713
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 961, $this->source); })()), "coach", [], "any", false, false, false, 961), 'errors', ["attr" => ["class" => "form-error"]]);
+        // line 963
+        yield "
+        </div>
+        
+        <!-- SECTION MEMBRES AMÉLIORÉE -->
+        <div class=\"form-group\">
+            <label class=\"form-label\">
+                <span>👥 MEMBRES DE L'ÉQUIPE</span>
+                <span class=\"selected-counter\" id=\"selectedCount\">0 sélectionné(s)</span>
+            </label>
+            
+            ";
+        // line 973
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 973, $this->source); })()), "members", [], "any", false, false, false, 973), 'widget', ["attr" => ["class" => "members-select", "size" => 8, "multiple" => "multiple", "data-placeholder" => "Sélectionnez les membres"]]);
+        // line 980
+        yield "
+            
+            <div class=\"members-stats\">
+                <div>
+                    <span id=\"totalMembers\">";
+        // line 984
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 984, $this->source); })()), "members", [], "any", false, false, false, 984), "vars", [], "any", false, false, false, 984), "choices", [], "any", false, false, false, 984)), "html", null, true);
+        yield "</span> agents disponibles
+                </div>
+                <div>
+                    <span>💡</span> Maintenez <kbd>Ctrl</kbd> (Windows) ou <kbd>⌘</kbd> (Mac) pour sélection multiple
+                </div>
+            </div>
+            
+            <div class=\"input-icon\">👥</div>
+            
+            ";
+        // line 994
+        yield "            ";
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 994, $this->source); })()), "members", [], "any", false, false, false, 994), 'errors', ["attr" => ["class" => "form-error"]]);
+        // line 996
         yield "
         </div>
         
@@ -881,7 +1166,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
                 ⚔️ CRÉER L'ÉQUIPE
             </button>
             <a href=\"";
-        // line 720
+        // line 1003
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_team_index");
         yield "\" class=\"back-btn\">
                 🔙 RETOUR
@@ -889,8 +1174,8 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         </div>
         
         ";
-        // line 725
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 725, $this->source); })()), 'form_end');
+        // line 1008
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 1008, $this->source); })()), 'form_end');
         yield "
     </div>
     
@@ -901,7 +1186,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
 </div>
 
 <script>
-    // Gestion du compteur de caractères
+    // Gestion du compteur de caractères pour le nom
     const nameInput = document.querySelector('input[name*=\"name\"]');
     const nameCounter = document.getElementById('nameCounter');
     
@@ -910,7 +1195,6 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
             const length = this.value.length;
             nameCounter.textContent = `\${length}/50`;
             
-            // Changer la couleur selon le nombre de caractères
             nameCounter.classList.remove('warning', 'danger');
             if (length > 40) {
                 nameCounter.classList.add('warning');
@@ -919,8 +1203,6 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
                 nameCounter.classList.add('danger');
             }
         });
-        
-        // Initialiser le compteur
         nameInput.dispatchEvent(new Event('input'));
     }
     
@@ -930,24 +1212,17 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
     
     gameOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // Retirer la sélection précédente
             gameOptions.forEach(opt => opt.classList.remove('selected'));
-            
-            // Sélectionner cette option
             this.classList.add('selected');
             
-            // Mettre à jour le select
             if (gameSelect) {
                 const gameValue = this.getAttribute('data-game');
                 gameSelect.value = gameValue;
-                
-                // Déclencher l'événement change
                 gameSelect.dispatchEvent(new Event('change'));
             }
         });
     });
     
-    // Pré-sélectionner l'option si elle correspond au select
     if (gameSelect && gameSelect.value) {
         gameOptions.forEach(option => {
             if (option.getAttribute('data-game') === gameSelect.value) {
@@ -956,12 +1231,41 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         });
     }
     
+    // Gestion du compteur de membres sélectionnés
+    const membersSelect = document.querySelector('select[name*=\"members\"]');
+    const selectedCount = document.getElementById('selectedCount');
+    
+    if (membersSelect && selectedCount) {
+        function updateSelectedCount() {
+            const selected = Array.from(membersSelect.selectedOptions).length;
+            selectedCount.textContent = selected + ' sélectionné(s)';
+            
+            // Animation du compteur
+            selectedCount.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                selectedCount.style.transform = 'scale(1)';
+            }, 200);
+        }
+        
+        membersSelect.addEventListener('change', updateSelectedCount);
+        updateSelectedCount(); // Initialisation
+        
+        // Amélioration visuelle des options sélectionnées
+        membersSelect.addEventListener('mousedown', function(e) {
+            const option = e.target;
+            if (option.tagName === 'OPTION') {
+                // Permettre la sélection multiple sans Ctrl (optionnel)
+                // e.ctrlKey = true;
+            }
+        });
+    }
+    
     // Animation des inputs au focus
-    const formInputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+    const formInputs = document.querySelectorAll('.form-input, .form-select, .members-select');
     
     formInputs.forEach(input => {
         input.addEventListener('focus', function() {
-            this.parentElement.style.transform = 'translateY(-5px)';
+            this.parentElement.style.transform = 'translateY(-2px)';
         });
         
         input.addEventListener('blur', function() {
@@ -975,12 +1279,12 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
     
     if (form && submitBtn) {
         form.addEventListener('submit', function(e) {
-            // Animation du bouton
+            const selectedMembers = membersSelect ? membersSelect.selectedOptions.length : 0;
+            
             submitBtn.innerHTML = '⚔️ CRÉATION EN COURS...';
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.8';
             
-            // Petite animation avant la soumission réelle
             setTimeout(() => {
                 submitBtn.innerHTML = '⚔️ ÉQUIPE CRÉÉE !';
                 submitBtn.style.background = 'linear-gradient(45deg, var(--success-green), var(--fire-yellow))';
@@ -988,27 +1292,82 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         });
     }
     
-    // Date picker amélioré
-    const dateInput = document.querySelector('input[name*=\"creation_date\"]');
-    if (dateInput && dateInput.type === 'text') {
-        dateInput.addEventListener('focus', function() {
-            // Changer le type en date pour les navigateurs modernes
-            if (this.type === 'text') {
-                this.type = 'date';
-            }
-        });
-        
-        // Formatage de la date
-        dateInput.addEventListener('blur', function() {
-            if (this.value) {
-                const date = new Date(this.value);
+    // Date picker amélioré - VERSION CORRIGÉE
+const dateInput = document.querySelector('input[name*=\"creation_date\"]');
+if (dateInput) {
+    // Initialiser le type et la valeur correctement
+    if (dateInput.type === 'text') {
+        // Convertir la date existante si présente
+        if (dateInput.value) {
+            try {
+                // Essayer de parser la date existante
+                const date = new Date(dateInput.value);
                 if (!isNaN(date.getTime())) {
-                    const formatted = date.toLocaleDateString('fr-FR');
-                    this.value = formatted;
+                    // Formater pour l'affichage
+                    const day = date.getDate().toString().padStart(2, '0');
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const year = date.getFullYear();
+                    dateInput.value = `\${day}/\${month}/\${year}`;
+                }
+            } catch (e) {
+                console.log('Date invalide');
+            }
+        }
+    }
+
+    // Au focus : changer le type en date pour afficher le calendrier
+    dateInput.addEventListener('focus', function() {
+        // Sauvegarder la valeur actuelle
+        const currentValue = this.value;
+        
+        // Changer le type
+        if (this.type === 'text') {
+            this.type = 'date';
+            
+            // Restaurer la valeur si elle existe
+            if (currentValue) {
+                try {
+                    // Convertir JJ/MM/AAAA en AAAA-MM-JJ
+                    const parts = currentValue.split('/');
+                    if (parts.length === 3) {
+                        this.value = `\${parts[2]}-\${parts[1]}-\${parts[0]}`;
+                    }
+                } catch (e) {
+                    console.log('Conversion impossible');
                 }
             }
-        });
-    }
+        }
+    });
+    
+    // À la perte de focus : convertir en format JJ/MM/AAAA
+    dateInput.addEventListener('blur', function() {
+        if (this.value && this.type === 'date') {
+            // Garder la valeur sélectionnée
+            const selectedDate = this.value;
+            if (selectedDate) {
+                // Changer le type avant de modifier la valeur
+                this.type = 'text';
+                // Formater la date
+                const [year, month, day] = selectedDate.split('-');
+                if (year && month && day) {
+                    this.value = `\${day}/\${month}/\${year}`;
+                }
+            }
+        } else if (!this.value && this.type === 'date') {
+            // Si aucune date n'est sélectionnée, revenir au type text
+            this.type = 'text';
+            this.value = '';
+        }
+    });
+    
+    // Empêcher la perte de la date lors du clic sur le calendrier
+    dateInput.addEventListener('mousedown', function(e) {
+        // Ne pas changer le type si on clique sur le calendrier
+        if (this.type === 'date') {
+            e.stopPropagation();
+        }
+    });
+}
     
     // Effet au chargement
     document.addEventListener('DOMContentLoaded', function() {
@@ -1020,14 +1379,12 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         const errorElements = document.querySelectorAll('.form-error');
         
         errorElements.forEach(errorElement => {
-            // Trouver le champ input/select correspondant
             const formGroup = errorElement.closest('.form-group');
             if (formGroup) {
-                const inputElement = formGroup.querySelector('.form-input, .form-select');
+                const inputElement = formGroup.querySelector('.form-input, .form-select, .members-select');
                 if (inputElement && errorElement.textContent.trim() !== '') {
                     inputElement.classList.add('error');
                     
-                    // Ajouter un écouteur pour retirer la classe d'erreur quand l'utilisateur commence à taper
                     inputElement.addEventListener('input', function() {
                         if (errorElement.textContent.trim() !== '') {
                             errorElement.textContent = '';
@@ -1039,7 +1396,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
             }
         });
         
-        // Pour les erreurs globales, cacher après 10 secondes
+        // Pour les erreurs globales
         const globalError = document.querySelector('.form-global-error');
         if (globalError) {
             setTimeout(() => {
@@ -1081,7 +1438,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  893 => 725,  885 => 720,  876 => 713,  873 => 711,  868 => 707,  866 => 702,  857 => 695,  854 => 693,  849 => 689,  847 => 684,  802 => 641,  799 => 639,  794 => 635,  792 => 630,  781 => 621,  778 => 619,  773 => 615,  771 => 609,  764 => 604,  758 => 601,  754 => 599,  751 => 598,  746 => 595,  732 => 583,  723 => 580,  718 => 578,  714 => 577,  710 => 576,  707 => 575,  704 => 574,  701 => 573,  698 => 572,  695 => 571,  690 => 570,  688 => 569,  682 => 565,  669 => 564,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
+        return array (  1178 => 1008,  1170 => 1003,  1161 => 996,  1158 => 994,  1146 => 984,  1140 => 980,  1138 => 973,  1126 => 963,  1123 => 961,  1118 => 957,  1116 => 952,  1107 => 945,  1104 => 943,  1099 => 939,  1097 => 934,  1052 => 891,  1049 => 889,  1044 => 885,  1042 => 880,  1031 => 871,  1028 => 869,  1023 => 865,  1021 => 859,  1014 => 854,  1008 => 851,  1004 => 849,  1001 => 848,  996 => 845,  982 => 833,  973 => 830,  968 => 828,  964 => 827,  960 => 826,  957 => 825,  954 => 824,  951 => 823,  948 => 822,  945 => 821,  940 => 820,  938 => 819,  932 => 815,  919 => 814,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -1109,6 +1466,8 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         --text-muted: #aaaaaa;
         --success-green: #00ff88;
         --warning-orange: #ff9900;
+        --neon-blue: #00ffff;
+        --neon-purple: #9900ff;
     }
     
     body {
@@ -1138,7 +1497,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         position: relative;
         padding: 2rem;
         animation: fadeIn 1s ease-out;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
     }
     
@@ -1330,28 +1689,270 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         transform: translateY(-2px);
     }
     
-    .form-textarea {
-        width: 100%;
-        padding: 1.2rem 1.5rem;
+    /* Styles pour la sélection multiple améliorée */
+    .members-select {
+        min-height: 200px;
+        padding: 0.5rem;
         background: rgba(0, 0, 0, 0.8);
         border: 2px solid var(--blood-orange);
         border-radius: 12px;
         color: white;
         font-family: 'Rajdhani', sans-serif;
-        font-size: 1.2rem;
-        font-weight: 500;
+        font-size: 1.1rem;
         transition: all 0.3s ease;
-        letter-spacing: 0.5px;
-        resize: vertical;
-        min-height: 150px;
     }
     
-    .form-textarea:focus {
+    .members-select option {
+        padding: 0.8rem 1rem;
+        background: rgba(34, 34, 34, 0.9);
+        border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .members-select option:hover {
+        background: rgba(255, 102, 0, 0.3);
+    }
+    
+    .members-select option:checked {
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        color: white;
+        font-weight: bold;
+    }
+    
+    .members-select option:checked::before {
+        content: '✓ ';
+        color: var(--fire-yellow);
+    }
+    
+    .members-select option:checked:hover {
+        background: linear-gradient(45deg, var(--blood-orange), var(--fire-yellow));
+    }
+    
+    .members-select option:disabled {
+        opacity: 0.5;
+        font-style: italic;
+    }
+    
+    .members-select option:first-child {
+        color: var(--text-muted);
+        font-style: italic;
+    }
+    
+    .members-select:focus {
         outline: none;
         border-color: var(--fire-yellow);
         box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
-        background: rgba(0, 0, 0, 0.9);
-        transform: translateY(-2px);
+    }
+    
+    .members-select option:active,
+    .members-select option:focus {
+        background: var(--blood-red);
+    }
+    
+    /* Sélecteur de membres avec tags */
+    .members-tag-container {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid var(--blood-orange);
+        border-radius: 12px;
+        padding: 0.8rem;
+        min-height: 120px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+    
+    .members-tag-container:focus-within {
+        border-color: var(--fire-yellow);
+        box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
+    }
+    
+    .member-tag {
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        border-radius: 20px;
+        padding: 0.4rem 1rem 0.4rem 1.2rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+        box-shadow: 0 2px 8px rgba(255, 0, 60, 0.3);
+        animation: tagAppear 0.3s ease;
+    }
+    
+    @keyframes tagAppear {
+        from { transform: scale(0); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    
+    .member-tag .member-role {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 0.2rem 0.6rem;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+    
+    .member-tag .remove-tag {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0 0.2rem;
+        line-height: 1;
+        opacity: 0.7;
+        transition: all 0.2s ease;
+    }
+    
+    .member-tag .remove-tag:hover {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    
+    .members-search {
+        flex: 1;
+        min-width: 200px;
+        background: none;
+        border: none;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+    
+    .members-search:focus {
+        outline: none;
+    }
+    
+    .members-search::placeholder {
+        color: var(--text-muted);
+        font-style: italic;
+    }
+    
+    .members-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(34, 34, 34, 0.98);
+        border: 2px solid var(--blood-orange);
+        border-radius: 12px;
+        margin-top: 0.5rem;
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+    
+    .members-dropdown.active {
+        display: block;
+        animation: dropdownFade 0.3s ease;
+    }
+    
+    @keyframes dropdownFade {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .member-item {
+        padding: 1rem 1.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .member-item:hover {
+        background: rgba(255, 102, 0, 0.2);
+        transform: translateX(5px);
+    }
+    
+    .member-item.selected {
+        background: rgba(255, 0, 60, 0.3);
+        border-left: 4px solid var(--fire-yellow);
+    }
+    
+    .member-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+    }
+    
+    .member-info {
+        flex: 1;
+    }
+    
+    .member-name {
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--fire-yellow);
+    }
+    
+    .member-details {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+    
+    .member-rank {
+        color: var(--blood-orange);
+    }
+    
+    .member-game {
+        color: var(--neon-blue);
+    }
+    
+    .no-members {
+        padding: 2rem;
+        text-align: center;
+        color: var(--text-muted);
+        font-style: italic;
+    }
+    
+    /* Style pour le compteur de membres sélectionnés */
+    .selected-counter {
+        display: inline-block;
+        background: var(--blood-red);
+        color: white;
+        border-radius: 20px;
+        padding: 0.2rem 1rem;
+        font-size: 0.9rem;
+        margin-left: 1rem;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 5px var(--blood-red); }
+        50% { box-shadow: 0 0 15px var(--blood-red); }
+    }
+    
+    .members-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+    
+    .members-stats span {
+        color: var(--fire-yellow);
+        font-weight: bold;
     }
     
     .input-icon {
@@ -1644,6 +2245,12 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         
         .game-grid {
             grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .members-stats {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
     }
 </style>
@@ -1785,18 +2392,51 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         
         <div class=\"form-group\">
             <label class=\"form-label\">
-                <span>👑 COACH (FACULTATIF)</span>
+                <span>👑 COACH DE L'ÉQUIPE</span>
             </label>
-            {{ form_widget(form.coach_id, {
+            {{ form_widget(form.coach, {
                 'attr': {
-                    'class': 'form-input',
-                    'placeholder': 'ID du coach (ex: 1, 2, 3...)'
+                    'class': 'form-select',
+                    'placeholder': 'Sélectionnez un coach'
                 }
             }) }}
             <div class=\"input-icon\">👑</div>
             
-            {# Afficher les erreurs de validation pour le champ 'coach_id' #}
-            {{ form_errors(form.coach_id, {
+            {# Afficher les erreurs de validation pour le champ 'coach' #}
+            {{ form_errors(form.coach, {
+                'attr': {'class': 'form-error'}
+            }) }}
+        </div>
+        
+        <!-- SECTION MEMBRES AMÉLIORÉE -->
+        <div class=\"form-group\">
+            <label class=\"form-label\">
+                <span>👥 MEMBRES DE L'ÉQUIPE</span>
+                <span class=\"selected-counter\" id=\"selectedCount\">0 sélectionné(s)</span>
+            </label>
+            
+            {{ form_widget(form.members, {
+                'attr': {
+                    'class': 'members-select',
+                    'size': 8,
+                    'multiple': 'multiple',
+                    'data-placeholder': 'Sélectionnez les membres'
+                }
+            }) }}
+            
+            <div class=\"members-stats\">
+                <div>
+                    <span id=\"totalMembers\">{{ form.members.vars.choices|length }}</span> agents disponibles
+                </div>
+                <div>
+                    <span>💡</span> Maintenez <kbd>Ctrl</kbd> (Windows) ou <kbd>⌘</kbd> (Mac) pour sélection multiple
+                </div>
+            </div>
+            
+            <div class=\"input-icon\">👥</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'members' #}
+            {{ form_errors(form.members, {
                 'attr': {'class': 'form-error'}
             }) }}
         </div>
@@ -1820,7 +2460,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
 </div>
 
 <script>
-    // Gestion du compteur de caractères
+    // Gestion du compteur de caractères pour le nom
     const nameInput = document.querySelector('input[name*=\"name\"]');
     const nameCounter = document.getElementById('nameCounter');
     
@@ -1829,7 +2469,6 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
             const length = this.value.length;
             nameCounter.textContent = `\${length}/50`;
             
-            // Changer la couleur selon le nombre de caractères
             nameCounter.classList.remove('warning', 'danger');
             if (length > 40) {
                 nameCounter.classList.add('warning');
@@ -1838,8 +2477,6 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
                 nameCounter.classList.add('danger');
             }
         });
-        
-        // Initialiser le compteur
         nameInput.dispatchEvent(new Event('input'));
     }
     
@@ -1849,24 +2486,17 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
     
     gameOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // Retirer la sélection précédente
             gameOptions.forEach(opt => opt.classList.remove('selected'));
-            
-            // Sélectionner cette option
             this.classList.add('selected');
             
-            // Mettre à jour le select
             if (gameSelect) {
                 const gameValue = this.getAttribute('data-game');
                 gameSelect.value = gameValue;
-                
-                // Déclencher l'événement change
                 gameSelect.dispatchEvent(new Event('change'));
             }
         });
     });
     
-    // Pré-sélectionner l'option si elle correspond au select
     if (gameSelect && gameSelect.value) {
         gameOptions.forEach(option => {
             if (option.getAttribute('data-game') === gameSelect.value) {
@@ -1875,12 +2505,41 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         });
     }
     
+    // Gestion du compteur de membres sélectionnés
+    const membersSelect = document.querySelector('select[name*=\"members\"]');
+    const selectedCount = document.getElementById('selectedCount');
+    
+    if (membersSelect && selectedCount) {
+        function updateSelectedCount() {
+            const selected = Array.from(membersSelect.selectedOptions).length;
+            selectedCount.textContent = selected + ' sélectionné(s)';
+            
+            // Animation du compteur
+            selectedCount.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                selectedCount.style.transform = 'scale(1)';
+            }, 200);
+        }
+        
+        membersSelect.addEventListener('change', updateSelectedCount);
+        updateSelectedCount(); // Initialisation
+        
+        // Amélioration visuelle des options sélectionnées
+        membersSelect.addEventListener('mousedown', function(e) {
+            const option = e.target;
+            if (option.tagName === 'OPTION') {
+                // Permettre la sélection multiple sans Ctrl (optionnel)
+                // e.ctrlKey = true;
+            }
+        });
+    }
+    
     // Animation des inputs au focus
-    const formInputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+    const formInputs = document.querySelectorAll('.form-input, .form-select, .members-select');
     
     formInputs.forEach(input => {
         input.addEventListener('focus', function() {
-            this.parentElement.style.transform = 'translateY(-5px)';
+            this.parentElement.style.transform = 'translateY(-2px)';
         });
         
         input.addEventListener('blur', function() {
@@ -1894,12 +2553,12 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
     
     if (form && submitBtn) {
         form.addEventListener('submit', function(e) {
-            // Animation du bouton
+            const selectedMembers = membersSelect ? membersSelect.selectedOptions.length : 0;
+            
             submitBtn.innerHTML = '⚔️ CRÉATION EN COURS...';
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.8';
             
-            // Petite animation avant la soumission réelle
             setTimeout(() => {
                 submitBtn.innerHTML = '⚔️ ÉQUIPE CRÉÉE !';
                 submitBtn.style.background = 'linear-gradient(45deg, var(--success-green), var(--fire-yellow))';
@@ -1907,27 +2566,82 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         });
     }
     
-    // Date picker amélioré
-    const dateInput = document.querySelector('input[name*=\"creation_date\"]');
-    if (dateInput && dateInput.type === 'text') {
-        dateInput.addEventListener('focus', function() {
-            // Changer le type en date pour les navigateurs modernes
-            if (this.type === 'text') {
-                this.type = 'date';
-            }
-        });
-        
-        // Formatage de la date
-        dateInput.addEventListener('blur', function() {
-            if (this.value) {
-                const date = new Date(this.value);
+    // Date picker amélioré - VERSION CORRIGÉE
+const dateInput = document.querySelector('input[name*=\"creation_date\"]');
+if (dateInput) {
+    // Initialiser le type et la valeur correctement
+    if (dateInput.type === 'text') {
+        // Convertir la date existante si présente
+        if (dateInput.value) {
+            try {
+                // Essayer de parser la date existante
+                const date = new Date(dateInput.value);
                 if (!isNaN(date.getTime())) {
-                    const formatted = date.toLocaleDateString('fr-FR');
-                    this.value = formatted;
+                    // Formater pour l'affichage
+                    const day = date.getDate().toString().padStart(2, '0');
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const year = date.getFullYear();
+                    dateInput.value = `\${day}/\${month}/\${year}`;
+                }
+            } catch (e) {
+                console.log('Date invalide');
+            }
+        }
+    }
+
+    // Au focus : changer le type en date pour afficher le calendrier
+    dateInput.addEventListener('focus', function() {
+        // Sauvegarder la valeur actuelle
+        const currentValue = this.value;
+        
+        // Changer le type
+        if (this.type === 'text') {
+            this.type = 'date';
+            
+            // Restaurer la valeur si elle existe
+            if (currentValue) {
+                try {
+                    // Convertir JJ/MM/AAAA en AAAA-MM-JJ
+                    const parts = currentValue.split('/');
+                    if (parts.length === 3) {
+                        this.value = `\${parts[2]}-\${parts[1]}-\${parts[0]}`;
+                    }
+                } catch (e) {
+                    console.log('Conversion impossible');
                 }
             }
-        });
-    }
+        }
+    });
+    
+    // À la perte de focus : convertir en format JJ/MM/AAAA
+    dateInput.addEventListener('blur', function() {
+        if (this.value && this.type === 'date') {
+            // Garder la valeur sélectionnée
+            const selectedDate = this.value;
+            if (selectedDate) {
+                // Changer le type avant de modifier la valeur
+                this.type = 'text';
+                // Formater la date
+                const [year, month, day] = selectedDate.split('-');
+                if (year && month && day) {
+                    this.value = `\${day}/\${month}/\${year}`;
+                }
+            }
+        } else if (!this.value && this.type === 'date') {
+            // Si aucune date n'est sélectionnée, revenir au type text
+            this.type = 'text';
+            this.value = '';
+        }
+    });
+    
+    // Empêcher la perte de la date lors du clic sur le calendrier
+    dateInput.addEventListener('mousedown', function(e) {
+        // Ne pas changer le type si on clique sur le calendrier
+        if (this.type === 'date') {
+            e.stopPropagation();
+        }
+    });
+}
     
     // Effet au chargement
     document.addEventListener('DOMContentLoaded', function() {
@@ -1939,14 +2653,12 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         const errorElements = document.querySelectorAll('.form-error');
         
         errorElements.forEach(errorElement => {
-            // Trouver le champ input/select correspondant
             const formGroup = errorElement.closest('.form-group');
             if (formGroup) {
-                const inputElement = formGroup.querySelector('.form-input, .form-select');
+                const inputElement = formGroup.querySelector('.form-input, .form-select, .members-select');
                 if (inputElement && errorElement.textContent.trim() !== '') {
                     inputElement.classList.add('error');
                     
-                    // Ajouter un écouteur pour retirer la classe d'erreur quand l'utilisateur commence à taper
                     inputElement.addEventListener('input', function() {
                         if (errorElement.textContent.trim() !== '') {
                             errorElement.textContent = '';
@@ -1958,7 +2670,7 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
             }
         });
         
-        // Pour les erreurs globales, cacher après 10 secondes
+        // Pour les erreurs globales
         const globalError = document.querySelector('.form-global-error');
         if (globalError) {
             setTimeout(() => {
@@ -1969,6 +2681,6 @@ class __TwigTemplate_9e43c568b77bba33b469c31edb53f2c6 extends Template
         }
     });
 </script>
-{% endblock %}", "team/new.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\team\\new.html.twig");
+{% endblock %}", "team/new.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\team\\new.html.twig");
     }
 }

@@ -22,21 +22,23 @@ class TrainingPlan extends \App\Entity\TrainingPlan implements \Doctrine\ORM\Pro
     
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
-        "\0".parent::class."\0".'coach_id' => [parent::class, 'coach_id', null],
+        "\0".parent::class."\0".'coach' => [parent::class, 'coach', null],
         "\0".parent::class."\0".'coachingSessions' => [parent::class, 'coachingSessions', null],
         "\0".parent::class."\0".'created_at' => [parent::class, 'created_at', null],
         "\0".parent::class."\0".'description' => [parent::class, 'description', null],
         "\0".parent::class."\0".'difficulty_level' => [parent::class, 'difficulty_level', null],
         "\0".parent::class."\0".'focus_area' => [parent::class, 'focus_area', null],
         "\0".parent::class."\0".'id' => [parent::class, 'id', null],
+        "\0".parent::class."\0".'team' => [parent::class, 'team', null],
         "\0".parent::class."\0".'title' => [parent::class, 'title', null],
-        'coach_id' => [parent::class, 'coach_id', null],
+        'coach' => [parent::class, 'coach', null],
         'coachingSessions' => [parent::class, 'coachingSessions', null],
         'created_at' => [parent::class, 'created_at', null],
         'description' => [parent::class, 'description', null],
         'difficulty_level' => [parent::class, 'difficulty_level', null],
         'focus_area' => [parent::class, 'focus_area', null],
         'id' => [parent::class, 'id', null],
+        'team' => [parent::class, 'team', null],
         'title' => [parent::class, 'title', null],
     ];
 

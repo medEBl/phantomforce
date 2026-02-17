@@ -224,10 +224,16 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
     border: 1px solid rgba(155, 89, 182, 0.3);
 }
 
-.tag-date {
+.tag-team {
     background: rgba(241, 196, 15, 0.2);
     color: #f1c40f;
     border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+.tag-date {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.3);
 }
 
 /* ================= PLAN CONTENT ================= */
@@ -361,6 +367,7 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .session-date {
@@ -379,6 +386,13 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
 .session-team {
     color: var(--text-muted);
     font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.session-team i {
+    color: var(--red);
 }
 
 .no-sessions {
@@ -586,7 +600,7 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
         yield from [];
     }
 
-    // line 484
+    // line 498
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -599,71 +613,111 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 485
+        // line 499
         yield "<div class=\"detail-hero\">
     <h1>📋 ";
-        // line 486
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 486, $this->source); })()), "title", [], "any", false, false, false, 486), "html", null, true);
+        // line 500
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 500, $this->source); })()), "title", [], "any", false, false, false, 500), "html", null, true);
         yield "</h1>
     <div class=\"plan-meta\">
         <div class=\"plan-meta-item\">
             <i class=\"fas fa-hashtag\"></i>
             <span>Plan #";
-        // line 490
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 490, $this->source); })()), "id", [], "any", false, false, false, 490), "html", null, true);
+        // line 504
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 504, $this->source); })()), "id", [], "any", false, false, false, 504), "html", null, true);
         yield "</span>
         </div>
         <div class=\"plan-meta-item\">
             <i class=\"fas fa-calendar-alt\"></i>
             <span>Créé le ";
-        // line 494
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 494, $this->source); })()), "createdAt", [], "any", false, false, false, 494), "d/m/Y"), "html", null, true);
+        // line 508
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 508, $this->source); })()), "createdAt", [], "any", false, false, false, 508), "d/m/Y"), "html", null, true);
         yield "</span>
         </div>
-        <div class=\"plan-meta-item\">
+        ";
+        // line 510
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 510, $this->source); })()), "coach", [], "any", false, false, false, 510)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 511
+            yield "        <div class=\"plan-meta-item\">
             <i class=\"fas fa-user-tie\"></i>
-            <span>Coach #";
-        // line 498
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 498, $this->source); })()), "coachId", [], "any", false, false, false, 498), "html", null, true);
-        yield "</span>
+            <span>";
+            // line 513
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 513, $this->source); })()), "coach", [], "any", false, false, false, 513), "fullName", [], "any", false, false, false, 513), "html", null, true);
+            yield "</span>
         </div>
-    </div>
+        ";
+        }
+        // line 516
+        yield "        ";
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 516, $this->source); })()), "team", [], "any", false, false, false, 516)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 517
+            yield "        <div class=\"plan-meta-item\">
+            <i class=\"fas fa-users\"></i>
+            <span>";
+            // line 519
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 519, $this->source); })()), "team", [], "any", false, false, false, 519), "name", [], "any", false, false, false, 519), "html", null, true);
+            yield "</span>
+        </div>
+        ";
+        }
+        // line 522
+        yield "    </div>
 </div>
 
 <div class=\"plan-card-detail\">
     <div class=\"plan-card-header\">
         <div class=\"plan-id\">PLAN D'ENTRAÎNEMENT</div>
         <h2 class=\"plan-title-detail\">";
-        // line 506
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 506, $this->source); })()), "title", [], "any", false, false, false, 506), "html", null, true);
+        // line 528
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 528, $this->source); })()), "title", [], "any", false, false, false, 528), "html", null, true);
         yield "</h2>
         <div class=\"plan-tags\">
             <span class=\"plan-tag tag-focus\">
                 <i class=\"fas fa-bullseye\"></i>
                 ";
-        // line 510
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 510, $this->source); })()), "focusArea", [], "any", false, false, false, 510), "html", null, true);
+        // line 532
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 532, $this->source); })()), "focusArea", [], "any", false, false, false, 532), "html", null, true);
         yield "
             </span>
             <span class=\"plan-tag tag-difficulty\">
                 <i class=\"fas fa-chart-line\"></i>
                 ";
-        // line 514
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 514, $this->source); })()), "difficultyLevel", [], "any", false, false, false, 514), "html", null, true);
+        // line 536
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 536, $this->source); })()), "difficultyLevel", [], "any", false, false, false, 536), "html", null, true);
         yield "
             </span>
-            <span class=\"plan-tag tag-coach\">
+            ";
+        // line 538
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 538, $this->source); })()), "coach", [], "any", false, false, false, 538)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 539
+            yield "            <span class=\"plan-tag tag-coach\">
                 <i class=\"fas fa-user-tie\"></i>
-                Coach #";
-        // line 518
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 518, $this->source); })()), "coachId", [], "any", false, false, false, 518), "html", null, true);
-        yield "
+                ";
+            // line 541
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 541, $this->source); })()), "coach", [], "any", false, false, false, 541), "fullName", [], "any", false, false, false, 541), "html", null, true);
+            yield "
             </span>
-            <span class=\"plan-tag tag-date\">
+            ";
+        }
+        // line 544
+        yield "            ";
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 544, $this->source); })()), "team", [], "any", false, false, false, 544)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 545
+            yield "            <span class=\"plan-tag tag-team\">
+                <i class=\"fas fa-users\"></i>
+                ";
+            // line 547
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 547, $this->source); })()), "team", [], "any", false, false, false, 547), "name", [], "any", false, false, false, 547), "html", null, true);
+            yield "
+            </span>
+            ";
+        }
+        // line 550
+        yield "            <span class=\"plan-tag tag-date\">
                 <i class=\"fas fa-clock\"></i>
                 ";
-        // line 522
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 522, $this->source); })()), "createdAt", [], "any", false, false, false, 522), "d/m/Y"), "html", null, true);
+        // line 552
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 552, $this->source); })()), "createdAt", [], "any", false, false, false, 552), "d/m/Y"), "html", null, true);
         yield "
             </span>
         </div>
@@ -673,33 +727,33 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
         <div class=\"stats-bar-detail\">
             <div class=\"stat-card\">
                 <div class=\"stat-value\">";
-        // line 530
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 530, $this->source); })()), "coachingSessions", [], "any", false, false, false, 530)), "html", null, true);
+        // line 560
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 560, $this->source); })()), "coachingSessions", [], "any", false, false, false, 560)), "html", null, true);
         yield "</div>
                 <div class=\"stat-label\">Sessions</div>
             </div>
             <div class=\"stat-card\">
                 <div class=\"stat-value\">
                     ";
-        // line 535
+        // line 565
         $context["totalDuration"] = 0;
-        // line 536
+        // line 566
         yield "                    ";
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 536, $this->source); })()), "coachingSessions", [], "any", false, false, false, 536));
+        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 566, $this->source); })()), "coachingSessions", [], "any", false, false, false, 566));
         foreach ($context['_seq'] as $context["_key"] => $context["session"]) {
-            // line 537
+            // line 567
             yield "                        ";
-            $context["totalDuration"] = ((isset($context["totalDuration"]) || array_key_exists("totalDuration", $context) ? $context["totalDuration"] : (function () { throw new RuntimeError('Variable "totalDuration" does not exist.', 537, $this->source); })()) + CoreExtension::getAttribute($this->env, $this->source, $context["session"], "duration", [], "any", false, false, false, 537));
-            // line 538
+            $context["totalDuration"] = ((isset($context["totalDuration"]) || array_key_exists("totalDuration", $context) ? $context["totalDuration"] : (function () { throw new RuntimeError('Variable "totalDuration" does not exist.', 567, $this->source); })()) + CoreExtension::getAttribute($this->env, $this->source, $context["session"], "duration", [], "any", false, false, false, 567));
+            // line 568
             yield "                    ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['session'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 539
+        // line 569
         yield "                    ";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["totalDuration"]) || array_key_exists("totalDuration", $context) ? $context["totalDuration"] : (function () { throw new RuntimeError('Variable "totalDuration" does not exist.', 539, $this->source); })()), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["totalDuration"]) || array_key_exists("totalDuration", $context) ? $context["totalDuration"] : (function () { throw new RuntimeError('Variable "totalDuration" does not exist.', 569, $this->source); })()), "html", null, true);
         yield "
                 </div>
                 <div class=\"stat-label\">Minutes totales</div>
@@ -707,50 +761,50 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
             <div class=\"stat-card\">
                 <div class=\"stat-value\">
                     ";
-        // line 545
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 545, $this->source); })()), "coachingSessions", [], "any", false, false, false, 545)) > 0)) {
-            // line 546
+        // line 575
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 575, $this->source); })()), "coachingSessions", [], "any", false, false, false, 575)) > 0)) {
+            // line 576
             yield "                        ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::round(((isset($context["totalDuration"]) || array_key_exists("totalDuration", $context) ? $context["totalDuration"] : (function () { throw new RuntimeError('Variable "totalDuration" does not exist.', 546, $this->source); })()) / Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 546, $this->source); })()), "coachingSessions", [], "any", false, false, false, 546)))), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::round(((isset($context["totalDuration"]) || array_key_exists("totalDuration", $context) ? $context["totalDuration"] : (function () { throw new RuntimeError('Variable "totalDuration" does not exist.', 576, $this->source); })()) / Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 576, $this->source); })()), "coachingSessions", [], "any", false, false, false, 576)))), "html", null, true);
             yield "
                     ";
         } else {
-            // line 548
+            // line 578
             yield "                        0
                     ";
         }
-        // line 550
+        // line 580
         yield "                </div>
                 <div class=\"stat-label\">Moy. par session</div>
             </div>
             <div class=\"stat-card\">
                 <div class=\"stat-value\">
                     ";
-        // line 555
+        // line 585
         $context["uniqueTeams"] = [];
-        // line 556
+        // line 586
         yield "                    ";
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 556, $this->source); })()), "coachingSessions", [], "any", false, false, false, 556));
+        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 586, $this->source); })()), "coachingSessions", [], "any", false, false, false, 586));
         foreach ($context['_seq'] as $context["_key"] => $context["session"]) {
-            // line 557
+            // line 587
             yield "                        ";
-            if (!CoreExtension::inFilter(CoreExtension::getAttribute($this->env, $this->source, $context["session"], "teamId", [], "any", false, false, false, 557), (isset($context["uniqueTeams"]) || array_key_exists("uniqueTeams", $context) ? $context["uniqueTeams"] : (function () { throw new RuntimeError('Variable "uniqueTeams" does not exist.', 557, $this->source); })()))) {
-                // line 558
+            if ((CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 587) && !CoreExtension::inFilter(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 587), "id", [], "any", false, false, false, 587), (isset($context["uniqueTeams"]) || array_key_exists("uniqueTeams", $context) ? $context["uniqueTeams"] : (function () { throw new RuntimeError('Variable "uniqueTeams" does not exist.', 587, $this->source); })())))) {
+                // line 588
                 yield "                            ";
-                $context["uniqueTeams"] = Twig\Extension\CoreExtension::merge((isset($context["uniqueTeams"]) || array_key_exists("uniqueTeams", $context) ? $context["uniqueTeams"] : (function () { throw new RuntimeError('Variable "uniqueTeams" does not exist.', 558, $this->source); })()), [CoreExtension::getAttribute($this->env, $this->source, $context["session"], "teamId", [], "any", false, false, false, 558)]);
-                // line 559
+                $context["uniqueTeams"] = Twig\Extension\CoreExtension::merge((isset($context["uniqueTeams"]) || array_key_exists("uniqueTeams", $context) ? $context["uniqueTeams"] : (function () { throw new RuntimeError('Variable "uniqueTeams" does not exist.', 588, $this->source); })()), [CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 588), "id", [], "any", false, false, false, 588)]);
+                // line 589
                 yield "                        ";
             }
-            // line 560
+            // line 590
             yield "                    ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['session'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 561
+        // line 591
         yield "                    ";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["uniqueTeams"]) || array_key_exists("uniqueTeams", $context) ? $context["uniqueTeams"] : (function () { throw new RuntimeError('Variable "uniqueTeams" does not exist.', 561, $this->source); })())), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["uniqueTeams"]) || array_key_exists("uniqueTeams", $context) ? $context["uniqueTeams"] : (function () { throw new RuntimeError('Variable "uniqueTeams" does not exist.', 591, $this->source); })())), "html", null, true);
         yield "
                 </div>
                 <div class=\"stat-label\">Équipes</div>
@@ -764,8 +818,8 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
         
         <div class=\"description-content\">
             ";
-        // line 573
-        yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 573, $this->source); })()), "description", [], "any", false, false, false, 573), "html", null, true));
+        // line 603
+        yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 603, $this->source); })()), "description", [], "any", false, false, false, 603), "html", null, true));
         yield "
         </div>
         
@@ -776,8 +830,8 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
                     Focus Principal
                 </div>
                 <div class=\"info-value\">";
-        // line 582
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 582, $this->source); })()), "focusArea", [], "any", false, false, false, 582), "html", null, true);
+        // line 612
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 612, $this->source); })()), "focusArea", [], "any", false, false, false, 612), "html", null, true);
         yield "</div>
                 <div class=\"info-details\">Zone de compétence ciblée par ce plan d'entraînement</div>
             </div>
@@ -788,8 +842,8 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
                     Niveau de Difficulté
                 </div>
                 <div class=\"info-value\">";
-        // line 591
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 591, $this->source); })()), "difficultyLevel", [], "any", false, false, false, 591), "html", null, true);
+        // line 621
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 621, $this->source); })()), "difficultyLevel", [], "any", false, false, false, 621), "html", null, true);
         yield "</div>
                 <div class=\"info-details\">Adapté au niveau d'expérience de l'équipe</div>
             </div>
@@ -799,11 +853,79 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
                     <i class=\"fas fa-user-tie\"></i>
                     Coach Responsable
                 </div>
-                <div class=\"info-value\">Coach #";
-        // line 600
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 600, $this->source); })()), "coachId", [], "any", false, false, false, 600), "html", null, true);
-        yield "</div>
-                <div class=\"info-details\">Identifiant du coach supervisant ce plan</div>
+                <div class=\"info-value\">
+                    ";
+        // line 631
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 631, $this->source); })()), "coach", [], "any", false, false, false, 631)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 632
+            yield "                        ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 632, $this->source); })()), "coach", [], "any", false, false, false, 632), "fullName", [], "any", false, false, false, 632), "html", null, true);
+            yield "
+                    ";
+        } else {
+            // line 634
+            yield "                        Non assigné
+                    ";
+        }
+        // line 636
+        yield "                </div>
+                <div class=\"info-details\">
+                    ";
+        // line 638
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 638, $this->source); })()), "coach", [], "any", false, false, false, 638)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 639
+            yield "                        @";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 639, $this->source); })()), "coach", [], "any", false, false, false, 639), "username", [], "any", false, false, false, 639), "html", null, true);
+            yield " • ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 639, $this->source); })()), "coach", [], "any", false, false, false, 639), "country", [], "any", false, false, false, 639), "html", null, true);
+            yield "
+                    ";
+        } else {
+            // line 641
+            yield "                        Aucun coach assigné à ce plan
+                    ";
+        }
+        // line 643
+        yield "                </div>
+            </div>
+            
+            <div class=\"info-card\">
+                <div class=\"info-label\">
+                    <i class=\"fas fa-users\"></i>
+                    Équipe Cible
+                </div>
+                <div class=\"info-value\">
+                    ";
+        // line 652
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 652, $this->source); })()), "team", [], "any", false, false, false, 652)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 653
+            yield "                        ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 653, $this->source); })()), "team", [], "any", false, false, false, 653), "name", [], "any", false, false, false, 653), "html", null, true);
+            yield "
+                    ";
+        } else {
+            // line 655
+            yield "                        Non assignée
+                    ";
+        }
+        // line 657
+        yield "                </div>
+                <div class=\"info-details\">
+                    ";
+        // line 659
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 659, $this->source); })()), "team", [], "any", false, false, false, 659)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 660
+            yield "                        ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 660, $this->source); })()), "team", [], "any", false, false, false, 660), "game", [], "any", false, false, false, 660), "html", null, true);
+            yield "
+                    ";
+        } else {
+            // line 662
+            yield "                        Aucune équipe assignée à ce plan
+                    ";
+        }
+        // line 664
+        yield "                </div>
             </div>
             
             <div class=\"info-card\">
@@ -812,12 +934,12 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
                     Date de Création
                 </div>
                 <div class=\"info-value\">";
-        // line 609
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 609, $this->source); })()), "createdAt", [], "any", false, false, false, 609), "d/m/Y"), "html", null, true);
+        // line 672
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 672, $this->source); })()), "createdAt", [], "any", false, false, false, 672), "d/m/Y"), "html", null, true);
         yield "</div>
                 <div class=\"info-details\">À ";
-        // line 610
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 610, $this->source); })()), "createdAt", [], "any", false, false, false, 610), "H:i"), "html", null, true);
+        // line 673
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 673, $this->source); })()), "createdAt", [], "any", false, false, false, 673), "H:i"), "html", null, true);
         yield "</div>
             </div>
         </div>
@@ -828,49 +950,69 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
                 Sessions associées
                 <span style=\"margin-left: auto; font-size: 14px; color: var(--text-muted);\">
                     ";
-        // line 619
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 619, $this->source); })()), "coachingSessions", [], "any", false, false, false, 619)), "html", null, true);
+        // line 682
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 682, $this->source); })()), "coachingSessions", [], "any", false, false, false, 682)), "html", null, true);
         yield " session(s)
                 </span>
             </div>
             
             <div class=\"sessions-list\">
                 ";
-        // line 624
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 624, $this->source); })()), "coachingSessions", [], "any", false, false, false, 624)) > 0)) {
-            // line 625
+        // line 687
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 687, $this->source); })()), "coachingSessions", [], "any", false, false, false, 687)) > 0)) {
+            // line 688
             yield "                    ";
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 625, $this->source); })()), "coachingSessions", [], "any", false, false, false, 625));
+            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 688, $this->source); })()), "coachingSessions", [], "any", false, false, false, 688));
             foreach ($context['_seq'] as $context["_key"] => $context["session"]) {
-                // line 626
+                // line 689
                 yield "                        <div class=\"session-item\">
                             <div class=\"session-info\">
                                 <div class=\"session-date\">
                                     <i class=\"fas fa-calendar\"></i>
                                     ";
-                // line 630
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["session"], "sessionDate", [], "any", false, false, false, 630), "d/m/Y H:i"), "html", null, true);
+                // line 693
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["session"], "sessionDate", [], "any", false, false, false, 693), "d/m/Y H:i"), "html", null, true);
                 yield "
                                 </div>
                                 <div class=\"session-duration\">
                                     <i class=\"fas fa-clock\"></i>
                                     ";
-                // line 634
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["session"], "duration", [], "any", false, false, false, 634), "html", null, true);
+                // line 697
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["session"], "duration", [], "any", false, false, false, 697), "html", null, true);
                 yield " min
                                 </div>
-                                <div class=\"session-team\">
+                                ";
+                // line 699
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 699)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 700
+                    yield "                                <div class=\"session-team\">
                                     <i class=\"fas fa-users\"></i>
-                                    Équipe #";
-                // line 638
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["session"], "teamId", [], "any", false, false, false, 638), "html", null, true);
-                yield "
+                                    ";
+                    // line 702
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 702), "name", [], "any", false, false, false, 702), "html", null, true);
+                    yield "
                                 </div>
-                            </div>
+                                ";
+                }
+                // line 705
+                yield "                                ";
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coach", [], "any", false, false, false, 705)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 706
+                    yield "                                <div class=\"session-team\">
+                                    <i class=\"fas fa-user-tie\"></i>
+                                    ";
+                    // line 708
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coach", [], "any", false, false, false, 708), "fullName", [], "any", false, false, false, 708), "html", null, true);
+                    yield "
+                                </div>
+                                ";
+                }
+                // line 711
+                yield "                            </div>
                             <a href=\"";
-                // line 641
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["session"], "id", [], "any", false, false, false, 641)]), "html", null, true);
+                // line 712
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["session"], "id", [], "any", false, false, false, 712)]), "html", null, true);
                 yield "\" 
                                class=\"btn-show\" style=\"padding: 8px 16px;\">
                                 <i class=\"fas fa-eye\"></i> Voir
@@ -881,24 +1023,30 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['session'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 647
+            // line 718
             yield "                ";
         } else {
-            // line 648
+            // line 719
             yield "                    <div class=\"no-sessions\">
                         <i class=\"fas fa-video-slash\"></i>
                         <h3>Aucune session associée</h3>
                         <p>Ce plan d'entraînement n'est pas encore utilisé dans une session de coaching.</p>
+                        <a href=\"";
+            // line 723
+            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_new");
+            yield "\" class=\"btn-new\" style=\"margin-top: 15px; display: inline-block;\">
+                            <i class=\"fas fa-plus-circle\"></i> Créer une session
+                        </a>
                     </div>
                 ";
         }
-        // line 654
+        // line 728
         yield "            </div>
         </div>
         
         <div class=\"actions-bar\">
             <a href=\"";
-        // line 658
+        // line 732
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_index");
         yield "#training-plans\" class=\"btn-action btn-back\">
                 <i class=\"fas fa-arrow-left\"></i>
@@ -906,8 +1054,8 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
             </a>
             
             <a href=\"";
-        // line 663
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 663, $this->source); })()), "id", [], "any", false, false, false, 663)]), "html", null, true);
+        // line 737
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 737, $this->source); })()), "id", [], "any", false, false, false, 737)]), "html", null, true);
         yield "\" class=\"btn-action btn-edit\">
                 <i class=\"fas fa-edit\"></i>
                 Modifier ce plan
@@ -924,7 +1072,7 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
 <!-- Formulaire de suppression caché -->
 <div id=\"delete-form\" style=\"display: none;\">
     ";
-        // line 678
+        // line 752
         yield Twig\Extension\CoreExtension::include($this->env, $context, "training_plan/_delete_form.html.twig");
         yield "
 </div>
@@ -938,7 +1086,7 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
         yield from [];
     }
 
-    // line 682
+    // line 756
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -951,8 +1099,10 @@ class __TwigTemplate_741aac0e97343c6f03ae80a605ff90ad extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 683
-        yield "<script>
+        // line 757
+        yield from $this->yieldParentBlock("javascripts", $context, $blocks);
+        yield "
+<script>
 function confirmDelete() {
     if (confirm('⚠️ ATTENTION : Êtes-vous sûr de vouloir supprimer ce plan d\\'entraînement ?\\n\\nCette action supprimera également toutes les sessions de coaching associées à ce plan.\\n\\nCette action est irréversible !')) {
         document.querySelector('#delete-form form').submit();
@@ -968,7 +1118,27 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.opacity = '0';
         }, index * 100);
     });
+    
+    // Vérifier s'il y a des sessions associées et ajuster le message de suppression
+    const sessionsCount = ";
+        // line 776
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 776, $this->source); })()), "coachingSessions", [], "any", false, false, false, 776)), "html", null, true);
+        yield ";
+    const deleteButton = document.querySelector('.btn-delete');
+    if (deleteButton && sessionsCount > 0) {
+        deleteButton.setAttribute('onclick', 'confirmDeleteWithSessions()');
+    }
 });
+
+function confirmDeleteWithSessions() {
+    const sessionsCount = ";
+        // line 784
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 784, $this->source); })()), "coachingSessions", [], "any", false, false, false, 784)), "html", null, true);
+        yield ";
+    if (confirm(`⚠️ ATTENTION : Ce plan a \${sessionsCount} session(s) de coaching associée(s).\\n\\nLa suppression de ce plan supprimera également toutes ces sessions.\\n\\nCette action est irréversible !`)) {
+        document.querySelector('#delete-form form').submit();
+    }
+}
 
 // Effet de survol amélioré
 document.querySelectorAll('.info-card, .stat-card').forEach(card => {
@@ -1012,7 +1182,7 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
      */
     public function getDebugInfo(): array
     {
-        return array (  955 => 683,  942 => 682,  928 => 678,  910 => 663,  902 => 658,  896 => 654,  888 => 648,  885 => 647,  873 => 641,  867 => 638,  860 => 634,  853 => 630,  847 => 626,  842 => 625,  840 => 624,  832 => 619,  820 => 610,  816 => 609,  804 => 600,  792 => 591,  780 => 582,  768 => 573,  752 => 561,  746 => 560,  743 => 559,  740 => 558,  737 => 557,  732 => 556,  730 => 555,  723 => 550,  719 => 548,  713 => 546,  711 => 545,  701 => 539,  695 => 538,  692 => 537,  687 => 536,  685 => 535,  677 => 530,  666 => 522,  659 => 518,  652 => 514,  645 => 510,  638 => 506,  627 => 498,  620 => 494,  613 => 490,  606 => 486,  603 => 485,  590 => 484,  103 => 6,  90 => 5,  66 => 3,  43 => 1,);
+        return array (  1136 => 784,  1125 => 776,  1103 => 757,  1090 => 756,  1076 => 752,  1058 => 737,  1050 => 732,  1044 => 728,  1036 => 723,  1030 => 719,  1027 => 718,  1015 => 712,  1012 => 711,  1006 => 708,  1002 => 706,  999 => 705,  993 => 702,  989 => 700,  987 => 699,  982 => 697,  975 => 693,  969 => 689,  964 => 688,  962 => 687,  954 => 682,  942 => 673,  938 => 672,  928 => 664,  924 => 662,  918 => 660,  916 => 659,  912 => 657,  908 => 655,  902 => 653,  900 => 652,  889 => 643,  885 => 641,  877 => 639,  875 => 638,  871 => 636,  867 => 634,  861 => 632,  859 => 631,  846 => 621,  834 => 612,  822 => 603,  806 => 591,  800 => 590,  797 => 589,  794 => 588,  791 => 587,  786 => 586,  784 => 585,  777 => 580,  773 => 578,  767 => 576,  765 => 575,  755 => 569,  749 => 568,  746 => 567,  741 => 566,  739 => 565,  731 => 560,  720 => 552,  716 => 550,  710 => 547,  706 => 545,  703 => 544,  697 => 541,  693 => 539,  691 => 538,  686 => 536,  679 => 532,  672 => 528,  664 => 522,  658 => 519,  654 => 517,  651 => 516,  645 => 513,  641 => 511,  639 => 510,  634 => 508,  627 => 504,  620 => 500,  617 => 499,  604 => 498,  103 => 6,  90 => 5,  66 => 3,  43 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -1146,10 +1316,16 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
     border: 1px solid rgba(155, 89, 182, 0.3);
 }
 
-.tag-date {
+.tag-team {
     background: rgba(241, 196, 15, 0.2);
     color: #f1c40f;
     border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+.tag-date {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.3);
 }
 
 /* ================= PLAN CONTENT ================= */
@@ -1283,6 +1459,7 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .session-date {
@@ -1301,6 +1478,13 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
 .session-team {
     color: var(--text-muted);
     font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.session-team i {
+    color: var(--red);
 }
 
 .no-sessions {
@@ -1512,10 +1696,18 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
             <i class=\"fas fa-calendar-alt\"></i>
             <span>Créé le {{ training_plan.createdAt|date('d/m/Y') }}</span>
         </div>
+        {% if training_plan.coach %}
         <div class=\"plan-meta-item\">
             <i class=\"fas fa-user-tie\"></i>
-            <span>Coach #{{ training_plan.coachId }}</span>
+            <span>{{ training_plan.coach.fullName }}</span>
         </div>
+        {% endif %}
+        {% if training_plan.team %}
+        <div class=\"plan-meta-item\">
+            <i class=\"fas fa-users\"></i>
+            <span>{{ training_plan.team.name }}</span>
+        </div>
+        {% endif %}
     </div>
 </div>
 
@@ -1532,10 +1724,18 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
                 <i class=\"fas fa-chart-line\"></i>
                 {{ training_plan.difficultyLevel }}
             </span>
+            {% if training_plan.coach %}
             <span class=\"plan-tag tag-coach\">
                 <i class=\"fas fa-user-tie\"></i>
-                Coach #{{ training_plan.coachId }}
+                {{ training_plan.coach.fullName }}
             </span>
+            {% endif %}
+            {% if training_plan.team %}
+            <span class=\"plan-tag tag-team\">
+                <i class=\"fas fa-users\"></i>
+                {{ training_plan.team.name }}
+            </span>
+            {% endif %}
             <span class=\"plan-tag tag-date\">
                 <i class=\"fas fa-clock\"></i>
                 {{ training_plan.createdAt|date('d/m/Y') }}
@@ -1573,8 +1773,8 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
                 <div class=\"stat-value\">
                     {% set uniqueTeams = [] %}
                     {% for session in training_plan.coachingSessions %}
-                        {% if session.teamId not in uniqueTeams %}
-                            {% set uniqueTeams = uniqueTeams|merge([session.teamId]) %}
+                        {% if session.team and session.team.id not in uniqueTeams %}
+                            {% set uniqueTeams = uniqueTeams|merge([session.team.id]) %}
                         {% endif %}
                     {% endfor %}
                     {{ uniqueTeams|length }}
@@ -1616,8 +1816,41 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
                     <i class=\"fas fa-user-tie\"></i>
                     Coach Responsable
                 </div>
-                <div class=\"info-value\">Coach #{{ training_plan.coachId }}</div>
-                <div class=\"info-details\">Identifiant du coach supervisant ce plan</div>
+                <div class=\"info-value\">
+                    {% if training_plan.coach %}
+                        {{ training_plan.coach.fullName }}
+                    {% else %}
+                        Non assigné
+                    {% endif %}
+                </div>
+                <div class=\"info-details\">
+                    {% if training_plan.coach %}
+                        @{{ training_plan.coach.username }} • {{ training_plan.coach.country }}
+                    {% else %}
+                        Aucun coach assigné à ce plan
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class=\"info-card\">
+                <div class=\"info-label\">
+                    <i class=\"fas fa-users\"></i>
+                    Équipe Cible
+                </div>
+                <div class=\"info-value\">
+                    {% if training_plan.team %}
+                        {{ training_plan.team.name }}
+                    {% else %}
+                        Non assignée
+                    {% endif %}
+                </div>
+                <div class=\"info-details\">
+                    {% if training_plan.team %}
+                        {{ training_plan.team.game }}
+                    {% else %}
+                        Aucune équipe assignée à ce plan
+                    {% endif %}
+                </div>
             </div>
             
             <div class=\"info-card\">
@@ -1652,10 +1885,18 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
                                     <i class=\"fas fa-clock\"></i>
                                     {{ session.duration }} min
                                 </div>
+                                {% if session.team %}
                                 <div class=\"session-team\">
                                     <i class=\"fas fa-users\"></i>
-                                    Équipe #{{ session.teamId }}
+                                    {{ session.team.name }}
                                 </div>
+                                {% endif %}
+                                {% if session.coach %}
+                                <div class=\"session-team\">
+                                    <i class=\"fas fa-user-tie\"></i>
+                                    {{ session.coach.fullName }}
+                                </div>
+                                {% endif %}
                             </div>
                             <a href=\"{{ path('app_coaching_session_show', {'id': session.id}) }}\" 
                                class=\"btn-show\" style=\"padding: 8px 16px;\">
@@ -1668,6 +1909,9 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
                         <i class=\"fas fa-video-slash\"></i>
                         <h3>Aucune session associée</h3>
                         <p>Ce plan d'entraînement n'est pas encore utilisé dans une session de coaching.</p>
+                        <a href=\"{{ path('app_coaching_session_new') }}\" class=\"btn-new\" style=\"margin-top: 15px; display: inline-block;\">
+                            <i class=\"fas fa-plus-circle\"></i> Créer une session
+                        </a>
                     </div>
                 {% endif %}
             </div>
@@ -1699,6 +1943,7 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
 {% endblock %}
 
 {% block javascripts %}
+{{ parent() }}
 <script>
 function confirmDelete() {
     if (confirm('⚠️ ATTENTION : Êtes-vous sûr de vouloir supprimer ce plan d\\'entraînement ?\\n\\nCette action supprimera également toutes les sessions de coaching associées à ce plan.\\n\\nCette action est irréversible !')) {
@@ -1715,7 +1960,21 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.opacity = '0';
         }, index * 100);
     });
+    
+    // Vérifier s'il y a des sessions associées et ajuster le message de suppression
+    const sessionsCount = {{ training_plan.coachingSessions|length }};
+    const deleteButton = document.querySelector('.btn-delete');
+    if (deleteButton && sessionsCount > 0) {
+        deleteButton.setAttribute('onclick', 'confirmDeleteWithSessions()');
+    }
 });
+
+function confirmDeleteWithSessions() {
+    const sessionsCount = {{ training_plan.coachingSessions|length }};
+    if (confirm(`⚠️ ATTENTION : Ce plan a \${sessionsCount} session(s) de coaching associée(s).\\n\\nLa suppression de ce plan supprimera également toutes ces sessions.\\n\\nCette action est irréversible !`)) {
+        document.querySelector('#delete-form form').submit();
+    }
+}
 
 // Effet de survol amélioré
 document.querySelectorAll('.info-card, .stat-card').forEach(card => {
@@ -1728,6 +1987,6 @@ document.querySelectorAll('.info-card, .stat-card').forEach(card => {
     });
 });
 </script>
-{% endblock %}", "training_plan/show.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\training_plan\\show.html.twig");
+{% endblock %}", "training_plan/show.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\training_plan\\show.html.twig");
     }
 }

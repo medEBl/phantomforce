@@ -480,6 +480,6 @@ class __TwigTemplate_c5c04a6f75006e545dcc8363dec71eea extends Template
     </div>
 </div>
 {% endblock %}
-", "tournament/new.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\tournament\\new.html.twig");
+", "tournament/new.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\tournament\\new.html.twig");
     }
 }

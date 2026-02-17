@@ -572,6 +572,6 @@ class __TwigTemplate_4261f5c9a93cba6c9d277ea964d617d9 extends Template
 
 </section>
 
-{% endblock %}", "front/edit.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\front\\edit.html.twig");
+{% endblock %}", "front/edit.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\front\\edit.html.twig");
     }
 }

@@ -99,6 +99,6 @@ class __TwigTemplate_869c9625c2b106a39aad20d2da06f3a5 extends Template
     {{ form_widget(form) }}
     <button class=\"btn\">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
-", "training_plan/_form.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\training_plan\\_form.html.twig");
+", "training_plan/_form.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\training_plan\\_form.html.twig");
     }
 }

@@ -39,7 +39,7 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
     protected function doGetParent(array $context): bool|string|Template|TemplateWrapper
     {
         // line 1
-        return "base.html.twig";
+        return "base_back.html.twig";
     }
 
     protected function doDisplay(array $context, array $blocks = []): iterable
@@ -51,7 +51,7 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "back/team/show.html.twig"));
 
-        $this->parent = $this->load("base.html.twig", 1);
+        $this->parent = $this->load("base_back.html.twig", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -329,6 +329,7 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
     .coach-card {
         background: linear-gradient(135deg, rgba(255, 204, 0, 0.1), rgba(255, 102, 0, 0.1));
         border: 2px solid var(--fire-yellow);
+        grid-column: 1 / -1;
     }
     
     .coach-avatar {
@@ -355,9 +356,102 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
         margin-bottom: 0.5rem;
     }
     
+    /* Styles pour la section membres */
+    .members-section {
+        margin: 2rem 0;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 102, 0, 0.3);
+    }
+    
+    .members-title {
+        font-family: 'Orbitron', sans-serif;
+        color: var(--fire-yellow);
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .members-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+    
+    .member-card {
+        background: rgba(34, 34, 34, 0.8);
+        border: 1px solid rgba(255, 102, 0, 0.3);
+        border-radius: 10px;
+        padding: 1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .member-card:hover {
+        border-color: var(--blood-red);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255, 0, 60, 0.2);
+    }
+    
+    .member-avatar {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+    }
+    
+    .member-info {
+        flex: 1;
+    }
+    
+    .member-name {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--fire-yellow);
+        margin-bottom: 0.3rem;
+    }
+    
+    .member-details {
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        flex-wrap: wrap;
+    }
+    
+    .member-rank {
+        color: var(--blood-orange);
+    }
+    
+    .member-game {
+        color: var(--info-blue);
+    }
+    
+    .no-members {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text-muted);
+        font-style: italic;
+        border: 2px dashed rgba(255, 102, 0, 0.3);
+        border-radius: 10px;
+    }
+    
     .statistics-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 1rem;
         margin: 2rem 0;
     }
@@ -488,6 +582,10 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
             grid-template-columns: 1fr;
         }
         
+        .members-grid {
+            grid-template-columns: 1fr;
+        }
+        
         .actions-bar {
             flex-direction: column;
         }
@@ -507,7 +605,7 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
         yield from [];
     }
 
-    // line 405
+    // line 503
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -520,49 +618,49 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 406
+        // line 504
         yield "<div class=\"show-container\">
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class=\"floating-elements\">
         ";
-        // line 410
+        // line 508
         $context["icons"] = ["🎮", "⚡", "🔥", "👑", "🕹️", "🎯", "🏆", "💥", "🚀", "⭐"];
-        // line 411
+        // line 509
         yield "        ";
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(range(1, 10));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 412
+            // line 510
             yield "            ";
-            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 412, $this->source); })())));
-            // line 413
+            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 510, $this->source); })())));
+            // line 511
             yield "            ";
             $context["leftPosition"] = (5 + (($context["i"] * 9) % 90));
-            // line 414
+            // line 512
             yield "            ";
             $context["delay"] = (($context["i"] * 1.3) % 21);
-            // line 415
+            // line 513
             yield "            ";
             $context["duration"] = (15 + (($context["i"] * 1.7) % 11));
-            // line 416
+            // line 514
             yield "            <div class=\"floating-element\" style=\"
                 left: ";
-            // line 417
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 417, $this->source); })()), "html", null, true);
+            // line 515
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 515, $this->source); })()), "html", null, true);
             yield "%;
                 animation-delay: ";
-            // line 418
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 418, $this->source); })()), "html", null, true);
+            // line 516
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 516, $this->source); })()), "html", null, true);
             yield "s;
                 animation-duration: ";
-            // line 419
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 419, $this->source); })()), "html", null, true);
+            // line 517
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 517, $this->source); })()), "html", null, true);
             yield "s;
             \">
                 ";
-            // line 421
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 421, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 421, $this->source); })()), [], "array", false, false, false, 421), "html", null, true);
+            // line 519
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 519, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 519, $this->source); })()), [], "array", false, false, false, 519), "html", null, true);
             yield "
             </div>
         ";
@@ -570,19 +668,19 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['i'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 424
+        // line 522
         yield "    </div>
     
     <!-- En-tête avec effet néon -->
     <div class=\"header-glow\">
         <h1 class=\"main-title\">
             ÉQUIPE: ";
-        // line 429
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 429, $this->source); })()), "name", [], "any", false, false, false, 429), "html", null, true);
+        // line 527
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 527, $this->source); })()), "name", [], "any", false, false, false, 527), "html", null, true);
         yield "
             <span class=\"team-id\">ID: #";
-        // line 430
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 430, $this->source); })()), "id", [], "any", false, false, false, 430), "html", null, true);
+        // line 528
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 528, $this->source); })()), "id", [], "any", false, false, false, 528), "html", null, true);
         yield "</span>
         </h1>
         <p class=\"text-light mb-4\" style=\"font-size: 1.3rem; opacity: 0.9; font-family: 'Orbitron', sans-serif;\">
@@ -599,8 +697,8 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
                 <span class=\"info-label\">🏆 NOM DE L'ÉQUIPE</span>
                 <div class=\"info-value\" style=\"font-size: 1.8rem; color: var(--fire-yellow);\">
                     ";
-        // line 445
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 445, $this->source); })()), "name", [], "any", false, false, false, 445), "html", null, true);
+        // line 543
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 543, $this->source); })()), "name", [], "any", false, false, false, 543), "html", null, true);
         yield "
                 </div>
             </div>
@@ -609,8 +707,8 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
                 <span class=\"info-label\">🎮 JEU PRINCIPAL</span>
                 <div class=\"info-value\">
                     <span class=\"game-badge\">";
-        // line 452
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 452, $this->source); })()), "game", [], "any", false, false, false, 452), "html", null, true);
+        // line 550
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 550, $this->source); })()), "game", [], "any", false, false, false, 550), "html", null, true);
         yield "</span>
                 </div>
             </div>
@@ -619,8 +717,8 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
                 <span class=\"info-label\">📅 DATE DE CRÉATION</span>
                 <div class=\"info-value\">
                     <span class=\"date-badge\">";
-        // line 459
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 459, $this->source); })()), "creationDate", [], "any", false, false, false, 459), "d/m/Y"), "html", null, true);
+        // line 557
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 557, $this->source); })()), "creationDate", [], "any", false, false, false, 557), "d/m/Y H:i"), "html", null, true);
         yield "</span>
                 </div>
             </div>
@@ -629,39 +727,39 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
                 <span class=\"info-label\">🆔 IDENTIFIANT</span>
                 <div class=\"info-value\" style=\"font-family: 'Orbitron', monospace;\">
                     #";
-        // line 466
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 466, $this->source); })()), "id", [], "any", false, false, false, 466), "html", null, true);
+        // line 564
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 564, $this->source); })()), "id", [], "any", false, false, false, 564), "html", null, true);
         yield "
                 </div>
             </div>
         </div>
         
-                <!-- Coach -->
+        <!-- Coach -->
         ";
-        // line 472
-        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 472, $this->source); })()), "coachId", [], "any", false, false, false, 472)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 473
-            yield "            <div class=\"info-card coach-card\" style=\"grid-column: 1 / -1;\">
-                <span class=\"info-label\">👑 COACH</span>
+        // line 570
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 570, $this->source); })()), "coach", [], "any", false, false, false, 570)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 571
+            yield "            <div class=\"info-card coach-card\">
+                <span class=\"info-label\">👑 COACH DE L'ÉQUIPE</span>
                 <div style=\"display: flex; align-items: center; margin-top: 1rem;\">
                     <div class=\"coach-avatar\">
                         👑
                     </div>
                     <div class=\"coach-info\">
-                        <div class=\"coach-name\">Coach ID: ";
-            // line 480
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 480, $this->source); })()), "coachId", [], "any", false, false, false, 480), "html", null, true);
+                        <div class=\"coach-name\">";
+            // line 578
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 578, $this->source); })()), "coach", [], "any", false, false, false, 578), "username", [], "any", false, false, false, 578), "html", null, true);
             yield "</div>
                         <div style=\"color: var(--text-muted);\">
-                            Identifiant du coach : #";
-            // line 482
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 482, $this->source); })()), "coachId", [], "any", false, false, false, 482), "html", null, true);
+                            <i class=\"fas fa-envelope\"></i> ";
+            // line 580
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 580, $this->source); })()), "coach", [], "any", false, false, false, 580), "email", [], "any", false, false, false, 580), "html", null, true);
             yield "
                         </div>
                         <div style=\"color: var(--text-muted); margin-top: 0.5rem;\">
-                            Équipe coachée depuis le ";
-            // line 485
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 485, $this->source); })()), "creationDate", [], "any", false, false, false, 485), "d/m/Y"), "html", null, true);
+                            <i class=\"fas fa-calendar\"></i> Coach depuis le ";
+            // line 583
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 583, $this->source); })()), "creationDate", [], "any", false, false, false, 583), "d/m/Y"), "html", null, true);
             yield "
                         </div>
                     </div>
@@ -669,7 +767,7 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
             </div>
         ";
         } else {
-            // line 491
+            // line 589
             yield "            <div class=\"info-card\" style=\"grid-column: 1 / -1; text-align: center;\">
                 <span class=\"info-label\">👑 COACH</span>
                 <div class=\"info-value\" style=\"color: var(--text-muted);\">
@@ -678,54 +776,143 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
             </div>
         ";
         }
-        // line 498
+        // line 596
         yield "        
-        <!-- Statistiques (exemple) -->
+        <!-- Section Membres de l'équipe -->
+        <div class=\"members-section\">
+            <h3 class=\"members-title\">
+                <i class=\"fas fa-users\"></i> MEMBRES DE L'ÉQUIPE (";
+        // line 600
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 600, $this->source); })()), "members", [], "any", false, false, false, 600)), "html", null, true);
+        yield ")
+            </h3>
+            
+            ";
+        // line 603
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 603, $this->source); })()), "members", [], "any", false, false, false, 603)) > 0)) {
+            // line 604
+            yield "                <div class=\"members-grid\">
+                    ";
+            // line 605
+            $context['_parent'] = $context;
+            $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 605, $this->source); })()), "members", [], "any", false, false, false, 605));
+            foreach ($context['_seq'] as $context["_key"] => $context["member"]) {
+                // line 606
+                yield "                        <div class=\"member-card\">
+                            <div class=\"member-avatar\">
+                                ";
+                // line 608
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), Twig\Extension\CoreExtension::first($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["member"], "pseudo", [], "any", false, false, false, 608))), "html", null, true);
+                yield "
+                            </div>
+                            <div class=\"member-info\">
+                                <div class=\"member-name\">";
+                // line 611
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "pseudo", [], "any", false, false, false, 611), "html", null, true);
+                yield "</div>
+                                <div class=\"member-details\">
+                                    <span class=\"member-rank\"><i class=\"fas fa-star\"></i> ";
+                // line 613
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "rank", [], "any", false, false, false, 613), "html", null, true);
+                yield "</span>
+                                    ";
+                // line 614
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["member"], "game", [], "any", false, false, false, 614)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 615
+                    yield "                                        <span class=\"member-game\"><i class=\"fas fa-gamepad\"></i> ";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "game", [], "any", false, false, false, 615), "html", null, true);
+                    yield "</span>
+                                    ";
+                }
+                // line 617
+                yield "                                </div>
+                                <div class=\"member-details\" style=\"margin-top: 0.3rem;\">
+                                    <small><i class=\"fas fa-calendar-alt\"></i> ";
+                // line 619
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["member"], "dateOfCreation", [], "any", false, false, false, 619), "d/m/Y"), "html", null, true);
+                yield "</small>
+                                </div>
+                            </div>
+                        </div>
+                    ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_key'], $context['member'], $context['_parent']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 624
+            yield "                </div>
+            ";
+        } else {
+            // line 626
+            yield "                <div class=\"no-members\">
+                    <i class=\"fas fa-user-slash fa-2x mb-2\"></i>
+                    <p>Aucun membre dans cette équipe pour le moment</p>
+                </div>
+            ";
+        }
+        // line 631
+        yield "        </div>
+        
+        <!-- Statistiques -->
         <div class=\"statistics-grid\">
             <div class=\"stat-card\">
                 <div class=\"stat-value\">";
-        // line 502
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, ($context["team"] ?? null), "players", [], "any", true, true, false, 502)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 502, $this->source); })()), "players", [], "any", false, false, false, 502), 5)) : (5)), "html", null, true);
+        // line 636
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 636, $this->source); })()), "members", [], "any", false, false, false, 636)), "html", null, true);
         yield "</div>
-                <div class=\"stat-label\">JOUEURS</div>
+                <div class=\"stat-label\">MEMBRES</div>
             </div>
             <div class=\"stat-card\">
                 <div class=\"stat-value\">";
-        // line 506
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, ($context["team"] ?? null), "wins", [], "any", true, true, false, 506)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 506, $this->source); })()), "wins", [], "any", false, false, false, 506), 12)) : (12)), "html", null, true);
+        // line 640
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 640, $this->source); })()), "matchesAsTeam1", [], "any", false, false, false, 640)) + Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 640, $this->source); })()), "matchesAsTeam2", [], "any", false, false, false, 640))), "html", null, true);
+        yield "</div>
+                <div class=\"stat-label\">MATCHS</div>
+            </div>
+            <div class=\"stat-card\">
+                <div class=\"stat-value\">";
+        // line 644
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 644, $this->source); })()), "matchesWon", [], "any", false, false, false, 644)), "html", null, true);
         yield "</div>
                 <div class=\"stat-label\">VICTOIRES</div>
             </div>
             <div class=\"stat-card\">
                 <div class=\"stat-value\">";
-        // line 510
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, ($context["team"] ?? null), "losses", [], "any", true, true, false, 510)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 510, $this->source); })()), "losses", [], "any", false, false, false, 510), 3)) : (3)), "html", null, true);
+        // line 648
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), Twig\Extension\CoreExtension::filter($this->env, CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 648, $this->source); })()), "members", [], "any", false, false, false, 648), function ($__m__) use ($context, $macros) { $context["m"] = $__m__; return ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["m"]) || array_key_exists("m", $context) ? $context["m"] : (function () { throw new RuntimeError('Variable "m" does not exist.', 648, $this->source); })()), "rank", [], "any", false, false, false, 648) == "Diamant") || (CoreExtension::getAttribute($this->env, $this->source, (isset($context["m"]) || array_key_exists("m", $context) ? $context["m"] : (function () { throw new RuntimeError('Variable "m" does not exist.', 648, $this->source); })()), "rank", [], "any", false, false, false, 648) == "Champion")); })), "html", null, true);
         yield "</div>
-                <div class=\"stat-label\">DÉFAITES</div>
-            </div>
-            <div class=\"stat-card\">
-                <div class=\"stat-value\">";
-        // line 514
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, ($context["team"] ?? null), "tournaments", [], "any", true, true, false, 514)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 514, $this->source); })()), "tournaments", [], "any", false, false, false, 514), 8)) : (8)), "html", null, true);
-        yield "</div>
-                <div class=\"stat-label\">TOURNOIS</div>
+                <div class=\"stat-label\">TOP JOUEURS</div>
             </div>
         </div>
         
         <!-- Barre d'actions -->
         <div class=\"actions-bar\">
             <a href=\"";
-        // line 521
+        // line 655
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_back_team_index");
         yield "\" class=\"btn btn-back\">
-                🔙 RETOUR À LA LISTE
+                <i class=\"fas fa-arrow-left\"></i> RETOUR
             </a>
             <a href=\"";
-        // line 524
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_back_team_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 524, $this->source); })()), "id", [], "any", false, false, false, 524)]), "html", null, true);
+        // line 658
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_back_team_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 658, $this->source); })()), "id", [], "any", false, false, false, 658)]), "html", null, true);
         yield "\" class=\"btn btn-edit\">
-                ✏️ MODIFIER
+                <i class=\"fas fa-edit\"></i> MODIFIER
             </a>
+            <form method=\"post\" action=\"";
+        // line 661
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_back_team_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 661, $this->source); })()), "id", [], "any", false, false, false, 661)]), "html", null, true);
+        yield "\" 
+                  onsubmit=\"return confirm('⚠️ Êtes-vous sûr de vouloir supprimer cette équipe ? Cette action conservera les agents mais les désassociera de l\\'équipe.');\"
+                  style=\"display: inline;\">
+                <input type=\"hidden\" name=\"_token\" value=\"";
+        // line 664
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, (isset($context["team"]) || array_key_exists("team", $context) ? $context["team"] : (function () { throw new RuntimeError('Variable "team" does not exist.', 664, $this->source); })()), "id", [], "any", false, false, false, 664))), "html", null, true);
+        yield "\">
+                <button type=\"submit\" class=\"btn btn-delete\">
+                    <i class=\"fas fa-trash\"></i> SUPPRIMER
+                </button>
+            </form>
         </div>
         
     </div>
@@ -739,15 +926,18 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
             document.querySelector('.show-container').style.opacity = '1';
         }, 100);
         
-        // Confirmation de suppression
-        const deleteBtn = document.querySelector('.btn-delete');
-        if (deleteBtn) {
-            deleteBtn.addEventListener('click', function(e) {
-                if (!confirm('⚠️ Êtes-vous sûr de vouloir supprimer cette équipe ? Cette action est irréversible.')) {
-                    e.preventDefault();
-                }
-            });
-        }
+        // Animation des cartes
+        const cards = document.querySelectorAll('.info-card, .member-card, .stat-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
     });
 </script>
 ";
@@ -781,12 +971,12 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  725 => 524,  719 => 521,  709 => 514,  702 => 510,  695 => 506,  688 => 502,  682 => 498,  673 => 491,  664 => 485,  658 => 482,  653 => 480,  644 => 473,  642 => 472,  633 => 466,  623 => 459,  613 => 452,  603 => 445,  585 => 430,  581 => 429,  574 => 424,  565 => 421,  560 => 419,  556 => 418,  552 => 417,  549 => 416,  546 => 415,  543 => 414,  540 => 413,  537 => 412,  532 => 411,  530 => 410,  524 => 406,  511 => 405,  102 => 6,  89 => 5,  65 => 3,  42 => 1,);
+        return array (  910 => 664,  904 => 661,  898 => 658,  892 => 655,  882 => 648,  875 => 644,  868 => 640,  861 => 636,  854 => 631,  847 => 626,  843 => 624,  832 => 619,  828 => 617,  822 => 615,  820 => 614,  816 => 613,  811 => 611,  805 => 608,  801 => 606,  797 => 605,  794 => 604,  792 => 603,  786 => 600,  780 => 596,  771 => 589,  762 => 583,  756 => 580,  751 => 578,  742 => 571,  740 => 570,  731 => 564,  721 => 557,  711 => 550,  701 => 543,  683 => 528,  679 => 527,  672 => 522,  663 => 519,  658 => 517,  654 => 516,  650 => 515,  647 => 514,  644 => 513,  641 => 512,  638 => 511,  635 => 510,  630 => 509,  628 => 508,  622 => 504,  609 => 503,  102 => 6,  89 => 5,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("{% extends 'base.html.twig' %}
+        return new Source("{% extends 'base_back.html.twig' %}
 
 {% block title %}⚔️ BLOOD ARENA - Équipe {{ team.name }}{% endblock %}
 
@@ -1020,6 +1210,7 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
     .coach-card {
         background: linear-gradient(135deg, rgba(255, 204, 0, 0.1), rgba(255, 102, 0, 0.1));
         border: 2px solid var(--fire-yellow);
+        grid-column: 1 / -1;
     }
     
     .coach-avatar {
@@ -1046,9 +1237,102 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
         margin-bottom: 0.5rem;
     }
     
+    /* Styles pour la section membres */
+    .members-section {
+        margin: 2rem 0;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 102, 0, 0.3);
+    }
+    
+    .members-title {
+        font-family: 'Orbitron', sans-serif;
+        color: var(--fire-yellow);
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .members-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+    
+    .member-card {
+        background: rgba(34, 34, 34, 0.8);
+        border: 1px solid rgba(255, 102, 0, 0.3);
+        border-radius: 10px;
+        padding: 1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .member-card:hover {
+        border-color: var(--blood-red);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255, 0, 60, 0.2);
+    }
+    
+    .member-avatar {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+    }
+    
+    .member-info {
+        flex: 1;
+    }
+    
+    .member-name {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--fire-yellow);
+        margin-bottom: 0.3rem;
+    }
+    
+    .member-details {
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        flex-wrap: wrap;
+    }
+    
+    .member-rank {
+        color: var(--blood-orange);
+    }
+    
+    .member-game {
+        color: var(--info-blue);
+    }
+    
+    .no-members {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text-muted);
+        font-style: italic;
+        border: 2px dashed rgba(255, 102, 0, 0.3);
+        border-radius: 10px;
+    }
+    
     .statistics-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 1rem;
         margin: 2rem 0;
     }
@@ -1179,6 +1463,10 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
             grid-template-columns: 1fr;
         }
         
+        .members-grid {
+            grid-template-columns: 1fr;
+        }
+        
         .actions-bar {
             flex-direction: column;
         }
@@ -1244,7 +1532,7 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
             <div class=\"info-card\">
                 <span class=\"info-label\">📅 DATE DE CRÉATION</span>
                 <div class=\"info-value\">
-                    <span class=\"date-badge\">{{ team.creationDate|date('d/m/Y') }}</span>
+                    <span class=\"date-badge\">{{ team.creationDate|date('d/m/Y H:i') }}</span>
                 </div>
             </div>
             
@@ -1256,21 +1544,21 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
             </div>
         </div>
         
-                <!-- Coach -->
-        {% if team.coachId %}
-            <div class=\"info-card coach-card\" style=\"grid-column: 1 / -1;\">
-                <span class=\"info-label\">👑 COACH</span>
+        <!-- Coach -->
+        {% if team.coach %}
+            <div class=\"info-card coach-card\">
+                <span class=\"info-label\">👑 COACH DE L'ÉQUIPE</span>
                 <div style=\"display: flex; align-items: center; margin-top: 1rem;\">
                     <div class=\"coach-avatar\">
                         👑
                     </div>
                     <div class=\"coach-info\">
-                        <div class=\"coach-name\">Coach ID: {{ team.coachId }}</div>
+                        <div class=\"coach-name\">{{ team.coach.username }}</div>
                         <div style=\"color: var(--text-muted);\">
-                            Identifiant du coach : #{{ team.coachId }}
+                            <i class=\"fas fa-envelope\"></i> {{ team.coach.email }}
                         </div>
                         <div style=\"color: var(--text-muted); margin-top: 0.5rem;\">
-                            Équipe coachée depuis le {{ team.creationDate|date('d/m/Y') }}
+                            <i class=\"fas fa-calendar\"></i> Coach depuis le {{ team.creationDate|date('d/m/Y') }}
                         </div>
                     </div>
                 </div>
@@ -1284,34 +1572,78 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
             </div>
         {% endif %}
         
-        <!-- Statistiques (exemple) -->
+        <!-- Section Membres de l'équipe -->
+        <div class=\"members-section\">
+            <h3 class=\"members-title\">
+                <i class=\"fas fa-users\"></i> MEMBRES DE L'ÉQUIPE ({{ team.members|length }})
+            </h3>
+            
+            {% if team.members|length > 0 %}
+                <div class=\"members-grid\">
+                    {% for member in team.members %}
+                        <div class=\"member-card\">
+                            <div class=\"member-avatar\">
+                                {{ member.pseudo|first|upper }}
+                            </div>
+                            <div class=\"member-info\">
+                                <div class=\"member-name\">{{ member.pseudo }}</div>
+                                <div class=\"member-details\">
+                                    <span class=\"member-rank\"><i class=\"fas fa-star\"></i> {{ member.rank }}</span>
+                                    {% if member.game %}
+                                        <span class=\"member-game\"><i class=\"fas fa-gamepad\"></i> {{ member.game }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class=\"member-details\" style=\"margin-top: 0.3rem;\">
+                                    <small><i class=\"fas fa-calendar-alt\"></i> {{ member.dateOfCreation|date('d/m/Y') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class=\"no-members\">
+                    <i class=\"fas fa-user-slash fa-2x mb-2\"></i>
+                    <p>Aucun membre dans cette équipe pour le moment</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Statistiques -->
         <div class=\"statistics-grid\">
             <div class=\"stat-card\">
-                <div class=\"stat-value\">{{ team.players|default(5) }}</div>
-                <div class=\"stat-label\">JOUEURS</div>
+                <div class=\"stat-value\">{{ team.members|length }}</div>
+                <div class=\"stat-label\">MEMBRES</div>
             </div>
             <div class=\"stat-card\">
-                <div class=\"stat-value\">{{ team.wins|default(12) }}</div>
+                <div class=\"stat-value\">{{ team.matchesAsTeam1|length + team.matchesAsTeam2|length }}</div>
+                <div class=\"stat-label\">MATCHS</div>
+            </div>
+            <div class=\"stat-card\">
+                <div class=\"stat-value\">{{ team.matchesWon|length }}</div>
                 <div class=\"stat-label\">VICTOIRES</div>
             </div>
             <div class=\"stat-card\">
-                <div class=\"stat-value\">{{ team.losses|default(3) }}</div>
-                <div class=\"stat-label\">DÉFAITES</div>
-            </div>
-            <div class=\"stat-card\">
-                <div class=\"stat-value\">{{ team.tournaments|default(8) }}</div>
-                <div class=\"stat-label\">TOURNOIS</div>
+                <div class=\"stat-value\">{{ team.members|filter(m => m.rank == 'Diamant' or m.rank == 'Champion')|length }}</div>
+                <div class=\"stat-label\">TOP JOUEURS</div>
             </div>
         </div>
         
         <!-- Barre d'actions -->
         <div class=\"actions-bar\">
             <a href=\"{{ path('app_back_team_index') }}\" class=\"btn btn-back\">
-                🔙 RETOUR À LA LISTE
+                <i class=\"fas fa-arrow-left\"></i> RETOUR
             </a>
             <a href=\"{{ path('app_back_team_edit', {'id': team.id}) }}\" class=\"btn btn-edit\">
-                ✏️ MODIFIER
+                <i class=\"fas fa-edit\"></i> MODIFIER
             </a>
+            <form method=\"post\" action=\"{{ path('app_back_team_delete', {'id': team.id}) }}\" 
+                  onsubmit=\"return confirm('⚠️ Êtes-vous sûr de vouloir supprimer cette équipe ? Cette action conservera les agents mais les désassociera de l\\'équipe.');\"
+                  style=\"display: inline;\">
+                <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('delete' ~ team.id) }}\">
+                <button type=\"submit\" class=\"btn btn-delete\">
+                    <i class=\"fas fa-trash\"></i> SUPPRIMER
+                </button>
+            </form>
         </div>
         
     </div>
@@ -1325,17 +1657,20 @@ class __TwigTemplate_892a78cd113bbcec6580b6a23866c1fb extends Template
             document.querySelector('.show-container').style.opacity = '1';
         }, 100);
         
-        // Confirmation de suppression
-        const deleteBtn = document.querySelector('.btn-delete');
-        if (deleteBtn) {
-            deleteBtn.addEventListener('click', function(e) {
-                if (!confirm('⚠️ Êtes-vous sûr de vouloir supprimer cette équipe ? Cette action est irréversible.')) {
-                    e.preventDefault();
-                }
-            });
-        }
+        // Animation des cartes
+        const cards = document.querySelectorAll('.info-card, .member-card, .stat-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
     });
 </script>
-{% endblock %}", "back/team/show.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\back\\team\\show.html.twig");
+{% endblock %}", "back/team/show.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\back\\team\\show.html.twig");
     }
 }

@@ -15,33 +15,15 @@ class CoachingSession
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    #[Assert\NotNull(message: "L'ID du coach est obligatoire.")]
-    #[Assert\Positive(message: "L'ID du coach doit être un nombre positif (> 0).")]
-    #[Assert\Type(
-        type: 'integer',
-        message: "L'ID du coach doit être un nombre entier."
-    )]
-    #[Assert\Range(
-        min: 1,
-        max: 999,
-        notInRangeMessage: "L'ID du coach doit être compris entre {{ min }} et {{ max }}."
-    )]
-    private ?int $coach_id = null;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'coach_id', referencedColumnName: 'id', nullable: false)]
+    #[Assert\NotNull(message: "Le coach est obligatoire.")]
+    private ?User $coach = null;
 
-    #[ORM\Column]
-    #[Assert\NotNull(message: "L'ID de l'équipe est obligatoire.")]
-    #[Assert\Positive(message: "L'ID de l'équipe doit être un nombre positif (> 0).")]
-    #[Assert\Type(
-        type: 'integer',
-        message: "L'ID de l'équipe doit être un nombre entier."
-    )]
-    #[Assert\Range(
-        min: 1,
-        max: 999,
-        notInRangeMessage: "L'ID de l'équipe doit être compris entre {{ min }} et {{ max }}."
-    )]
-    private ?int $team_id = null;
+    #[ORM\ManyToOne(targetEntity: Team::class)]
+    #[ORM\JoinColumn(name: 'team_id', referencedColumnName: 'id', nullable: false)]
+    #[Assert\NotNull(message: "L'équipe est obligatoire.")]
+    private ?Team $team = null;
 
     #[ORM\ManyToOne(inversedBy: 'coachingSessions')]
     #[ORM\JoinColumn(nullable: false)]
@@ -86,25 +68,25 @@ class CoachingSession
         return $this->id;
     }
 
-    public function getCoachId(): ?int
+    public function getCoach(): ?User
     {
-        return $this->coach_id;
+        return $this->coach;
     }
 
-    public function setCoachId(int $coach_id): static
+    public function setCoach(?User $coach): static
     {
-        $this->coach_id = $coach_id;
+        $this->coach = $coach;
         return $this;
     }
 
-    public function getTeamId(): ?int
+    public function getTeam(): ?Team
     {
-        return $this->team_id;
+        return $this->team;
     }
 
-    public function setTeamId(int $team_id): static
+    public function setTeam(?Team $team): static
     {
-        $this->team_id = $team_id;
+        $this->team = $team;
         return $this;
     }
 

@@ -24,10 +24,12 @@ class Agent
     #[ORM\JoinColumn(name: 'id_player', referencedColumnName: 'id', nullable: false)]
     #[Assert\NotNull(message: "Le joueur est obligatoire.")]
     private ?User $player = null;
+    
 
-    #[ORM\ManyToOne(targetEntity: Team::class)]
+    #[ORM\ManyToOne(targetEntity: Team::class, inversedBy: 'members')]
     #[ORM\JoinColumn(name: 'id_team', referencedColumnName: 'id', nullable: true)]
     private ?Team $team = null;
+
 
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $game = null;

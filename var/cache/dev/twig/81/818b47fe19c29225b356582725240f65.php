@@ -99,6 +99,6 @@ class __TwigTemplate_b965a1d2047def7289a99484b5f27574 extends Template
     {{ form_widget(form) }}
     <button class=\"btn\">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
-", "coaching_session/_form.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\coaching_session\\_form.html.twig");
+", "coaching_session/_form.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\coaching_session\\_form.html.twig");
     }
 }

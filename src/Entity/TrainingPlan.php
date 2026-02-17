@@ -63,19 +63,15 @@ class TrainingPlan
     )]
     private ?string $difficulty_level = null;
 
-    #[ORM\Column]
-    #[Assert\NotNull(message: "L'ID du coach est obligatoire.")]
-    #[Assert\Positive(message: "L'ID du coach doit être un nombre positif (> 0).")]
-    #[Assert\Type(
-        type: 'integer',
-        message: "L'ID du coach doit être un nombre entier."
-    )]
-    #[Assert\Range(
-        min: 1,
-        max: 999,
-        notInRangeMessage: "L'ID du coach doit être compris entre {{ min }} et {{ max }}."
-    )]
-    private ?int $coach_id = null;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'coach_id', referencedColumnName: 'id', nullable: false)]
+    #[Assert\NotNull(message: "Le coach est obligatoire.")]
+    private ?User $coach = null;
+
+    #[ORM\ManyToOne(targetEntity: Team::class)]
+    #[ORM\JoinColumn(name: 'team_id', referencedColumnName: 'id', nullable: false)]
+    #[Assert\NotNull(message: "L'équipe est obligatoire.")]
+    private ?Team $team = null;
 
     #[ORM\Column]
     #[Assert\NotNull(message: "La date de création est obligatoire.")]
@@ -154,14 +150,25 @@ class TrainingPlan
         return $this;
     }
 
-    public function getCoachId(): ?int
+    public function getCoach(): ?User
     {
-        return $this->coach_id;
+        return $this->coach;
     }
 
-    public function setCoachId(int $coach_id): static
+    public function setCoach(?User $coach): static
     {
-        $this->coach_id = $coach_id;
+        $this->coach = $coach;
+        return $this;
+    }
+
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(?Team $team): static
+    {
+        $this->team = $team;
         return $this;
     }
 
@@ -221,9 +228,9 @@ class TrainingPlan
         }
 
         // Validation: Si niveau Expert ou Professionnel, le coach doit avoir un ID élevé (expérimenté)
-        if (in_array($this->difficulty_level, ['Expert', 'Professionnel']) && $this->coach_id < 10) {
+        if (in_array($this->difficulty_level, ['Expert', 'Professionnel']) && $this->coach && $this->coach->getId() < 10) {
             $context->buildViolation('Pour les niveaux Expert et Professionnel, le coach doit avoir un ID supérieur ou égal à 10 (coach expérimenté).')
-                ->atPath('coach_id')
+                ->atPath('coach')
                 ->addViolation();
         }
     }

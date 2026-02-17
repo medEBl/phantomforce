@@ -296,6 +296,6 @@ class __TwigTemplate_6631e268ed9d36cf9374083278456a3a extends Template
     <a href=\"{{ path('app_tournaments') }}\" class=\"btn btn-pf-red btn-lg px-5\">Voir tous les tournois</a>
 </div>
 {% endblock %}
-", "dashboard.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\dashboard.html.twig");
+", "dashboard.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\dashboard.html.twig");
     }
 }

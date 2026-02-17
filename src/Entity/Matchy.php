@@ -34,13 +34,13 @@ class Matchy
     private ?\DateTimeInterface $match_date = null;
 
     #[ORM\ManyToOne(targetEntity: Team::class, inversedBy: 'matchesAsTeam1')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotNull(message: "L'équipe 1 est obligatoire")]
+    #[ORM\JoinColumn(nullable: true)]  // Changé à true pour permettre null
+    // #[Assert\NotNull(message: "L'équipe 1 est obligatoire")]  // Commenté car nullable
     private ?Team $team1 = null;
 
     #[ORM\ManyToOne(targetEntity: Team::class, inversedBy: 'matchesAsTeam2')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Assert\NotNull(message: "L'équipe 2 est obligatoire")]
+    #[ORM\JoinColumn(nullable: true)]  // Changé à true pour permettre null
+    // #[Assert\NotNull(message: "L'équipe 2 est obligatoire")]  // Commenté car nullable
     #[Assert\Expression(
         "this.getTeam1() != this.getTeam2()",
         message: "L'équipe 1 et l'équipe 2 doivent être différentes"
@@ -92,6 +92,31 @@ class Matchy
     )]
     private ?string $status = null;
 
+    // NOUVELLE COLONNE POUR LA LOCALISATION
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "L'adresse ne peut pas dépasser {{ limit }} caractères"
+    )]
+    private ?string $location = null;
+
+    // NOUVELLES COLONNES POUR LES COORDONNÉES GÉOGRAPHIQUES
+    #[ORM\Column(type: 'float', nullable: true)]
+    #[Assert\Range(
+        min: -90,
+        max: 90,
+        notInRangeMessage: "La latitude doit être comprise entre -90 et 90"
+    )]
+    private ?float $latitude = null;
+
+    #[ORM\Column(type: 'float', nullable: true)]
+    #[Assert\Range(
+        min: -180,
+        max: 180,
+        notInRangeMessage: "La longitude doit être comprise entre -180 et 180"
+    )]
+    private ?float $longitude = null;
+
     // Validations personnalisées
     #[Assert\Callback]
     public function validateScoresAndWinner(\Symfony\Component\Validator\Context\ExecutionContextInterface $context): void
@@ -134,9 +159,16 @@ class Matchy
                     ->addViolation();
             }
         }
+
+        // Validation des coordonnées si une location est fournie
+        if ($this->getLocation() !== null && ($this->getLatitude() === null || $this->getLongitude() === null)) {
+            $context->buildViolation('Les coordonnées (latitude/longitude) sont obligatoires si une adresse est spécifiée')
+                ->atPath('location')
+                ->addViolation();
+        }
     }
 
-    // Getters et setters
+    // Getters et setters existants
     public function getId(): ?int { return $this->id; }
     
     public function getGame(): ?string { return $this->game; }
@@ -146,10 +178,10 @@ class Matchy
     public function setMatchDate(\DateTimeInterface $match_date): static { $this->match_date = $match_date; return $this; }
     
     public function getTeam1(): ?Team { return $this->team1; }
-    public function setTeam1(Team $team1): static { $this->team1 = $team1; return $this; }
+    public function setTeam1(?Team $team1): static { $this->team1 = $team1; return $this; }
     
     public function getTeam2(): ?Team { return $this->team2; }
-    public function setTeam2(Team $team2): static { $this->team2 = $team2; return $this; }
+    public function setTeam2(?Team $team2): static { $this->team2 = $team2; return $this; }
     
     public function getScoreTeam1(): ?int { return $this->score_team1; }
     public function setScoreTeam1(?int $score_team1): static { $this->score_team1 = $score_team1; return $this; }
@@ -162,6 +194,28 @@ class Matchy
     
     public function getStatus(): ?string { return $this->status; }
     public function setStatus(string $status): static { $this->status = $status; return $this; }
+
+    // NOUVEAUX GETTERS ET SETTERS POUR LA LOCALISATION
+    public function getLocation(): ?string { return $this->location; }
+    public function setLocation(?string $location): static 
+    { 
+        $this->location = $location; 
+        return $this; 
+    }
+
+    public function getLatitude(): ?float { return $this->latitude; }
+    public function setLatitude(?float $latitude): static 
+    { 
+        $this->latitude = $latitude; 
+        return $this; 
+    }
+
+    public function getLongitude(): ?float { return $this->longitude; }
+    public function setLongitude(?float $longitude): static 
+    { 
+        $this->longitude = $longitude; 
+        return $this; 
+    }
 
     // Méthode utilitaire pour obtenir le statut en français
     public function getStatusLabel(): string
@@ -190,5 +244,25 @@ class Matchy
         }
         
         return null; // Match nul
+    }
+
+    // Méthode utilitaire pour obtenir l'adresse complète formatée
+    public function getFormattedLocation(): string
+    {
+        if ($this->location) {
+            return $this->location;
+        }
+        return 'Localisation non spécifiée';
+    }
+
+    // Méthode pour vérifier si le match a des coordonnées valides
+    public function hasValidCoordinates(): bool
+    {
+        return $this->latitude !== null && 
+               $this->longitude !== null && 
+               $this->latitude >= -90 && 
+               $this->latitude <= 90 && 
+               $this->longitude >= -180 && 
+               $this->longitude <= 180;
     }
 }

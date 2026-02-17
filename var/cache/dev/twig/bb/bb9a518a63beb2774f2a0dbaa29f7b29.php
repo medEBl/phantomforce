@@ -377,7 +377,7 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
 
 .table-header {
     display: grid;
-    grid-template-columns: 80px 120px 120px 180px 150px 1fr 150px;
+    grid-template-columns: 80px 200px 200px 180px 150px 1fr 150px;
     background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(255,45,45,0.1));
     padding: 20px 25px;
     border-bottom: 2px solid var(--red);
@@ -390,7 +390,7 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
 
 .table-row {
     display: grid;
-    grid-template-columns: 80px 120px 120px 180px 150px 1fr 150px;
+    grid-template-columns: 80px 200px 200px 180px 150px 1fr 150px;
     padding: 20px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     transition: var(--transition);
@@ -456,10 +456,10 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
 /* ================= TRAINING PLANS TABLE ================= */
 .training-table-header {
     display: grid;
-    grid-template-columns: 80px 1fr 200px 150px 150px 150px;
-    background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(255,45,45,0.1));
+    grid-template-columns: 80px 1fr 200px 150px 150px 150px 150px;
+    background: linear-gradient(90deg, rgba(52,152,219,0.2), rgba(52,152,219,0.1));
     padding: 20px 25px;
-    border-bottom: 2px solid var(--red);
+    border-bottom: 2px solid #3498db;
     font-weight: 700;
     color: var(--text-light);
     font-size: 14px;
@@ -469,7 +469,7 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
 
 .training-table-row {
     display: grid;
-    grid-template-columns: 80px 1fr 200px 150px 150px 150px;
+    grid-template-columns: 80px 1fr 200px 150px 150px 150px 150px;
     padding: 20px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     transition: var(--transition);
@@ -477,7 +477,7 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
 }
 
 .training-table-row:hover {
-    background: rgba(255, 45, 45, 0.05);
+    background: rgba(52, 152, 219, 0.05);
     transform: translateX(5px);
 }
 
@@ -607,13 +607,38 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
     animation: pulse 2s infinite;
 }
 
+/* ================= FILTER TAGS ================= */
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-tag {
+    padding: 5px 12px;
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    border-radius: 15px;
+    font-size: 12px;
+    color: #3498db;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-tag i {
+    cursor: pointer;
+    font-size: 10px;
+}
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 1200px) {
     .table-header, .table-row {
-        grid-template-columns: 80px 120px 120px 150px 150px 1fr 150px;
+        grid-template-columns: 80px 180px 180px 150px 150px 1fr 150px;
     }
     .training-table-header, .training-table-row {
-        grid-template-columns: 80px 1fr 180px 140px 140px 140px;
+        grid-template-columns: 80px 1fr 180px 140px 140px 140px 140px;
     }
 }
 
@@ -684,31 +709,6 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
     .sort-controls {
         flex-wrap: wrap;
     }
-}
-
-/* ================= FILTER TAGS ================= */
-.filter-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.filter-tag {
-    padding: 5px 12px;
-    background: rgba(52, 152, 219, 0.1);
-    border: 1px solid rgba(52, 152, 219, 0.3);
-    border-radius: 15px;
-    font-size: 12px;
-    color: #3498db;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.filter-tag i {
-    cursor: pointer;
-    font-size: 10px;
 }
 </style>
 ";
@@ -805,15 +805,15 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
         foreach ($context['_seq'] as $context["_key"] => $context["session"]) {
             // line 671
             yield "                ";
-            if (!CoreExtension::inFilter(CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coachId", [], "any", false, false, false, 671), (isset($context["uniqueCoaches"]) || array_key_exists("uniqueCoaches", $context) ? $context["uniqueCoaches"] : (function () { throw new RuntimeError('Variable "uniqueCoaches" does not exist.', 671, $this->source); })()))) {
+            if ((CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coach", [], "any", false, false, false, 671) && !CoreExtension::inFilter(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coach", [], "any", false, false, false, 671), "id", [], "any", false, false, false, 671), (isset($context["uniqueCoaches"]) || array_key_exists("uniqueCoaches", $context) ? $context["uniqueCoaches"] : (function () { throw new RuntimeError('Variable "uniqueCoaches" does not exist.', 671, $this->source); })())))) {
                 // line 672
                 yield "                    ";
-                $context["uniqueCoaches"] = Twig\Extension\CoreExtension::merge((isset($context["uniqueCoaches"]) || array_key_exists("uniqueCoaches", $context) ? $context["uniqueCoaches"] : (function () { throw new RuntimeError('Variable "uniqueCoaches" does not exist.', 672, $this->source); })()), [CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coachId", [], "any", false, false, false, 672)]);
+                $context["uniqueCoaches"] = Twig\Extension\CoreExtension::merge((isset($context["uniqueCoaches"]) || array_key_exists("uniqueCoaches", $context) ? $context["uniqueCoaches"] : (function () { throw new RuntimeError('Variable "uniqueCoaches" does not exist.', 672, $this->source); })()), [CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coach", [], "any", false, false, false, 672), "id", [], "any", false, false, false, 672)]);
                 // line 673
                 yield "                    <option value=\"";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coachId", [], "any", false, false, false, 673), "html", null, true);
-                yield "\">Coach #";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coachId", [], "any", false, false, false, 673), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coach", [], "any", false, false, false, 673), "id", [], "any", false, false, false, 673), "html", null, true);
+                yield "\">";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "coach", [], "any", false, false, false, 673), "fullName", [], "any", false, false, false, 673), "html", null, true);
                 yield "</option>
                 ";
             }
@@ -824,6 +824,39 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
         unset($context['_seq'], $context['_key'], $context['session'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 676
+        yield "        </select>
+        
+        <select class=\"filter-select\" id=\"session-team-filter\" onchange=\"filterSessions()\">
+            <option value=\"\">Toutes les équipes</option>
+            ";
+        // line 680
+        $context["uniqueTeams"] = [];
+        // line 681
+        yield "            ";
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["coaching_sessions"]) || array_key_exists("coaching_sessions", $context) ? $context["coaching_sessions"] : (function () { throw new RuntimeError('Variable "coaching_sessions" does not exist.', 681, $this->source); })()));
+        foreach ($context['_seq'] as $context["_key"] => $context["session"]) {
+            // line 682
+            yield "                ";
+            if ((CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 682) && !CoreExtension::inFilter(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 682), "id", [], "any", false, false, false, 682), (isset($context["uniqueTeams"]) || array_key_exists("uniqueTeams", $context) ? $context["uniqueTeams"] : (function () { throw new RuntimeError('Variable "uniqueTeams" does not exist.', 682, $this->source); })())))) {
+                // line 683
+                yield "                    ";
+                $context["uniqueTeams"] = Twig\Extension\CoreExtension::merge((isset($context["uniqueTeams"]) || array_key_exists("uniqueTeams", $context) ? $context["uniqueTeams"] : (function () { throw new RuntimeError('Variable "uniqueTeams" does not exist.', 683, $this->source); })()), [CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 683), "id", [], "any", false, false, false, 683)]);
+                // line 684
+                yield "                    <option value=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 684), "id", [], "any", false, false, false, 684), "html", null, true);
+                yield "\">";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["session"], "team", [], "any", false, false, false, 684), "name", [], "any", false, false, false, 684), "html", null, true);
+                yield "</option>
+                ";
+            }
+            // line 686
+            yield "            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_key'], $context['session'], $context['_parent']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 687
         yield "        </select>
         
         <select class=\"filter-select\" id=\"session-duration-filter\" onchange=\"filterSessions()\">
@@ -860,139 +893,176 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
         </div>
 
         ";
-        // line 711
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["coaching_sessions"]) || array_key_exists("coaching_sessions", $context) ? $context["coaching_sessions"] : (function () { throw new RuntimeError('Variable "coaching_sessions" does not exist.', 711, $this->source); })())) > 0)) {
-            // line 712
+        // line 722
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["coaching_sessions"]) || array_key_exists("coaching_sessions", $context) ? $context["coaching_sessions"] : (function () { throw new RuntimeError('Variable "coaching_sessions" does not exist.', 722, $this->source); })())) > 0)) {
+            // line 723
             yield "            <div id=\"sessions-list\">
-               <!-- Dans la boucle FOR des sessions -->
-";
-            // line 714
+                ";
+            // line 724
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["coaching_sessions"]) || array_key_exists("coaching_sessions", $context) ? $context["coaching_sessions"] : (function () { throw new RuntimeError('Variable "coaching_sessions" does not exist.', 714, $this->source); })()));
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["coaching_sessions"]) || array_key_exists("coaching_sessions", $context) ? $context["coaching_sessions"] : (function () { throw new RuntimeError('Variable "coaching_sessions" does not exist.', 724, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["coaching_session"]) {
-                // line 715
-                yield "    <div class=\"table-row session-item\" 
-         data-id=\"";
-                // line 716
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 716), "html", null, true);
-                yield "\"
-         data-coach=\"";
-                // line 717
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "coachId", [], "any", false, false, false, 717), "html", null, true);
-                yield "\"
-         data-duration=\"";
-                // line 718
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "duration", [], "any", false, false, false, 718), "html", null, true);
-                yield "\"
-         data-date=\"";
-                // line 719
-                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "sessionDate", [], "any", false, false, false, 719)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "sessionDate", [], "any", false, false, false, 719), "Y-m-d H:i"), "html", null, true)) : (""));
-                yield "\"
-         data-team=\"";
-                // line 720
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "teamId", [], "any", false, false, false, 720), "html", null, true);
-                yield "\">
-        <div class=\"table-cell cell-id\" data-label=\"ID\">#";
-                // line 721
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 721), "html", null, true);
-                yield "</div>
-        <div class=\"table-cell\" data-label=\"Coach\">Coach #";
-                // line 722
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "coachId", [], "any", false, false, false, 722), "html", null, true);
-                yield "</div>
-        <div class=\"table-cell\" data-label=\"Équipe\">Équipe #";
-                // line 723
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "teamId", [], "any", false, false, false, 723), "html", null, true);
-                yield "</div>
-        <div class=\"table-cell cell-date\" data-label=\"Date\">
-            ";
                 // line 725
-                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "sessionDate", [], "any", false, false, false, 725)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "sessionDate", [], "any", false, false, false, 725), "d/m/Y H:i"), "html", null, true)) : ("N/A"));
-                yield "
-        </div>
-        <div class=\"table-cell cell-duration\" data-label=\"Durée\">";
+                yield "                    <div class=\"table-row session-item\" 
+                         data-id=\"";
+                // line 726
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 726), "html", null, true);
+                yield "\"
+                         data-coach=\"";
                 // line 727
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "duration", [], "any", false, false, false, 727), "html", null, true);
-                yield "</div>
-        <div class=\"table-cell cell-trainingplan\" data-label=\"Training Plan\">
-            ";
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "coach", [], "any", false, false, false, 727)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "coach", [], "any", false, false, false, 727), "id", [], "any", false, false, false, 727), "html", null, true)) : (""));
+                yield "\"
+                         data-team=\"";
+                // line 728
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "team", [], "any", false, false, false, 728)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "team", [], "any", false, false, false, 728), "id", [], "any", false, false, false, 728), "html", null, true)) : (""));
+                yield "\"
+                         data-duration=\"";
                 // line 729
-                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "trainingPlan", [], "any", false, false, false, 729)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                    // line 730
-                    yield "                <strong>";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "trainingPlan", [], "any", false, false, false, 730), "title", [], "any", false, false, false, 730), "html", null, true);
-                    yield "</strong><br>
-                <small>";
-                    // line 731
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "trainingPlan", [], "any", false, false, false, 731), "focusArea", [], "any", false, false, false, 731), "html", null, true);
-                    yield "</small>
-            ";
-                } else {
-                    // line 733
-                    yield "                <span class=\"text-muted\">Aucun plan assigné</span>
-            ";
-                }
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "duration", [], "any", false, false, false, 729), "html", null, true);
+                yield "\"
+                         data-date=\"";
+                // line 730
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "sessionDate", [], "any", false, false, false, 730)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "sessionDate", [], "any", false, false, false, 730), "Y-m-d H:i"), "html", null, true)) : (""));
+                yield "\">
+                        
+                        <div class=\"table-cell cell-id\" data-label=\"ID\">#";
+                // line 732
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 732), "html", null, true);
+                yield "</div>
+                        
+                        <div class=\"table-cell\" data-label=\"Coach\">
+                            ";
                 // line 735
-                yield "        </div>
-        <div class=\"table-cell action-buttons\" data-label=\"Actions\">
-            <a href=\"";
-                // line 737
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 737)]), "html", null, true);
-                yield "\" class=\"btn-show\">
-                <i class=\"fas fa-eye\"></i> Voir
-            </a>
-            <a href=\"";
-                // line 740
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 740)]), "html", null, true);
-                yield "\" class=\"btn-edit\">
-                <i class=\"fas fa-edit\"></i> Éditer
-            </a>
-            <!-- BOUTON SIMPLE POUR REJOINDRE LA MEETING -->
-            <a href=\"";
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "coach", [], "any", false, false, false, 735)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 736
+                    yield "                                <strong>";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "coach", [], "any", false, false, false, 736), "fullName", [], "any", false, false, false, 736), "html", null, true);
+                    yield "</strong><br>
+                                <small style=\"color: var(--text-muted);\">@";
+                    // line 737
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "coach", [], "any", false, false, false, 737), "username", [], "any", false, false, false, 737), "html", null, true);
+                    yield "</small>
+                            ";
+                } else {
+                    // line 739
+                    yield "                                <span class=\"text-muted\">Coach non assigné</span>
+                            ";
+                }
+                // line 741
+                yield "                        </div>
+                        
+                        <div class=\"table-cell\" data-label=\"Équipe\">
+                            ";
                 // line 744
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_meet", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 744)]), "html", null, true);
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "team", [], "any", false, false, false, 744)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 745
+                    yield "                                <strong>";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "team", [], "any", false, false, false, 745), "name", [], "any", false, false, false, 745), "html", null, true);
+                    yield "</strong><br>
+                                <small style=\"color: var(--text-muted);\">";
+                    // line 746
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "team", [], "any", false, false, false, 746), "game", [], "any", false, false, false, 746), "html", null, true);
+                    yield "</small>
+                            ";
+                } else {
+                    // line 748
+                    yield "                                <span class=\"text-muted\">Équipe non assignée</span>
+                            ";
+                }
+                // line 750
+                yield "                        </div>
+                        
+                        <div class=\"table-cell cell-date\" data-label=\"Date\">
+                            ";
+                // line 753
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "sessionDate", [], "any", false, false, false, 753)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "sessionDate", [], "any", false, false, false, 753), "d/m/Y H:i"), "html", null, true)) : ("N/A"));
+                yield "
+                        </div>
+                        
+                        <div class=\"table-cell cell-duration\" data-label=\"Durée\">";
+                // line 756
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "duration", [], "any", false, false, false, 756), "html", null, true);
+                yield " min</div>
+                        
+                        <div class=\"table-cell cell-trainingplan\" data-label=\"Training Plan\">
+                            ";
+                // line 759
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "trainingPlan", [], "any", false, false, false, 759)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 760
+                    yield "                                <strong>";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "trainingPlan", [], "any", false, false, false, 760), "title", [], "any", false, false, false, 760), "html", null, true);
+                    yield "</strong><br>
+                                <small style=\"color: var(--text-muted);\">";
+                    // line 761
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "trainingPlan", [], "any", false, false, false, 761), "focusArea", [], "any", false, false, false, 761), "html", null, true);
+                    yield "</small>
+                            ";
+                } else {
+                    // line 763
+                    yield "                                <span class=\"text-muted\">Aucun plan assigné</span>
+                            ";
+                }
+                // line 765
+                yield "                        </div>
+                        
+                        <div class=\"table-cell action-buttons\" data-label=\"Actions\">
+                            <a href=\"";
+                // line 768
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 768)]), "html", null, true);
+                yield "\" class=\"btn-show\">
+                                <i class=\"fas fa-eye\"></i> Voir
+                            </a>
+                            <a href=\"";
+                // line 771
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 771)]), "html", null, true);
+                yield "\" class=\"btn-edit\">
+                                <i class=\"fas fa-edit\"></i> Éditer
+                            </a>
+                            <a href=\"";
+                // line 774
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_meet", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["coaching_session"], "id", [], "any", false, false, false, 774)]), "html", null, true);
                 yield "\" 
-               class=\"btn-show\" 
-               style=\"background: linear-gradient(135deg, #3498db, #2980b9);\">
-                <i class=\"fas fa-video\"></i> Rejoindre
-            </a>
-        </div>
-    </div>
-";
+                               class=\"btn-show\" 
+                               style=\"background: linear-gradient(135deg, #3498db, #2980b9);\">
+                                <i class=\"fas fa-video\"></i> Rejoindre
+                            </a>
+                        </div>
+                    </div>
+                ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['coaching_session'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 752
+            // line 782
             yield "            </div>
         ";
         } else {
-            // line 754
+            // line 784
             yield "            <div class=\"empty-state\">
                 <div class=\"empty-state-icon\">🎮</div>
                 <h3>Aucune session de coaching trouvée</h3>
                 <p>Commencez par créer votre première session de coaching pour améliorer les performances de votre équipe.</p>
                 ";
-            // line 758
-            if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGINAZER")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER")))) {
-                // line 759
+            // line 788
+            if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER")))) {
+                // line 789
                 yield "                    <a href=\"";
                 yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_new");
-                yield "\" class=\"btn btn-new\">Créer une session</a>
+                yield "\" class=\"btn-new\">Créer une session</a>
                 ";
             }
-            // line 761
+            // line 791
             yield "            </div>
         ";
         }
-        // line 763
+        // line 793
         yield "    </div>
 
     <div style=\"text-align: center; margin-top: 40px;\">
         ";
-        // line 766
+        // line 796
         if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER")))) {
-            // line 767
+            // line 797
             yield "            <a href=\"";
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_new");
             yield "\" class=\"btn-new\">
@@ -1000,7 +1070,7 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
             </a>
         ";
         }
-        // line 771
+        // line 801
         yield "    </div>
 </div>
 
@@ -1016,42 +1086,56 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
         
         <select class=\"filter-select\" id=\"training-difficulty-filter\" onchange=\"filterTrainingPlans()\">
             <option value=\"\">Toutes les difficultés</option>
-            <option value=\"Beginner\">Débutant</option>
-            <option value=\"Intermediate\">Intermédiaire</option>
-            <option value=\"Advanced\">Avancé</option>
+            <option value=\"Débutant\">Débutant</option>
+            <option value=\"Intermédiaire\">Intermédiaire</option>
+            <option value=\"Avancé\">Avancé</option>
+            <option value=\"Expert\">Expert</option>
+            <option value=\"Professionnel\">Professionnel</option>
         </select>
         
         <select class=\"filter-select\" id=\"training-focus-filter\" onchange=\"filterTrainingPlans()\">
             <option value=\"\">Tous les focus</option>
+            <option value=\"Défense\">Défense</option>
+            <option value=\"Attaque\">Attaque</option>
+            <option value=\"Stratégie\">Stratégie</option>
+            <option value=\"Communication\">Communication</option>
+            <option value=\"Technique\">Technique</option>
+            <option value=\"Physique\">Physique</option>
+            <option value=\"Mental\">Mental</option>
+            <option value=\"Tactique\">Tactique</option>
+        </select>
+        
+        <select class=\"filter-select\" id=\"training-coach-filter\" onchange=\"filterTrainingPlans()\">
+            <option value=\"\">Tous les coachs</option>
             ";
-        // line 793
-        $context["uniqueFocus"] = [];
-        // line 794
+        // line 837
+        $context["uniqueCoaches"] = [];
+        // line 838
         yield "            ";
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["training_plans"]) || array_key_exists("training_plans", $context) ? $context["training_plans"] : (function () { throw new RuntimeError('Variable "training_plans" does not exist.', 794, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["training_plans"]) || array_key_exists("training_plans", $context) ? $context["training_plans"] : (function () { throw new RuntimeError('Variable "training_plans" does not exist.', 838, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["plan"]) {
-            // line 795
+            // line 839
             yield "                ";
-            if (!CoreExtension::inFilter(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "focusArea", [], "any", false, false, false, 795), (isset($context["uniqueFocus"]) || array_key_exists("uniqueFocus", $context) ? $context["uniqueFocus"] : (function () { throw new RuntimeError('Variable "uniqueFocus" does not exist.', 795, $this->source); })()))) {
-                // line 796
+            if ((CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "coach", [], "any", false, false, false, 839) && !CoreExtension::inFilter(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "coach", [], "any", false, false, false, 839), "id", [], "any", false, false, false, 839), (isset($context["uniqueCoaches"]) || array_key_exists("uniqueCoaches", $context) ? $context["uniqueCoaches"] : (function () { throw new RuntimeError('Variable "uniqueCoaches" does not exist.', 839, $this->source); })())))) {
+                // line 840
                 yield "                    ";
-                $context["uniqueFocus"] = Twig\Extension\CoreExtension::merge((isset($context["uniqueFocus"]) || array_key_exists("uniqueFocus", $context) ? $context["uniqueFocus"] : (function () { throw new RuntimeError('Variable "uniqueFocus" does not exist.', 796, $this->source); })()), [CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "focusArea", [], "any", false, false, false, 796)]);
-                // line 797
+                $context["uniqueCoaches"] = Twig\Extension\CoreExtension::merge((isset($context["uniqueCoaches"]) || array_key_exists("uniqueCoaches", $context) ? $context["uniqueCoaches"] : (function () { throw new RuntimeError('Variable "uniqueCoaches" does not exist.', 840, $this->source); })()), [CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "coach", [], "any", false, false, false, 840), "id", [], "any", false, false, false, 840)]);
+                // line 841
                 yield "                    <option value=\"";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "focusArea", [], "any", false, false, false, 797), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "coach", [], "any", false, false, false, 841), "id", [], "any", false, false, false, 841), "html", null, true);
                 yield "\">";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "focusArea", [], "any", false, false, false, 797), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["plan"], "coach", [], "any", false, false, false, 841), "fullName", [], "any", false, false, false, 841), "html", null, true);
                 yield "</option>
                 ";
             }
-            // line 799
+            // line 843
             yield "            ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['plan'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 800
+        // line 844
         yield "        </select>
         
         <div class=\"sort-controls\">
@@ -1075,155 +1159,208 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
             <div>Titre & Description</div>
             <div>Focus</div>
             <div>Difficulté</div>
-            <div>Créé le</div>
+            <div>Coach</div>
+            <div>Équipe</div>
             <div>Actions</div>
         </div>
 
         ";
-        // line 827
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["training_plans"]) || array_key_exists("training_plans", $context) ? $context["training_plans"] : (function () { throw new RuntimeError('Variable "training_plans" does not exist.', 827, $this->source); })())) > 0)) {
-            // line 828
+        // line 872
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["training_plans"]) || array_key_exists("training_plans", $context) ? $context["training_plans"] : (function () { throw new RuntimeError('Variable "training_plans" does not exist.', 872, $this->source); })())) > 0)) {
+            // line 873
             yield "            <div id=\"training-plans-list\">
                 ";
-            // line 829
+            // line 874
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["training_plans"]) || array_key_exists("training_plans", $context) ? $context["training_plans"] : (function () { throw new RuntimeError('Variable "training_plans" does not exist.', 829, $this->source); })()));
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["training_plans"]) || array_key_exists("training_plans", $context) ? $context["training_plans"] : (function () { throw new RuntimeError('Variable "training_plans" does not exist.', 874, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["training_plan"]) {
-                // line 830
+                // line 875
                 yield "                    <div class=\"training-table-row training-item\"
                          data-id=\"";
-                // line 831
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 831), "html", null, true);
+                // line 876
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 876), "html", null, true);
                 yield "\"
                          data-title=\"";
-                // line 832
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "title", [], "any", false, false, false, 832)), "html", null, true);
+                // line 877
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "title", [], "any", false, false, false, 877)), "html", null, true);
                 yield "\"
                          data-difficulty=\"";
-                // line 833
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "difficultyLevel", [], "any", false, false, false, 833), "html", null, true);
+                // line 878
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "difficultyLevel", [], "any", false, false, false, 878), "html", null, true);
                 yield "\"
                          data-focus=\"";
-                // line 834
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "focusArea", [], "any", false, false, false, 834), "html", null, true);
+                // line 879
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "focusArea", [], "any", false, false, false, 879), "html", null, true);
+                yield "\"
+                         data-coach=\"";
+                // line 880
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "coach", [], "any", false, false, false, 880)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "coach", [], "any", false, false, false, 880), "id", [], "any", false, false, false, 880), "html", null, true)) : (""));
                 yield "\"
                          data-date=\"";
-                // line 835
-                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "createdAt", [], "any", false, false, false, 835)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "createdAt", [], "any", false, false, false, 835), "Y-m-d"), "html", null, true)) : (""));
+                // line 881
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "createdAt", [], "any", false, false, false, 881)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "createdAt", [], "any", false, false, false, 881), "Y-m-d"), "html", null, true)) : (""));
                 yield "\">
+                        
                         <div class=\"cell-id\" data-label=\"ID\">#";
-                // line 836
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 836), "html", null, true);
+                // line 883
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 883), "html", null, true);
                 yield "</div>
+                        
                         <div data-label=\"Titre & Description\">
                             <div class=\"training-title\">";
-                // line 838
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "title", [], "any", false, false, false, 838), "html", null, true);
+                // line 886
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "title", [], "any", false, false, false, 886), "html", null, true);
                 yield "</div>
                             <div class=\"training-description\">";
-                // line 839
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "description", [], "any", false, false, false, 839), "html", null, true);
+                // line 887
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "description", [], "any", false, false, false, 887), "html", null, true);
                 yield "</div>
                         </div>
+                        
                         <div data-label=\"Focus\">
                             <span class=\"training-focus\">";
-                // line 842
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "focusArea", [], "any", false, false, false, 842), "html", null, true);
+                // line 891
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "focusArea", [], "any", false, false, false, 891), "html", null, true);
                 yield "</span>
                         </div>
+                        
                         <div data-label=\"Difficulté\">
-                            <span class=\"training-difficulty difficulty-";
-                // line 845
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "difficultyLevel", [], "any", false, false, false, 845)), "html", null, true);
+                            <span class=\"training-difficulty 
+                                ";
+                // line 896
+                if ((CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "difficultyLevel", [], "any", false, false, false, 896) == "Débutant")) {
+                    yield "difficulty-beginner
+                                ";
+                } elseif ((CoreExtension::getAttribute($this->env, $this->source,                 // line 897
+$context["training_plan"], "difficultyLevel", [], "any", false, false, false, 897) == "Intermédiaire")) {
+                    yield "difficulty-intermediate
+                                ";
+                } elseif ((CoreExtension::getAttribute($this->env, $this->source,                 // line 898
+$context["training_plan"], "difficultyLevel", [], "any", false, false, false, 898) == "Avancé")) {
+                    yield "difficulty-advanced
+                                ";
+                }
+                // line 899
                 yield "\">
                                 ";
-                // line 846
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "difficultyLevel", [], "any", false, false, false, 846), "html", null, true);
+                // line 900
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "difficultyLevel", [], "any", false, false, false, 900), "html", null, true);
                 yield "
                             </span>
                         </div>
-                        <div class=\"training-date\" data-label=\"Crée le\">
+                        
+                        <div data-label=\"Coach\">
                             ";
-                // line 850
-                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "createdAt", [], "any", false, false, false, 850)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "createdAt", [], "any", false, false, false, 850), "d/m/Y"), "html", null, true)) : ("N/A"));
-                yield "
-                        </div>
+                // line 905
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "coach", [], "any", false, false, false, 905)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 906
+                    yield "                                <strong>";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "coach", [], "any", false, false, false, 906), "fullName", [], "any", false, false, false, 906), "html", null, true);
+                    yield "</strong><br>
+                                <small style=\"color: var(--text-muted);\">@";
+                    // line 907
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "coach", [], "any", false, false, false, 907), "username", [], "any", false, false, false, 907), "html", null, true);
+                    yield "</small>
+                            ";
+                } else {
+                    // line 909
+                    yield "                                <span class=\"text-muted\">Coach non assigné</span>
+                            ";
+                }
+                // line 911
+                yield "                        </div>
+                        
+                        <div data-label=\"Équipe\">
+                            ";
+                // line 914
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "team", [], "any", false, false, false, 914)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 915
+                    yield "                                <strong>";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "team", [], "any", false, false, false, 915), "name", [], "any", false, false, false, 915), "html", null, true);
+                    yield "</strong><br>
+                                <small style=\"color: var(--text-muted);\">";
+                    // line 916
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "team", [], "any", false, false, false, 916), "game", [], "any", false, false, false, 916), "html", null, true);
+                    yield "</small>
+                            ";
+                } else {
+                    // line 918
+                    yield "                                <span class=\"text-muted\">Équipe non assignée</span>
+                            ";
+                }
+                // line 920
+                yield "                        </div>
+                        
                         <div class=\"action-buttons\" data-label=\"Actions\">
                             <a href=\"";
-                // line 853
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 853)]), "html", null, true);
+                // line 923
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 923)]), "html", null, true);
                 yield "\" class=\"btn-show\">
                                 <i class=\"fas fa-eye\"></i> Voir
                             </a>
                             ";
-                // line 856
+                // line 926
                 if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER")))) {
-                    // line 857
+                    // line 927
                     yield "                                <a href=\"";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 857)]), "html", null, true);
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 927)]), "html", null, true);
                     yield "\" class=\"btn-edit\">
                                     <i class=\"fas fa-edit\"></i> Éditer
                                 </a>
-                            ";
-                }
-                // line 861
-                yield "                            <form method=\"post\" action=\"";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 861)]), "html", null, true);
-                yield "\" 
-                                  onsubmit=\"return confirm('Êtes-vous sûr de vouloir supprimer ce plan d\\'entraînement ?');\" 
-                                  style=\"display: inline;\">
-                                <input type=\"hidden\" name=\"_token\" value=\"";
-                // line 864
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 864))), "html", null, true);
-                yield "\">
-                                ";
-                // line 865
-                if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER")))) {
-                    // line 866
-                    yield "                                    <button type=\"submit\" class=\"btn-delete\">
+                                <form method=\"post\" action=\"";
+                    // line 930
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 930)]), "html", null, true);
+                    yield "\" 
+                                      onsubmit=\"return confirm('Êtes-vous sûr de vouloir supprimer ce plan d\\'entraînement ?');\" 
+                                      style=\"display: inline;\">
+                                    <input type=\"hidden\" name=\"_token\" value=\"";
+                    // line 933
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, $context["training_plan"], "id", [], "any", false, false, false, 933))), "html", null, true);
+                    yield "\">
+                                    <button type=\"submit\" class=\"btn-delete\">
                                         <i class=\"fas fa-trash\"></i> Supprimer
                                     </button>
-                                ";
+                                </form>
+                            ";
                 }
-                // line 870
-                yield "                            </form>
-                        </div>
+                // line 939
+                yield "                        </div>
                     </div>
                 ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['training_plan'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 874
+            // line 942
             yield "            </div>
         ";
         } else {
-            // line 876
+            // line 944
             yield "            <div class=\"empty-state\">
                 <div class=\"empty-state-icon\">📋</div>
                 <h3>Aucun plan d'entraînement trouvé</h3>
                 <p>Créez votre premier plan d'entraînement pour structurer vos sessions de coaching.</p>
                 ";
-            // line 880
+            // line 948
             if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER")))) {
-                // line 881
+                // line 949
                 yield "                    <a href=\"";
                 yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_new");
-                yield "\" class=\"btn btn-new\">Créer un plan</a>
+                yield "\" class=\"btn-new\">Créer un plan</a>
                 ";
             }
-            // line 883
+            // line 951
             yield "            </div>
         ";
         }
-        // line 885
+        // line 953
         yield "    </div>
 
     <div style=\"text-align: center; margin-top: 40px;\">
         ";
-        // line 888
+        // line 956
         if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER")))) {
-            // line 889
+            // line 957
             yield "            <a href=\"";
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_training_plan_new");
             yield "\" class=\"btn-new\">
@@ -1231,7 +1368,7 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
             </a>
         ";
         }
-        // line 893
+        // line 961
         yield "    </div>
 </div>
 ";
@@ -1244,7 +1381,7 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
         yield from [];
     }
 
-    // line 897
+    // line 965
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -1257,7 +1394,7 @@ class __TwigTemplate_24c95b460cf5f54cf77f83269f9fb417 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 898
+        // line 966
         yield "<script>
 // Variables globales pour le tri
 let currentSessionSort = { field: null, order: 'asc' };
@@ -1267,6 +1404,7 @@ let currentTrainingSort = { field: null, order: 'asc' };
 function filterSessions() {
     const searchTerm = document.getElementById('session-search').value.toLowerCase();
     const coachFilter = document.getElementById('session-coach-filter').value;
+    const teamFilter = document.getElementById('session-team-filter').value;
     const durationFilter = document.getElementById('session-duration-filter').value;
     const sessions = document.querySelectorAll('.session-item');
     const filterTags = document.getElementById('session-filter-tags');
@@ -1276,13 +1414,20 @@ function filterSessions() {
     let activeFilters = [];
     
     if (searchTerm) activeFilters.push(`Recherche: \"\${searchTerm}\"`);
-    if (coachFilter) activeFilters.push(`Coach: #\${coachFilter}`);
+    if (coachFilter) {
+        const coachName = document.querySelector(`#session-coach-filter option[value=\"\${coachFilter}\"]`)?.text || coachFilter;
+        activeFilters.push(`Coach: \${coachName}`);
+    }
+    if (teamFilter) {
+        const teamName = document.querySelector(`#session-team-filter option[value=\"\${teamFilter}\"]`)?.text || teamFilter;
+        activeFilters.push(`Équipe: \${teamName}`);
+    }
     if (durationFilter) {
         let label = '';
         switch(durationFilter) {
-            case 'short': label = 'Durée: Court'; break;
-            case 'medium': label = 'Durée: Moyen'; break;
-            case 'long': label = 'Durée: Long'; break;
+            case 'short': label = 'Durée: Court (<30min)'; break;
+            case 'medium': label = 'Durée: Moyen (30-60min)'; break;
+            case 'long': label = 'Durée: Long (>60min)'; break;
         }
         activeFilters.push(label);
     }
@@ -1297,10 +1442,12 @@ function filterSessions() {
     sessions.forEach(session => {
         const title = session.querySelector('.cell-trainingplan strong')?.textContent.toLowerCase() || '';
         const coach = session.dataset.coach;
+        const team = session.dataset.team;
         const duration = parseInt(session.dataset.duration);
         const showSession = 
             (!searchTerm || title.includes(searchTerm)) &&
             (!coachFilter || coach === coachFilter) &&
+            (!teamFilter || team === teamFilter) &&
             (!durationFilter || checkDurationFilter(duration, durationFilter));
         
         session.style.display = showSession ? '' : 'none';
@@ -1366,12 +1513,12 @@ function sortSessions(field, button) {
 }
 
 function removeSessionFilter(filter) {
-    const filterText = filter.split(': ')[1];
-    
     if (filter.includes('Recherche')) {
         document.getElementById('session-search').value = '';
     } else if (filter.includes('Coach')) {
         document.getElementById('session-coach-filter').value = '';
+    } else if (filter.includes('Équipe')) {
+        document.getElementById('session-team-filter').value = '';
     } else if (filter.includes('Durée')) {
         document.getElementById('session-duration-filter').value = '';
     }
@@ -1382,6 +1529,7 @@ function removeSessionFilter(filter) {
 function resetSessionFilters() {
     document.getElementById('session-search').value = '';
     document.getElementById('session-coach-filter').value = '';
+    document.getElementById('session-team-filter').value = '';
     document.getElementById('session-duration-filter').value = '';
     document.querySelectorAll('#sessions-tab .sort-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -1395,6 +1543,7 @@ function filterTrainingPlans() {
     const searchTerm = document.getElementById('training-search').value.toLowerCase();
     const difficultyFilter = document.getElementById('training-difficulty-filter').value;
     const focusFilter = document.getElementById('training-focus-filter').value;
+    const coachFilter = document.getElementById('training-coach-filter').value;
     const plans = document.querySelectorAll('.training-item');
     const filterTags = document.getElementById('training-filter-tags');
     
@@ -1405,6 +1554,10 @@ function filterTrainingPlans() {
     if (searchTerm) activeFilters.push(`Recherche: \"\${searchTerm}\"`);
     if (difficultyFilter) activeFilters.push(`Difficulté: \${difficultyFilter}`);
     if (focusFilter) activeFilters.push(`Focus: \${focusFilter}`);
+    if (coachFilter) {
+        const coachName = document.querySelector(`#training-coach-filter option[value=\"\${coachFilter}\"]`)?.text || coachFilter;
+        activeFilters.push(`Coach: \${coachName}`);
+    }
     
     activeFilters.forEach(filter => {
         const tag = document.createElement('span');
@@ -1417,10 +1570,12 @@ function filterTrainingPlans() {
         const title = plan.dataset.title;
         const difficulty = plan.dataset.difficulty;
         const focus = plan.dataset.focus;
+        const coach = plan.dataset.coach;
         const showPlan = 
             (!searchTerm || title.includes(searchTerm)) &&
             (!difficultyFilter || difficulty === difficultyFilter) &&
-            (!focusFilter || focus === focusFilter);
+            (!focusFilter || focus === focusFilter) &&
+            (!coachFilter || coach === coachFilter);
         
         plan.style.display = showPlan ? '' : 'none';
     });
@@ -1476,14 +1631,14 @@ function sortTrainingPlans(field, button) {
 }
 
 function removeTrainingFilter(filter) {
-    const filterText = filter.split(': ')[1];
-    
     if (filter.includes('Recherche')) {
         document.getElementById('training-search').value = '';
     } else if (filter.includes('Difficulté')) {
         document.getElementById('training-difficulty-filter').value = '';
     } else if (filter.includes('Focus')) {
         document.getElementById('training-focus-filter').value = '';
+    } else if (filter.includes('Coach')) {
+        document.getElementById('training-coach-filter').value = '';
     }
     
     filterTrainingPlans();
@@ -1493,6 +1648,7 @@ function resetTrainingFilters() {
     document.getElementById('training-search').value = '';
     document.getElementById('training-difficulty-filter').value = '';
     document.getElementById('training-focus-filter').value = '';
+    document.getElementById('training-coach-filter').value = '';
     document.querySelectorAll('#training-plans-tab .sort-btn').forEach(btn => {
         btn.classList.remove('active');
     });
@@ -1526,15 +1682,6 @@ function showTab(tabName) {
     }
 }
 
-// Initialisation au chargement
-document.addEventListener('DOMContentLoaded', function() {
-    // Vérifie s'il y a un hash dans l'URL pour afficher la bonne tab
-    if (window.location.hash === '#training-plans') {
-        showTab('training-plans');
-    }
-});
-</script>
-<script>
 // ==================== NOTIFICATIONS 15 MINUTES AVANT SESSION ====================
 function checkSessionNotifications() {
     const sessions = document.querySelectorAll('.session-item');
@@ -1548,10 +1695,10 @@ function checkSessionNotifications() {
         const diffMinutes = (sessionDate - now) / 1000 / 60; // différence en minutes
 
         // Notification si session dans les 15 prochaines minutes et pas déjà notifiée
-        if (diffMinutes > 0 && diffMinutes <= 10 && !session.dataset.notified) {
+        if (diffMinutes > 0 && diffMinutes <= 15 && !session.dataset.notified) {
             showNotification(
-                Session prochaine !,
-                La session #\${session.dataset.id} commence à \${sessionDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                'Session prochaine !',
+                `La session #\${session.dataset.id} commence à \${sessionDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`
             );
             session.dataset.notified = 'true';
         }
@@ -1575,7 +1722,19 @@ function showNotification(title, message) {
 setInterval(checkSessionNotifications, 60000);
 
 // Vérification au chargement
-document.addEventListener('DOMContentLoaded', checkSessionNotifications);
+document.addEventListener('DOMContentLoaded', function() {
+    checkSessionNotifications();
+    
+    // Demander la permission pour les notifications
+    if (Notification.permission === 'default') {
+        Notification.requestPermission();
+    }
+    
+    // Vérifie s'il y a un hash dans l'URL pour afficher la bonne tab
+    if (window.location.hash === '#training-plans') {
+        showTab('training-plans');
+    }
+});
 </script>
 ";
         
@@ -1608,7 +1767,7 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
      */
     public function getDebugInfo(): array
     {
-        return array (  1261 => 898,  1248 => 897,  1235 => 893,  1227 => 889,  1225 => 888,  1220 => 885,  1216 => 883,  1210 => 881,  1208 => 880,  1202 => 876,  1198 => 874,  1189 => 870,  1183 => 866,  1181 => 865,  1177 => 864,  1170 => 861,  1162 => 857,  1160 => 856,  1154 => 853,  1148 => 850,  1141 => 846,  1137 => 845,  1131 => 842,  1125 => 839,  1121 => 838,  1116 => 836,  1112 => 835,  1108 => 834,  1104 => 833,  1100 => 832,  1096 => 831,  1093 => 830,  1089 => 829,  1086 => 828,  1084 => 827,  1055 => 800,  1049 => 799,  1041 => 797,  1038 => 796,  1035 => 795,  1030 => 794,  1028 => 793,  1004 => 771,  996 => 767,  994 => 766,  989 => 763,  985 => 761,  979 => 759,  977 => 758,  971 => 754,  967 => 752,  953 => 744,  946 => 740,  940 => 737,  936 => 735,  932 => 733,  927 => 731,  922 => 730,  920 => 729,  915 => 727,  910 => 725,  905 => 723,  901 => 722,  897 => 721,  893 => 720,  889 => 719,  885 => 718,  881 => 717,  877 => 716,  874 => 715,  870 => 714,  866 => 712,  864 => 711,  827 => 676,  821 => 675,  813 => 673,  810 => 672,  807 => 671,  802 => 670,  800 => 669,  767 => 639,  760 => 635,  753 => 631,  746 => 627,  738 => 621,  725 => 620,  102 => 6,  89 => 5,  66 => 3,  43 => 1,);
+        return array (  1398 => 966,  1385 => 965,  1372 => 961,  1364 => 957,  1362 => 956,  1357 => 953,  1353 => 951,  1347 => 949,  1345 => 948,  1339 => 944,  1335 => 942,  1327 => 939,  1318 => 933,  1312 => 930,  1305 => 927,  1303 => 926,  1297 => 923,  1292 => 920,  1288 => 918,  1283 => 916,  1278 => 915,  1276 => 914,  1271 => 911,  1267 => 909,  1262 => 907,  1257 => 906,  1255 => 905,  1247 => 900,  1244 => 899,  1239 => 898,  1235 => 897,  1231 => 896,  1223 => 891,  1216 => 887,  1212 => 886,  1206 => 883,  1201 => 881,  1197 => 880,  1193 => 879,  1189 => 878,  1185 => 877,  1181 => 876,  1178 => 875,  1174 => 874,  1171 => 873,  1169 => 872,  1139 => 844,  1133 => 843,  1125 => 841,  1122 => 840,  1119 => 839,  1114 => 838,  1112 => 837,  1074 => 801,  1066 => 797,  1064 => 796,  1059 => 793,  1055 => 791,  1049 => 789,  1047 => 788,  1041 => 784,  1037 => 782,  1023 => 774,  1017 => 771,  1011 => 768,  1006 => 765,  1002 => 763,  997 => 761,  992 => 760,  990 => 759,  984 => 756,  978 => 753,  973 => 750,  969 => 748,  964 => 746,  959 => 745,  957 => 744,  952 => 741,  948 => 739,  943 => 737,  938 => 736,  936 => 735,  930 => 732,  925 => 730,  921 => 729,  917 => 728,  913 => 727,  909 => 726,  906 => 725,  902 => 724,  899 => 723,  897 => 722,  860 => 687,  854 => 686,  846 => 684,  843 => 683,  840 => 682,  835 => 681,  833 => 680,  827 => 676,  821 => 675,  813 => 673,  810 => 672,  807 => 671,  802 => 670,  800 => 669,  767 => 639,  760 => 635,  753 => 631,  746 => 627,  738 => 621,  725 => 620,  102 => 6,  89 => 5,  66 => 3,  43 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -1896,7 +2055,7 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
 
 .table-header {
     display: grid;
-    grid-template-columns: 80px 120px 120px 180px 150px 1fr 150px;
+    grid-template-columns: 80px 200px 200px 180px 150px 1fr 150px;
     background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(255,45,45,0.1));
     padding: 20px 25px;
     border-bottom: 2px solid var(--red);
@@ -1909,7 +2068,7 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
 
 .table-row {
     display: grid;
-    grid-template-columns: 80px 120px 120px 180px 150px 1fr 150px;
+    grid-template-columns: 80px 200px 200px 180px 150px 1fr 150px;
     padding: 20px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     transition: var(--transition);
@@ -1975,10 +2134,10 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
 /* ================= TRAINING PLANS TABLE ================= */
 .training-table-header {
     display: grid;
-    grid-template-columns: 80px 1fr 200px 150px 150px 150px;
-    background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(255,45,45,0.1));
+    grid-template-columns: 80px 1fr 200px 150px 150px 150px 150px;
+    background: linear-gradient(90deg, rgba(52,152,219,0.2), rgba(52,152,219,0.1));
     padding: 20px 25px;
-    border-bottom: 2px solid var(--red);
+    border-bottom: 2px solid #3498db;
     font-weight: 700;
     color: var(--text-light);
     font-size: 14px;
@@ -1988,7 +2147,7 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
 
 .training-table-row {
     display: grid;
-    grid-template-columns: 80px 1fr 200px 150px 150px 150px;
+    grid-template-columns: 80px 1fr 200px 150px 150px 150px 150px;
     padding: 20px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     transition: var(--transition);
@@ -1996,7 +2155,7 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
 }
 
 .training-table-row:hover {
-    background: rgba(255, 45, 45, 0.05);
+    background: rgba(52, 152, 219, 0.05);
     transform: translateX(5px);
 }
 
@@ -2126,13 +2285,38 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
     animation: pulse 2s infinite;
 }
 
+/* ================= FILTER TAGS ================= */
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-tag {
+    padding: 5px 12px;
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    border-radius: 15px;
+    font-size: 12px;
+    color: #3498db;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-tag i {
+    cursor: pointer;
+    font-size: 10px;
+}
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 1200px) {
     .table-header, .table-row {
-        grid-template-columns: 80px 120px 120px 150px 150px 1fr 150px;
+        grid-template-columns: 80px 180px 180px 150px 150px 1fr 150px;
     }
     .training-table-header, .training-table-row {
-        grid-template-columns: 80px 1fr 180px 140px 140px 140px;
+        grid-template-columns: 80px 1fr 180px 140px 140px 140px 140px;
     }
 }
 
@@ -2204,31 +2388,6 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
         flex-wrap: wrap;
     }
 }
-
-/* ================= FILTER TAGS ================= */
-.filter-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.filter-tag {
-    padding: 5px 12px;
-    background: rgba(52, 152, 219, 0.1);
-    border: 1px solid rgba(52, 152, 219, 0.3);
-    border-radius: 15px;
-    font-size: 12px;
-    color: #3498db;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.filter-tag i {
-    cursor: pointer;
-    font-size: 10px;
-}
 </style>
 {% endblock %}
 
@@ -2283,9 +2442,20 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
             <option value=\"\">Tous les coachs</option>
             {% set uniqueCoaches = [] %}
             {% for session in coaching_sessions %}
-                {% if session.coachId not in uniqueCoaches %}
-                    {% set uniqueCoaches = uniqueCoaches|merge([session.coachId]) %}
-                    <option value=\"{{ session.coachId }}\">Coach #{{ session.coachId }}</option>
+                {% if session.coach and session.coach.id not in uniqueCoaches %}
+                    {% set uniqueCoaches = uniqueCoaches|merge([session.coach.id]) %}
+                    <option value=\"{{ session.coach.id }}\">{{ session.coach.fullName }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        
+        <select class=\"filter-select\" id=\"session-team-filter\" onchange=\"filterSessions()\">
+            <option value=\"\">Toutes les équipes</option>
+            {% set uniqueTeams = [] %}
+            {% for session in coaching_sessions %}
+                {% if session.team and session.team.id not in uniqueTeams %}
+                    {% set uniqueTeams = uniqueTeams|merge([session.team.id]) %}
+                    <option value=\"{{ session.team.id }}\">{{ session.team.name }}</option>
                 {% endif %}
             {% endfor %}
         </select>
@@ -2325,53 +2495,72 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
 
         {% if coaching_sessions|length > 0 %}
             <div id=\"sessions-list\">
-               <!-- Dans la boucle FOR des sessions -->
-{% for coaching_session in coaching_sessions %}
-    <div class=\"table-row session-item\" 
-         data-id=\"{{ coaching_session.id }}\"
-         data-coach=\"{{ coaching_session.coachId }}\"
-         data-duration=\"{{ coaching_session.duration }}\"
-         data-date=\"{{ coaching_session.sessionDate ? coaching_session.sessionDate|date('Y-m-d H:i') : '' }}\"
-         data-team=\"{{ coaching_session.teamId }}\">
-        <div class=\"table-cell cell-id\" data-label=\"ID\">#{{ coaching_session.id }}</div>
-        <div class=\"table-cell\" data-label=\"Coach\">Coach #{{ coaching_session.coachId }}</div>
-        <div class=\"table-cell\" data-label=\"Équipe\">Équipe #{{ coaching_session.teamId }}</div>
-        <div class=\"table-cell cell-date\" data-label=\"Date\">
-            {{ coaching_session.sessionDate ? coaching_session.sessionDate|date('d/m/Y H:i') : 'N/A' }}
-        </div>
-        <div class=\"table-cell cell-duration\" data-label=\"Durée\">{{ coaching_session.duration }}</div>
-        <div class=\"table-cell cell-trainingplan\" data-label=\"Training Plan\">
-            {% if coaching_session.trainingPlan %}
-                <strong>{{ coaching_session.trainingPlan.title }}</strong><br>
-                <small>{{ coaching_session.trainingPlan.focusArea }}</small>
-            {% else %}
-                <span class=\"text-muted\">Aucun plan assigné</span>
-            {% endif %}
-        </div>
-        <div class=\"table-cell action-buttons\" data-label=\"Actions\">
-            <a href=\"{{ path('app_coaching_session_show', {'id': coaching_session.id}) }}\" class=\"btn-show\">
-                <i class=\"fas fa-eye\"></i> Voir
-            </a>
-            <a href=\"{{ path('app_coaching_session_edit', {'id': coaching_session.id}) }}\" class=\"btn-edit\">
-                <i class=\"fas fa-edit\"></i> Éditer
-            </a>
-            <!-- BOUTON SIMPLE POUR REJOINDRE LA MEETING -->
-            <a href=\"{{ path('app_coaching_session_meet', {'id': coaching_session.id}) }}\" 
-               class=\"btn-show\" 
-               style=\"background: linear-gradient(135deg, #3498db, #2980b9);\">
-                <i class=\"fas fa-video\"></i> Rejoindre
-            </a>
-        </div>
-    </div>
-{% endfor %}
+                {% for coaching_session in coaching_sessions %}
+                    <div class=\"table-row session-item\" 
+                         data-id=\"{{ coaching_session.id }}\"
+                         data-coach=\"{{ coaching_session.coach ? coaching_session.coach.id : '' }}\"
+                         data-team=\"{{ coaching_session.team ? coaching_session.team.id : '' }}\"
+                         data-duration=\"{{ coaching_session.duration }}\"
+                         data-date=\"{{ coaching_session.sessionDate ? coaching_session.sessionDate|date('Y-m-d H:i') : '' }}\">
+                        
+                        <div class=\"table-cell cell-id\" data-label=\"ID\">#{{ coaching_session.id }}</div>
+                        
+                        <div class=\"table-cell\" data-label=\"Coach\">
+                            {% if coaching_session.coach %}
+                                <strong>{{ coaching_session.coach.fullName }}</strong><br>
+                                <small style=\"color: var(--text-muted);\">@{{ coaching_session.coach.username }}</small>
+                            {% else %}
+                                <span class=\"text-muted\">Coach non assigné</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class=\"table-cell\" data-label=\"Équipe\">
+                            {% if coaching_session.team %}
+                                <strong>{{ coaching_session.team.name }}</strong><br>
+                                <small style=\"color: var(--text-muted);\">{{ coaching_session.team.game }}</small>
+                            {% else %}
+                                <span class=\"text-muted\">Équipe non assignée</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class=\"table-cell cell-date\" data-label=\"Date\">
+                            {{ coaching_session.sessionDate ? coaching_session.sessionDate|date('d/m/Y H:i') : 'N/A' }}
+                        </div>
+                        
+                        <div class=\"table-cell cell-duration\" data-label=\"Durée\">{{ coaching_session.duration }} min</div>
+                        
+                        <div class=\"table-cell cell-trainingplan\" data-label=\"Training Plan\">
+                            {% if coaching_session.trainingPlan %}
+                                <strong>{{ coaching_session.trainingPlan.title }}</strong><br>
+                                <small style=\"color: var(--text-muted);\">{{ coaching_session.trainingPlan.focusArea }}</small>
+                            {% else %}
+                                <span class=\"text-muted\">Aucun plan assigné</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class=\"table-cell action-buttons\" data-label=\"Actions\">
+                            <a href=\"{{ path('app_coaching_session_show', {'id': coaching_session.id}) }}\" class=\"btn-show\">
+                                <i class=\"fas fa-eye\"></i> Voir
+                            </a>
+                            <a href=\"{{ path('app_coaching_session_edit', {'id': coaching_session.id}) }}\" class=\"btn-edit\">
+                                <i class=\"fas fa-edit\"></i> Éditer
+                            </a>
+                            <a href=\"{{ path('app_coaching_session_meet', {'id': coaching_session.id}) }}\" 
+                               class=\"btn-show\" 
+                               style=\"background: linear-gradient(135deg, #3498db, #2980b9);\">
+                                <i class=\"fas fa-video\"></i> Rejoindre
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         {% else %}
             <div class=\"empty-state\">
                 <div class=\"empty-state-icon\">🎮</div>
                 <h3>Aucune session de coaching trouvée</h3>
                 <p>Commencez par créer votre première session de coaching pour améliorer les performances de votre équipe.</p>
-                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGINAZER') and not is_granted('ROLE_PLAYER')) %}
-                    <a href=\"{{ path('app_coaching_session_new') }}\" class=\"btn btn-new\">Créer une session</a>
+                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
+                    <a href=\"{{ path('app_coaching_session_new') }}\" class=\"btn-new\">Créer une session</a>
                 {% endif %}
             </div>
         {% endif %}
@@ -2398,18 +2587,32 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
         
         <select class=\"filter-select\" id=\"training-difficulty-filter\" onchange=\"filterTrainingPlans()\">
             <option value=\"\">Toutes les difficultés</option>
-            <option value=\"Beginner\">Débutant</option>
-            <option value=\"Intermediate\">Intermédiaire</option>
-            <option value=\"Advanced\">Avancé</option>
+            <option value=\"Débutant\">Débutant</option>
+            <option value=\"Intermédiaire\">Intermédiaire</option>
+            <option value=\"Avancé\">Avancé</option>
+            <option value=\"Expert\">Expert</option>
+            <option value=\"Professionnel\">Professionnel</option>
         </select>
         
         <select class=\"filter-select\" id=\"training-focus-filter\" onchange=\"filterTrainingPlans()\">
             <option value=\"\">Tous les focus</option>
-            {% set uniqueFocus = [] %}
+            <option value=\"Défense\">Défense</option>
+            <option value=\"Attaque\">Attaque</option>
+            <option value=\"Stratégie\">Stratégie</option>
+            <option value=\"Communication\">Communication</option>
+            <option value=\"Technique\">Technique</option>
+            <option value=\"Physique\">Physique</option>
+            <option value=\"Mental\">Mental</option>
+            <option value=\"Tactique\">Tactique</option>
+        </select>
+        
+        <select class=\"filter-select\" id=\"training-coach-filter\" onchange=\"filterTrainingPlans()\">
+            <option value=\"\">Tous les coachs</option>
+            {% set uniqueCoaches = [] %}
             {% for plan in training_plans %}
-                {% if plan.focusArea not in uniqueFocus %}
-                    {% set uniqueFocus = uniqueFocus|merge([plan.focusArea]) %}
-                    <option value=\"{{ plan.focusArea }}\">{{ plan.focusArea }}</option>
+                {% if plan.coach and plan.coach.id not in uniqueCoaches %}
+                    {% set uniqueCoaches = uniqueCoaches|merge([plan.coach.id]) %}
+                    <option value=\"{{ plan.coach.id }}\">{{ plan.coach.fullName }}</option>
                 {% endif %}
             {% endfor %}
         </select>
@@ -2435,7 +2638,8 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
             <div>Titre & Description</div>
             <div>Focus</div>
             <div>Difficulté</div>
-            <div>Créé le</div>
+            <div>Coach</div>
+            <div>Équipe</div>
             <div>Actions</div>
         </div>
 
@@ -2447,23 +2651,48 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
                          data-title=\"{{ training_plan.title|lower }}\"
                          data-difficulty=\"{{ training_plan.difficultyLevel }}\"
                          data-focus=\"{{ training_plan.focusArea }}\"
+                         data-coach=\"{{ training_plan.coach ? training_plan.coach.id : '' }}\"
                          data-date=\"{{ training_plan.createdAt ? training_plan.createdAt|date('Y-m-d') : '' }}\">
+                        
                         <div class=\"cell-id\" data-label=\"ID\">#{{ training_plan.id }}</div>
+                        
                         <div data-label=\"Titre & Description\">
                             <div class=\"training-title\">{{ training_plan.title }}</div>
                             <div class=\"training-description\">{{ training_plan.description }}</div>
                         </div>
+                        
                         <div data-label=\"Focus\">
                             <span class=\"training-focus\">{{ training_plan.focusArea }}</span>
                         </div>
+                        
                         <div data-label=\"Difficulté\">
-                            <span class=\"training-difficulty difficulty-{{ training_plan.difficultyLevel|lower }}\">
+                            <span class=\"training-difficulty 
+                                {% if training_plan.difficultyLevel == 'Débutant' %}difficulty-beginner
+                                {% elseif training_plan.difficultyLevel == 'Intermédiaire' %}difficulty-intermediate
+                                {% elseif training_plan.difficultyLevel == 'Avancé' %}difficulty-advanced
+                                {% endif %}\">
                                 {{ training_plan.difficultyLevel }}
                             </span>
                         </div>
-                        <div class=\"training-date\" data-label=\"Crée le\">
-                            {{ training_plan.createdAt ? training_plan.createdAt|date('d/m/Y') : 'N/A' }}
+                        
+                        <div data-label=\"Coach\">
+                            {% if training_plan.coach %}
+                                <strong>{{ training_plan.coach.fullName }}</strong><br>
+                                <small style=\"color: var(--text-muted);\">@{{ training_plan.coach.username }}</small>
+                            {% else %}
+                                <span class=\"text-muted\">Coach non assigné</span>
+                            {% endif %}
                         </div>
+                        
+                        <div data-label=\"Équipe\">
+                            {% if training_plan.team %}
+                                <strong>{{ training_plan.team.name }}</strong><br>
+                                <small style=\"color: var(--text-muted);\">{{ training_plan.team.game }}</small>
+                            {% else %}
+                                <span class=\"text-muted\">Équipe non assignée</span>
+                            {% endif %}
+                        </div>
+                        
                         <div class=\"action-buttons\" data-label=\"Actions\">
                             <a href=\"{{ path('app_training_plan_show', {'id': training_plan.id}) }}\" class=\"btn-show\">
                                 <i class=\"fas fa-eye\"></i> Voir
@@ -2472,17 +2701,15 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
                                 <a href=\"{{ path('app_training_plan_edit', {'id': training_plan.id}) }}\" class=\"btn-edit\">
                                     <i class=\"fas fa-edit\"></i> Éditer
                                 </a>
-                            {% endif %}
-                            <form method=\"post\" action=\"{{ path('app_training_plan_delete', {'id': training_plan.id}) }}\" 
-                                  onsubmit=\"return confirm('Êtes-vous sûr de vouloir supprimer ce plan d\\'entraînement ?');\" 
-                                  style=\"display: inline;\">
-                                <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('delete' ~ training_plan.id) }}\">
-                                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
+                                <form method=\"post\" action=\"{{ path('app_training_plan_delete', {'id': training_plan.id}) }}\" 
+                                      onsubmit=\"return confirm('Êtes-vous sûr de vouloir supprimer ce plan d\\'entraînement ?');\" 
+                                      style=\"display: inline;\">
+                                    <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('delete' ~ training_plan.id) }}\">
                                     <button type=\"submit\" class=\"btn-delete\">
                                         <i class=\"fas fa-trash\"></i> Supprimer
                                     </button>
-                                {% endif %}
-                            </form>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
@@ -2493,7 +2720,7 @@ document.addEventListener('DOMContentLoaded', checkSessionNotifications);
                 <h3>Aucun plan d'entraînement trouvé</h3>
                 <p>Créez votre premier plan d'entraînement pour structurer vos sessions de coaching.</p>
                 {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
-                    <a href=\"{{ path('app_training_plan_new') }}\" class=\"btn btn-new\">Créer un plan</a>
+                    <a href=\"{{ path('app_training_plan_new') }}\" class=\"btn-new\">Créer un plan</a>
                 {% endif %}
             </div>
         {% endif %}
@@ -2519,6 +2746,7 @@ let currentTrainingSort = { field: null, order: 'asc' };
 function filterSessions() {
     const searchTerm = document.getElementById('session-search').value.toLowerCase();
     const coachFilter = document.getElementById('session-coach-filter').value;
+    const teamFilter = document.getElementById('session-team-filter').value;
     const durationFilter = document.getElementById('session-duration-filter').value;
     const sessions = document.querySelectorAll('.session-item');
     const filterTags = document.getElementById('session-filter-tags');
@@ -2528,13 +2756,20 @@ function filterSessions() {
     let activeFilters = [];
     
     if (searchTerm) activeFilters.push(`Recherche: \"\${searchTerm}\"`);
-    if (coachFilter) activeFilters.push(`Coach: #\${coachFilter}`);
+    if (coachFilter) {
+        const coachName = document.querySelector(`#session-coach-filter option[value=\"\${coachFilter}\"]`)?.text || coachFilter;
+        activeFilters.push(`Coach: \${coachName}`);
+    }
+    if (teamFilter) {
+        const teamName = document.querySelector(`#session-team-filter option[value=\"\${teamFilter}\"]`)?.text || teamFilter;
+        activeFilters.push(`Équipe: \${teamName}`);
+    }
     if (durationFilter) {
         let label = '';
         switch(durationFilter) {
-            case 'short': label = 'Durée: Court'; break;
-            case 'medium': label = 'Durée: Moyen'; break;
-            case 'long': label = 'Durée: Long'; break;
+            case 'short': label = 'Durée: Court (<30min)'; break;
+            case 'medium': label = 'Durée: Moyen (30-60min)'; break;
+            case 'long': label = 'Durée: Long (>60min)'; break;
         }
         activeFilters.push(label);
     }
@@ -2549,10 +2784,12 @@ function filterSessions() {
     sessions.forEach(session => {
         const title = session.querySelector('.cell-trainingplan strong')?.textContent.toLowerCase() || '';
         const coach = session.dataset.coach;
+        const team = session.dataset.team;
         const duration = parseInt(session.dataset.duration);
         const showSession = 
             (!searchTerm || title.includes(searchTerm)) &&
             (!coachFilter || coach === coachFilter) &&
+            (!teamFilter || team === teamFilter) &&
             (!durationFilter || checkDurationFilter(duration, durationFilter));
         
         session.style.display = showSession ? '' : 'none';
@@ -2618,12 +2855,12 @@ function sortSessions(field, button) {
 }
 
 function removeSessionFilter(filter) {
-    const filterText = filter.split(': ')[1];
-    
     if (filter.includes('Recherche')) {
         document.getElementById('session-search').value = '';
     } else if (filter.includes('Coach')) {
         document.getElementById('session-coach-filter').value = '';
+    } else if (filter.includes('Équipe')) {
+        document.getElementById('session-team-filter').value = '';
     } else if (filter.includes('Durée')) {
         document.getElementById('session-duration-filter').value = '';
     }
@@ -2634,6 +2871,7 @@ function removeSessionFilter(filter) {
 function resetSessionFilters() {
     document.getElementById('session-search').value = '';
     document.getElementById('session-coach-filter').value = '';
+    document.getElementById('session-team-filter').value = '';
     document.getElementById('session-duration-filter').value = '';
     document.querySelectorAll('#sessions-tab .sort-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -2647,6 +2885,7 @@ function filterTrainingPlans() {
     const searchTerm = document.getElementById('training-search').value.toLowerCase();
     const difficultyFilter = document.getElementById('training-difficulty-filter').value;
     const focusFilter = document.getElementById('training-focus-filter').value;
+    const coachFilter = document.getElementById('training-coach-filter').value;
     const plans = document.querySelectorAll('.training-item');
     const filterTags = document.getElementById('training-filter-tags');
     
@@ -2657,6 +2896,10 @@ function filterTrainingPlans() {
     if (searchTerm) activeFilters.push(`Recherche: \"\${searchTerm}\"`);
     if (difficultyFilter) activeFilters.push(`Difficulté: \${difficultyFilter}`);
     if (focusFilter) activeFilters.push(`Focus: \${focusFilter}`);
+    if (coachFilter) {
+        const coachName = document.querySelector(`#training-coach-filter option[value=\"\${coachFilter}\"]`)?.text || coachFilter;
+        activeFilters.push(`Coach: \${coachName}`);
+    }
     
     activeFilters.forEach(filter => {
         const tag = document.createElement('span');
@@ -2669,10 +2912,12 @@ function filterTrainingPlans() {
         const title = plan.dataset.title;
         const difficulty = plan.dataset.difficulty;
         const focus = plan.dataset.focus;
+        const coach = plan.dataset.coach;
         const showPlan = 
             (!searchTerm || title.includes(searchTerm)) &&
             (!difficultyFilter || difficulty === difficultyFilter) &&
-            (!focusFilter || focus === focusFilter);
+            (!focusFilter || focus === focusFilter) &&
+            (!coachFilter || coach === coachFilter);
         
         plan.style.display = showPlan ? '' : 'none';
     });
@@ -2728,14 +2973,14 @@ function sortTrainingPlans(field, button) {
 }
 
 function removeTrainingFilter(filter) {
-    const filterText = filter.split(': ')[1];
-    
     if (filter.includes('Recherche')) {
         document.getElementById('training-search').value = '';
     } else if (filter.includes('Difficulté')) {
         document.getElementById('training-difficulty-filter').value = '';
     } else if (filter.includes('Focus')) {
         document.getElementById('training-focus-filter').value = '';
+    } else if (filter.includes('Coach')) {
+        document.getElementById('training-coach-filter').value = '';
     }
     
     filterTrainingPlans();
@@ -2745,6 +2990,7 @@ function resetTrainingFilters() {
     document.getElementById('training-search').value = '';
     document.getElementById('training-difficulty-filter').value = '';
     document.getElementById('training-focus-filter').value = '';
+    document.getElementById('training-coach-filter').value = '';
     document.querySelectorAll('#training-plans-tab .sort-btn').forEach(btn => {
         btn.classList.remove('active');
     });
@@ -2778,15 +3024,6 @@ function showTab(tabName) {
     }
 }
 
-// Initialisation au chargement
-document.addEventListener('DOMContentLoaded', function() {
-    // Vérifie s'il y a un hash dans l'URL pour afficher la bonne tab
-    if (window.location.hash === '#training-plans') {
-        showTab('training-plans');
-    }
-});
-</script>
-<script>
 // ==================== NOTIFICATIONS 15 MINUTES AVANT SESSION ====================
 function checkSessionNotifications() {
     const sessions = document.querySelectorAll('.session-item');
@@ -2800,10 +3037,10 @@ function checkSessionNotifications() {
         const diffMinutes = (sessionDate - now) / 1000 / 60; // différence en minutes
 
         // Notification si session dans les 15 prochaines minutes et pas déjà notifiée
-        if (diffMinutes > 0 && diffMinutes <= 10 && !session.dataset.notified) {
+        if (diffMinutes > 0 && diffMinutes <= 15 && !session.dataset.notified) {
             showNotification(
-                Session prochaine !,
-                La session #\${session.dataset.id} commence à \${sessionDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                'Session prochaine !',
+                `La session #\${session.dataset.id} commence à \${sessionDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`
             );
             session.dataset.notified = 'true';
         }
@@ -2827,7 +3064,19 @@ function showNotification(title, message) {
 setInterval(checkSessionNotifications, 60000);
 
 // Vérification au chargement
-document.addEventListener('DOMContentLoaded', checkSessionNotifications);
+document.addEventListener('DOMContentLoaded', function() {
+    checkSessionNotifications();
+    
+    // Demander la permission pour les notifications
+    if (Notification.permission === 'default') {
+        Notification.requestPermission();
+    }
+    
+    // Vérifie s'il y a un hash dans l'URL pour afficher la bonne tab
+    if (window.location.hash === '#training-plans') {
+        showTab('training-plans');
+    }
+});
 </script>
 {% endblock %}", "coaching_session/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\coaching_session\\index.html.twig");
     }

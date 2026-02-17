@@ -196,6 +196,6 @@ class __TwigTemplate_7ea0d8667d48159b825d1e3938ee301e extends Template
 .form-input::placeholder {
     color: var(--text-muted);
 }
-</style>", "user/_form.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\user\\_form.html.twig");
+</style>", "user/_form.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\user\\_form.html.twig");
     }
 }

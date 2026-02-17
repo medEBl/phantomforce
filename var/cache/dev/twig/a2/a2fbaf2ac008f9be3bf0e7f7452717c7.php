@@ -155,6 +155,6 @@ class __TwigTemplate_6d941d2b8254f8878d758adf87ab82d9 extends Template
 
     <a href=\"{{ path('app_user_index') }}\">back to list</a>
 {% endblock %}
-", "user/new.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\user\\new.html.twig");
+", "user/new.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\user\\new.html.twig");
     }
 }

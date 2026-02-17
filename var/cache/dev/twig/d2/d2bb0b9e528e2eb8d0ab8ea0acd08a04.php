@@ -944,6 +944,6 @@ class __TwigTemplate_baa058992c996e8755023d6ceae6c3dd extends Template
 
   </div>
 </div>
-{% endblock %}", "front/show.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\front\\show.html.twig");
+{% endblock %}", "front/show.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\front\\show.html.twig");
     }
 }

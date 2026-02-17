@@ -322,6 +322,6 @@ class __TwigTemplate_a5b9dab7c8b59bc41251e3fb54ee22dc extends Template
     </div>
 </div>
 {% endblock %}
-", "admin/tournament/edit.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\admin\\tournament\\edit.html.twig");
+", "admin/tournament/edit.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\admin\\tournament\\edit.html.twig");
     }
 }

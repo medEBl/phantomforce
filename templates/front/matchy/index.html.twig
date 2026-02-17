@@ -21,6 +21,8 @@
         --white: #ffffff;
         --red-gradient: linear-gradient(135deg, #ff0000 0%, #cc0000 50%, #990000 100%);
         --fire-gradient: linear-gradient(45deg, #ff0000, #ff3300, #cc0000);
+        --location-glow: rgba(255, 193, 7, 0.7);
+        --location-yellow: #ffc107;
     }
     
     body {
@@ -195,7 +197,7 @@
     
     .matches-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
         gap: 2rem;
         padding: 2rem 0;
         position: relative;
@@ -210,7 +212,7 @@
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1px solid rgba(255, 0, 0, 0.3);
         backdrop-filter: blur(10px);
-        min-height: 320px;
+        min-height: 380px;
         display: flex;
         flex-direction: column;
     }
@@ -415,6 +417,35 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+    
+    /* Style pour la localisation */
+    .location-item {
+        background: rgba(255, 193, 7, 0.1);
+        border-left: 3px solid var(--location-yellow);
+        padding: 0.5rem;
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .location-item strong {
+        color: var(--location-yellow) !important;
+        min-width: 80px;
+    }
+    
+    .location-link {
+        color: var(--location-yellow);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .location-link:hover {
+        text-decoration: underline;
+        transform: translateX(5px);
+        text-shadow: 0 0 10px var(--location-glow);
     }
     
     .status-badge {
@@ -1056,7 +1087,7 @@
         }
         
         .match-card {
-            min-height: 350px;
+            min-height: 400px;
         }
         
         .advanced-actions {
@@ -1109,7 +1140,7 @@
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class="floating-elements">
-        {% set icons = ['⚔️', '🔥', '💀', '👑', '🛡️', '🎯', '🏆', '💥', '⚡', '⭐'] %}
+        {% set icons = ['⚔️', '🔥', '💀', '👑', '🛡️', '🎯', '🏆', '💥', '⚡', '⭐', '📍', '🗺️'] %}
         {% for i in 1..15 %}
             {% set iconIndex = (i % icons|length) %}
             {% set leftPosition = 5 + ((i * 7) % 90) %}
@@ -1164,6 +1195,10 @@
         <div class="stats-item">
             <span>Avec gagnant:</span>
             <span class="stats-value" id="statWithWinner">0</span>
+        </div>
+        <div class="stats-item">
+            <span>Avec localisation:</span>
+            <span class="stats-value" id="statWithLocation">0</span>
         </div>
     </div>
     
@@ -1246,6 +1281,15 @@
                 </select>
             </div>
             
+            <div class="filter-group">
+                <label class="filter-label">📍 AVEC LOCALISATION :</label>
+                <select id="locationFilter" class="filter-select">
+                    <option value="">Tous</option>
+                    <option value="with">Avec localisation</option>
+                    <option value="without">Sans localisation</option>
+                </select>
+            </div>
+            
             <button id="resetFilters" class="reset-btn">🔄 Réinitialiser</button>
         </div>
         
@@ -1272,7 +1316,10 @@
                     },
                     'status': match.status|upper,
                     'winner': match.winnerTeam ? match.winnerTeam.name : 'Pas encore de vainqueur',
-                    'status_label': match.statusLabel|default(match.status|upper)
+                    'status_label': match.statusLabel|default(match.status|upper),
+                    'location': match.location|default(''),
+                    'latitude': match.latitude|default(''),
+                    'longitude': match.longitude|default('')
                 } %}
                 
                 <div class="match-card {% if match.status == 'ongoing' %}ongoing{% endif %}" 
@@ -1281,6 +1328,7 @@
                      data-status="{{ match.status|lower }}"
                      data-date="{{ match.matchDate ? match.matchDate|date('U') : 0 }}"
                      data-winner="{{ match.winnerTeam ? 'yes' : 'no' }}"
+                     data-location="{{ match.location ? 'yes' : 'no' }}"
                      data-match='{{ matchData|json_encode|escape('html_attr') }}'>
                     <div class="match-id">#{{ match.id }}</div>
                     
@@ -1345,6 +1393,23 @@
                                 {{ match.status|upper }}
                             </span>
                         </div>
+                        
+                        <!-- NOUVEAU : Afficher la localisation -->
+                        {% if match.location %}
+                        <div class="detail-item location-item">
+                            <strong>📍 LIEU :</strong>
+                            {% if match.latitude and match.longitude %}
+                            <a href="https://www.google.com/maps/search/?api=1&query={{ match.latitude }},{{ match.longitude }}" 
+                               target="_blank" 
+                               class="location-link">
+                                {{ match.location|slice(0, 30) }}{{ match.location|length > 30 ? '...' : '' }}
+                                <span style="font-size: 0.8rem;">↗</span>
+                            </a>
+                            {% else %}
+                            <span>{{ match.location|slice(0, 30) }}{{ match.location|length > 30 ? '...' : '' }}</span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
                     </div>
                     
                     {% if match.winnerTeam %}
@@ -1418,6 +1483,7 @@
     const gameFilter = document.getElementById('gameFilter');
     const statusFilter = document.getElementById('statusFilter');
     const winnerFilter = document.getElementById('winnerFilter');
+    const locationFilter = document.getElementById('locationFilter');
     const resetFiltersBtn = document.getElementById('resetFilters');
     const matchCount = document.getElementById('matchCount');
     const activeMatches = document.getElementById('activeMatches');
@@ -1442,6 +1508,7 @@
     const statOngoing = document.getElementById('statOngoing');
     const statFinished = document.getElementById('statFinished');
     const statWithWinner = document.getElementById('statWithWinner');
+    const statWithLocation = document.getElementById('statWithLocation');
     
     // Fonction pour afficher un toast
     function showToast(message, duration = 3000) {
@@ -1584,11 +1651,13 @@
         const ongoing = document.querySelectorAll('.match-card.ongoing:not(.hidden)').length;
         const finished = document.querySelectorAll('.match-card[data-status="finished"]:not(.hidden)').length;
         const withWinner = document.querySelectorAll('.match-card[data-winner="yes"]:not(.hidden)').length;
+        const withLocation = document.querySelectorAll('.match-card[data-location="yes"]:not(.hidden)').length;
         
         statTotal.textContent = visibleMatches.length;
         statOngoing.textContent = ongoing;
         statFinished.textContent = finished;
         statWithWinner.textContent = withWinner;
+        statWithLocation.textContent = withLocation;
     }
     
     // Fonction pour exporter la liste des matchs
@@ -1613,10 +1682,15 @@
             const status = match.dataset.status.toUpperCase();
             const hasWinner = match.dataset.winner === 'yes';
             
+            // Récupérer la localisation
+            const locationElement = match.querySelector('.location-item span, .location-item .location-link');
+            const location = locationElement ? locationElement.textContent.trim() : 'Non spécifiée';
+            
             exportData += `${index + 1}. ${game}\n`;
             exportData += `   Date: ${date}\n`;
             exportData += `   ${team1} ${score1} - ${score2} ${team2}\n`;
             exportData += `   Statut: ${status}\n`;
+            exportData += `   Lieu: ${location}\n`;
             exportData += `   ${hasWinner ? 'Avec gagnant' : 'Sans gagnant'}\n`;
             exportData += '\n';
         });
@@ -1772,12 +1846,15 @@
             const matchId = match.querySelector('.match-id').textContent.toLowerCase();
             const team1Name = match.querySelector('.team-info:first-child .team-name').textContent.toLowerCase();
             const team2Name = match.querySelector('.team-info:last-child .team-name').textContent.toLowerCase();
+            const locationElement = match.querySelector('.location-item span, .location-item .location-link');
+            const location = locationElement ? locationElement.textContent.toLowerCase() : '';
             
             if (searchTerm === '' || 
                 gameName.includes(searchTerm) || 
                 matchId.includes(searchTerm) ||
                 team1Name.includes(searchTerm) ||
-                team2Name.includes(searchTerm)) {
+                team2Name.includes(searchTerm) ||
+                location.includes(searchTerm)) {
                 match.classList.remove('hidden', 'filtered-out');
             } else {
                 match.classList.add('filtered-out');
@@ -1812,6 +1889,15 @@
                 isVisible = false;
             }
             if (winnerStatus === 'without' && match.dataset.winner === 'yes') {
+                isVisible = false;
+            }
+            
+            // Filtre par localisation
+            const locationStatus = locationFilter.value;
+            if (locationStatus === 'with' && match.dataset.location === 'no') {
+                isVisible = false;
+            }
+            if (locationStatus === 'without' && match.dataset.location === 'yes') {
                 isVisible = false;
             }
             
@@ -1882,12 +1968,14 @@
     gameFilter.addEventListener('change', applyFilters);
     statusFilter.addEventListener('change', applyFilters);
     winnerFilter.addEventListener('change', applyFilters);
+    locationFilter.addEventListener('change', applyFilters);
     
     resetFiltersBtn.addEventListener('click', () => {
         searchInput.value = '';
         gameFilter.value = '';
         statusFilter.value = '';
         winnerFilter.value = '';
+        locationFilter.value = '';
         
         currentMatches.forEach(match => {
             match.classList.remove('hidden', 'filtered-out');

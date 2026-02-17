@@ -28,23 +28,42 @@ final class CoachingSessionController extends AbstractController
 
     #[Route('/new', name: 'app_coaching_session_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $coachingSession = new CoachingSession();
-        $form = $this->createForm(CoachingSessionType::class, $coachingSession);
-        $form->handleRequest($request);
+{
+    $coachingSession = new CoachingSession();
+    $form = $this->createForm(CoachingSessionType::class, $coachingSession);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($coachingSession);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_coaching_session_index', [], Response::HTTP_SEE_OTHER);
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Récupérer la date du formulaire
+        $sessionDate = $coachingSession->getSessionDate();
+        
+        // Corriger le fuseau horaire si nécessaire
+        if ($sessionDate instanceof \DateTime) {
+            // Forcer l'heure à rester identique (sans conversion)
+            $sessionDate->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         }
+        
+        // Vérifier l'heure (entre 8h et 20h)
+        $hour = (int)$sessionDate->format('H');
+        if ($hour < 8 || $hour > 20) {
+            $this->addFlash('error', 'Les sessions doivent être programmées entre 8h et 20h.');
+            return $this->render('coaching_session/new.html.twig', [
+                'coaching_session' => $coachingSession,
+                'form' => $form,
+            ]);
+        }
+        
+        $entityManager->persist($coachingSession);
+        $entityManager->flush();
 
-        return $this->render('coaching_session/new.html.twig', [
-            'coaching_session' => $coachingSession,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('app_coaching_session_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    return $this->render('coaching_session/new.html.twig', [
+        'coaching_session' => $coachingSession,
+        'form' => $form,
+    ]);
+}
 
     #[Route('/{id}', name: 'app_coaching_session_show', methods: ['GET'])]
     public function show(CoachingSession $coachingSession): Response

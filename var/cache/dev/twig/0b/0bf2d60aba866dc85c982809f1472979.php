@@ -308,6 +308,6 @@ class __TwigTemplate_34f758644d31fb433d78beaa14541f60 extends Template
     {% if is_granted('ROLE_ADMIN') %}
         <a href=\"{{ path('app_user_new') }}\">Create new</a>
     {% endif %}
-{% endblock %}", "user/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\user\\index.html.twig");
+{% endblock %}", "user/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\user\\index.html.twig");
     }
 }

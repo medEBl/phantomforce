@@ -802,6 +802,6 @@ $context["agent"], "status", [], "any", false, false, false, 197) == "inactive")
     {% endif %}
 
 </div>
-{% endblock %}", "agent/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\agent\\index.html.twig");
+{% endblock %}", "agent/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\agent\\index.html.twig");
     }
 }

@@ -717,7 +717,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.wXb6_4G"/>
+      <argument type="service" id=".service_locator.NLH83r4"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3613,7 +3613,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.wXb6_4G"/>
+      <argument type="service" id=".service_locator.NLH83r4"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <argument type="service" id="request_stack"/>
@@ -8401,6 +8401,13 @@
         <argument key="shopItem" type="service_closure" id=".errored..service_locator.U8Js_85.App\Entity\ShopItem"/>
       </argument>
     </service>
+    <service id=".service_locator.RJ_8LAe" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="agentRepository" type="service_closure" id="App\Repository\AgentRepository"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.zGC8i_B" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8435,7 +8442,7 @@
         <argument key="user" type="service_closure" id=".errored..service_locator.rvMNZGh.App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.wXb6_4G" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.NLH83r4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminDashboardController::index" type="service_closure" id=".service_locator.0odLNlP"/>
@@ -8498,6 +8505,7 @@
         <argument key="App\Controller\Front\AgentProfileController::show" type="service_closure" id=".service_locator.r0EpZfZ"/>
         <argument key="App\Controller\Front\ReponseQuestionnaireController::edit" type="service_closure" id=".service_locator.fXp5yqB"/>
         <argument key="App\Controller\Front\ReponseQuestionnaireController::show" type="service_closure" id=".service_locator.UQfG_62"/>
+        <argument key="App\Controller\MapController::index" type="service_closure" id=".service_locator.Cd_yw2x"/>
         <argument key="App\Controller\MatchyController::delete" type="service_closure" id=".service_locator.pSIx7mu"/>
         <argument key="App\Controller\MatchyController::edit" type="service_closure" id=".service_locator.pSIx7mu"/>
         <argument key="App\Controller\MatchyController::index" type="service_closure" id=".service_locator.Cd_yw2x"/>
@@ -8523,7 +8531,7 @@
         <argument key="App\Controller\TeamController::delete" type="service_closure" id=".service_locator.7ZF768O"/>
         <argument key="App\Controller\TeamController::edit" type="service_closure" id=".service_locator.7ZF768O"/>
         <argument key="App\Controller\TeamController::index" type="service_closure" id=".service_locator.nAmwTrk"/>
-        <argument key="App\Controller\TeamController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\TeamController::new" type="service_closure" id=".service_locator.RJ_8LAe"/>
         <argument key="App\Controller\TeamController::show" type="service_closure" id=".service_locator.zgeOBW8"/>
         <argument key="App\Controller\TournamentFrontController::delete" type="service_closure" id=".service_locator.WxFNVXd"/>
         <argument key="App\Controller\TournamentFrontController::edit" type="service_closure" id=".service_locator.WxFNVXd"/>
@@ -8606,6 +8614,7 @@
         <argument key="App\Controller\Front\AgentProfileController:show" type="service_closure" id=".service_locator.r0EpZfZ"/>
         <argument key="App\Controller\Front\ReponseQuestionnaireController:edit" type="service_closure" id=".service_locator.fXp5yqB"/>
         <argument key="App\Controller\Front\ReponseQuestionnaireController:show" type="service_closure" id=".service_locator.UQfG_62"/>
+        <argument key="App\Controller\MapController:index" type="service_closure" id=".service_locator.Cd_yw2x"/>
         <argument key="App\Controller\MatchyController:delete" type="service_closure" id=".service_locator.pSIx7mu"/>
         <argument key="App\Controller\MatchyController:edit" type="service_closure" id=".service_locator.pSIx7mu"/>
         <argument key="App\Controller\MatchyController:index" type="service_closure" id=".service_locator.Cd_yw2x"/>
@@ -8631,7 +8640,7 @@
         <argument key="App\Controller\TeamController:delete" type="service_closure" id=".service_locator.7ZF768O"/>
         <argument key="App\Controller\TeamController:edit" type="service_closure" id=".service_locator.7ZF768O"/>
         <argument key="App\Controller\TeamController:index" type="service_closure" id=".service_locator.nAmwTrk"/>
-        <argument key="App\Controller\TeamController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\TeamController:new" type="service_closure" id=".service_locator.RJ_8LAe"/>
         <argument key="App\Controller\TeamController:show" type="service_closure" id=".service_locator.zgeOBW8"/>
         <argument key="App\Controller\TournamentFrontController:delete" type="service_closure" id=".service_locator.WxFNVXd"/>
         <argument key="App\Controller\TournamentFrontController:edit" type="service_closure" id=".service_locator.WxFNVXd"/>
@@ -11139,7 +11148,7 @@
     <service id="Knp\Component\Pager\ArgumentAccess\ArgumentAccessInterface" alias="Knp\Component\Pager\ArgumentAccess\RequestArgumentAccess"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.7nzbL4K" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.wXb6_4G"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.NLH83r4"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -11176,10 +11185,11 @@
     <service id=".service_locator.81LTOQ7" alias=".service_locator.t8346QO"/>
     <service id=".service_locator.k76SCud" alias=".service_locator.I3WPaZU"/>
     <service id=".service_locator.vQ5E.13" alias=".service_locator.U8Js_85"/>
+    <service id=".service_locator.OTv2u1D" alias=".service_locator.RJ_8LAe"/>
     <service id=".service_locator.qrNhk2c" alias=".service_locator.ESgEUJd"/>
     <service id=".service_locator.PbKiXGa" alias=".service_locator.vQH8NxC"/>
     <service id=".service_locator.R0Sb2kd" alias=".service_locator.rvMNZGh"/>
-    <service id=".service_locator.teliVTI" alias=".service_locator.wXb6_4G"/>
+    <service id=".service_locator.CzPO.9L" alias=".service_locator.NLH83r4"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.F9PKc.7"/>
     <service id=".service_locator.4nhX4_Z" alias=".service_locator.5nkj21w"/>
     <service id=".service_locator.XtmiKbi" alias=".service_locator.MfxSDRP"/>
@@ -11251,6 +11261,7 @@
     <service id=".service_locator.LNIjLuN" alias=".service_locator.I3WPaZU"/>
     <service id=".service_locator.Yglfuvq" alias=".service_locator..7uivSM"/>
     <service id=".service_locator.XgCEAs3" alias=".service_locator.U8Js_85"/>
+    <service id=".service_locator.3PZpLCw" alias=".service_locator.RJ_8LAe"/>
     <service id=".service_locator.UKuSxBx" alias=".service_locator.zGC8i_B"/>
     <service id=".service_locator.025Wi8b" alias=".service_locator.kPUOGb8"/>
     <service id=".service_locator.GEFQPA3" alias=".service_locator.ESgEUJd"/>

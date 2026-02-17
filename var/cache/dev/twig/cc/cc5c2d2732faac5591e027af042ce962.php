@@ -2824,6 +2824,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-{% endblock %}", "shop_item/edit.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\shop_item\\edit.html.twig");
+{% endblock %}", "shop_item/edit.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\shop_item\\edit.html.twig");
     }
 }

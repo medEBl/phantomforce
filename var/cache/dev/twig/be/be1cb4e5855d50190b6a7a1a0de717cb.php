@@ -2798,6 +2798,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-{% endblock %}", "shop_item/show.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\shop_item\\show.html.twig");
+{% endblock %}", "shop_item/show.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\shop_item\\show.html.twig");
     }
 }

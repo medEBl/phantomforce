@@ -516,6 +516,6 @@ class __TwigTemplate_f1bb974aad283bd14ce97f585755b1ae extends Template
     align-items: center;
 }
 </style>
-{% endblock %}", "back/session_coaching/show.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\back\\session_coaching\\show.html.twig");
+{% endblock %}", "back/session_coaching/show.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\back\\session_coaching\\show.html.twig");
     }
 }

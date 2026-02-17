@@ -155,6 +155,6 @@ class __TwigTemplate_efcd6640544b76785a5abf111508a441 extends Template
     <p>This is your admin dashboard.</p>
   </div>
 {% endblock %}
-", "pages/dashboard.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\pages\\dashboard.html.twig");
+", "pages/dashboard.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\pages\\dashboard.html.twig");
     }
 }

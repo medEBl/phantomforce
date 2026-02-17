@@ -670,6 +670,6 @@ class __TwigTemplate_b511cdb0d768e87bdd10eadc64f1c9fc extends Template
     </div>
   {% endif %}
 </section>
-{% endblock %}", "front/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\front\\index.html.twig");
+{% endblock %}", "front/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\front\\index.html.twig");
     }
 }

@@ -762,58 +762,77 @@ class __TwigTemplate_975db7fc98e000a95fc3a6873afb0294 extends Template
         });
         
         // Données des arènes (simulation - à remplacer par vos données réelles)
-        const arenasData = [
-            {
-                id: 1,
-                name: \"ARÈNE DE LYON\",
-                lat: 45.7534031,
-                lng: 4.8295061,
-                status: \"active\",
-                capacity: 5000,
-                nextMatch: \"2024-03-20 20:00\",
-                description: \"Arène principale de compétition\"
+        // Remplacer arenasData par :
+        const matchesData = [
+            ";
+        // line 592
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["matches"]) || array_key_exists("matches", $context) ? $context["matches"] : (function () { throw new RuntimeError('Variable "matches" does not exist.', 592, $this->source); })()));
+        foreach ($context['_seq'] as $context["_key"] => $context["match"]) {
+            // line 593
+            yield "            {
+                id: ";
+            // line 594
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 594), "html", null, true);
+            yield ",
+                name: \"";
+            // line 595
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 595), "name", [], "any", false, false, false, 595), "js"), "html", null, true);
+            yield " VS ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 595), "name", [], "any", false, false, false, 595), "js"), "html", null, true);
+            yield "\",
+                lat: ";
+            // line 596
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "latitude", [], "any", false, false, false, 596), "html", null, true);
+            yield ",
+                lng: ";
+            // line 597
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "longitude", [], "any", false, false, false, 597), "html", null, true);
+            yield ",
+                location: \"";
+            // line 598
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "location", [], "any", false, false, false, 598), "js"), "html", null, true);
+            yield "\",
+                status: \"";
+            // line 599
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 599), "html", null, true);
+            yield "\",
+                date: \"";
+            // line 600
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 600), "Y-m-d H:i"), "html", null, true);
+            yield "\",
+                team1: \"";
+            // line 601
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 601), "name", [], "any", false, false, false, 601), "js"), "html", null, true);
+            yield "\",
+                team2: \"";
+            // line 602
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 602), "name", [], "any", false, false, false, 602), "js"), "html", null, true);
+            yield "\",
+                score1: ";
+            // line 603
+            yield (((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", true, true, false, 603) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 603)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 603), "html", null, true)) : ("null"));
+            yield ",
+                score2: ";
+            // line 604
+            yield (((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", true, true, false, 604) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 604)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 604), "html", null, true)) : ("null"));
+            yield ",
+                game: \"";
+            // line 605
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 605), "js"), "html", null, true);
+            yield "\",
+                statusLabel: \"";
+            // line 606
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "statusLabel", [], "any", false, false, false, 606), "js"), "html", null, true);
+            yield "\"
             },
-            {
-                id: 2,
-                name: \"STADE E-SPORT PARIS\",
-                lat: 48.856614,
-                lng: 2.3522219,
-                status: \"live\",
-                capacity: 8000,
-                nextMatch: \"EN COURS\",
-                description: \"Match en direct - Ligue des Champions\"
-            },
-            {
-                id: 3,
-                name: \"ARENA MARSEILLE\",
-                lat: 43.296482,
-                lng: 5.36978,
-                status: \"upcoming\",
-                capacity: 3000,
-                nextMatch: \"2024-03-22 18:30\",
-                description: \"Qualificatifs régionaux\"
-            },
-            {
-                id: 4,
-                name: \"GAMING CENTER LILLE\",
-                lat: 50.62925,
-                lng: 3.057256,
-                status: \"active\",
-                capacity: 2000,
-                nextMatch: \"2024-03-21 19:00\",
-                description: \"Tournoi amateur\"
-            },
-            {
-                id: 5,
-                name: \"STADE DE BORDEAUX\",
-                lat: 44.837789,
-                lng: -0.57918,
-                status: \"active\",
-                capacity: 4000,
-                nextMatch: \"2024-03-25 20:00\",
-                description: \"Finale régionale\"
-            }
-        ];
+            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_key'], $context['match'], $context['_parent']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 609
+        yield "        ];
         
         // Initialiser la carte
         const map = L.map('map').setView([46.603354, 1.888334], 6);
@@ -834,56 +853,67 @@ class __TwigTemplate_975db7fc98e000a95fc3a6873afb0294 extends Template
         const markersGroup = L.layerGroup().addTo(map);
         
         // Fonction pour créer un popup d'arène
-        function createArenaPopup(arena) {
-            const statusIcon = arena.status === 'live' ? '🔥' : 
-                             arena.status === 'upcoming' ? '🎯' : '⚔️';
-            const statusClass = arena.status === 'live' ? 'live' : 
-                              arena.status === 'upcoming' ? 'upcoming' : 'active';
+        // Fonction pour créer un popup de match
+        function createMatchPopup(match) {
+            const statusIcon = match.status === 'ongoing' ? '🔥' : 
+                            match.status === 'planned' ? '🎯' : '⚔️';
+            
+            const scoreDisplay = (match.score1 !== null && match.score2 !== null) 
+                ? `\${match.score1} - \${match.score2}` 
+                : 'À venir';
             
             return `
-                <div class=\"arena-popup-content\" style=\"font-family: 'Rajdhani', sans-serif;\">
+                <div class=\"arena-popup-content\" style=\"font-family: 'Rajdhani', sans-serif; min-width: 250px;\">
                     <div style=\"display: flex; align-items: center; gap: 10px; margin-bottom: 10px;\">
                         <span style=\"font-size: 1.5rem;\">\${statusIcon}</span>
                         <div>
-                            <h3 style=\"margin: 0; color: var(--blood-red); font-family: 'Orbitron', sans-serif;\">
-                                \${arena.name}
+                            <h3 style=\"margin: 0; color: var(--blood-red); font-family: 'Orbitron', sans-serif; font-size: 1rem;\">
+                                \${match.team1} VS \${match.team2}
                             </h3>
-                            <div style=\"font-size: 0.9rem; color: #cc9999;\">
-                                \${arena.description}
+                            <div style=\"font-size: 0.8rem; color: #cc9999;\">
+                                \${match.game}
                             </div>
                         </div>
                     </div>
                     
                     <div style=\"display: grid; gap: 8px; font-size: 0.9rem;\">
                         <div style=\"display: flex; justify-content: space-between;\">
-                            <span style=\"color: #cc9999;\">Capacité :</span>
-                            <span style=\"color: var(--fire-red); font-weight: bold;\">\${arena.capacity.toLocaleString()} places</span>
+                            <span style=\"color: #cc9999;\">📍 Lieu :</span>
+                            <span style=\"color: var(--fire-red); font-weight: bold;\">\${match.location}</span>
                         </div>
                         
                         <div style=\"display: flex; justify-content: space-between;\">
-                            <span style=\"color: #cc9999;\">Prochain match :</span>
-                            <span style=\"color: var(--map-green); font-weight: bold;\">\${arena.nextMatch}</span>
+                            <span style=\"color: #cc9999;\">📅 Date :</span>
+                            <span style=\"color: var(--map-green); font-weight: bold;\">\${match.date}</span>
                         </div>
                         
                         <div style=\"display: flex; justify-content: space-between;\">
-                            <span style=\"color: #cc9999;\">Statut :</span>
-                            <span style=\"color: \${arena.status === 'live' ? 'var(--fire-red)' : 
-                                               arena.status === 'upcoming' ? 'var(--map-blue)' : 
-                                               'var(--map-green)'}; 
-                                 font-weight: bold; text-transform: uppercase;\">
-                                \${arena.status}
+                            <span style=\"color: #cc9999;\">📊 Score :</span>
+                            <span style=\"color: \${match.score1 !== null ? 'white' : '#cc9999'}; font-weight: bold;\">
+                                \${scoreDisplay}
+                            </span>
+                        </div>
+                        
+                        <div style=\"display: flex; justify-content: space-between;\">
+                            <span style=\"color: #cc9999;\">📌 Statut :</span>
+                            <span style=\"color: \${match.status === 'ongoing' ? 'var(--fire-red)' : 
+                                                match.status === 'planned' ? 'var(--map-blue)' : 
+                                                match.status === 'finished' ? 'var(--map-green)' : 
+                                                '#cc9999'}; 
+                                font-weight: bold; text-transform: uppercase;\">
+                                \${match.statusLabel}
                             </span>
                         </div>
                     </div>
                     
                     <div style=\"margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255, 0, 0, 0.3);\">
-                        <a href=\"/matchy\" 
-                           style=\"display: block; text-align: center; 
-                                  background: linear-gradient(45deg, var(--dark-red), var(--blood-red));
-                                  color: white; padding: 8px; border-radius: 5px; 
-                                  text-decoration: none; font-family: 'Orbitron', sans-serif;
-                                  font-size: 0.9rem; transition: all 0.3s;\">
-                            📅 Voir les matchs
+                        <a href=\"/matchy/\${match.id}\" 
+                        style=\"display: block; text-align: center; 
+                                background: linear-gradient(45deg, var(--dark-red), var(--blood-red));
+                                color: white; padding: 8px; border-radius: 5px; 
+                                text-decoration: none; font-family: 'Orbitron', sans-serif;
+                                font-size: 0.9rem; transition: all 0.3s;\">
+                            🔍 VOIR LE MATCH
                         </a>
                     </div>
                 </div>
@@ -891,49 +921,49 @@ class __TwigTemplate_975db7fc98e000a95fc3a6873afb0294 extends Template
         }
         
         // Ajouter les marqueurs
-        let activeArenas = 0;
+        let activeMatches = 0;
         let liveMatches = 0;
-        let cities = new Set();
-        
-        arenasData.forEach(arena => {
+        let locations = new Set();
+
+        matchesData.forEach(match => {
             let icon;
-            if (arena.status === 'live') {
+            if (match.status === 'ongoing') {
                 icon = liveIcon;
                 liveMatches++;
-            } else if (arena.status === 'upcoming') {
+            } else if (match.status === 'planned') {
                 icon = upcomingIcon;
             } else {
                 icon = arenaIcon;
-                activeArenas++;
+                activeMatches++;
             }
             
-            // Extraire la ville du nom
-            const city = arena.name.split(' ').pop();
-            cities.add(city);
+            // Ajouter la ville au set
+            if (match.location) {
+                locations.add(match.location.split(',')[0].trim());
+            }
             
-            const marker = L.marker([arena.lat, arena.lng], { icon: icon })
+            const marker = L.marker([match.lat, match.lng], { icon: icon })
                 .addTo(markersGroup)
-                .bindPopup(createArenaPopup(arena));
+                .bindPopup(createMatchPopup(match));
             
             // Effet au survol
             marker.on('mouseover', function() {
                 this.openPopup();
             });
             
-            // Effet sonore au clic (simulation)
+            // Effet sonore au clic
             marker.on('click', function() {
                 const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3');
                 clickSound.volume = 0.3;
                 clickSound.play().catch(e => console.log(\"Audio error:\", e));
             });
         });
-        
+
         // Mettre à jour les statistiques
-        document.getElementById('arenaCount').textContent = activeArenas;
-        document.getElementById('matchCount').textContent = arenasData.length;
-        document.getElementById('cityCount').textContent = cities.size;
+        document.getElementById('arenaCount').textContent = matchesData.length;
+        document.getElementById('matchCount').textContent = matchesData.length;
+        document.getElementById('cityCount').textContent = locations.size;
         document.getElementById('liveCount').textContent = liveMatches;
-        
         // Contrôles de la carte
         document.getElementById('zoomInBtn').addEventListener('click', () => {
             map.zoomIn();
@@ -1080,7 +1110,7 @@ class __TwigTemplate_975db7fc98e000a95fc3a6873afb0294 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  738 => 563,  725 => 562,  642 => 488,  633 => 485,  628 => 483,  624 => 482,  620 => 481,  617 => 480,  614 => 479,  611 => 478,  608 => 477,  605 => 476,  600 => 475,  598 => 474,  589 => 468,  584 => 465,  571 => 464,  102 => 6,  89 => 5,  66 => 3,  43 => 1,);
+        return array (  835 => 609,  826 => 606,  822 => 605,  818 => 604,  814 => 603,  810 => 602,  806 => 601,  802 => 600,  798 => 599,  794 => 598,  790 => 597,  786 => 596,  780 => 595,  776 => 594,  773 => 593,  769 => 592,  738 => 563,  725 => 562,  642 => 488,  633 => 485,  628 => 483,  624 => 482,  620 => 481,  617 => 480,  614 => 479,  611 => 478,  608 => 477,  605 => 476,  600 => 475,  598 => 474,  589 => 468,  584 => 465,  571 => 464,  102 => 6,  89 => 5,  66 => 3,  43 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -1674,57 +1704,25 @@ class __TwigTemplate_975db7fc98e000a95fc3a6873afb0294 extends Template
         });
         
         // Données des arènes (simulation - à remplacer par vos données réelles)
-        const arenasData = [
+        // Remplacer arenasData par :
+        const matchesData = [
+            {% for match in matches %}
             {
-                id: 1,
-                name: \"ARÈNE DE LYON\",
-                lat: 45.7534031,
-                lng: 4.8295061,
-                status: \"active\",
-                capacity: 5000,
-                nextMatch: \"2024-03-20 20:00\",
-                description: \"Arène principale de compétition\"
+                id: {{ match.id }},
+                name: \"{{ match.team1.name|escape('js') }} VS {{ match.team2.name|escape('js') }}\",
+                lat: {{ match.latitude }},
+                lng: {{ match.longitude }},
+                location: \"{{ match.location|escape('js') }}\",
+                status: \"{{ match.status }}\",
+                date: \"{{ match.matchDate|date('Y-m-d H:i') }}\",
+                team1: \"{{ match.team1.name|escape('js') }}\",
+                team2: \"{{ match.team2.name|escape('js') }}\",
+                score1: {{ match.scoreTeam1 ?? 'null' }},
+                score2: {{ match.scoreTeam2 ?? 'null' }},
+                game: \"{{ match.game|escape('js') }}\",
+                statusLabel: \"{{ match.statusLabel|escape('js') }}\"
             },
-            {
-                id: 2,
-                name: \"STADE E-SPORT PARIS\",
-                lat: 48.856614,
-                lng: 2.3522219,
-                status: \"live\",
-                capacity: 8000,
-                nextMatch: \"EN COURS\",
-                description: \"Match en direct - Ligue des Champions\"
-            },
-            {
-                id: 3,
-                name: \"ARENA MARSEILLE\",
-                lat: 43.296482,
-                lng: 5.36978,
-                status: \"upcoming\",
-                capacity: 3000,
-                nextMatch: \"2024-03-22 18:30\",
-                description: \"Qualificatifs régionaux\"
-            },
-            {
-                id: 4,
-                name: \"GAMING CENTER LILLE\",
-                lat: 50.62925,
-                lng: 3.057256,
-                status: \"active\",
-                capacity: 2000,
-                nextMatch: \"2024-03-21 19:00\",
-                description: \"Tournoi amateur\"
-            },
-            {
-                id: 5,
-                name: \"STADE DE BORDEAUX\",
-                lat: 44.837789,
-                lng: -0.57918,
-                status: \"active\",
-                capacity: 4000,
-                nextMatch: \"2024-03-25 20:00\",
-                description: \"Finale régionale\"
-            }
+            {% endfor %}
         ];
         
         // Initialiser la carte
@@ -1746,56 +1744,67 @@ class __TwigTemplate_975db7fc98e000a95fc3a6873afb0294 extends Template
         const markersGroup = L.layerGroup().addTo(map);
         
         // Fonction pour créer un popup d'arène
-        function createArenaPopup(arena) {
-            const statusIcon = arena.status === 'live' ? '🔥' : 
-                             arena.status === 'upcoming' ? '🎯' : '⚔️';
-            const statusClass = arena.status === 'live' ? 'live' : 
-                              arena.status === 'upcoming' ? 'upcoming' : 'active';
+        // Fonction pour créer un popup de match
+        function createMatchPopup(match) {
+            const statusIcon = match.status === 'ongoing' ? '🔥' : 
+                            match.status === 'planned' ? '🎯' : '⚔️';
+            
+            const scoreDisplay = (match.score1 !== null && match.score2 !== null) 
+                ? `\${match.score1} - \${match.score2}` 
+                : 'À venir';
             
             return `
-                <div class=\"arena-popup-content\" style=\"font-family: 'Rajdhani', sans-serif;\">
+                <div class=\"arena-popup-content\" style=\"font-family: 'Rajdhani', sans-serif; min-width: 250px;\">
                     <div style=\"display: flex; align-items: center; gap: 10px; margin-bottom: 10px;\">
                         <span style=\"font-size: 1.5rem;\">\${statusIcon}</span>
                         <div>
-                            <h3 style=\"margin: 0; color: var(--blood-red); font-family: 'Orbitron', sans-serif;\">
-                                \${arena.name}
+                            <h3 style=\"margin: 0; color: var(--blood-red); font-family: 'Orbitron', sans-serif; font-size: 1rem;\">
+                                \${match.team1} VS \${match.team2}
                             </h3>
-                            <div style=\"font-size: 0.9rem; color: #cc9999;\">
-                                \${arena.description}
+                            <div style=\"font-size: 0.8rem; color: #cc9999;\">
+                                \${match.game}
                             </div>
                         </div>
                     </div>
                     
                     <div style=\"display: grid; gap: 8px; font-size: 0.9rem;\">
                         <div style=\"display: flex; justify-content: space-between;\">
-                            <span style=\"color: #cc9999;\">Capacité :</span>
-                            <span style=\"color: var(--fire-red); font-weight: bold;\">\${arena.capacity.toLocaleString()} places</span>
+                            <span style=\"color: #cc9999;\">📍 Lieu :</span>
+                            <span style=\"color: var(--fire-red); font-weight: bold;\">\${match.location}</span>
                         </div>
                         
                         <div style=\"display: flex; justify-content: space-between;\">
-                            <span style=\"color: #cc9999;\">Prochain match :</span>
-                            <span style=\"color: var(--map-green); font-weight: bold;\">\${arena.nextMatch}</span>
+                            <span style=\"color: #cc9999;\">📅 Date :</span>
+                            <span style=\"color: var(--map-green); font-weight: bold;\">\${match.date}</span>
                         </div>
                         
                         <div style=\"display: flex; justify-content: space-between;\">
-                            <span style=\"color: #cc9999;\">Statut :</span>
-                            <span style=\"color: \${arena.status === 'live' ? 'var(--fire-red)' : 
-                                               arena.status === 'upcoming' ? 'var(--map-blue)' : 
-                                               'var(--map-green)'}; 
-                                 font-weight: bold; text-transform: uppercase;\">
-                                \${arena.status}
+                            <span style=\"color: #cc9999;\">📊 Score :</span>
+                            <span style=\"color: \${match.score1 !== null ? 'white' : '#cc9999'}; font-weight: bold;\">
+                                \${scoreDisplay}
+                            </span>
+                        </div>
+                        
+                        <div style=\"display: flex; justify-content: space-between;\">
+                            <span style=\"color: #cc9999;\">📌 Statut :</span>
+                            <span style=\"color: \${match.status === 'ongoing' ? 'var(--fire-red)' : 
+                                                match.status === 'planned' ? 'var(--map-blue)' : 
+                                                match.status === 'finished' ? 'var(--map-green)' : 
+                                                '#cc9999'}; 
+                                font-weight: bold; text-transform: uppercase;\">
+                                \${match.statusLabel}
                             </span>
                         </div>
                     </div>
                     
                     <div style=\"margin-top: 15px; padding-top: 10px; border-top: 1px solid rgba(255, 0, 0, 0.3);\">
-                        <a href=\"/matchy\" 
-                           style=\"display: block; text-align: center; 
-                                  background: linear-gradient(45deg, var(--dark-red), var(--blood-red));
-                                  color: white; padding: 8px; border-radius: 5px; 
-                                  text-decoration: none; font-family: 'Orbitron', sans-serif;
-                                  font-size: 0.9rem; transition: all 0.3s;\">
-                            📅 Voir les matchs
+                        <a href=\"/matchy/\${match.id}\" 
+                        style=\"display: block; text-align: center; 
+                                background: linear-gradient(45deg, var(--dark-red), var(--blood-red));
+                                color: white; padding: 8px; border-radius: 5px; 
+                                text-decoration: none; font-family: 'Orbitron', sans-serif;
+                                font-size: 0.9rem; transition: all 0.3s;\">
+                            🔍 VOIR LE MATCH
                         </a>
                     </div>
                 </div>
@@ -1803,49 +1812,49 @@ class __TwigTemplate_975db7fc98e000a95fc3a6873afb0294 extends Template
         }
         
         // Ajouter les marqueurs
-        let activeArenas = 0;
+        let activeMatches = 0;
         let liveMatches = 0;
-        let cities = new Set();
-        
-        arenasData.forEach(arena => {
+        let locations = new Set();
+
+        matchesData.forEach(match => {
             let icon;
-            if (arena.status === 'live') {
+            if (match.status === 'ongoing') {
                 icon = liveIcon;
                 liveMatches++;
-            } else if (arena.status === 'upcoming') {
+            } else if (match.status === 'planned') {
                 icon = upcomingIcon;
             } else {
                 icon = arenaIcon;
-                activeArenas++;
+                activeMatches++;
             }
             
-            // Extraire la ville du nom
-            const city = arena.name.split(' ').pop();
-            cities.add(city);
+            // Ajouter la ville au set
+            if (match.location) {
+                locations.add(match.location.split(',')[0].trim());
+            }
             
-            const marker = L.marker([arena.lat, arena.lng], { icon: icon })
+            const marker = L.marker([match.lat, match.lng], { icon: icon })
                 .addTo(markersGroup)
-                .bindPopup(createArenaPopup(arena));
+                .bindPopup(createMatchPopup(match));
             
             // Effet au survol
             marker.on('mouseover', function() {
                 this.openPopup();
             });
             
-            // Effet sonore au clic (simulation)
+            // Effet sonore au clic
             marker.on('click', function() {
                 const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3');
                 clickSound.volume = 0.3;
                 clickSound.play().catch(e => console.log(\"Audio error:\", e));
             });
         });
-        
+
         // Mettre à jour les statistiques
-        document.getElementById('arenaCount').textContent = activeArenas;
-        document.getElementById('matchCount').textContent = arenasData.length;
-        document.getElementById('cityCount').textContent = cities.size;
+        document.getElementById('arenaCount').textContent = matchesData.length;
+        document.getElementById('matchCount').textContent = matchesData.length;
+        document.getElementById('cityCount').textContent = locations.size;
         document.getElementById('liveCount').textContent = liveMatches;
-        
         // Contrôles de la carte
         document.getElementById('zoomInBtn').addEventListener('click', () => {
             map.zoomIn();
@@ -1961,6 +1970,6 @@ class __TwigTemplate_975db7fc98e000a95fc3a6873afb0294 extends Template
             createMapParticle(e.containerPoint.x, e.containerPoint.y);
         });
     </script>
-{% endblock %}", "map/simple_map.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\map\\simple_map.html.twig");
+{% endblock %}", "map/simple_map.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\map\\simple_map.html.twig");
     }
 }

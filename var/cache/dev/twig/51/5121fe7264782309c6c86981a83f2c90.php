@@ -262,6 +262,6 @@ class __TwigTemplate_f9cd9dec66e10521eb84371017901cf4 extends Template
     
     {{ form_end(form) }}
 </div>
-{% endblock %}", "back/entrainement/new.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\back\\entrainement\\new.html.twig");
+{% endblock %}", "back/entrainement/new.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\back\\entrainement\\new.html.twig");
     }
 }

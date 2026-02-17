@@ -12,7 +12,9 @@
         --neon-purple: #9d00ff;
         --neon-red: #ff003c;
         --neon-green: #00ff88;
+        --neon-yellow: #ffcc00;
         --dark-bg: #0a0a14;
+        --location-glow: rgba(255, 204, 0, 0.5);
     }
     
     body {
@@ -40,7 +42,7 @@
         position: relative;
         padding: 2rem;
         animation: fadeIn 1s ease-out;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
     }
     
@@ -309,6 +311,101 @@
         text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
     }
     
+    /* NOUVEAU STYLE POUR LA SECTION LOCALISATION */
+    .location-section {
+        background: rgba(255, 204, 0, 0.05);
+        border: 2px solid var(--neon-yellow);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .location-section:hover {
+        border-color: var(--neon-green);
+        box-shadow: 0 0 30px var(--location-glow);
+    }
+    
+    .location-section::before {
+        content: '📍';
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        background: var(--dark-bg);
+        padding: 0 10px;
+        font-size: 1.5rem;
+        color: var(--neon-yellow);
+    }
+    
+    .location-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .location-input {
+        background: rgba(10, 10, 20, 0.9);
+        border: 2px solid var(--neon-yellow);
+        border-radius: 12px;
+        padding: 1.2rem;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .location-input:focus {
+        outline: none;
+        border-color: var(--neon-green);
+        box-shadow: 0 0 20px var(--location-glow);
+        transform: translateY(-2px);
+    }
+    
+    .location-input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+        font-style: italic;
+    }
+    
+    .coordinate-help {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: #a0a0c0;
+    }
+    
+    .coordinate-help button {
+        background: linear-gradient(45deg, var(--neon-yellow), #ffaa00);
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        color: black;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px var(--location-glow);
+    }
+    
+    .coordinate-help button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 25px var(--neon-green);
+    }
+    
+    .coordinate-help small {
+        opacity: 0.7;
+        display: block;
+        margin-top: 0.3rem;
+    }
+    
     .form-actions {
         display: flex;
         gap: 1.5rem;
@@ -520,7 +617,8 @@
     /* Style pour les champs avec erreur */
     .form-input.error,
     .form-select.error,
-    .score-input.error {
+    .score-input.error,
+    .location-input.error {
         border-color: var(--neon-red) !important;
         box-shadow: 0 0 20px rgba(255, 0, 60, 0.3) !important;
         background: rgba(255, 0, 60, 0.05) !important;
@@ -589,6 +687,15 @@
             order: 2;
         }
         
+        .location-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .coordinate-help {
+            flex-direction: column;
+            text-align: center;
+        }
+        
         .form-actions {
             flex-direction: column;
             gap: 1rem;
@@ -612,7 +719,7 @@
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class="floating-elements">
-        {% set icons = ['🎮', '⚡', '🔥', '👑', '🕹️', '🎯', '🏆', '💥', '🚀', '⭐'] %}
+        {% set icons = ['🎮', '⚡', '🔥', '👑', '🕹️', '🎯', '🏆', '💥', '🚀', '⭐', '📍', '🗺️'] %}
         {% for i in 1..10 %}
             {% set iconIndex = (i % icons|length) %}
             {% set leftPosition = 5 + ((i * 9) % 90) %}
@@ -795,6 +902,69 @@
             {{ form_errors(form.winner_team, {'attr': {'class': 'form-error'}}) }}
         </div>
         
+        <!-- NOUVELLE SECTION LOCALISATION -->
+        <div class="location-section">
+            <label class="form-label" style="margin-bottom: 1.5rem;">
+                <span>📍 LOCALISATION DE L'ARÈNE</span>
+            </label>
+            
+            <div class="form-group">
+                <label style="color: var(--neon-yellow); font-size: 1rem; margin-bottom: 0.5rem; display: block;">
+                    Adresse / Lieu du match
+                </label>
+                {{ form_widget(form.location, {
+                    'attr': {
+                        'class': 'location-input',
+                        'placeholder': 'Ex: Accor Arena, Paris • 8 Boulevard de Bercy, 75012 Paris'
+                    }
+                }) }}
+                {{ form_errors(form.location, {'attr': {'class': 'form-error'}}) }}
+            </div>
+            
+            <div class="location-grid">
+                <div>
+                    <label style="color: var(--neon-yellow); font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">
+                        Latitude
+                    </label>
+                    {{ form_widget(form.latitude, {
+                        'attr': {
+                            'class': 'location-input',
+                            'placeholder': 'Ex: 48.8381',
+                            'step': 'any'
+                        }
+                    }) }}
+                    {{ form_errors(form.latitude, {'attr': {'class': 'form-error'}}) }}
+                </div>
+                
+                <div>
+                    <label style="color: var(--neon-yellow); font-size: 0.9rem; margin-bottom: 0.5rem; display: block;">
+                        Longitude
+                    </label>
+                    {{ form_widget(form.longitude, {
+                        'attr': {
+                            'class': 'location-input',
+                            'placeholder': 'Ex: 2.3785',
+                            'step': 'any'
+                        }
+                    }) }}
+                    {{ form_errors(form.longitude, {'attr': {'class': 'form-error'}}) }}
+                </div>
+            </div>
+            
+            <div class="coordinate-help">
+                <div style="flex: 1;">
+                    <span style="color: var(--neon-yellow);">💡 Comment obtenir les coordonnées ?</span>
+                    <small>Rendez-vous sur Google Maps, cliquez droit sur l'emplacement exact, et sélectionnez "Quoi de neuf ?" pour voir les coordonnées.</small>
+                </div>
+                <button type="button" id="fillParisCoords" class="btn-help">
+                    🇫🇷 TEST (Paris)
+                </button>
+                <button type="button" id="fillLyonCoords" class="btn-help">
+                    🇫🇷 TEST (Lyon)
+                </button>
+            </div>
+        </div>
+        
         <div class="form-actions">
             <button type="submit" class="submit-btn">
                 ⚡ CRÉER LE MATCH
@@ -810,6 +980,7 @@
     <!-- Conseils -->
     <div style="text-align: center; color: #a0a0c0; font-size: 0.9rem; margin-top: 2rem;">
         <p>💡 <strong>CONSEIL :</strong> Assurez-vous que les deux équipes sont différentes et que les scores sont corrects !</p>
+        <p style="margin-top: 0.5rem;">📍 <strong>LOCALISATION :</strong> Plus vous êtes précis, mieux le match sera positionné sur la carte !</p>
     </div>
 </div>
 
@@ -873,6 +1044,43 @@
         });
     }
     
+    // NOUVEAU: Remplissage automatique des coordonnées pour les tests
+    document.getElementById('fillParisCoords')?.addEventListener('click', function() {
+        const locationInput = document.querySelector('input[name*="location"]');
+        const latInput = document.querySelector('input[name*="latitude"]');
+        const lngInput = document.querySelector('input[name*="longitude"]');
+        
+        if (locationInput) locationInput.value = 'Accor Arena, 8 Boulevard de Bercy, 75012 Paris';
+        if (latInput) latInput.value = '48.8381';
+        if (lngInput) lngInput.value = '2.3785';
+        
+        // Animation de confirmation
+        this.style.background = 'linear-gradient(45deg, var(--neon-green), #00cc66)';
+        this.textContent = '✓ COPIÉ !';
+        setTimeout(() => {
+            this.style.background = 'linear-gradient(45deg, var(--neon-yellow), #ffaa00)';
+            this.textContent = '🇫🇷 TEST (Paris)';
+        }, 2000);
+    });
+    
+    document.getElementById('fillLyonCoords')?.addEventListener('click', function() {
+        const locationInput = document.querySelector('input[name*="location"]');
+        const latInput = document.querySelector('input[name*="latitude"]');
+        const lngInput = document.querySelector('input[name*="longitude"]');
+        
+        if (locationInput) locationInput.value = 'Groupama Stadium, 10 Avenue Simone Veil, 69150 Décines-Charpieu';
+        if (latInput) latInput.value = '45.7653';
+        if (lngInput) lngInput.value = '4.9808';
+        
+        // Animation de confirmation
+        this.style.background = 'linear-gradient(45deg, var(--neon-green), #00cc66)';
+        this.textContent = '✓ COPIÉ !';
+        setTimeout(() => {
+            this.style.background = 'linear-gradient(45deg, var(--neon-yellow), #ffaa00)';
+            this.textContent = '🇫🇷 TEST (Lyon)';
+        }, 2000);
+    });
+    
     // Validation des équipes différentes
     const form = document.querySelector('form');
     if (form) {
@@ -884,6 +1092,20 @@
                 e.preventDefault();
                 alert('⚠️ Les deux équipes doivent être différentes !');
                 return false;
+            }
+            
+            // Validation des coordonnées (optionnel)
+            const latInput = document.querySelector('input[name*="latitude"]');
+            const lngInput = document.querySelector('input[name*="longitude"]');
+            const locationInput = document.querySelector('input[name*="location"]');
+            
+            if (locationInput && locationInput.value.trim() !== '') {
+                if (!latInput.value || !lngInput.value) {
+                    if (!confirm('⚠️ Vous avez spécifié une adresse mais pas les coordonnées. Le match n\'apparaîtra pas sur la carte. Continuer ?')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
             }
             
             // Animation du bouton de soumission
@@ -932,7 +1154,7 @@
         }, 100);
         
         // Animation des inputs au focus
-        const formInputs = document.querySelectorAll('.form-input, .form-select, .score-input');
+        const formInputs = document.querySelectorAll('.form-input, .form-select, .score-input, .location-input');
         
         formInputs.forEach(input => {
             input.addEventListener('focus', function() {
@@ -951,14 +1173,15 @@
             // Trouver le champ correspondant
             const formGroup = errorElement.closest('.form-group') || 
                             errorElement.closest('.team-select-container') ||
-                            errorElement.closest('div'); // Pour les scores
+                            errorElement.closest('.location-section') ||
+                            errorElement.closest('div');
             
             if (formGroup) {
-                const inputElement = formGroup.querySelector('.form-input, .form-select, .score-input');
+                const inputElement = formGroup.querySelector('.form-input, .form-select, .score-input, .location-input');
                 if (inputElement && errorElement.textContent.trim() !== '') {
                     inputElement.classList.add('error');
                     
-                    // Ajouter un écouteur pour retirer la classe d'erreur quand l'utilisateur commence à taper
+                    // Ajouter un écouteur pour retirer la classe d'erreur
                     inputElement.addEventListener('input', function() {
                         if (errorElement.textContent.trim() !== '') {
                             errorElement.textContent = '';

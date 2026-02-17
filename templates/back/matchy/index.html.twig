@@ -75,20 +75,96 @@
     </div>
 </div>
 
+<!-- Deuxième ligne de statistiques (localisation) -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="admin-card" style="background: rgba(255, 193, 7, 0.05); border-left: 3px solid #ffc107;">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-map-marker-alt fa-2x" style="color: #ffc107;"></i>
+                </div>
+                <div>
+                    <h3 class="mb-0">{{ matchies|filter(m => m.location is not empty)|length }}</h3>
+                    <small class="text-muted">Avec localisation</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="admin-card" style="background: rgba(40, 167, 69, 0.05); border-left: 3px solid #28a745;">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-map-pin fa-2x" style="color: #28a745;"></i>
+                </div>
+                <div>
+                    <h3 class="mb-0">{{ matchies|filter(m => m.latitude is not null and m.longitude is not null)|length }}</h3>
+                    <small class="text-muted">Avec coordonnées GPS</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="admin-card" style="background: rgba(220, 53, 69, 0.05); border-left: 3px solid #dc3545;">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-map-marked-alt fa-2x" style="color: #dc3545;"></i>
+                </div>
+                <div>
+                    <h3 class="mb-0">{{ matchies|filter(m => m.location is empty)|length }}</h3>
+                    <small class="text-muted">Sans localisation</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filtres rapides -->
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="admin-card p-2">
+            <div class="d-flex gap-2 flex-wrap">
+                <span class="badge-admin" style="background: rgba(255,255,255,0.1); cursor: pointer;" onclick="filterByStatus('all')">
+                    <i class="fas fa-list"></i> Tous ({{ matchies|length }})
+                </span>
+                <span class="badge-admin badge-planned" style="cursor: pointer;" onclick="filterByStatus('planned')">
+                    <i class="fas fa-calendar"></i> Planifiés ({{ matchies|filter(m => m.status == 'planned')|length }})
+                </span>
+                <span class="badge-admin badge-ongoing" style="cursor: pointer;" onclick="filterByStatus('ongoing')">
+                    <i class="fas fa-play"></i> En cours ({{ matchies|filter(m => m.status == 'ongoing')|length }})
+                </span>
+                <span class="badge-admin badge-finished" style="cursor: pointer;" onclick="filterByStatus('finished')">
+                    <i class="fas fa-check"></i> Terminés ({{ matchies|filter(m => m.status == 'finished')|length }})
+                </span>
+                <span class="badge-admin badge-cancelled" style="cursor: pointer;" onclick="filterByStatus('cancelled')">
+                    <i class="fas fa-ban"></i> Annulés ({{ matchies|filter(m => m.status == 'cancelled')|length }})
+                </span>
+                <span class="badge-admin" style="background: #ffc107; color: #000; cursor: pointer;" onclick="filterByLocation('with')">
+                    <i class="fas fa-map-marker-alt"></i> Avec localisation ({{ matchies|filter(m => m.location is not empty)|length }})
+                </span>
+                <span class="badge-admin" style="background: #6c757d; cursor: pointer;" onclick="filterByLocation('without')">
+                    <i class="fas fa-map-marker-alt"></i> Sans localisation ({{ matchies|filter(m => m.location is empty)|length }})
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Table des matchs -->
 <div class="admin-card">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="mb-0">Liste des matchs</h5>
         <div class="input-group" style="max-width: 300px;">
-            <input type="text" class="form-control form-admin" placeholder="Rechercher un match...">
-            <button class="btn btn-admin-secondary" type="button">
+            <input type="text" class="form-control form-admin" id="searchInput" placeholder="Rechercher un match...">
+            <button class="btn btn-admin-secondary" type="button" onclick="searchMatches()">
                 <i class="fas fa-search"></i>
             </button>
         </div>
     </div>
     
     <div class="table-responsive">
-        <table class="admin-table">
+        <table class="admin-table" id="matchesTable">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -98,12 +174,15 @@
                     <th>Score</th>
                     <th>Date</th>
                     <th>Statut</th>
+                    <th>Localisation</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for match in matchies %}
-                <tr>
+                <tr class="match-row" 
+                    data-status="{{ match.status }}"
+                    data-has-location="{{ match.location is not empty ? 'yes' : 'no' }}">
                     <td><strong>#{{ match.id }}</strong></td>
                     <td>
                         <div class="d-flex align-items-center">
@@ -137,6 +216,18 @@
                         {% endif %}
                     </td>
                     <td>
+                        {% if match.location %}
+                            <span class="badge-admin" style="background: #ffc107; color: #000;" 
+                                  title="{{ match.location }}{% if match.latitude and match.longitude %} ({{ match.latitude|number_format(4) }}, {{ match.longitude|number_format(4) }}){% endif %}">
+                                <i class="fas fa-map-marker-alt"></i> Oui
+                            </span>
+                        {% else %}
+                            <span class="badge-admin" style="background: #6c757d;">
+                                <i class="fas fa-map-marker-alt"></i> Non
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td>
                         <div class="btn-group" role="group">
                             <a href="{{ path('app_back_matchy_show', {'id': match.id}) }}" 
                                class="btn-admin btn-admin-secondary btn-sm"
@@ -162,7 +253,7 @@
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="8" class="text-center py-4">
+                    <td colspan="9" class="text-center py-4">
                         <div class="py-4">
                             <i class="fas fa-trophy fa-3x mb-3" style="color: rgba(255,255,255,0.1);"></i>
                             <h5 class="text-muted">Aucun match trouvé</h5>
@@ -199,4 +290,134 @@
     </nav>
     {% endif %}
 </div>
+
+<script>
+// Fonction de recherche
+function searchMatches() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const rows = document.querySelectorAll('.match-row');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(filter)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+// Filtre par statut
+function filterByStatus(status) {
+    const rows = document.querySelectorAll('.match-row');
+    
+    rows.forEach(row => {
+        if (status === 'all') {
+            row.style.display = '';
+        } else {
+            const rowStatus = row.dataset.status;
+            if (rowStatus === status) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+    
+    // Mettre à jour le compteur
+    updateVisibleCount();
+}
+
+// Filtre par localisation
+function filterByLocation(type) {
+    const rows = document.querySelectorAll('.match-row');
+    
+    rows.forEach(row => {
+        const hasLocation = row.dataset.hasLocation;
+        
+        if (type === 'with') {
+            row.style.display = hasLocation === 'yes' ? '' : 'none';
+        } else if (type === 'without') {
+            row.style.display = hasLocation === 'no' ? '' : 'none';
+        } else {
+            row.style.display = '';
+        }
+    });
+    
+    updateVisibleCount();
+}
+
+// Mettre à jour le compteur de lignes visibles
+function updateVisibleCount() {
+    const visibleRows = document.querySelectorAll('.match-row[style="display: none;"]');
+    // Vous pouvez ajouter un compteur ici si nécessaire
+}
+
+// Recherche en temps réel
+document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+    searchMatches();
+});
+
+// Ajouter des raccourcis clavier
+document.addEventListener('keydown', function(e) {
+    // Ctrl+F pour focus recherche
+    if (e.ctrlKey && e.key === 'f') {
+        e.preventDefault();
+        document.getElementById('searchInput')?.focus();
+    }
+});
+
+// Animation des statistiques
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.admin-card');
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+});
+</script>
+
+<style>
+.admin-card {
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.admin-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Style pour les badges de filtre */
+.badge-admin {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.badge-admin:hover {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+}
+
+/* Animation pour les lignes du tableau */
+.match-row {
+    transition: all 0.2s;
+}
+
+.match-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Style pour la recherche */
+#searchInput:focus {
+    border-color: var(--admin-accent);
+    box-shadow: 0 0 0 3px rgba(157, 0, 255, 0.2);
+}
+</style>
 {% endblock %}

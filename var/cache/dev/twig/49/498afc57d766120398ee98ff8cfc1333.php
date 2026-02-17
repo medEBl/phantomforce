@@ -637,6 +637,6 @@ class __TwigTemplate_73ba8d211b37c43f97cb422ddd4426c6 extends Template
     </div>
   {% endif %}
 </section>
-{% endblock %}", "front/dashboard.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\front\\dashboard.html.twig");
+{% endblock %}", "front/dashboard.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\front\\dashboard.html.twig");
     }
 }

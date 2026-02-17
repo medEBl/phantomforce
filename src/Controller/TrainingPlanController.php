@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\TrainingPlan;
+use App\Entity\User;
+use App\Entity\Team;
 use App\Form\TrainingPlanType;
 use App\Repository\TrainingPlanRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,19 +28,38 @@ final class TrainingPlanController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $trainingPlan = new TrainingPlan();
+        
+        // Définir une date par défaut (aujourd'hui en DateTimeImmutable)
+        $trainingPlan->setCreatedAt(new \DateTimeImmutable());
+        
         $form = $this->createForm(TrainingPlanType::class, $trainingPlan);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer la date du formulaire
+            $createdAt = $form->get('created_at')->getData();
+            
+            // Convertir en DateTimeImmutable si c'est un DateTime
+            if ($createdAt instanceof \DateTime) {
+                $trainingPlan->setCreatedAt(\DateTimeImmutable::createFromMutable($createdAt));
+            }
+            
             $entityManager->persist($trainingPlan);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Plan d\'entraînement créé avec succès !');
             return $this->redirectToRoute('app_coaching_session_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Récupérer les listes pour les aperçus dans le template
+        $coaches = $entityManager->getRepository(User::class)->findBy(['role' => 'COACH']);
+        $teams = $entityManager->getRepository(Team::class)->findAll();
+
         return $this->render('training_plan/new.html.twig', [
             'training_plan' => $trainingPlan,
-            'form' => $form,
+            'form' => $form->createView(),
+            'coaches' => $coaches,
+            'teams' => $teams,
         ]);
     }
 
@@ -57,14 +78,29 @@ final class TrainingPlanController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer la date du formulaire
+            $createdAt = $form->get('created_at')->getData();
+            
+            // Convertir en DateTimeImmutable si c'est un DateTime
+            if ($createdAt instanceof \DateTime) {
+                $trainingPlan->setCreatedAt(\DateTimeImmutable::createFromMutable($createdAt));
+            }
+            
             $entityManager->flush();
 
+            $this->addFlash('success', 'Plan d\'entraînement modifié avec succès !');
             return $this->redirectToRoute('app_coaching_session_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Récupérer les listes pour les aperçus dans le template
+        $coaches = $entityManager->getRepository(User::class)->findBy(['role' => 'COACH']);
+        $teams = $entityManager->getRepository(Team::class)->findAll();
+
         return $this->render('training_plan/edit.html.twig', [
             'training_plan' => $trainingPlan,
-            'form' => $form,
+            'form' => $form->createView(),
+            'coaches' => $coaches,
+            'teams' => $teams,
         ]);
     }
 
@@ -74,6 +110,7 @@ final class TrainingPlanController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$trainingPlan->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($trainingPlan);
             $entityManager->flush();
+            $this->addFlash('success', 'Plan d\'entraînement supprimé avec succès !');
         }
 
         return $this->redirectToRoute('app_training_plan_index', [], Response::HTTP_SEE_OTHER);

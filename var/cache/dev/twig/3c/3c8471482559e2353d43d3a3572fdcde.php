@@ -309,6 +309,6 @@ class __TwigTemplate_62327eb169a137aed66a3cbf1f6a9251 extends Template
     </table>
 </div>
 {% endblock %}
-", "admin/reward/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\admin\\reward\\index.html.twig");
+", "admin/reward/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\admin\\reward\\index.html.twig");
     }
 }

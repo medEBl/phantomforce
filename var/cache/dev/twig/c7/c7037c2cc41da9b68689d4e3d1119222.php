@@ -600,6 +600,6 @@ $context["match"], "status", [], "any", false, false, false, 130) == "finished")
         </div>
     </div>
 </div>
-{% endblock %}", "back/dashboard/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\back\\dashboard\\index.html.twig");
+{% endblock %}", "back/dashboard/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\back\\dashboard\\index.html.twig");
     }
 }

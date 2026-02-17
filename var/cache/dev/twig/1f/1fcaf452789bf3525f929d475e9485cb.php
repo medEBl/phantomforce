@@ -1324,6 +1324,6 @@ class __TwigTemplate_6f09d1c4667a0e8cbe75e3d0b7ba3be9 extends Template
             });
         });
     </script>
-{% endblock %}", "home/home.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\home\\home.html.twig");
+{% endblock %}", "home/home.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\home\\home.html.twig");
     }
 }

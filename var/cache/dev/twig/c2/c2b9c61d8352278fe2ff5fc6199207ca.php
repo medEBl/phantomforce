@@ -108,7 +108,9 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         --neon-purple: #9d00ff;
         --neon-red: #ff003c;
         --neon-green: #00ff88;
+        --neon-yellow: #ffcc00;
         --dark-bg: #0a0a14;
+        --location-glow: rgba(255, 204, 0, 0.5);
     }
     
     body {
@@ -136,7 +138,7 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         position: relative;
         padding: 2rem;
         animation: fadeIn 1s ease-out;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
     }
     
@@ -207,6 +209,19 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         from { text-shadow: 0 0 20px rgba(0, 243, 255, 0.5); }
         to { text-shadow: 0 0 30px rgba(157, 0, 255, 0.7), 
                          0 0 40px rgba(157, 0, 255, 0.4); }
+    }
+    
+    .match-id-badge {
+        display: inline-block;
+        background: rgba(0, 0, 0, 0.5);
+        color: var(--neon-green);
+        font-family: 'Orbitron', monospace;
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        border: 2px solid var(--neon-green);
+        margin-bottom: 1rem;
+        box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
     }
     
     .form-card {
@@ -403,6 +418,101 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         font-weight: 900;
         font-size: 1.8rem;
         text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+    }
+    
+    /* NOUVEAU STYLE POUR LA SECTION LOCALISATION */
+    .location-section {
+        background: rgba(255, 204, 0, 0.05);
+        border: 2px solid var(--neon-yellow);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .location-section:hover {
+        border-color: var(--neon-green);
+        box-shadow: 0 0 30px var(--location-glow);
+    }
+    
+    .location-section::before {
+        content: '📍';
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        background: var(--dark-bg);
+        padding: 0 10px;
+        font-size: 1.5rem;
+        color: var(--neon-yellow);
+    }
+    
+    .location-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .location-input {
+        background: rgba(10, 10, 20, 0.9);
+        border: 2px solid var(--neon-yellow);
+        border-radius: 12px;
+        padding: 1.2rem;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .location-input:focus {
+        outline: none;
+        border-color: var(--neon-green);
+        box-shadow: 0 0 20px var(--location-glow);
+        transform: translateY(-2px);
+    }
+    
+    .location-input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+        font-style: italic;
+    }
+    
+    .coordinate-help {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: #a0a0c0;
+    }
+    
+    .coordinate-help button {
+        background: linear-gradient(45deg, var(--neon-yellow), #ffaa00);
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        color: black;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px var(--location-glow);
+    }
+    
+    .coordinate-help button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 25px var(--neon-green);
+    }
+    
+    .coordinate-help small {
+        opacity: 0.7;
+        display: block;
+        margin-top: 0.3rem;
     }
     
     .form-actions {
@@ -721,6 +831,15 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
             order: 2;
         }
         
+        .location-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .coordinate-help {
+            flex-direction: column;
+            text-align: center;
+        }
+        
         .form-actions {
             flex-direction: column;
             gap: 1rem;
@@ -751,7 +870,7 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         yield from [];
     }
 
-    // line 650
+    // line 769
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -764,49 +883,49 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 651
+        // line 770
         yield "<div class=\"creation-container\">
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class=\"floating-elements\">
         ";
-        // line 655
-        $context["icons"] = ["🎮", "⚡", "🔥", "👑", "🕹️", "🎯", "🏆", "💥", "🚀", "⭐"];
-        // line 656
+        // line 774
+        $context["icons"] = ["🎮", "⚡", "🔥", "👑", "🕹️", "🎯", "🏆", "💥", "🚀", "⭐", "📍", "🗺️"];
+        // line 775
         yield "        ";
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(range(1, 10));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 657
+            // line 776
             yield "            ";
-            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 657, $this->source); })())));
-            // line 658
+            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 776, $this->source); })())));
+            // line 777
             yield "            ";
             $context["leftPosition"] = (5 + (($context["i"] * 9) % 90));
-            // line 659
+            // line 778
             yield "            ";
             $context["delay"] = (($context["i"] * 1.3) % 21);
-            // line 660
+            // line 779
             yield "            ";
             $context["duration"] = (15 + (($context["i"] * 1.7) % 11));
-            // line 661
+            // line 780
             yield "            <div class=\"floating-element\" style=\"
                 left: ";
-            // line 662
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 662, $this->source); })()), "html", null, true);
+            // line 781
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 781, $this->source); })()), "html", null, true);
             yield "%;
                 animation-delay: ";
-            // line 663
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 663, $this->source); })()), "html", null, true);
+            // line 782
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 782, $this->source); })()), "html", null, true);
             yield "s;
                 animation-duration: ";
-            // line 664
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 664, $this->source); })()), "html", null, true);
+            // line 783
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 783, $this->source); })()), "html", null, true);
             yield "s;
             \">
                 ";
-            // line 666
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 666, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 666, $this->source); })()), [], "array", false, false, false, 666), "html", null, true);
+            // line 785
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 785, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 785, $this->source); })()), [], "array", false, false, false, 785), "html", null, true);
             yield "
             </div>
         ";
@@ -814,16 +933,16 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['i'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 669
+        // line 788
         yield "    </div>
     
     <!-- En-tête avec effet néon -->
     <div class=\"header-glow\">
         <h1 class=\"main-title\">MODIFIER LE COMBAT</h1>
-        <div class=\"match-id-badge\" style=\"display: inline-block; background: rgba(0, 0, 0, 0.5); color: var(--neon-green); font-family: 'Orbitron', monospace; font-size: 1rem; padding: 0.5rem 1.5rem; border-radius: 25px; border: 2px solid var(--neon-green); margin-bottom: 1rem; box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);\">
+        <div class=\"match-id-badge\">
             MATCH #";
-        // line 675
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 675, $this->source); })()), "id", [], "any", false, false, false, 675), "html", null, true);
+        // line 794
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 794, $this->source); })()), "id", [], "any", false, false, false, 794), "html", null, true);
         yield "
         </div>
         <p class=\"text-light mb-4\" style=\"font-size: 1.3rem; opacity: 0.9; font-family: 'Orbitron', sans-serif;\">
@@ -834,20 +953,42 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
     <!-- Carte du formulaire -->
     <div class=\"form-card\">
         ";
-        // line 684
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 684, $this->source); })()), 'form_start');
+        // line 803
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 803, $this->source); })()), 'form_start');
         yield "
         
+        ";
+        // line 806
+        yield "        ";
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 806, $this->source); })()), "vars", [], "any", false, false, false, 806), "errors", [], "any", false, false, false, 806)) > 0)) {
+            // line 807
+            yield "        <div class=\"form-global-error\">
+            <strong style=\"display: block; margin-bottom: 0.5rem;\">⚠️ ERREURS DANS LE FORMULAIRE :</strong>
+            ";
+            // line 809
+            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 809, $this->source); })()), 'errors');
+            yield "
+        </div>
+        ";
+        }
+        // line 812
+        yield "        
         <div class=\"form-group\">
             <label class=\"form-label\">
                 <span>🎮 JEU DU MATCH</span>
             </label>
             ";
-        // line 690
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 690, $this->source); })()), "game", [], "any", false, false, false, 690), 'widget', ["attr" => ["class" => "form-select", "placeholder" => "SÉLECTIONNEZ UN JEU"]]);
-        // line 695
+        // line 817
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 817, $this->source); })()), "game", [], "any", false, false, false, 817), 'widget', ["attr" => ["class" => "form-select", "placeholder" => "SÉLECTIONNEZ UN JEU"]]);
+        // line 822
         yield "
             <div class=\"input-icon\">🕹️</div>
+            
+            ";
+        // line 826
+        yield "            ";
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 826, $this->source); })()), "game", [], "any", false, false, false, 826), 'errors', ["attr" => ["class" => "form-error"]]);
+        yield "
             
             <!-- Suggestions de jeux populaires -->
             <div class=\"game-suggestions\" id=\"gameSuggestions\">
@@ -883,11 +1024,17 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 <span>📅 DATE DU MATCH</span>
             </label>
             ";
-        // line 731
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 731, $this->source); })()), "match_date", [], "any", false, false, false, 731), 'widget', ["attr" => ["class" => "form-input", "placeholder" => "JJ/MM/AAAA HH:MM"]]);
-        // line 736
+        // line 861
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 861, $this->source); })()), "match_date", [], "any", false, false, false, 861), 'widget', ["attr" => ["class" => "form-input", "placeholder" => "JJ/MM/AAAA HH:MM"]]);
+        // line 866
         yield "
             <div class=\"input-icon\">📅</div>
+            
+            ";
+        // line 870
+        yield "            ";
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 870, $this->source); })()), "match_date", [], "any", false, false, false, 870), 'errors', ["attr" => ["class" => "form-error"]]);
+        yield "
         </div>
         
         <!-- Sélection des équipes -->
@@ -895,9 +1042,15 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
             <div class=\"team-select-container\">
                 <label class=\"team-select-label\">🏆 ÉQUIPE 1</label>
                 ";
-        // line 744
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 744, $this->source); })()), "team1", [], "any", false, false, false, 744), 'widget', ["attr" => ["class" => "form-select"]]);
-        // line 748
+        // line 877
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 877, $this->source); })()), "team1", [], "any", false, false, false, 877), 'widget', ["attr" => ["class" => "form-select"]]);
+        // line 881
+        yield "
+                
+                ";
+        // line 884
+        yield "                ";
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 884, $this->source); })()), "team1", [], "any", false, false, false, 884), 'errors', ["attr" => ["class" => "form-error"]]);
         yield "
             </div>
             
@@ -906,9 +1059,15 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
             <div class=\"team-select-container\">
                 <label class=\"team-select-label\">🏆 ÉQUIPE 2</label>
                 ";
-        // line 755
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 755, $this->source); })()), "team2", [], "any", false, false, false, 755), 'widget', ["attr" => ["class" => "form-select"]]);
-        // line 759
+        // line 891
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 891, $this->source); })()), "team2", [], "any", false, false, false, 891), 'widget', ["attr" => ["class" => "form-select"]]);
+        // line 895
+        yield "
+                
+                ";
+        // line 898
+        yield "                ";
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 898, $this->source); })()), "team2", [], "any", false, false, false, 898), 'errors', ["attr" => ["class" => "form-error"]]);
         yield "
             </div>
         </div>
@@ -917,9 +1076,14 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         <div class=\"score-inputs\">
             <div>
                 ";
-        // line 766
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 766, $this->source); })()), "score_team1", [], "any", false, false, false, 766), 'widget', ["attr" => ["class" => "score-input", "placeholder" => "0"]]);
-        // line 771
+        // line 905
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 905, $this->source); })()), "score_team1", [], "any", false, false, false, 905), 'widget', ["attr" => ["class" => "score-input", "placeholder" => "0"]]);
+        // line 910
+        yield "
+                ";
+        // line 912
+        yield "                ";
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 912, $this->source); })()), "score_team1", [], "any", false, false, false, 912), 'errors', ["attr" => ["class" => "form-error"]]);
         yield "
             </div>
             
@@ -927,9 +1091,14 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
             
             <div>
                 ";
-        // line 777
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 777, $this->source); })()), "score_team2", [], "any", false, false, false, 777), 'widget', ["attr" => ["class" => "score-input", "placeholder" => "0"]]);
-        // line 782
+        // line 918
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 918, $this->source); })()), "score_team2", [], "any", false, false, false, 918), 'widget', ["attr" => ["class" => "score-input", "placeholder" => "0"]]);
+        // line 923
+        yield "
+                ";
+        // line 925
+        yield "                ";
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 925, $this->source); })()), "score_team2", [], "any", false, false, false, 925), 'errors', ["attr" => ["class" => "form-error"]]);
         yield "
             </div>
         </div>
@@ -939,11 +1108,17 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 <span>📊 STATUT DU MATCH</span>
             </label>
             ";
-        // line 790
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 790, $this->source); })()), "status", [], "any", false, false, false, 790), 'widget', ["attr" => ["class" => "form-select"]]);
-        // line 794
+        // line 933
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 933, $this->source); })()), "status", [], "any", false, false, false, 933), 'widget', ["attr" => ["class" => "form-select"]]);
+        // line 937
         yield "
             <div class=\"input-icon\">📈</div>
+            
+            ";
+        // line 941
+        yield "            ";
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 941, $this->source); })()), "status", [], "any", false, false, false, 941), 'errors', ["attr" => ["class" => "form-error"]]);
+        yield "
         </div>
         
         <div class=\"form-group\">
@@ -951,11 +1126,84 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 <span>🏆 GAGNANT (FACULTATIF)</span>
             </label>
             ";
-        // line 802
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 802, $this->source); })()), "winner_team", [], "any", false, false, false, 802), 'widget', ["attr" => ["class" => "form-select", "placeholder" => "SÉLECTIONNEZ UN GAGNANT"]]);
-        // line 807
+        // line 948
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 948, $this->source); })()), "winner_team", [], "any", false, false, false, 948), 'widget', ["attr" => ["class" => "form-select", "placeholder" => "SÉLECTIONNEZ UN GAGNANT"]]);
+        // line 953
         yield "
             <div class=\"input-icon\">👑</div>
+            
+            ";
+        // line 957
+        yield "            ";
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 957, $this->source); })()), "winner_team", [], "any", false, false, false, 957), 'errors', ["attr" => ["class" => "form-error"]]);
+        yield "
+        </div>
+        
+        <!-- NOUVELLE SECTION LOCALISATION -->
+        <div class=\"location-section\">
+            <label class=\"form-label\" style=\"margin-bottom: 1.5rem;\">
+                <span>📍 LOCALISATION DE L'ARÈNE</span>
+            </label>
+            
+            <div class=\"form-group\">
+                <label style=\"color: var(--neon-yellow); font-size: 1rem; margin-bottom: 0.5rem; display: block;\">
+                    Adresse / Lieu du match
+                </label>
+                ";
+        // line 970
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 970, $this->source); })()), "location", [], "any", false, false, false, 970), 'widget', ["attr" => ["class" => "location-input", "placeholder" => "Ex: Accor Arena, 8 Boulevard de Bercy, 75012 Paris"]]);
+        // line 975
+        yield "
+                ";
+        // line 976
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 976, $this->source); })()), "location", [], "any", false, false, false, 976), 'errors', ["attr" => ["class" => "form-error"]]);
+        yield "
+            </div>
+            
+            <div class=\"location-grid\">
+                <div>
+                    <label style=\"color: var(--neon-yellow); font-size: 0.9rem; margin-bottom: 0.5rem; display: block;\">
+                        Latitude
+                    </label>
+                    ";
+        // line 984
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 984, $this->source); })()), "latitude", [], "any", false, false, false, 984), 'widget', ["attr" => ["class" => "location-input", "placeholder" => "Ex: 48.8381", "step" => "any"]]);
+        // line 990
+        yield "
+                    ";
+        // line 991
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 991, $this->source); })()), "latitude", [], "any", false, false, false, 991), 'errors', ["attr" => ["class" => "form-error"]]);
+        yield "
+                </div>
+                
+                <div>
+                    <label style=\"color: var(--neon-yellow); font-size: 0.9rem; margin-bottom: 0.5rem; display: block;\">
+                        Longitude
+                    </label>
+                    ";
+        // line 998
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 998, $this->source); })()), "longitude", [], "any", false, false, false, 998), 'widget', ["attr" => ["class" => "location-input", "placeholder" => "Ex: 2.3785", "step" => "any"]]);
+        // line 1004
+        yield "
+                    ";
+        // line 1005
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 1005, $this->source); })()), "longitude", [], "any", false, false, false, 1005), 'errors', ["attr" => ["class" => "form-error"]]);
+        yield "
+                </div>
+            </div>
+            
+            <div class=\"coordinate-help\">
+                <div style=\"flex: 1;\">
+                    <span style=\"color: var(--neon-yellow);\">💡 Comment obtenir les coordonnées ?</span>
+                    <small>Rendez-vous sur Google Maps, cliquez droit sur l'emplacement exact, et sélectionnez \"Quoi de neuf ?\" pour voir les coordonnées.</small>
+                </div>
+                <button type=\"button\" id=\"fillParisCoords\" class=\"btn-help\">
+                    🇫🇷 TEST (Paris)
+                </button>
+                <button type=\"button\" id=\"fillLyonCoords\" class=\"btn-help\">
+                    🇫🇷 TEST (Lyon)
+                </button>
+            </div>
         </div>
         
         <div class=\"form-actions\">
@@ -963,16 +1211,16 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 💾 SAUVEGARDER
             </button>
             <a href=\"";
-        // line 815
-        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_index");
+        // line 1027
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1027, $this->source); })()), "id", [], "any", false, false, false, 1027)]), "html", null, true);
         yield "\" class=\"back-btn\">
                 ↩ ANNULER
             </a>
         </div>
         
         ";
-        // line 820
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 820, $this->source); })()), 'form_end');
+        // line 1032
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 1032, $this->source); })()), 'form_end');
         yield "
     </div>
     
@@ -987,13 +1235,13 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         </div>
         
         <form method=\"post\" action=\"";
-        // line 833
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 833, $this->source); })()), "id", [], "any", false, false, false, 833)]), "html", null, true);
+        // line 1045
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1045, $this->source); })()), "id", [], "any", false, false, false, 1045)]), "html", null, true);
         yield "\" 
               onsubmit=\"return confirmDelete();\" style=\"text-align: center;\">
             <input type=\"hidden\" name=\"_token\" value=\"";
-        // line 835
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 835, $this->source); })()), "id", [], "any", false, false, false, 835))), "html", null, true);
+        // line 1047
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1047, $this->source); })()), "id", [], "any", false, false, false, 1047))), "html", null, true);
         yield "\">
             <button type=\"submit\" class=\"delete-btn-form\">
                 🗑️ SUPPRIMER DÉFINITIVEMENT
@@ -1063,6 +1311,43 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         });
     }
     
+    // NOUVEAU: Remplissage automatique des coordonnées pour les tests
+    document.getElementById('fillParisCoords')?.addEventListener('click', function() {
+        const locationInput = document.querySelector('input[name*=\"location\"]');
+        const latInput = document.querySelector('input[name*=\"latitude\"]');
+        const lngInput = document.querySelector('input[name*=\"longitude\"]');
+        
+        if (locationInput) locationInput.value = 'Accor Arena, 8 Boulevard de Bercy, 75012 Paris';
+        if (latInput) latInput.value = '48.8381';
+        if (lngInput) lngInput.value = '2.3785';
+        
+        // Animation de confirmation
+        this.style.background = 'linear-gradient(45deg, var(--neon-green), #00cc66)';
+        this.textContent = '✓ COPIÉ !';
+        setTimeout(() => {
+            this.style.background = 'linear-gradient(45deg, var(--neon-yellow), #ffaa00)';
+            this.textContent = '🇫🇷 TEST (Paris)';
+        }, 2000);
+    });
+    
+    document.getElementById('fillLyonCoords')?.addEventListener('click', function() {
+        const locationInput = document.querySelector('input[name*=\"location\"]');
+        const latInput = document.querySelector('input[name*=\"latitude\"]');
+        const lngInput = document.querySelector('input[name*=\"longitude\"]');
+        
+        if (locationInput) locationInput.value = 'Groupama Stadium, 10 Avenue Simone Veil, 69150 Décines-Charpieu';
+        if (latInput) latInput.value = '45.7653';
+        if (lngInput) lngInput.value = '4.9808';
+        
+        // Animation de confirmation
+        this.style.background = 'linear-gradient(45deg, var(--neon-green), #00cc66)';
+        this.textContent = '✓ COPIÉ !';
+        setTimeout(() => {
+            this.style.background = 'linear-gradient(45deg, var(--neon-yellow), #ffaa00)';
+            this.textContent = '🇫🇷 TEST (Lyon)';
+        }, 2000);
+    });
+    
     // Validation des équipes différentes
     const form = document.querySelector('form');
     if (form) {
@@ -1074,6 +1359,20 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 e.preventDefault();
                 alert('⚠️ Les deux équipes doivent être différentes !');
                 return false;
+            }
+            
+            // Validation des coordonnées (optionnel)
+            const latInput = document.querySelector('input[name*=\"latitude\"]');
+            const lngInput = document.querySelector('input[name*=\"longitude\"]');
+            const locationInput = document.querySelector('input[name*=\"location\"]');
+            
+            if (locationInput && locationInput.value.trim() !== '') {
+                if (!latInput.value || !lngInput.value) {
+                    if (!confirm('⚠️ Vous avez spécifié une adresse mais pas les coordonnées. Le match n\\'apparaîtra pas sur la carte. Continuer ?')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
             }
             
             // Animation du bouton de soumission
@@ -1122,7 +1421,7 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         }, 100);
         
         // Animation des inputs au focus
-        const formInputs = document.querySelectorAll('.form-input, .form-select, .score-input');
+        const formInputs = document.querySelectorAll('.form-input, .form-select, .score-input, .location-input');
         
         formInputs.forEach(input => {
             input.addEventListener('focus', function() {
@@ -1146,21 +1445,46 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 deleteSection.style.transform = 'translateY(0)';
             }, 500);
         }
+        
+        // Mettre en évidence les champs avec erreurs
+        const errorElements = document.querySelectorAll('.form-error');
+        
+        errorElements.forEach(errorElement => {
+            const formGroup = errorElement.closest('.form-group') || 
+                            errorElement.closest('.team-select-container') ||
+                            errorElement.closest('.location-section') ||
+                            errorElement.closest('div');
+            
+            if (formGroup && errorElement.textContent.trim() !== '') {
+                const inputElement = formGroup.querySelector('.form-input, .form-select, .score-input, .location-input');
+                if (inputElement) {
+                    inputElement.classList.add('error');
+                    
+                    inputElement.addEventListener('input', function() {
+                        if (errorElement.textContent.trim() !== '') {
+                            errorElement.textContent = '';
+                            errorElement.style.display = 'none';
+                            this.classList.remove('error');
+                        }
+                    });
+                }
+            }
+        });
     });
     
     // Fonction de confirmation pour suppression
     function confirmDelete() {
         const gameName = '";
-        // line 991
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 991, $this->source); })()), "game", [], "any", false, false, false, 991), "js"), "html", null, true);
+        // line 1279
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1279, $this->source); })()), "game", [], "any", false, false, false, 1279), "js"), "html", null, true);
         yield "';
         const team1Name = '";
-        // line 992
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 992, $this->source); })()), "team1", [], "any", false, false, false, 992)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 992, $this->source); })()), "team1", [], "any", false, false, false, 992), "name", [], "any", false, false, false, 992), "js"), "html", null, true)) : ("Équipe 1"));
+        // line 1280
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1280, $this->source); })()), "team1", [], "any", false, false, false, 1280)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1280, $this->source); })()), "team1", [], "any", false, false, false, 1280), "name", [], "any", false, false, false, 1280), "js"), "html", null, true)) : ("Équipe 1"));
         yield "';
         const team2Name = '";
-        // line 993
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 993, $this->source); })()), "team2", [], "any", false, false, false, 993)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 993, $this->source); })()), "team2", [], "any", false, false, false, 993), "name", [], "any", false, false, false, 993), "js"), "html", null, true)) : ("Équipe 2"));
+        // line 1281
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1281, $this->source); })()), "team2", [], "any", false, false, false, 1281)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1281, $this->source); })()), "team2", [], "any", false, false, false, 1281), "name", [], "any", false, false, false, 1281), "js"), "html", null, true)) : ("Équipe 2"));
         yield "';
         
         const message = `⚠️ CONFIRMATION DE SUPPRESSION ⚠️\\n\\n` +
@@ -1168,8 +1492,8 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                        `• Match: \${gameName}\\n` +
                        `• \${team1Name} VS \${team2Name}\\n` +
                        `• Date: ";
-        // line 999
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 999, $this->source); })()), "matchDate", [], "any", false, false, false, 999)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 999, $this->source); })()), "matchDate", [], "any", false, false, false, 999), "d/m/Y H:i"), "html", null, true)) : ("N/A"));
+        // line 1287
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1287, $this->source); })()), "matchDate", [], "any", false, false, false, 1287)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 1287, $this->source); })()), "matchDate", [], "any", false, false, false, 1287), "d/m/Y H:i"), "html", null, true)) : ("N/A"));
         yield "\\n\\n` +
                        `Cette action est IRRÉVERSIBLE !\\n\\n` +
                        `Êtes-vous ABSOLUMENT SÛR de vouloir continuer ?`;
@@ -1208,7 +1532,7 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  1172 => 999,  1163 => 993,  1159 => 992,  1155 => 991,  996 => 835,  991 => 833,  975 => 820,  967 => 815,  957 => 807,  955 => 802,  945 => 794,  943 => 790,  933 => 782,  931 => 777,  923 => 771,  921 => 766,  912 => 759,  910 => 755,  901 => 748,  899 => 744,  889 => 736,  887 => 731,  849 => 695,  847 => 690,  838 => 684,  826 => 675,  818 => 669,  809 => 666,  804 => 664,  800 => 663,  796 => 662,  793 => 661,  790 => 660,  787 => 659,  784 => 658,  781 => 657,  776 => 656,  774 => 655,  768 => 651,  755 => 650,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
+        return array (  1496 => 1287,  1487 => 1281,  1483 => 1280,  1479 => 1279,  1244 => 1047,  1239 => 1045,  1223 => 1032,  1215 => 1027,  1190 => 1005,  1187 => 1004,  1185 => 998,  1175 => 991,  1172 => 990,  1170 => 984,  1159 => 976,  1156 => 975,  1154 => 970,  1137 => 957,  1132 => 953,  1130 => 948,  1119 => 941,  1114 => 937,  1112 => 933,  1100 => 925,  1097 => 923,  1095 => 918,  1085 => 912,  1082 => 910,  1080 => 905,  1069 => 898,  1065 => 895,  1063 => 891,  1052 => 884,  1048 => 881,  1046 => 877,  1035 => 870,  1030 => 866,  1028 => 861,  989 => 826,  984 => 822,  982 => 817,  975 => 812,  969 => 809,  965 => 807,  962 => 806,  957 => 803,  945 => 794,  937 => 788,  928 => 785,  923 => 783,  919 => 782,  915 => 781,  912 => 780,  909 => 779,  906 => 778,  903 => 777,  900 => 776,  895 => 775,  893 => 774,  887 => 770,  874 => 769,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -1227,7 +1551,9 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         --neon-purple: #9d00ff;
         --neon-red: #ff003c;
         --neon-green: #00ff88;
+        --neon-yellow: #ffcc00;
         --dark-bg: #0a0a14;
+        --location-glow: rgba(255, 204, 0, 0.5);
     }
     
     body {
@@ -1255,7 +1581,7 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         position: relative;
         padding: 2rem;
         animation: fadeIn 1s ease-out;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
     }
     
@@ -1326,6 +1652,19 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         from { text-shadow: 0 0 20px rgba(0, 243, 255, 0.5); }
         to { text-shadow: 0 0 30px rgba(157, 0, 255, 0.7), 
                          0 0 40px rgba(157, 0, 255, 0.4); }
+    }
+    
+    .match-id-badge {
+        display: inline-block;
+        background: rgba(0, 0, 0, 0.5);
+        color: var(--neon-green);
+        font-family: 'Orbitron', monospace;
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        border: 2px solid var(--neon-green);
+        margin-bottom: 1rem;
+        box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
     }
     
     .form-card {
@@ -1522,6 +1861,101 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         font-weight: 900;
         font-size: 1.8rem;
         text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+    }
+    
+    /* NOUVEAU STYLE POUR LA SECTION LOCALISATION */
+    .location-section {
+        background: rgba(255, 204, 0, 0.05);
+        border: 2px solid var(--neon-yellow);
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin: 2rem 0;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .location-section:hover {
+        border-color: var(--neon-green);
+        box-shadow: 0 0 30px var(--location-glow);
+    }
+    
+    .location-section::before {
+        content: '📍';
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        background: var(--dark-bg);
+        padding: 0 10px;
+        font-size: 1.5rem;
+        color: var(--neon-yellow);
+    }
+    
+    .location-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .location-input {
+        background: rgba(10, 10, 20, 0.9);
+        border: 2px solid var(--neon-yellow);
+        border-radius: 12px;
+        padding: 1.2rem;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .location-input:focus {
+        outline: none;
+        border-color: var(--neon-green);
+        box-shadow: 0 0 20px var(--location-glow);
+        transform: translateY(-2px);
+    }
+    
+    .location-input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+        font-style: italic;
+    }
+    
+    .coordinate-help {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: #a0a0c0;
+    }
+    
+    .coordinate-help button {
+        background: linear-gradient(45deg, var(--neon-yellow), #ffaa00);
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        color: black;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px var(--location-glow);
+    }
+    
+    .coordinate-help button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 25px var(--neon-green);
+    }
+    
+    .coordinate-help small {
+        opacity: 0.7;
+        display: block;
+        margin-top: 0.3rem;
     }
     
     .form-actions {
@@ -1840,6 +2274,15 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
             order: 2;
         }
         
+        .location-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .coordinate-help {
+            flex-direction: column;
+            text-align: center;
+        }
+        
         .form-actions {
             flex-direction: column;
             gap: 1rem;
@@ -1867,7 +2310,7 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class=\"floating-elements\">
-        {% set icons = ['🎮', '⚡', '🔥', '👑', '🕹️', '🎯', '🏆', '💥', '🚀', '⭐'] %}
+        {% set icons = ['🎮', '⚡', '🔥', '👑', '🕹️', '🎯', '🏆', '💥', '🚀', '⭐', '📍', '🗺️'] %}
         {% for i in 1..10 %}
             {% set iconIndex = (i % icons|length) %}
             {% set leftPosition = 5 + ((i * 9) % 90) %}
@@ -1886,7 +2329,7 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
     <!-- En-tête avec effet néon -->
     <div class=\"header-glow\">
         <h1 class=\"main-title\">MODIFIER LE COMBAT</h1>
-        <div class=\"match-id-badge\" style=\"display: inline-block; background: rgba(0, 0, 0, 0.5); color: var(--neon-green); font-family: 'Orbitron', monospace; font-size: 1rem; padding: 0.5rem 1.5rem; border-radius: 25px; border: 2px solid var(--neon-green); margin-bottom: 1rem; box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);\">
+        <div class=\"match-id-badge\">
             MATCH #{{ matchy.id }}
         </div>
         <p class=\"text-light mb-4\" style=\"font-size: 1.3rem; opacity: 0.9; font-family: 'Orbitron', sans-serif;\">
@@ -1897,6 +2340,14 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
     <!-- Carte du formulaire -->
     <div class=\"form-card\">
         {{ form_start(form) }}
+        
+        {# Afficher les erreurs globales #}
+        {% if form.vars.errors|length > 0 %}
+        <div class=\"form-global-error\">
+            <strong style=\"display: block; margin-bottom: 0.5rem;\">⚠️ ERREURS DANS LE FORMULAIRE :</strong>
+            {{ form_errors(form) }}
+        </div>
+        {% endif %}
         
         <div class=\"form-group\">
             <label class=\"form-label\">
@@ -1909,6 +2360,9 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 }
             }) }}
             <div class=\"input-icon\">🕹️</div>
+            
+            {# Afficher les erreurs pour le jeu #}
+            {{ form_errors(form.game, {'attr': {'class': 'form-error'}}) }}
             
             <!-- Suggestions de jeux populaires -->
             <div class=\"game-suggestions\" id=\"gameSuggestions\">
@@ -1950,6 +2404,9 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 }
             }) }}
             <div class=\"input-icon\">📅</div>
+            
+            {# Afficher les erreurs pour la date #}
+            {{ form_errors(form.match_date, {'attr': {'class': 'form-error'}}) }}
         </div>
         
         <!-- Sélection des équipes -->
@@ -1961,6 +2418,9 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                         'class': 'form-select'
                     }
                 }) }}
+                
+                {# Afficher les erreurs pour l'équipe 1 #}
+                {{ form_errors(form.team1, {'attr': {'class': 'form-error'}}) }}
             </div>
             
             <div class=\"vs-container\">VS</div>
@@ -1972,6 +2432,9 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                         'class': 'form-select'
                     }
                 }) }}
+                
+                {# Afficher les erreurs pour l'équipe 2 #}
+                {{ form_errors(form.team2, {'attr': {'class': 'form-error'}}) }}
             </div>
         </div>
         
@@ -1984,6 +2447,8 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                         'placeholder': '0'
                     }
                 }) }}
+                {# Afficher les erreurs pour le score team 1 #}
+                {{ form_errors(form.score_team1, {'attr': {'class': 'form-error'}}) }}
             </div>
             
             <div class=\"score-separator\">:</div>
@@ -1995,6 +2460,8 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                         'placeholder': '0'
                     }
                 }) }}
+                {# Afficher les erreurs pour le score team 2 #}
+                {{ form_errors(form.score_team2, {'attr': {'class': 'form-error'}}) }}
             </div>
         </div>
         
@@ -2008,6 +2475,9 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 }
             }) }}
             <div class=\"input-icon\">📈</div>
+            
+            {# Afficher les erreurs pour le statut #}
+            {{ form_errors(form.status, {'attr': {'class': 'form-error'}}) }}
         </div>
         
         <div class=\"form-group\">
@@ -2021,13 +2491,79 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 }
             }) }}
             <div class=\"input-icon\">👑</div>
+            
+            {# Afficher les erreurs pour le gagnant #}
+            {{ form_errors(form.winner_team, {'attr': {'class': 'form-error'}}) }}
+        </div>
+        
+        <!-- NOUVELLE SECTION LOCALISATION -->
+        <div class=\"location-section\">
+            <label class=\"form-label\" style=\"margin-bottom: 1.5rem;\">
+                <span>📍 LOCALISATION DE L'ARÈNE</span>
+            </label>
+            
+            <div class=\"form-group\">
+                <label style=\"color: var(--neon-yellow); font-size: 1rem; margin-bottom: 0.5rem; display: block;\">
+                    Adresse / Lieu du match
+                </label>
+                {{ form_widget(form.location, {
+                    'attr': {
+                        'class': 'location-input',
+                        'placeholder': 'Ex: Accor Arena, 8 Boulevard de Bercy, 75012 Paris'
+                    }
+                }) }}
+                {{ form_errors(form.location, {'attr': {'class': 'form-error'}}) }}
+            </div>
+            
+            <div class=\"location-grid\">
+                <div>
+                    <label style=\"color: var(--neon-yellow); font-size: 0.9rem; margin-bottom: 0.5rem; display: block;\">
+                        Latitude
+                    </label>
+                    {{ form_widget(form.latitude, {
+                        'attr': {
+                            'class': 'location-input',
+                            'placeholder': 'Ex: 48.8381',
+                            'step': 'any'
+                        }
+                    }) }}
+                    {{ form_errors(form.latitude, {'attr': {'class': 'form-error'}}) }}
+                </div>
+                
+                <div>
+                    <label style=\"color: var(--neon-yellow); font-size: 0.9rem; margin-bottom: 0.5rem; display: block;\">
+                        Longitude
+                    </label>
+                    {{ form_widget(form.longitude, {
+                        'attr': {
+                            'class': 'location-input',
+                            'placeholder': 'Ex: 2.3785',
+                            'step': 'any'
+                        }
+                    }) }}
+                    {{ form_errors(form.longitude, {'attr': {'class': 'form-error'}}) }}
+                </div>
+            </div>
+            
+            <div class=\"coordinate-help\">
+                <div style=\"flex: 1;\">
+                    <span style=\"color: var(--neon-yellow);\">💡 Comment obtenir les coordonnées ?</span>
+                    <small>Rendez-vous sur Google Maps, cliquez droit sur l'emplacement exact, et sélectionnez \"Quoi de neuf ?\" pour voir les coordonnées.</small>
+                </div>
+                <button type=\"button\" id=\"fillParisCoords\" class=\"btn-help\">
+                    🇫🇷 TEST (Paris)
+                </button>
+                <button type=\"button\" id=\"fillLyonCoords\" class=\"btn-help\">
+                    🇫🇷 TEST (Lyon)
+                </button>
+            </div>
         </div>
         
         <div class=\"form-actions\">
             <button type=\"submit\" class=\"submit-btn\">
                 💾 SAUVEGARDER
             </button>
-            <a href=\"{{ path('app_matchy_index') }}\" class=\"back-btn\">
+            <a href=\"{{ path('app_matchy_show', {'id': matchy.id}) }}\" class=\"back-btn\">
                 ↩ ANNULER
             </a>
         </div>
@@ -2116,6 +2652,43 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         });
     }
     
+    // NOUVEAU: Remplissage automatique des coordonnées pour les tests
+    document.getElementById('fillParisCoords')?.addEventListener('click', function() {
+        const locationInput = document.querySelector('input[name*=\"location\"]');
+        const latInput = document.querySelector('input[name*=\"latitude\"]');
+        const lngInput = document.querySelector('input[name*=\"longitude\"]');
+        
+        if (locationInput) locationInput.value = 'Accor Arena, 8 Boulevard de Bercy, 75012 Paris';
+        if (latInput) latInput.value = '48.8381';
+        if (lngInput) lngInput.value = '2.3785';
+        
+        // Animation de confirmation
+        this.style.background = 'linear-gradient(45deg, var(--neon-green), #00cc66)';
+        this.textContent = '✓ COPIÉ !';
+        setTimeout(() => {
+            this.style.background = 'linear-gradient(45deg, var(--neon-yellow), #ffaa00)';
+            this.textContent = '🇫🇷 TEST (Paris)';
+        }, 2000);
+    });
+    
+    document.getElementById('fillLyonCoords')?.addEventListener('click', function() {
+        const locationInput = document.querySelector('input[name*=\"location\"]');
+        const latInput = document.querySelector('input[name*=\"latitude\"]');
+        const lngInput = document.querySelector('input[name*=\"longitude\"]');
+        
+        if (locationInput) locationInput.value = 'Groupama Stadium, 10 Avenue Simone Veil, 69150 Décines-Charpieu';
+        if (latInput) latInput.value = '45.7653';
+        if (lngInput) lngInput.value = '4.9808';
+        
+        // Animation de confirmation
+        this.style.background = 'linear-gradient(45deg, var(--neon-green), #00cc66)';
+        this.textContent = '✓ COPIÉ !';
+        setTimeout(() => {
+            this.style.background = 'linear-gradient(45deg, var(--neon-yellow), #ffaa00)';
+            this.textContent = '🇫🇷 TEST (Lyon)';
+        }, 2000);
+    });
+    
     // Validation des équipes différentes
     const form = document.querySelector('form');
     if (form) {
@@ -2127,6 +2700,20 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 e.preventDefault();
                 alert('⚠️ Les deux équipes doivent être différentes !');
                 return false;
+            }
+            
+            // Validation des coordonnées (optionnel)
+            const latInput = document.querySelector('input[name*=\"latitude\"]');
+            const lngInput = document.querySelector('input[name*=\"longitude\"]');
+            const locationInput = document.querySelector('input[name*=\"location\"]');
+            
+            if (locationInput && locationInput.value.trim() !== '') {
+                if (!latInput.value || !lngInput.value) {
+                    if (!confirm('⚠️ Vous avez spécifié une adresse mais pas les coordonnées. Le match n\\'apparaîtra pas sur la carte. Continuer ?')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
             }
             
             // Animation du bouton de soumission
@@ -2175,7 +2762,7 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         }, 100);
         
         // Animation des inputs au focus
-        const formInputs = document.querySelectorAll('.form-input, .form-select, .score-input');
+        const formInputs = document.querySelectorAll('.form-input, .form-select, .score-input, .location-input');
         
         formInputs.forEach(input => {
             input.addEventListener('focus', function() {
@@ -2199,6 +2786,31 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
                 deleteSection.style.transform = 'translateY(0)';
             }, 500);
         }
+        
+        // Mettre en évidence les champs avec erreurs
+        const errorElements = document.querySelectorAll('.form-error');
+        
+        errorElements.forEach(errorElement => {
+            const formGroup = errorElement.closest('.form-group') || 
+                            errorElement.closest('.team-select-container') ||
+                            errorElement.closest('.location-section') ||
+                            errorElement.closest('div');
+            
+            if (formGroup && errorElement.textContent.trim() !== '') {
+                const inputElement = formGroup.querySelector('.form-input, .form-select, .score-input, .location-input');
+                if (inputElement) {
+                    inputElement.classList.add('error');
+                    
+                    inputElement.addEventListener('input', function() {
+                        if (errorElement.textContent.trim() !== '') {
+                            errorElement.textContent = '';
+                            errorElement.style.display = 'none';
+                            this.classList.remove('error');
+                        }
+                    });
+                }
+            }
+        });
     });
     
     // Fonction de confirmation pour suppression
@@ -2218,6 +2830,6 @@ class __TwigTemplate_36eae0c1fa2e60aa530adbfb6c0b3396 extends Template
         return confirm(message);
     }
 </script>
-{% endblock %}", "front/matchy/edit.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\front\\matchy\\edit.html.twig");
+{% endblock %}", "front/matchy/edit.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\front\\matchy\\edit.html.twig");
     }
 }

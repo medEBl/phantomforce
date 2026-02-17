@@ -145,6 +145,6 @@ class __TwigTemplate_9c24029b4636d893d9361df82dda5cf1 extends Template
     <p>Placeholder page.</p>
   </div>
 {% endblock %}
-", "pages/home.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\pages\\home.html.twig");
+", "pages/home.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\pages\\home.html.twig");
     }
 }

@@ -200,6 +200,6 @@ class __TwigTemplate_f10adf920f710a0498333c79afa13cbc extends Template
         {{ include('agent/_form.html.twig', { form: form }) }}
     </div>
 
-{% endblock %}", "agent/new.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\agent\\new.html.twig");
+{% endblock %}", "agent/new.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\agent\\new.html.twig");
     }
 }

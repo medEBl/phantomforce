@@ -263,6 +263,6 @@ class __TwigTemplate_73c20dcfb82eb3e9448e2cd5fc904ee6 extends Template
 
     <a href=\"{{ path('app_training_plan_new') }}\">Create new</a>
 {% endblock %}
-", "training_plan/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\training_plan\\index.html.twig");
+", "training_plan/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\training_plan\\index.html.twig");
     }
 }

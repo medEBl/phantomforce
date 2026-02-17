@@ -21,6 +21,8 @@
         --text-muted: #aaaaaa;
         --success-green: #00ff88;
         --warning-orange: #ff9900;
+        --neon-blue: #00ffff;
+        --neon-purple: #9900ff;
     }
     
     body {
@@ -50,7 +52,7 @@
         position: relative;
         padding: 2rem;
         animation: fadeIn 1s ease-out;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
     }
     
@@ -253,6 +255,73 @@
         transform: translateY(-2px);
     }
     
+    /* Styles pour la sélection multiple améliorée */
+    .members-select {
+        min-height: 200px;
+        padding: 0.5rem;
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid var(--blood-orange);
+        border-radius: 12px;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .members-select option {
+        padding: 0.8rem 1rem;
+        background: rgba(34, 34, 34, 0.9);
+        border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .members-select option:hover {
+        background: rgba(255, 102, 0, 0.3);
+    }
+    
+    .members-select option:checked {
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        color: white;
+        font-weight: bold;
+    }
+    
+    .members-select:focus {
+        outline: none;
+        border-color: var(--fire-yellow);
+        box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
+    }
+    
+    .selected-counter {
+        display: inline-block;
+        background: var(--blood-red);
+        color: white;
+        border-radius: 20px;
+        padding: 0.2rem 1rem;
+        font-size: 0.9rem;
+        margin-left: 1rem;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 5px var(--blood-red); }
+        50% { box-shadow: 0 0 15px var(--blood-red); }
+    }
+    
+    .members-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+    
+    .members-stats span {
+        color: var(--fire-yellow);
+        font-weight: bold;
+    }
+    
     .input-icon {
         position: absolute;
         right: 1.5rem;
@@ -318,54 +387,6 @@
         background: linear-gradient(45deg, var(--fire-yellow), var(--warning-orange));
     }
     
-    .back-btn {
-        position: relative;
-        background: linear-gradient(45deg, var(--medium-gray), var(--light-gray));
-        border: 2px solid var(--blood-red);
-        padding: 1.2rem 3rem;
-        font-family: 'Orbitron', sans-serif;
-        font-weight: 700;
-        font-size: 1.3rem;
-        color: white;
-        border-radius: 12px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        z-index: 1;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.8rem;
-        justify-content: center;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        cursor: pointer;
-        min-width: 250px;
-    }
-    
-    .back-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: 0.6s;
-        z-index: -1;
-    }
-    
-    .back-btn:hover::before {
-        left: 100%;
-    }
-    
-    .back-btn:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0 30px rgba(255, 0, 60, 0.5);
-        background: linear-gradient(45deg, var(--light-gray), var(--medium-gray));
-        border-color: var(--fire-yellow);
-    }
-    
     .cancel-btn {
         position: relative;
         background: linear-gradient(45deg, var(--light-red), var(--blood-red));
@@ -395,6 +416,38 @@
         transform: translateY(-5px);
         box-shadow: 0 0 40px rgba(255, 0, 60, 0.7);
         background: linear-gradient(45deg, var(--blood-red), var(--light-red));
+    }
+    
+    .back-btn {
+        position: relative;
+        background: linear-gradient(45deg, var(--medium-gray), var(--light-gray));
+        border: 2px solid var(--blood-red);
+        padding: 1.2rem 3rem;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        font-size: 1.3rem;
+        color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        justify-content: center;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        min-width: 250px;
+    }
+    
+    .back-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 30px rgba(255, 0, 60, 0.5);
+        background: linear-gradient(45deg, var(--light-gray), var(--medium-gray));
+        border-color: var(--fire-yellow);
     }
     
     .game-grid {
@@ -511,7 +564,8 @@
     
     /* Style pour les champs avec erreur */
     .form-input.error,
-    .form-select.error {
+    .form-select.error,
+    .members-select.error {
         border-color: var(--blood-red) !important;
         box-shadow: 0 0 20px rgba(255, 0, 60, 0.3) !important;
         background: rgba(255, 0, 60, 0.05) !important;
@@ -566,7 +620,7 @@
             gap: 1rem;
         }
         
-        .submit-btn, .back-btn, .cancel-btn {
+        .submit-btn, .cancel-btn, .back-btn {
             min-width: 100%;
             font-size: 1.1rem;
             padding: 1rem 2rem;
@@ -574,6 +628,12 @@
         
         .game-grid {
             grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .members-stats {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
     }
 </style>
@@ -718,18 +778,51 @@
         
         <div class="form-group">
             <label class="form-label">
-                <span>👑 COACH (FACULTATIF)</span>
+                <span>👑 COACH DE L'ÉQUIPE</span>
             </label>
-            {{ form_widget(form.coach_id, {
+            {{ form_widget(form.coach, {
                 'attr': {
-                    'class': 'form-input',
-                    'placeholder': 'ID du coach (ex: 1, 2, 3...)'
+                    'class': 'form-select',
+                    'placeholder': 'Sélectionnez un coach'
                 }
             }) }}
             <div class="input-icon">👑</div>
             
-            {# Afficher les erreurs de validation pour le champ 'coach_id' #}
-            {{ form_errors(form.coach_id, {
+            {# Afficher les erreurs de validation pour le champ 'coach' #}
+            {{ form_errors(form.coach, {
+                'attr': {'class': 'form-error'}
+            }) }}
+        </div>
+        
+        <!-- SECTION MEMBRES AMÉLIORÉE -->
+        <div class="form-group">
+            <label class="form-label">
+                <span>👥 MEMBRES DE L'ÉQUIPE</span>
+                <span class="selected-counter" id="selectedCount">{{ team.members|length }} sélectionné(s)</span>
+            </label>
+            
+            {{ form_widget(form.members, {
+                'attr': {
+                    'class': 'members-select',
+                    'size': 8,
+                    'multiple': 'multiple',
+                    'data-placeholder': 'Sélectionnez les membres'
+                }
+            }) }}
+            
+            <div class="members-stats">
+                <div>
+                    <span id="totalMembers">{{ form.members.vars.choices|length }}</span> agents disponibles
+                </div>
+                <div>
+                    <span>💡</span> Maintenez <kbd>Ctrl</kbd> (Windows) ou <kbd>⌘</kbd> (Mac) pour sélection multiple
+                </div>
+            </div>
+            
+            <div class="input-icon">👥</div>
+            
+            {# Afficher les erreurs de validation pour le champ 'members' #}
+            {{ form_errors(form.members, {
                 'attr': {'class': 'form-error'}
             }) }}
         </div>
@@ -738,10 +831,10 @@
             <button type="submit" class="submit-btn">
                 💾 SAUVEGARDER
             </button>
-            <a href="{{ path('app_back_team_show', {'id': team.id}) }}" class="cancel-btn">
+            <a href="{{ path('app_team_show', {'id': team.id}) }}" class="cancel-btn">
                 ❌ ANNULER
             </a>
-            <a href="{{ path('app_back_team_index') }}" class="back-btn">
+            <a href="{{ path('app_team_index') }}" class="back-btn">
                 🔙 RETOUR
             </a>
         </div>
@@ -765,7 +858,6 @@
             const length = this.value.length;
             nameCounter.textContent = `${length}/50`;
             
-            // Changer la couleur selon le nombre de caractères
             nameCounter.classList.remove('warning', 'danger');
             if (length > 40) {
                 nameCounter.classList.add('warning');
@@ -775,7 +867,6 @@
             }
         });
         
-        // Initialiser le compteur avec la valeur actuelle
         nameInput.dispatchEvent(new Event('input'));
     }
     
@@ -785,24 +876,17 @@
     
     gameOptions.forEach(option => {
         option.addEventListener('click', function() {
-            // Retirer la sélection précédente
             gameOptions.forEach(opt => opt.classList.remove('selected'));
-            
-            // Sélectionner cette option
             this.classList.add('selected');
             
-            // Mettre à jour le select
             if (gameSelect) {
                 const gameValue = this.getAttribute('data-game');
                 gameSelect.value = gameValue;
-                
-                // Déclencher l'événement change
                 gameSelect.dispatchEvent(new Event('change'));
             }
         });
     });
     
-    // Pré-sélectionner l'option si elle correspond au select
     if (gameSelect && gameSelect.value) {
         gameOptions.forEach(option => {
             if (option.getAttribute('data-game') === gameSelect.value) {
@@ -811,8 +895,27 @@
         });
     }
     
+    // Gestion du compteur de membres sélectionnés
+    const membersSelect = document.querySelector('select[name*="members"]');
+    const selectedCount = document.getElementById('selectedCount');
+    
+    if (membersSelect && selectedCount) {
+        function updateSelectedCount() {
+            const selected = Array.from(membersSelect.selectedOptions).length;
+            selectedCount.textContent = selected + ' sélectionné(s)';
+            
+            selectedCount.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                selectedCount.style.transform = 'scale(1)';
+            }, 200);
+        }
+        
+        membersSelect.addEventListener('change', updateSelectedCount);
+        updateSelectedCount();
+    }
+    
     // Animation des inputs au focus
-    const formInputs = document.querySelectorAll('.form-input, .form-select');
+    const formInputs = document.querySelectorAll('.form-input, .form-select, .members-select');
     
     formInputs.forEach(input => {
         input.addEventListener('focus', function() {
@@ -830,12 +933,10 @@
     
     if (form && submitBtn) {
         form.addEventListener('submit', function(e) {
-            // Animation du bouton
             submitBtn.innerHTML = '💾 SAUVEGARDE...';
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.8';
             
-            // Petite animation avant la soumission réelle
             setTimeout(() => {
                 submitBtn.innerHTML = '💾 MIS À JOUR !';
                 submitBtn.style.background = 'linear-gradient(45deg, var(--success-green), var(--fire-yellow))';
@@ -852,14 +953,12 @@
         const errorElements = document.querySelectorAll('.form-error');
         
         errorElements.forEach(errorElement => {
-            // Trouver le champ input/select correspondant
             const formGroup = errorElement.closest('.form-group');
             if (formGroup) {
-                const inputElement = formGroup.querySelector('.form-input, .form-select');
+                const inputElement = formGroup.querySelector('.form-input, .form-select, .members-select');
                 if (inputElement && errorElement.textContent.trim() !== '') {
                     inputElement.classList.add('error');
                     
-                    // Ajouter un écouteur pour retirer la classe d'erreur quand l'utilisateur commence à taper
                     inputElement.addEventListener('input', function() {
                         if (errorElement.textContent.trim() !== '') {
                             errorElement.textContent = '';
@@ -871,7 +970,6 @@
             }
         });
         
-        // Pour les erreurs globales, cacher après 10 secondes
         const globalError = document.querySelector('.form-global-error');
         if (globalError) {
             setTimeout(() => {

@@ -117,6 +117,8 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
         --white: #ffffff;
         --red-gradient: linear-gradient(135deg, #ff0000 0%, #cc0000 50%, #990000 100%);
         --fire-gradient: linear-gradient(45deg, #ff0000, #ff3300, #cc0000);
+        --location-glow: rgba(255, 193, 7, 0.7);
+        --location-yellow: #ffc107;
     }
     
     body {
@@ -291,7 +293,7 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
     
     .matches-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
         gap: 2rem;
         padding: 2rem 0;
         position: relative;
@@ -306,7 +308,7 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1px solid rgba(255, 0, 0, 0.3);
         backdrop-filter: blur(10px);
-        min-height: 320px;
+        min-height: 380px;
         display: flex;
         flex-direction: column;
     }
@@ -511,6 +513,35 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+    
+    /* Style pour la localisation */
+    .location-item {
+        background: rgba(255, 193, 7, 0.1);
+        border-left: 3px solid var(--location-yellow);
+        padding: 0.5rem;
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .location-item strong {
+        color: var(--location-yellow) !important;
+        min-width: 80px;
+    }
+    
+    .location-link {
+        color: var(--location-yellow);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .location-link:hover {
+        text-decoration: underline;
+        transform: translateX(5px);
+        text-shadow: 0 0 10px var(--location-glow);
     }
     
     .status-badge {
@@ -1152,7 +1183,7 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
         }
         
         .match-card {
-            min-height: 350px;
+            min-height: 400px;
         }
         
         .advanced-actions {
@@ -1208,7 +1239,7 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
         yield from [];
     }
 
-    // line 1107
+    // line 1138
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -1221,49 +1252,49 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 1108
+        // line 1139
         yield "<div class=\"gaming-container\">
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class=\"floating-elements\">
         ";
-        // line 1112
-        $context["icons"] = ["⚔️", "🔥", "💀", "👑", "🛡️", "🎯", "🏆", "💥", "⚡", "⭐"];
-        // line 1113
+        // line 1143
+        $context["icons"] = ["⚔️", "🔥", "💀", "👑", "🛡️", "🎯", "🏆", "💥", "⚡", "⭐", "📍", "🗺️"];
+        // line 1144
         yield "        ";
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(range(1, 15));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 1114
+            // line 1145
             yield "            ";
-            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 1114, $this->source); })())));
-            // line 1115
+            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 1145, $this->source); })())));
+            // line 1146
             yield "            ";
             $context["leftPosition"] = (5 + (($context["i"] * 7) % 90));
-            // line 1116
+            // line 1147
             yield "            ";
             $context["delay"] = (($context["i"] * 1.3) % 21);
-            // line 1117
+            // line 1148
             yield "            ";
             $context["duration"] = (15 + (($context["i"] * 1.7) % 11));
-            // line 1118
+            // line 1149
             yield "            <div class=\"floating-element\" style=\"
                 left: ";
-            // line 1119
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 1119, $this->source); })()), "html", null, true);
+            // line 1150
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 1150, $this->source); })()), "html", null, true);
             yield "%;
                 animation-delay: ";
-            // line 1120
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 1120, $this->source); })()), "html", null, true);
+            // line 1151
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 1151, $this->source); })()), "html", null, true);
             yield "s;
                 animation-duration: ";
-            // line 1121
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 1121, $this->source); })()), "html", null, true);
+            // line 1152
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 1152, $this->source); })()), "html", null, true);
             yield "s;
             \">
                 ";
-            // line 1123
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 1123, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 1123, $this->source); })()), [], "array", false, false, false, 1123), "html", null, true);
+            // line 1154
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 1154, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 1154, $this->source); })()), [], "array", false, false, false, 1154), "html", null, true);
             yield "
             </div>
         ";
@@ -1271,7 +1302,7 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['i'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 1126
+        // line 1157
         yield "    </div>
     
     <!-- Bell notifications -->
@@ -1314,6 +1345,10 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
             <span>Avec gagnant:</span>
             <span class=\"stats-value\" id=\"statWithWinner\">0</span>
         </div>
+        <div class=\"stats-item\">
+            <span>Avec localisation:</span>
+            <span class=\"stats-value\" id=\"statWithLocation\">0</span>
+        </div>
     </div>
     
     <!-- En-tête avec effet néon -->
@@ -1321,8 +1356,8 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
         <h1 class=\"main-title\">PHANTOM FORCE - MATCHS</h1>
         <p class=\"text-light mb-4\" style=\"font-size: 1.2rem; opacity: 0.9;\">
             BATAILLES ÉPICQUES • ";
-        // line 1174
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1174, $this->source); })())), "html", null, true);
+        // line 1209
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1209, $this->source); })())), "html", null, true);
         yield " COMBATS PROGRAMMÉS
         </p>
         <div class=\"live-counter\" id=\"liveCounter\">⚡ LIVE</div>
@@ -1331,23 +1366,23 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
     <!-- Contrôles principaux -->
     <div class=\"controls-container\">
         ";
-        // line 1181
+        // line 1216
         if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER")))) {
-            // line 1182
+            // line 1217
             yield "        <a href=\"";
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_new");
             yield "\" class=\"add-match-btn\">
             ⚔️ PROGRAMMER UN COMBAT
         </a>
         <a href=\"";
-            // line 1185
+            // line 1220
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_map");
             yield "\" class=\"add-match-btn\" style=\"background: linear-gradient(45deg, #0066cc, #003399);\">
             🗺️ CARTE DES ARÈNES
         </a>
         ";
         }
-        // line 1189
+        // line 1224
         yield "    </div>
     
     <!-- Actions avancées -->
@@ -1379,34 +1414,34 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
                 <select id=\"gameFilter\" class=\"filter-select\">
                     <option value=\"\">Tous les jeux</option>
                     ";
-        // line 1219
+        // line 1254
         $context["games"] = [];
-        // line 1220
+        // line 1255
         yield "                    ";
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1220, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1255, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["match"]) {
-            // line 1221
+            // line 1256
             yield "                        ";
-            if (!CoreExtension::inFilter(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1221), (isset($context["games"]) || array_key_exists("games", $context) ? $context["games"] : (function () { throw new RuntimeError('Variable "games" does not exist.', 1221, $this->source); })()))) {
-                // line 1222
+            if (!CoreExtension::inFilter(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1256), (isset($context["games"]) || array_key_exists("games", $context) ? $context["games"] : (function () { throw new RuntimeError('Variable "games" does not exist.', 1256, $this->source); })()))) {
+                // line 1257
                 yield "                            ";
-                $context["games"] = Twig\Extension\CoreExtension::merge((isset($context["games"]) || array_key_exists("games", $context) ? $context["games"] : (function () { throw new RuntimeError('Variable "games" does not exist.', 1222, $this->source); })()), [CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1222)]);
-                // line 1223
+                $context["games"] = Twig\Extension\CoreExtension::merge((isset($context["games"]) || array_key_exists("games", $context) ? $context["games"] : (function () { throw new RuntimeError('Variable "games" does not exist.', 1257, $this->source); })()), [CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1257)]);
+                // line 1258
                 yield "                            <option value=\"";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1223), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1258), "html", null, true);
                 yield "\">";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1223), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1258), "html", null, true);
                 yield "</option>
                         ";
             }
-            // line 1225
+            // line 1260
             yield "                    ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['match'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 1226
+        // line 1261
         yield "                </select>
             </div>
             
@@ -1430,127 +1465,143 @@ class __TwigTemplate_1032fc9444df5bbbf8409be487831fc9 extends Template
                 </select>
             </div>
             
+            <div class=\"filter-group\">
+                <label class=\"filter-label\">📍 AVEC LOCALISATION :</label>
+                <select id=\"locationFilter\" class=\"filter-select\">
+                    <option value=\"\">Tous</option>
+                    <option value=\"with\">Avec localisation</option>
+                    <option value=\"without\">Sans localisation</option>
+                </select>
+            </div>
+            
             <button id=\"resetFilters\" class=\"reset-btn\">🔄 Réinitialiser</button>
         </div>
         
         <div class=\"results-counter\">
             <span id=\"matchCount\">";
-        // line 1253
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1253, $this->source); })())), "html", null, true);
+        // line 1297
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1297, $this->source); })())), "html", null, true);
         yield "</span> COMBATS ENREGISTRÉS
         </div>
     </div>
     
     ";
-        // line 1257
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1257, $this->source); })())) > 0)) {
-            // line 1258
+        // line 1301
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1301, $this->source); })())) > 0)) {
+            // line 1302
             yield "        <!-- Grille des matchs -->
         <div class=\"matches-grid\" id=\"matchesGrid\">
             ";
-            // line 1260
+            // line 1304
             $context['_parent'] = $context;
-            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1260, $this->source); })()));
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1304, $this->source); })()));
             foreach ($context['_seq'] as $context["_key"] => $context["match"]) {
-                // line 1261
+                // line 1305
                 yield "                ";
-                $context["matchData"] = ["id" => CoreExtension::getAttribute($this->env, $this->source,                 // line 1262
-$context["match"], "id", [], "any", false, false, false, 1262), "game" => CoreExtension::getAttribute($this->env, $this->source,                 // line 1263
-$context["match"], "game", [], "any", false, false, false, 1263), "date" => (((($tmp = CoreExtension::getAttribute($this->env, $this->source,                 // line 1264
-$context["match"], "matchDate", [], "any", false, false, false, 1264)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1264), "d/m/Y H:i")) : ("Date non définie")), "team1" => ["name" => ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,                 // line 1266
-$context["match"], "team1", [], "any", false, true, false, 1266), "name", [], "any", true, true, false, 1266)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 1266), "name", [], "any", false, false, false, 1266), "Équipe 1")) : ("Équipe 1")), "score" => (((CoreExtension::getAttribute($this->env, $this->source,                 // line 1267
-$context["match"], "scoreTeam1", [], "any", true, true, false, 1267) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 1267)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 1267)) : (0))], "team2" => ["name" => ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,                 // line 1270
-$context["match"], "team2", [], "any", false, true, false, 1270), "name", [], "any", true, true, false, 1270)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 1270), "name", [], "any", false, false, false, 1270), "Équipe 2")) : ("Équipe 2")), "score" => (((CoreExtension::getAttribute($this->env, $this->source,                 // line 1271
-$context["match"], "scoreTeam2", [], "any", true, true, false, 1271) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 1271)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 1271)) : (0))], "status" => Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source,                 // line 1273
-$context["match"], "status", [], "any", false, false, false, 1273)), "winner" => (((($tmp = CoreExtension::getAttribute($this->env, $this->source,                 // line 1274
-$context["match"], "winnerTeam", [], "any", false, false, false, 1274)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "winnerTeam", [], "any", false, false, false, 1274), "name", [], "any", false, false, false, 1274)) : ("Pas encore de vainqueur")), "status_label" => ((CoreExtension::getAttribute($this->env, $this->source,                 // line 1275
-$context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "statusLabel", [], "any", false, false, false, 1275), Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1275)))) : (Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1275))))];
-                // line 1277
+                $context["matchData"] = ["id" => CoreExtension::getAttribute($this->env, $this->source,                 // line 1306
+$context["match"], "id", [], "any", false, false, false, 1306), "game" => CoreExtension::getAttribute($this->env, $this->source,                 // line 1307
+$context["match"], "game", [], "any", false, false, false, 1307), "date" => (((($tmp = CoreExtension::getAttribute($this->env, $this->source,                 // line 1308
+$context["match"], "matchDate", [], "any", false, false, false, 1308)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1308), "d/m/Y H:i")) : ("Date non définie")), "team1" => ["name" => ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,                 // line 1310
+$context["match"], "team1", [], "any", false, true, false, 1310), "name", [], "any", true, true, false, 1310)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 1310), "name", [], "any", false, false, false, 1310), "Équipe 1")) : ("Équipe 1")), "score" => (((CoreExtension::getAttribute($this->env, $this->source,                 // line 1311
+$context["match"], "scoreTeam1", [], "any", true, true, false, 1311) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 1311)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 1311)) : (0))], "team2" => ["name" => ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,                 // line 1314
+$context["match"], "team2", [], "any", false, true, false, 1314), "name", [], "any", true, true, false, 1314)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 1314), "name", [], "any", false, false, false, 1314), "Équipe 2")) : ("Équipe 2")), "score" => (((CoreExtension::getAttribute($this->env, $this->source,                 // line 1315
+$context["match"], "scoreTeam2", [], "any", true, true, false, 1315) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 1315)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 1315)) : (0))], "status" => Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source,                 // line 1317
+$context["match"], "status", [], "any", false, false, false, 1317)), "winner" => (((($tmp = CoreExtension::getAttribute($this->env, $this->source,                 // line 1318
+$context["match"], "winnerTeam", [], "any", false, false, false, 1318)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "winnerTeam", [], "any", false, false, false, 1318), "name", [], "any", false, false, false, 1318)) : ("Pas encore de vainqueur")), "status_label" => ((CoreExtension::getAttribute($this->env, $this->source,                 // line 1319
+$context["match"], "statusLabel", [], "any", true, true, false, 1319)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "statusLabel", [], "any", false, false, false, 1319), Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1319)))) : (Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1319)))), "location" => ((CoreExtension::getAttribute($this->env, $this->source,                 // line 1320
+$context["match"], "location", [], "any", true, true, false, 1320)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "location", [], "any", false, false, false, 1320), "")) : ("")), "latitude" => ((CoreExtension::getAttribute($this->env, $this->source,                 // line 1321
+$context["match"], "latitude", [], "any", true, true, false, 1321)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "latitude", [], "any", false, false, false, 1321), "")) : ("")), "longitude" => ((CoreExtension::getAttribute($this->env, $this->source,                 // line 1322
+$context["match"], "longitude", [], "any", true, true, false, 1322)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "longitude", [], "any", false, false, false, 1322), "")) : (""))];
+                // line 1324
                 yield "                
                 <div class=\"match-card ";
-                // line 1278
-                if ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1278) == "ongoing")) {
+                // line 1325
+                if ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1325) == "ongoing")) {
                     yield "ongoing";
                 }
                 yield "\" 
                      data-id=\"";
-                // line 1279
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1279), "html", null, true);
+                // line 1326
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1326), "html", null, true);
                 yield "\" 
                      data-game=\"";
-                // line 1280
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1280)), "html", null, true);
+                // line 1327
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1327)), "html", null, true);
                 yield "\" 
                      data-status=\"";
-                // line 1281
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1281)), "html", null, true);
+                // line 1328
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::lower($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1328)), "html", null, true);
                 yield "\"
                      data-date=\"";
-                // line 1282
-                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1282)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1282), "U"), "html", null, true)) : (0));
+                // line 1329
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1329)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1329), "U"), "html", null, true)) : (0));
                 yield "\"
                      data-winner=\"";
-                // line 1283
-                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "winnerTeam", [], "any", false, false, false, 1283)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ("yes") : ("no"));
+                // line 1330
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "winnerTeam", [], "any", false, false, false, 1330)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ("yes") : ("no"));
+                yield "\"
+                     data-location=\"";
+                // line 1331
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "location", [], "any", false, false, false, 1331)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ("yes") : ("no"));
                 yield "\"
                      data-match='";
-                // line 1284
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(json_encode((isset($context["matchData"]) || array_key_exists("matchData", $context) ? $context["matchData"] : (function () { throw new RuntimeError('Variable "matchData" does not exist.', 1284, $this->source); })())), "html_attr");
+                // line 1332
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(json_encode((isset($context["matchData"]) || array_key_exists("matchData", $context) ? $context["matchData"] : (function () { throw new RuntimeError('Variable "matchData" does not exist.', 1332, $this->source); })())), "html_attr");
                 yield "'>
                     <div class=\"match-id\">#";
-                // line 1285
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1285), "html", null, true);
+                // line 1333
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1333), "html", null, true);
                 yield "</div>
                     
                     <div class=\"match-header\">
                         <div class=\"match-game\">";
-                // line 1288
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1288)), "html", null, true);
+                // line 1336
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1336)), "html", null, true);
                 yield "</div>
                         <div class=\"match-date\">
                             ";
-                // line 1290
-                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1290)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1290), "d/m/Y H:i"), "html", null, true)) : ("Date non définie"));
+                // line 1338
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1338)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1338), "d/m/Y H:i"), "html", null, true)) : ("Date non définie"));
                 yield "
                         </div>
                     </div>
                     
                     <div class=\"teams-container\">
                         ";
-                // line 1295
-                $context["score1"] = (((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", true, true, false, 1295) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 1295)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 1295)) : (0));
-                // line 1296
+                // line 1343
+                $context["score1"] = (((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", true, true, false, 1343) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 1343)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam1", [], "any", false, false, false, 1343)) : (0));
+                // line 1344
                 yield "                        ";
-                $context["score2"] = (((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", true, true, false, 1296) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 1296)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 1296)) : (0));
-                // line 1297
+                $context["score2"] = (((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", true, true, false, 1344) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 1344)))) ? (CoreExtension::getAttribute($this->env, $this->source, $context["match"], "scoreTeam2", [], "any", false, false, false, 1344)) : (0));
+                // line 1345
                 yield "                        ";
-                $context["totalScore"] = ((isset($context["score1"]) || array_key_exists("score1", $context) ? $context["score1"] : (function () { throw new RuntimeError('Variable "score1" does not exist.', 1297, $this->source); })()) + (isset($context["score2"]) || array_key_exists("score2", $context) ? $context["score2"] : (function () { throw new RuntimeError('Variable "score2" does not exist.', 1297, $this->source); })()));
-                // line 1298
+                $context["totalScore"] = ((isset($context["score1"]) || array_key_exists("score1", $context) ? $context["score1"] : (function () { throw new RuntimeError('Variable "score1" does not exist.', 1345, $this->source); })()) + (isset($context["score2"]) || array_key_exists("score2", $context) ? $context["score2"] : (function () { throw new RuntimeError('Variable "score2" does not exist.', 1345, $this->source); })()));
+                // line 1346
                 yield "                        ";
-                $context["percentage1"] = ((((isset($context["totalScore"]) || array_key_exists("totalScore", $context) ? $context["totalScore"] : (function () { throw new RuntimeError('Variable "totalScore" does not exist.', 1298, $this->source); })()) > 0)) ? ((((isset($context["score1"]) || array_key_exists("score1", $context) ? $context["score1"] : (function () { throw new RuntimeError('Variable "score1" does not exist.', 1298, $this->source); })()) / (isset($context["totalScore"]) || array_key_exists("totalScore", $context) ? $context["totalScore"] : (function () { throw new RuntimeError('Variable "totalScore" does not exist.', 1298, $this->source); })())) * 100)) : (50));
-                // line 1299
+                $context["percentage1"] = ((((isset($context["totalScore"]) || array_key_exists("totalScore", $context) ? $context["totalScore"] : (function () { throw new RuntimeError('Variable "totalScore" does not exist.', 1346, $this->source); })()) > 0)) ? ((((isset($context["score1"]) || array_key_exists("score1", $context) ? $context["score1"] : (function () { throw new RuntimeError('Variable "score1" does not exist.', 1346, $this->source); })()) / (isset($context["totalScore"]) || array_key_exists("totalScore", $context) ? $context["totalScore"] : (function () { throw new RuntimeError('Variable "totalScore" does not exist.', 1346, $this->source); })())) * 100)) : (50));
+                // line 1347
                 yield "                        
                         <div class=\"score-bar-container\">
                             <div class=\"score-bar\" style=\"width: ";
-                // line 1301
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["percentage1"]) || array_key_exists("percentage1", $context) ? $context["percentage1"] : (function () { throw new RuntimeError('Variable "percentage1" does not exist.', 1301, $this->source); })()), "html", null, true);
+                // line 1349
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["percentage1"]) || array_key_exists("percentage1", $context) ? $context["percentage1"] : (function () { throw new RuntimeError('Variable "percentage1" does not exist.', 1349, $this->source); })()), "html", null, true);
                 yield "%\"></div>
                         </div>
                         
                         <div class=\"team-info\">
                             <div class=\"team-name\" title=\"";
-                // line 1305
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, true, false, 1305), "name", [], "any", true, true, false, 1305)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 1305), "name", [], "any", false, false, false, 1305), "Équipe 1")) : ("Équipe 1")), "html", null, true);
+                // line 1353
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, true, false, 1353), "name", [], "any", true, true, false, 1353)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 1353), "name", [], "any", false, false, false, 1353), "Équipe 1")) : ("Équipe 1")), "html", null, true);
                 yield "\">
                                 ";
-                // line 1306
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::slice($this->env->getCharset(), ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, true, false, 1306), "name", [], "any", true, true, false, 1306)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 1306), "name", [], "any", false, false, false, 1306), "Équipe 1")) : ("Équipe 1")), 0, 15), "html", null, true);
-                yield (((Twig\Extension\CoreExtension::length($this->env->getCharset(), ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, true, false, 1306), "name", [], "any", true, true, false, 1306)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 1306), "name", [], "any", false, false, false, 1306), "")) : (""))) > 15)) ? ("...") : (""));
+                // line 1354
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::slice($this->env->getCharset(), ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, true, false, 1354), "name", [], "any", true, true, false, 1354)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 1354), "name", [], "any", false, false, false, 1354), "Équipe 1")) : ("Équipe 1")), 0, 15), "html", null, true);
+                yield (((Twig\Extension\CoreExtension::length($this->env->getCharset(), ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, true, false, 1354), "name", [], "any", true, true, false, 1354)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team1", [], "any", false, false, false, 1354), "name", [], "any", false, false, false, 1354), "")) : (""))) > 15)) ? ("...") : (""));
                 yield "
                             </div>
                             <div class=\"team-score\">";
-                // line 1308
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["score1"]) || array_key_exists("score1", $context) ? $context["score1"] : (function () { throw new RuntimeError('Variable "score1" does not exist.', 1308, $this->source); })()), "html", null, true);
+                // line 1356
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["score1"]) || array_key_exists("score1", $context) ? $context["score1"] : (function () { throw new RuntimeError('Variable "score1" does not exist.', 1356, $this->source); })()), "html", null, true);
                 yield "</div>
                         </div>
                         
@@ -1558,18 +1609,18 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                         
                         <div class=\"team-info\">
                             <div class=\"team-name\" title=\"";
-                // line 1314
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, true, false, 1314), "name", [], "any", true, true, false, 1314)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 1314), "name", [], "any", false, false, false, 1314), "Équipe 2")) : ("Équipe 2")), "html", null, true);
+                // line 1362
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, true, false, 1362), "name", [], "any", true, true, false, 1362)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 1362), "name", [], "any", false, false, false, 1362), "Équipe 2")) : ("Équipe 2")), "html", null, true);
                 yield "\">
                                 ";
-                // line 1315
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::slice($this->env->getCharset(), ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, true, false, 1315), "name", [], "any", true, true, false, 1315)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 1315), "name", [], "any", false, false, false, 1315), "Équipe 2")) : ("Équipe 2")), 0, 15), "html", null, true);
-                yield (((Twig\Extension\CoreExtension::length($this->env->getCharset(), ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, true, false, 1315), "name", [], "any", true, true, false, 1315)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 1315), "name", [], "any", false, false, false, 1315), "")) : (""))) > 15)) ? ("...") : (""));
+                // line 1363
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::slice($this->env->getCharset(), ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, true, false, 1363), "name", [], "any", true, true, false, 1363)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 1363), "name", [], "any", false, false, false, 1363), "Équipe 2")) : ("Équipe 2")), 0, 15), "html", null, true);
+                yield (((Twig\Extension\CoreExtension::length($this->env->getCharset(), ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, true, false, 1363), "name", [], "any", true, true, false, 1363)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "team2", [], "any", false, false, false, 1363), "name", [], "any", false, false, false, 1363), "")) : (""))) > 15)) ? ("...") : (""));
                 yield "
                             </div>
                             <div class=\"team-score\">";
-                // line 1317
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["score2"]) || array_key_exists("score2", $context) ? $context["score2"] : (function () { throw new RuntimeError('Variable "score2" does not exist.', 1317, $this->source); })()), "html", null, true);
+                // line 1365
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["score2"]) || array_key_exists("score2", $context) ? $context["score2"] : (function () { throw new RuntimeError('Variable "score2" does not exist.', 1365, $this->source); })()), "html", null, true);
                 yield "</div>
                         </div>
                     </div>
@@ -1578,87 +1629,127 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                         <div class=\"detail-item\">
                             <strong>🎮 JEU :</strong>
                             <span>";
-                // line 1324
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1324), "html", null, true);
+                // line 1372
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "game", [], "any", false, false, false, 1372), "html", null, true);
                 yield "</span>
                         </div>
                         
                         <div class=\"detail-item\">
                             <strong>📅 DATE :</strong>
                             <span>";
-                // line 1329
-                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1329)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1329), "d/m/Y H:i"), "html", null, true)) : ("N/A"));
+                // line 1377
+                yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1377)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "matchDate", [], "any", false, false, false, 1377), "d/m/Y H:i"), "html", null, true)) : ("N/A"));
                 yield "</span>
                         </div>
                         
                         <div class=\"detail-item\">
                             <strong>📊 STATUT :</strong>
                             ";
-                // line 1334
+                // line 1382
                 $context["statusClass"] = "";
-                // line 1335
+                // line 1383
                 yield "                            ";
-                if ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1335) == "planned")) {
-                    // line 1336
+                if ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1383) == "planned")) {
+                    // line 1384
                     yield "                                ";
                     $context["statusClass"] = "status-planned";
-                    // line 1337
+                    // line 1385
                     yield "                            ";
-                } elseif ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1337) == "ongoing")) {
-                    // line 1338
+                } elseif ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1385) == "ongoing")) {
+                    // line 1386
                     yield "                                ";
                     $context["statusClass"] = "status-ongoing";
-                    // line 1339
+                    // line 1387
                     yield "                            ";
-                } elseif ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1339) == "finished")) {
-                    // line 1340
+                } elseif ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1387) == "finished")) {
+                    // line 1388
                     yield "                                ";
                     $context["statusClass"] = "status-finished";
-                    // line 1341
+                    // line 1389
                     yield "                            ";
-                } elseif ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1341) == "cancelled")) {
-                    // line 1342
+                } elseif ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1389) == "cancelled")) {
+                    // line 1390
                     yield "                                ";
                     $context["statusClass"] = "status-cancelled";
-                    // line 1343
+                    // line 1391
                     yield "                            ";
                 }
-                // line 1344
+                // line 1392
                 yield "                            <span class=\"status-badge ";
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["statusClass"]) || array_key_exists("statusClass", $context) ? $context["statusClass"] : (function () { throw new RuntimeError('Variable "statusClass" does not exist.', 1344, $this->source); })()), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["statusClass"]) || array_key_exists("statusClass", $context) ? $context["statusClass"] : (function () { throw new RuntimeError('Variable "statusClass" does not exist.', 1392, $this->source); })()), "html", null, true);
                 yield "\">
                                 ";
-                // line 1345
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1345)), "html", null, true);
+                // line 1393
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "status", [], "any", false, false, false, 1393)), "html", null, true);
                 yield "
                             </span>
                         </div>
-                    </div>
+                        
+                        <!-- NOUVEAU : Afficher la localisation -->
+                        ";
+                // line 1398
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "location", [], "any", false, false, false, 1398)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 1399
+                    yield "                        <div class=\"detail-item location-item\">
+                            <strong>📍 LIEU :</strong>
+                            ";
+                    // line 1401
+                    if ((CoreExtension::getAttribute($this->env, $this->source, $context["match"], "latitude", [], "any", false, false, false, 1401) && CoreExtension::getAttribute($this->env, $this->source, $context["match"], "longitude", [], "any", false, false, false, 1401))) {
+                        // line 1402
+                        yield "                            <a href=\"https://www.google.com/maps/search/?api=1&query=";
+                        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "latitude", [], "any", false, false, false, 1402), "html", null, true);
+                        yield ",";
+                        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["match"], "longitude", [], "any", false, false, false, 1402), "html", null, true);
+                        yield "\" 
+                               target=\"_blank\" 
+                               class=\"location-link\">
+                                ";
+                        // line 1405
+                        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::slice($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "location", [], "any", false, false, false, 1405), 0, 30), "html", null, true);
+                        yield (((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "location", [], "any", false, false, false, 1405)) > 30)) ? ("...") : (""));
+                        yield "
+                                <span style=\"font-size: 0.8rem;\">↗</span>
+                            </a>
+                            ";
+                    } else {
+                        // line 1409
+                        yield "                            <span>";
+                        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::slice($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "location", [], "any", false, false, false, 1409), 0, 30), "html", null, true);
+                        yield (((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, $context["match"], "location", [], "any", false, false, false, 1409)) > 30)) ? ("...") : (""));
+                        yield "</span>
+                            ";
+                    }
+                    // line 1411
+                    yield "                        </div>
+                        ";
+                }
+                // line 1413
+                yield "                    </div>
                     
                     ";
-                // line 1350
-                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "winnerTeam", [], "any", false, false, false, 1350)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-                    // line 1351
+                // line 1415
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["match"], "winnerTeam", [], "any", false, false, false, 1415)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 1416
                     yield "                        <div class=\"winner-info\">
                             🏆 VICTOIRE : ";
-                    // line 1352
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "winnerTeam", [], "any", false, false, false, 1352), "name", [], "any", false, false, false, 1352), "html", null, true);
+                    // line 1417
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["match"], "winnerTeam", [], "any", false, false, false, 1417), "name", [], "any", false, false, false, 1417), "html", null, true);
                     yield "
                         </div>
                     ";
                 } else {
-                    // line 1355
+                    // line 1420
                     yield "                        <div class=\"no-winner\">
                             ⏳ Pas encore de vainqueur
                         </div>
                     ";
                 }
-                // line 1359
+                // line 1424
                 yield "                    
                     <div class=\"actions-container\">
                         <a href=\"";
-                // line 1361
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1361)]), "html", null, true);
+                // line 1426
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_show", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1426)]), "html", null, true);
                 yield "\" 
                            class=\"action-btn view-btn\"
                            title=\"Voir les détails du match\">
@@ -1666,11 +1757,11 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                         </a>
                         
                         ";
-                // line 1367
+                // line 1432
                 if (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN") || (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ORGANIZER") &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_COACH")) &&  !$this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PLAYER")))) {
-                    // line 1368
+                    // line 1433
                     yield "                        <a href=\"";
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1368)]), "html", null, true);
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1433)]), "html", null, true);
                     yield "\" 
                            class=\"action-btn edit-btn\"
                            title=\"Modifier le match\">
@@ -1678,14 +1769,14 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                         </a>
                         
                         <form method=\"post\" action=\"";
-                    // line 1374
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1374)]), "html", null, true);
+                    // line 1439
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1439)]), "html", null, true);
                     yield "\" 
                               onsubmit=\"return confirm('Êtes-vous sûr de vouloir supprimer ce match ?');\"
                               style=\"display: inline; margin: 0;\">
                             <input type=\"hidden\" name=\"_token\" value=\"";
-                    // line 1377
-                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1377))), "html", null, true);
+                    // line 1442
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, $context["match"], "id", [], "any", false, false, false, 1442))), "html", null, true);
                     yield "\">
                             <button type=\"submit\" class=\"action-btn delete-btn\" title=\"Supprimer le match\">
                                 🗑️ SUPPRIMER
@@ -1693,7 +1784,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                         </form>
                         ";
                 }
-                // line 1383
+                // line 1448
                 yield "                    </div>
                 </div>
             ";
@@ -1701,15 +1792,15 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_key'], $context['match'], $context['_parent']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 1386
+            // line 1451
             yield "        </div>
         
         <!-- Informations -->
         <div class=\"mt-5 text-center text-light\" style=\"opacity: 0.8;\">
             <p style=\"font-family: 'Orbitron', sans-serif; font-size: 0.9rem;\">
                 ⚔️ <span id=\"activeMatches\">";
-            // line 1391
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1391, $this->source); })())), "html", null, true);
+            // line 1456
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["matchies"]) || array_key_exists("matchies", $context) ? $context["matchies"] : (function () { throw new RuntimeError('Variable "matchies" does not exist.', 1456, $this->source); })())), "html", null, true);
             yield "</span> BATAILLES ENREGISTRÉES • DERNIÈRE MISE À JOUR : ";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate("now", "H:i:s"), "html", null, true);
             yield "
@@ -1718,13 +1809,13 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         
     ";
         } else {
-            // line 1396
+            // line 1461
             yield "        <!-- Message quand aucun match n'existe -->
         <div class=\"no-matches\">
             <h2>⚠️ CHAMP DE BATAILLE VIDE ⚠️</h2>
             <p>Aucun combat n'a encore été programmé. Organisez le premier affrontement !</p>
             <a href=\"";
-            // line 1400
+            // line 1465
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_new");
             yield "\" class=\"add-match-btn\" style=\"display: inline-block; width: auto;\">
                 🏆 PROGRAMMER LE PREMIER COMBAT
@@ -1732,7 +1823,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         </div>
     ";
         }
-        // line 1405
+        // line 1470
         yield "</div>
 
 <script>
@@ -1749,6 +1840,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
     const gameFilter = document.getElementById('gameFilter');
     const statusFilter = document.getElementById('statusFilter');
     const winnerFilter = document.getElementById('winnerFilter');
+    const locationFilter = document.getElementById('locationFilter');
     const resetFiltersBtn = document.getElementById('resetFilters');
     const matchCount = document.getElementById('matchCount');
     const activeMatches = document.getElementById('activeMatches');
@@ -1773,6 +1865,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
     const statOngoing = document.getElementById('statOngoing');
     const statFinished = document.getElementById('statFinished');
     const statWithWinner = document.getElementById('statWithWinner');
+    const statWithLocation = document.getElementById('statWithLocation');
     
     // Fonction pour afficher un toast
     function showToast(message, duration = 3000) {
@@ -1915,11 +2008,13 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         const ongoing = document.querySelectorAll('.match-card.ongoing:not(.hidden)').length;
         const finished = document.querySelectorAll('.match-card[data-status=\"finished\"]:not(.hidden)').length;
         const withWinner = document.querySelectorAll('.match-card[data-winner=\"yes\"]:not(.hidden)').length;
+        const withLocation = document.querySelectorAll('.match-card[data-location=\"yes\"]:not(.hidden)').length;
         
         statTotal.textContent = visibleMatches.length;
         statOngoing.textContent = ongoing;
         statFinished.textContent = finished;
         statWithWinner.textContent = withWinner;
+        statWithLocation.textContent = withLocation;
     }
     
     // Fonction pour exporter la liste des matchs
@@ -1944,10 +2039,15 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
             const status = match.dataset.status.toUpperCase();
             const hasWinner = match.dataset.winner === 'yes';
             
+            // Récupérer la localisation
+            const locationElement = match.querySelector('.location-item span, .location-item .location-link');
+            const location = locationElement ? locationElement.textContent.trim() : 'Non spécifiée';
+            
             exportData += `\${index + 1}. \${game}\\n`;
             exportData += `   Date: \${date}\\n`;
             exportData += `   \${team1} \${score1} - \${score2} \${team2}\\n`;
             exportData += `   Statut: \${status}\\n`;
+            exportData += `   Lieu: \${location}\\n`;
             exportData += `   \${hasWinner ? 'Avec gagnant' : 'Sans gagnant'}\\n`;
             exportData += '\\n';
         });
@@ -2103,12 +2203,15 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
             const matchId = match.querySelector('.match-id').textContent.toLowerCase();
             const team1Name = match.querySelector('.team-info:first-child .team-name').textContent.toLowerCase();
             const team2Name = match.querySelector('.team-info:last-child .team-name').textContent.toLowerCase();
+            const locationElement = match.querySelector('.location-item span, .location-item .location-link');
+            const location = locationElement ? locationElement.textContent.toLowerCase() : '';
             
             if (searchTerm === '' || 
                 gameName.includes(searchTerm) || 
                 matchId.includes(searchTerm) ||
                 team1Name.includes(searchTerm) ||
-                team2Name.includes(searchTerm)) {
+                team2Name.includes(searchTerm) ||
+                location.includes(searchTerm)) {
                 match.classList.remove('hidden', 'filtered-out');
             } else {
                 match.classList.add('filtered-out');
@@ -2143,6 +2246,15 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                 isVisible = false;
             }
             if (winnerStatus === 'without' && match.dataset.winner === 'yes') {
+                isVisible = false;
+            }
+            
+            // Filtre par localisation
+            const locationStatus = locationFilter.value;
+            if (locationStatus === 'with' && match.dataset.location === 'no') {
+                isVisible = false;
+            }
+            if (locationStatus === 'without' && match.dataset.location === 'yes') {
                 isVisible = false;
             }
             
@@ -2213,12 +2325,14 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
     gameFilter.addEventListener('change', applyFilters);
     statusFilter.addEventListener('change', applyFilters);
     winnerFilter.addEventListener('change', applyFilters);
+    locationFilter.addEventListener('change', applyFilters);
     
     resetFiltersBtn.addEventListener('click', () => {
         searchInput.value = '';
         gameFilter.value = '';
         statusFilter.value = '';
         winnerFilter.value = '';
+        locationFilter.value = '';
         
         currentMatches.forEach(match => {
             match.classList.remove('hidden', 'filtered-out');
@@ -2400,7 +2514,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
      */
     public function getDebugInfo(): array
     {
-        return array (  1736 => 1405,  1728 => 1400,  1722 => 1396,  1712 => 1391,  1705 => 1386,  1697 => 1383,  1688 => 1377,  1682 => 1374,  1672 => 1368,  1670 => 1367,  1661 => 1361,  1657 => 1359,  1651 => 1355,  1645 => 1352,  1642 => 1351,  1640 => 1350,  1632 => 1345,  1627 => 1344,  1624 => 1343,  1621 => 1342,  1618 => 1341,  1615 => 1340,  1612 => 1339,  1609 => 1338,  1606 => 1337,  1603 => 1336,  1600 => 1335,  1598 => 1334,  1590 => 1329,  1582 => 1324,  1572 => 1317,  1566 => 1315,  1562 => 1314,  1553 => 1308,  1547 => 1306,  1543 => 1305,  1536 => 1301,  1532 => 1299,  1529 => 1298,  1526 => 1297,  1523 => 1296,  1521 => 1295,  1513 => 1290,  1508 => 1288,  1502 => 1285,  1498 => 1284,  1494 => 1283,  1490 => 1282,  1486 => 1281,  1482 => 1280,  1478 => 1279,  1472 => 1278,  1469 => 1277,  1467 => 1275,  1466 => 1274,  1465 => 1273,  1464 => 1271,  1463 => 1270,  1462 => 1267,  1461 => 1266,  1460 => 1264,  1459 => 1263,  1458 => 1262,  1456 => 1261,  1452 => 1260,  1448 => 1258,  1446 => 1257,  1439 => 1253,  1410 => 1226,  1404 => 1225,  1396 => 1223,  1393 => 1222,  1390 => 1221,  1385 => 1220,  1383 => 1219,  1351 => 1189,  1344 => 1185,  1337 => 1182,  1335 => 1181,  1325 => 1174,  1275 => 1126,  1266 => 1123,  1261 => 1121,  1257 => 1120,  1253 => 1119,  1250 => 1118,  1247 => 1117,  1244 => 1116,  1241 => 1115,  1238 => 1114,  1233 => 1113,  1231 => 1112,  1225 => 1108,  1212 => 1107,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
+        return array (  1827 => 1470,  1819 => 1465,  1813 => 1461,  1803 => 1456,  1796 => 1451,  1788 => 1448,  1779 => 1442,  1773 => 1439,  1763 => 1433,  1761 => 1432,  1752 => 1426,  1748 => 1424,  1742 => 1420,  1736 => 1417,  1733 => 1416,  1731 => 1415,  1727 => 1413,  1723 => 1411,  1716 => 1409,  1708 => 1405,  1699 => 1402,  1697 => 1401,  1693 => 1399,  1691 => 1398,  1683 => 1393,  1678 => 1392,  1675 => 1391,  1672 => 1390,  1669 => 1389,  1666 => 1388,  1663 => 1387,  1660 => 1386,  1657 => 1385,  1654 => 1384,  1651 => 1383,  1649 => 1382,  1641 => 1377,  1633 => 1372,  1623 => 1365,  1617 => 1363,  1613 => 1362,  1604 => 1356,  1598 => 1354,  1594 => 1353,  1587 => 1349,  1583 => 1347,  1580 => 1346,  1577 => 1345,  1574 => 1344,  1572 => 1343,  1564 => 1338,  1559 => 1336,  1553 => 1333,  1549 => 1332,  1545 => 1331,  1541 => 1330,  1537 => 1329,  1533 => 1328,  1529 => 1327,  1525 => 1326,  1519 => 1325,  1516 => 1324,  1514 => 1322,  1513 => 1321,  1512 => 1320,  1511 => 1319,  1510 => 1318,  1509 => 1317,  1508 => 1315,  1507 => 1314,  1506 => 1311,  1505 => 1310,  1504 => 1308,  1503 => 1307,  1502 => 1306,  1500 => 1305,  1496 => 1304,  1492 => 1302,  1490 => 1301,  1483 => 1297,  1445 => 1261,  1439 => 1260,  1431 => 1258,  1428 => 1257,  1425 => 1256,  1420 => 1255,  1418 => 1254,  1386 => 1224,  1379 => 1220,  1372 => 1217,  1370 => 1216,  1360 => 1209,  1306 => 1157,  1297 => 1154,  1292 => 1152,  1288 => 1151,  1284 => 1150,  1281 => 1149,  1278 => 1148,  1275 => 1147,  1272 => 1146,  1269 => 1145,  1264 => 1144,  1262 => 1143,  1256 => 1139,  1243 => 1138,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -2428,6 +2542,8 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         --white: #ffffff;
         --red-gradient: linear-gradient(135deg, #ff0000 0%, #cc0000 50%, #990000 100%);
         --fire-gradient: linear-gradient(45deg, #ff0000, #ff3300, #cc0000);
+        --location-glow: rgba(255, 193, 7, 0.7);
+        --location-yellow: #ffc107;
     }
     
     body {
@@ -2602,7 +2718,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
     
     .matches-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
         gap: 2rem;
         padding: 2rem 0;
         position: relative;
@@ -2617,7 +2733,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1px solid rgba(255, 0, 0, 0.3);
         backdrop-filter: blur(10px);
-        min-height: 320px;
+        min-height: 380px;
         display: flex;
         flex-direction: column;
     }
@@ -2822,6 +2938,35 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+    
+    /* Style pour la localisation */
+    .location-item {
+        background: rgba(255, 193, 7, 0.1);
+        border-left: 3px solid var(--location-yellow);
+        padding: 0.5rem;
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .location-item strong {
+        color: var(--location-yellow) !important;
+        min-width: 80px;
+    }
+    
+    .location-link {
+        color: var(--location-yellow);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .location-link:hover {
+        text-decoration: underline;
+        transform: translateX(5px);
+        text-shadow: 0 0 10px var(--location-glow);
     }
     
     .status-badge {
@@ -3463,7 +3608,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         }
         
         .match-card {
-            min-height: 350px;
+            min-height: 400px;
         }
         
         .advanced-actions {
@@ -3516,7 +3661,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class=\"floating-elements\">
-        {% set icons = ['⚔️', '🔥', '💀', '👑', '🛡️', '🎯', '🏆', '💥', '⚡', '⭐'] %}
+        {% set icons = ['⚔️', '🔥', '💀', '👑', '🛡️', '🎯', '🏆', '💥', '⚡', '⭐', '📍', '🗺️'] %}
         {% for i in 1..15 %}
             {% set iconIndex = (i % icons|length) %}
             {% set leftPosition = 5 + ((i * 7) % 90) %}
@@ -3571,6 +3716,10 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         <div class=\"stats-item\">
             <span>Avec gagnant:</span>
             <span class=\"stats-value\" id=\"statWithWinner\">0</span>
+        </div>
+        <div class=\"stats-item\">
+            <span>Avec localisation:</span>
+            <span class=\"stats-value\" id=\"statWithLocation\">0</span>
         </div>
     </div>
     
@@ -3653,6 +3802,15 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                 </select>
             </div>
             
+            <div class=\"filter-group\">
+                <label class=\"filter-label\">📍 AVEC LOCALISATION :</label>
+                <select id=\"locationFilter\" class=\"filter-select\">
+                    <option value=\"\">Tous</option>
+                    <option value=\"with\">Avec localisation</option>
+                    <option value=\"without\">Sans localisation</option>
+                </select>
+            </div>
+            
             <button id=\"resetFilters\" class=\"reset-btn\">🔄 Réinitialiser</button>
         </div>
         
@@ -3679,7 +3837,10 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                     },
                     'status': match.status|upper,
                     'winner': match.winnerTeam ? match.winnerTeam.name : 'Pas encore de vainqueur',
-                    'status_label': match.statusLabel|default(match.status|upper)
+                    'status_label': match.statusLabel|default(match.status|upper),
+                    'location': match.location|default(''),
+                    'latitude': match.latitude|default(''),
+                    'longitude': match.longitude|default('')
                 } %}
                 
                 <div class=\"match-card {% if match.status == 'ongoing' %}ongoing{% endif %}\" 
@@ -3688,6 +3849,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                      data-status=\"{{ match.status|lower }}\"
                      data-date=\"{{ match.matchDate ? match.matchDate|date('U') : 0 }}\"
                      data-winner=\"{{ match.winnerTeam ? 'yes' : 'no' }}\"
+                     data-location=\"{{ match.location ? 'yes' : 'no' }}\"
                      data-match='{{ matchData|json_encode|escape('html_attr') }}'>
                     <div class=\"match-id\">#{{ match.id }}</div>
                     
@@ -3752,6 +3914,23 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                                 {{ match.status|upper }}
                             </span>
                         </div>
+                        
+                        <!-- NOUVEAU : Afficher la localisation -->
+                        {% if match.location %}
+                        <div class=\"detail-item location-item\">
+                            <strong>📍 LIEU :</strong>
+                            {% if match.latitude and match.longitude %}
+                            <a href=\"https://www.google.com/maps/search/?api=1&query={{ match.latitude }},{{ match.longitude }}\" 
+                               target=\"_blank\" 
+                               class=\"location-link\">
+                                {{ match.location|slice(0, 30) }}{{ match.location|length > 30 ? '...' : '' }}
+                                <span style=\"font-size: 0.8rem;\">↗</span>
+                            </a>
+                            {% else %}
+                            <span>{{ match.location|slice(0, 30) }}{{ match.location|length > 30 ? '...' : '' }}</span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
                     </div>
                     
                     {% if match.winnerTeam %}
@@ -3825,6 +4004,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
     const gameFilter = document.getElementById('gameFilter');
     const statusFilter = document.getElementById('statusFilter');
     const winnerFilter = document.getElementById('winnerFilter');
+    const locationFilter = document.getElementById('locationFilter');
     const resetFiltersBtn = document.getElementById('resetFilters');
     const matchCount = document.getElementById('matchCount');
     const activeMatches = document.getElementById('activeMatches');
@@ -3849,6 +4029,7 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
     const statOngoing = document.getElementById('statOngoing');
     const statFinished = document.getElementById('statFinished');
     const statWithWinner = document.getElementById('statWithWinner');
+    const statWithLocation = document.getElementById('statWithLocation');
     
     // Fonction pour afficher un toast
     function showToast(message, duration = 3000) {
@@ -3991,11 +4172,13 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         const ongoing = document.querySelectorAll('.match-card.ongoing:not(.hidden)').length;
         const finished = document.querySelectorAll('.match-card[data-status=\"finished\"]:not(.hidden)').length;
         const withWinner = document.querySelectorAll('.match-card[data-winner=\"yes\"]:not(.hidden)').length;
+        const withLocation = document.querySelectorAll('.match-card[data-location=\"yes\"]:not(.hidden)').length;
         
         statTotal.textContent = visibleMatches.length;
         statOngoing.textContent = ongoing;
         statFinished.textContent = finished;
         statWithWinner.textContent = withWinner;
+        statWithLocation.textContent = withLocation;
     }
     
     // Fonction pour exporter la liste des matchs
@@ -4020,10 +4203,15 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
             const status = match.dataset.status.toUpperCase();
             const hasWinner = match.dataset.winner === 'yes';
             
+            // Récupérer la localisation
+            const locationElement = match.querySelector('.location-item span, .location-item .location-link');
+            const location = locationElement ? locationElement.textContent.trim() : 'Non spécifiée';
+            
             exportData += `\${index + 1}. \${game}\\n`;
             exportData += `   Date: \${date}\\n`;
             exportData += `   \${team1} \${score1} - \${score2} \${team2}\\n`;
             exportData += `   Statut: \${status}\\n`;
+            exportData += `   Lieu: \${location}\\n`;
             exportData += `   \${hasWinner ? 'Avec gagnant' : 'Sans gagnant'}\\n`;
             exportData += '\\n';
         });
@@ -4179,12 +4367,15 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
             const matchId = match.querySelector('.match-id').textContent.toLowerCase();
             const team1Name = match.querySelector('.team-info:first-child .team-name').textContent.toLowerCase();
             const team2Name = match.querySelector('.team-info:last-child .team-name').textContent.toLowerCase();
+            const locationElement = match.querySelector('.location-item span, .location-item .location-link');
+            const location = locationElement ? locationElement.textContent.toLowerCase() : '';
             
             if (searchTerm === '' || 
                 gameName.includes(searchTerm) || 
                 matchId.includes(searchTerm) ||
                 team1Name.includes(searchTerm) ||
-                team2Name.includes(searchTerm)) {
+                team2Name.includes(searchTerm) ||
+                location.includes(searchTerm)) {
                 match.classList.remove('hidden', 'filtered-out');
             } else {
                 match.classList.add('filtered-out');
@@ -4219,6 +4410,15 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
                 isVisible = false;
             }
             if (winnerStatus === 'without' && match.dataset.winner === 'yes') {
+                isVisible = false;
+            }
+            
+            // Filtre par localisation
+            const locationStatus = locationFilter.value;
+            if (locationStatus === 'with' && match.dataset.location === 'no') {
+                isVisible = false;
+            }
+            if (locationStatus === 'without' && match.dataset.location === 'yes') {
                 isVisible = false;
             }
             
@@ -4289,12 +4489,14 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
     gameFilter.addEventListener('change', applyFilters);
     statusFilter.addEventListener('change', applyFilters);
     winnerFilter.addEventListener('change', applyFilters);
+    locationFilter.addEventListener('change', applyFilters);
     
     resetFiltersBtn.addEventListener('click', () => {
         searchInput.value = '';
         gameFilter.value = '';
         statusFilter.value = '';
         winnerFilter.value = '';
+        locationFilter.value = '';
         
         currentMatches.forEach(match => {
             match.classList.remove('hidden', 'filtered-out');
@@ -4445,6 +4647,6 @@ $context["match"], "statusLabel", [], "any", true, true, false, 1275)) ? (Twig\E
         }
     }, 2000);
 </script>
-{% endblock %}", "front/matchy/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\front\\matchy\\index.html.twig");
+{% endblock %}", "front/matchy/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\front\\matchy\\index.html.twig");
     }
 }

@@ -5425,6 +5425,6 @@ if (title) {
     }, 50);
 }
 </script>
-{% endblock %}", "shop_item/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\shop_item\\index.html.twig");
+{% endblock %}", "shop_item/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\shop_item\\index.html.twig");
     }
 }

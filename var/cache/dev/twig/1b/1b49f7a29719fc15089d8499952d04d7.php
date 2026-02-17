@@ -572,6 +572,6 @@ class __TwigTemplate_663f60508d5209ef6dc0cb2335a97ead extends Template
         {% block javascripts %}{% endblock %}
     </body>
 </html>
-", "admin_base.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\admin_base.html.twig");
+", "admin_base.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\admin_base.html.twig");
     }
 }

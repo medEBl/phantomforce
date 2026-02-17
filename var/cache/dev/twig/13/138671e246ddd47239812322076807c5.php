@@ -760,6 +760,6 @@ class __TwigTemplate_a69f0eb391c23d1affe018fa50a8049f extends Template
         </div>
     {{ form_end(form) }}
 </div>
-{% endblock %}", "admin/user/edit.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\admin\\user\\edit.html.twig");
+{% endblock %}", "admin/user/edit.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\admin\\user\\edit.html.twig");
     }
 }

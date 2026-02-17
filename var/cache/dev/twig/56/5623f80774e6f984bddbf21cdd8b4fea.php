@@ -2266,6 +2266,6 @@ class __TwigTemplate_f0616e92a945c0adb01356868d3d000f extends Template
             });
         });
     </script>
-{% endblock %}", "registration/register.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\registration\\register.html.twig");
+{% endblock %}", "registration/register.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\registration\\register.html.twig");
     }
 }

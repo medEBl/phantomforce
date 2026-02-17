@@ -281,7 +281,7 @@
 
 .table-header {
     display: grid;
-    grid-template-columns: 80px 120px 120px 180px 150px 1fr 150px;
+    grid-template-columns: 80px 200px 200px 180px 150px 1fr 150px;
     background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(255,45,45,0.1));
     padding: 20px 25px;
     border-bottom: 2px solid var(--red);
@@ -294,7 +294,7 @@
 
 .table-row {
     display: grid;
-    grid-template-columns: 80px 120px 120px 180px 150px 1fr 150px;
+    grid-template-columns: 80px 200px 200px 180px 150px 1fr 150px;
     padding: 20px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     transition: var(--transition);
@@ -360,10 +360,10 @@
 /* ================= TRAINING PLANS TABLE ================= */
 .training-table-header {
     display: grid;
-    grid-template-columns: 80px 1fr 200px 150px 150px 150px;
-    background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(255,45,45,0.1));
+    grid-template-columns: 80px 1fr 200px 150px 150px 150px 150px;
+    background: linear-gradient(90deg, rgba(52,152,219,0.2), rgba(52,152,219,0.1));
     padding: 20px 25px;
-    border-bottom: 2px solid var(--red);
+    border-bottom: 2px solid #3498db;
     font-weight: 700;
     color: var(--text-light);
     font-size: 14px;
@@ -373,7 +373,7 @@
 
 .training-table-row {
     display: grid;
-    grid-template-columns: 80px 1fr 200px 150px 150px 150px;
+    grid-template-columns: 80px 1fr 200px 150px 150px 150px 150px;
     padding: 20px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     transition: var(--transition);
@@ -381,7 +381,7 @@
 }
 
 .training-table-row:hover {
-    background: rgba(255, 45, 45, 0.05);
+    background: rgba(52, 152, 219, 0.05);
     transform: translateX(5px);
 }
 
@@ -511,13 +511,38 @@
     animation: pulse 2s infinite;
 }
 
+/* ================= FILTER TAGS ================= */
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.filter-tag {
+    padding: 5px 12px;
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    border-radius: 15px;
+    font-size: 12px;
+    color: #3498db;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-tag i {
+    cursor: pointer;
+    font-size: 10px;
+}
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 1200px) {
     .table-header, .table-row {
-        grid-template-columns: 80px 120px 120px 150px 150px 1fr 150px;
+        grid-template-columns: 80px 180px 180px 150px 150px 1fr 150px;
     }
     .training-table-header, .training-table-row {
-        grid-template-columns: 80px 1fr 180px 140px 140px 140px;
+        grid-template-columns: 80px 1fr 180px 140px 140px 140px 140px;
     }
 }
 
@@ -589,31 +614,6 @@
         flex-wrap: wrap;
     }
 }
-
-/* ================= FILTER TAGS ================= */
-.filter-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.filter-tag {
-    padding: 5px 12px;
-    background: rgba(52, 152, 219, 0.1);
-    border: 1px solid rgba(52, 152, 219, 0.3);
-    border-radius: 15px;
-    font-size: 12px;
-    color: #3498db;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.filter-tag i {
-    cursor: pointer;
-    font-size: 10px;
-}
 </style>
 {% endblock %}
 
@@ -668,9 +668,20 @@
             <option value="">Tous les coachs</option>
             {% set uniqueCoaches = [] %}
             {% for session in coaching_sessions %}
-                {% if session.coachId not in uniqueCoaches %}
-                    {% set uniqueCoaches = uniqueCoaches|merge([session.coachId]) %}
-                    <option value="{{ session.coachId }}">Coach #{{ session.coachId }}</option>
+                {% if session.coach and session.coach.id not in uniqueCoaches %}
+                    {% set uniqueCoaches = uniqueCoaches|merge([session.coach.id]) %}
+                    <option value="{{ session.coach.id }}">{{ session.coach.fullName }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        
+        <select class="filter-select" id="session-team-filter" onchange="filterSessions()">
+            <option value="">Toutes les équipes</option>
+            {% set uniqueTeams = [] %}
+            {% for session in coaching_sessions %}
+                {% if session.team and session.team.id not in uniqueTeams %}
+                    {% set uniqueTeams = uniqueTeams|merge([session.team.id]) %}
+                    <option value="{{ session.team.id }}">{{ session.team.name }}</option>
                 {% endif %}
             {% endfor %}
         </select>
@@ -710,53 +721,72 @@
 
         {% if coaching_sessions|length > 0 %}
             <div id="sessions-list">
-               <!-- Dans la boucle FOR des sessions -->
-{% for coaching_session in coaching_sessions %}
-    <div class="table-row session-item" 
-         data-id="{{ coaching_session.id }}"
-         data-coach="{{ coaching_session.coachId }}"
-         data-duration="{{ coaching_session.duration }}"
-         data-date="{{ coaching_session.sessionDate ? coaching_session.sessionDate|date('Y-m-d H:i') : '' }}"
-         data-team="{{ coaching_session.teamId }}">
-        <div class="table-cell cell-id" data-label="ID">#{{ coaching_session.id }}</div>
-        <div class="table-cell" data-label="Coach">Coach #{{ coaching_session.coachId }}</div>
-        <div class="table-cell" data-label="Équipe">Équipe #{{ coaching_session.teamId }}</div>
-        <div class="table-cell cell-date" data-label="Date">
-            {{ coaching_session.sessionDate ? coaching_session.sessionDate|date('d/m/Y H:i') : 'N/A' }}
-        </div>
-        <div class="table-cell cell-duration" data-label="Durée">{{ coaching_session.duration }}</div>
-        <div class="table-cell cell-trainingplan" data-label="Training Plan">
-            {% if coaching_session.trainingPlan %}
-                <strong>{{ coaching_session.trainingPlan.title }}</strong><br>
-                <small>{{ coaching_session.trainingPlan.focusArea }}</small>
-            {% else %}
-                <span class="text-muted">Aucun plan assigné</span>
-            {% endif %}
-        </div>
-        <div class="table-cell action-buttons" data-label="Actions">
-            <a href="{{ path('app_coaching_session_show', {'id': coaching_session.id}) }}" class="btn-show">
-                <i class="fas fa-eye"></i> Voir
-            </a>
-            <a href="{{ path('app_coaching_session_edit', {'id': coaching_session.id}) }}" class="btn-edit">
-                <i class="fas fa-edit"></i> Éditer
-            </a>
-            <!-- BOUTON SIMPLE POUR REJOINDRE LA MEETING -->
-            <a href="{{ path('app_coaching_session_meet', {'id': coaching_session.id}) }}" 
-               class="btn-show" 
-               style="background: linear-gradient(135deg, #3498db, #2980b9);">
-                <i class="fas fa-video"></i> Rejoindre
-            </a>
-        </div>
-    </div>
-{% endfor %}
+                {% for coaching_session in coaching_sessions %}
+                    <div class="table-row session-item" 
+                         data-id="{{ coaching_session.id }}"
+                         data-coach="{{ coaching_session.coach ? coaching_session.coach.id : '' }}"
+                         data-team="{{ coaching_session.team ? coaching_session.team.id : '' }}"
+                         data-duration="{{ coaching_session.duration }}"
+                         data-date="{{ coaching_session.sessionDate ? coaching_session.sessionDate|date('Y-m-d H:i') : '' }}">
+                        
+                        <div class="table-cell cell-id" data-label="ID">#{{ coaching_session.id }}</div>
+                        
+                        <div class="table-cell" data-label="Coach">
+                            {% if coaching_session.coach %}
+                                <strong>{{ coaching_session.coach.fullName }}</strong><br>
+                                <small style="color: var(--text-muted);">@{{ coaching_session.coach.username }}</small>
+                            {% else %}
+                                <span class="text-muted">Coach non assigné</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="table-cell" data-label="Équipe">
+                            {% if coaching_session.team %}
+                                <strong>{{ coaching_session.team.name }}</strong><br>
+                                <small style="color: var(--text-muted);">{{ coaching_session.team.game }}</small>
+                            {% else %}
+                                <span class="text-muted">Équipe non assignée</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="table-cell cell-date" data-label="Date">
+                            {{ coaching_session.sessionDate ? coaching_session.sessionDate|date('d/m/Y H:i') : 'N/A' }}
+                        </div>
+                        
+                        <div class="table-cell cell-duration" data-label="Durée">{{ coaching_session.duration }} min</div>
+                        
+                        <div class="table-cell cell-trainingplan" data-label="Training Plan">
+                            {% if coaching_session.trainingPlan %}
+                                <strong>{{ coaching_session.trainingPlan.title }}</strong><br>
+                                <small style="color: var(--text-muted);">{{ coaching_session.trainingPlan.focusArea }}</small>
+                            {% else %}
+                                <span class="text-muted">Aucun plan assigné</span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="table-cell action-buttons" data-label="Actions">
+                            <a href="{{ path('app_coaching_session_show', {'id': coaching_session.id}) }}" class="btn-show">
+                                <i class="fas fa-eye"></i> Voir
+                            </a>
+                            <a href="{{ path('app_coaching_session_edit', {'id': coaching_session.id}) }}" class="btn-edit">
+                                <i class="fas fa-edit"></i> Éditer
+                            </a>
+                            <a href="{{ path('app_coaching_session_meet', {'id': coaching_session.id}) }}" 
+                               class="btn-show" 
+                               style="background: linear-gradient(135deg, #3498db, #2980b9);">
+                                <i class="fas fa-video"></i> Rejoindre
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         {% else %}
             <div class="empty-state">
                 <div class="empty-state-icon">🎮</div>
                 <h3>Aucune session de coaching trouvée</h3>
                 <p>Commencez par créer votre première session de coaching pour améliorer les performances de votre équipe.</p>
-                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGINAZER') and not is_granted('ROLE_PLAYER')) %}
-                    <a href="{{ path('app_coaching_session_new') }}" class="btn btn-new">Créer une session</a>
+                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
+                    <a href="{{ path('app_coaching_session_new') }}" class="btn-new">Créer une session</a>
                 {% endif %}
             </div>
         {% endif %}
@@ -783,18 +813,32 @@
         
         <select class="filter-select" id="training-difficulty-filter" onchange="filterTrainingPlans()">
             <option value="">Toutes les difficultés</option>
-            <option value="Beginner">Débutant</option>
-            <option value="Intermediate">Intermédiaire</option>
-            <option value="Advanced">Avancé</option>
+            <option value="Débutant">Débutant</option>
+            <option value="Intermédiaire">Intermédiaire</option>
+            <option value="Avancé">Avancé</option>
+            <option value="Expert">Expert</option>
+            <option value="Professionnel">Professionnel</option>
         </select>
         
         <select class="filter-select" id="training-focus-filter" onchange="filterTrainingPlans()">
             <option value="">Tous les focus</option>
-            {% set uniqueFocus = [] %}
+            <option value="Défense">Défense</option>
+            <option value="Attaque">Attaque</option>
+            <option value="Stratégie">Stratégie</option>
+            <option value="Communication">Communication</option>
+            <option value="Technique">Technique</option>
+            <option value="Physique">Physique</option>
+            <option value="Mental">Mental</option>
+            <option value="Tactique">Tactique</option>
+        </select>
+        
+        <select class="filter-select" id="training-coach-filter" onchange="filterTrainingPlans()">
+            <option value="">Tous les coachs</option>
+            {% set uniqueCoaches = [] %}
             {% for plan in training_plans %}
-                {% if plan.focusArea not in uniqueFocus %}
-                    {% set uniqueFocus = uniqueFocus|merge([plan.focusArea]) %}
-                    <option value="{{ plan.focusArea }}">{{ plan.focusArea }}</option>
+                {% if plan.coach and plan.coach.id not in uniqueCoaches %}
+                    {% set uniqueCoaches = uniqueCoaches|merge([plan.coach.id]) %}
+                    <option value="{{ plan.coach.id }}">{{ plan.coach.fullName }}</option>
                 {% endif %}
             {% endfor %}
         </select>
@@ -820,7 +864,8 @@
             <div>Titre & Description</div>
             <div>Focus</div>
             <div>Difficulté</div>
-            <div>Créé le</div>
+            <div>Coach</div>
+            <div>Équipe</div>
             <div>Actions</div>
         </div>
 
@@ -832,23 +877,48 @@
                          data-title="{{ training_plan.title|lower }}"
                          data-difficulty="{{ training_plan.difficultyLevel }}"
                          data-focus="{{ training_plan.focusArea }}"
+                         data-coach="{{ training_plan.coach ? training_plan.coach.id : '' }}"
                          data-date="{{ training_plan.createdAt ? training_plan.createdAt|date('Y-m-d') : '' }}">
+                        
                         <div class="cell-id" data-label="ID">#{{ training_plan.id }}</div>
+                        
                         <div data-label="Titre & Description">
                             <div class="training-title">{{ training_plan.title }}</div>
                             <div class="training-description">{{ training_plan.description }}</div>
                         </div>
+                        
                         <div data-label="Focus">
                             <span class="training-focus">{{ training_plan.focusArea }}</span>
                         </div>
+                        
                         <div data-label="Difficulté">
-                            <span class="training-difficulty difficulty-{{ training_plan.difficultyLevel|lower }}">
+                            <span class="training-difficulty 
+                                {% if training_plan.difficultyLevel == 'Débutant' %}difficulty-beginner
+                                {% elseif training_plan.difficultyLevel == 'Intermédiaire' %}difficulty-intermediate
+                                {% elseif training_plan.difficultyLevel == 'Avancé' %}difficulty-advanced
+                                {% endif %}">
                                 {{ training_plan.difficultyLevel }}
                             </span>
                         </div>
-                        <div class="training-date" data-label="Crée le">
-                            {{ training_plan.createdAt ? training_plan.createdAt|date('d/m/Y') : 'N/A' }}
+                        
+                        <div data-label="Coach">
+                            {% if training_plan.coach %}
+                                <strong>{{ training_plan.coach.fullName }}</strong><br>
+                                <small style="color: var(--text-muted);">@{{ training_plan.coach.username }}</small>
+                            {% else %}
+                                <span class="text-muted">Coach non assigné</span>
+                            {% endif %}
                         </div>
+                        
+                        <div data-label="Équipe">
+                            {% if training_plan.team %}
+                                <strong>{{ training_plan.team.name }}</strong><br>
+                                <small style="color: var(--text-muted);">{{ training_plan.team.game }}</small>
+                            {% else %}
+                                <span class="text-muted">Équipe non assignée</span>
+                            {% endif %}
+                        </div>
+                        
                         <div class="action-buttons" data-label="Actions">
                             <a href="{{ path('app_training_plan_show', {'id': training_plan.id}) }}" class="btn-show">
                                 <i class="fas fa-eye"></i> Voir
@@ -857,17 +927,15 @@
                                 <a href="{{ path('app_training_plan_edit', {'id': training_plan.id}) }}" class="btn-edit">
                                     <i class="fas fa-edit"></i> Éditer
                                 </a>
-                            {% endif %}
-                            <form method="post" action="{{ path('app_training_plan_delete', {'id': training_plan.id}) }}" 
-                                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce plan d\'entraînement ?');" 
-                                  style="display: inline;">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ training_plan.id) }}">
-                                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
+                                <form method="post" action="{{ path('app_training_plan_delete', {'id': training_plan.id}) }}" 
+                                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce plan d\'entraînement ?');" 
+                                      style="display: inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ training_plan.id) }}">
                                     <button type="submit" class="btn-delete">
                                         <i class="fas fa-trash"></i> Supprimer
                                     </button>
-                                {% endif %}
-                            </form>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
@@ -878,7 +946,7 @@
                 <h3>Aucun plan d'entraînement trouvé</h3>
                 <p>Créez votre premier plan d'entraînement pour structurer vos sessions de coaching.</p>
                 {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
-                    <a href="{{ path('app_training_plan_new') }}" class="btn btn-new">Créer un plan</a>
+                    <a href="{{ path('app_training_plan_new') }}" class="btn-new">Créer un plan</a>
                 {% endif %}
             </div>
         {% endif %}
@@ -904,6 +972,7 @@ let currentTrainingSort = { field: null, order: 'asc' };
 function filterSessions() {
     const searchTerm = document.getElementById('session-search').value.toLowerCase();
     const coachFilter = document.getElementById('session-coach-filter').value;
+    const teamFilter = document.getElementById('session-team-filter').value;
     const durationFilter = document.getElementById('session-duration-filter').value;
     const sessions = document.querySelectorAll('.session-item');
     const filterTags = document.getElementById('session-filter-tags');
@@ -913,13 +982,20 @@ function filterSessions() {
     let activeFilters = [];
     
     if (searchTerm) activeFilters.push(`Recherche: "${searchTerm}"`);
-    if (coachFilter) activeFilters.push(`Coach: #${coachFilter}`);
+    if (coachFilter) {
+        const coachName = document.querySelector(`#session-coach-filter option[value="${coachFilter}"]`)?.text || coachFilter;
+        activeFilters.push(`Coach: ${coachName}`);
+    }
+    if (teamFilter) {
+        const teamName = document.querySelector(`#session-team-filter option[value="${teamFilter}"]`)?.text || teamFilter;
+        activeFilters.push(`Équipe: ${teamName}`);
+    }
     if (durationFilter) {
         let label = '';
         switch(durationFilter) {
-            case 'short': label = 'Durée: Court'; break;
-            case 'medium': label = 'Durée: Moyen'; break;
-            case 'long': label = 'Durée: Long'; break;
+            case 'short': label = 'Durée: Court (<30min)'; break;
+            case 'medium': label = 'Durée: Moyen (30-60min)'; break;
+            case 'long': label = 'Durée: Long (>60min)'; break;
         }
         activeFilters.push(label);
     }
@@ -934,10 +1010,12 @@ function filterSessions() {
     sessions.forEach(session => {
         const title = session.querySelector('.cell-trainingplan strong')?.textContent.toLowerCase() || '';
         const coach = session.dataset.coach;
+        const team = session.dataset.team;
         const duration = parseInt(session.dataset.duration);
         const showSession = 
             (!searchTerm || title.includes(searchTerm)) &&
             (!coachFilter || coach === coachFilter) &&
+            (!teamFilter || team === teamFilter) &&
             (!durationFilter || checkDurationFilter(duration, durationFilter));
         
         session.style.display = showSession ? '' : 'none';
@@ -1003,12 +1081,12 @@ function sortSessions(field, button) {
 }
 
 function removeSessionFilter(filter) {
-    const filterText = filter.split(': ')[1];
-    
     if (filter.includes('Recherche')) {
         document.getElementById('session-search').value = '';
     } else if (filter.includes('Coach')) {
         document.getElementById('session-coach-filter').value = '';
+    } else if (filter.includes('Équipe')) {
+        document.getElementById('session-team-filter').value = '';
     } else if (filter.includes('Durée')) {
         document.getElementById('session-duration-filter').value = '';
     }
@@ -1019,6 +1097,7 @@ function removeSessionFilter(filter) {
 function resetSessionFilters() {
     document.getElementById('session-search').value = '';
     document.getElementById('session-coach-filter').value = '';
+    document.getElementById('session-team-filter').value = '';
     document.getElementById('session-duration-filter').value = '';
     document.querySelectorAll('#sessions-tab .sort-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -1032,6 +1111,7 @@ function filterTrainingPlans() {
     const searchTerm = document.getElementById('training-search').value.toLowerCase();
     const difficultyFilter = document.getElementById('training-difficulty-filter').value;
     const focusFilter = document.getElementById('training-focus-filter').value;
+    const coachFilter = document.getElementById('training-coach-filter').value;
     const plans = document.querySelectorAll('.training-item');
     const filterTags = document.getElementById('training-filter-tags');
     
@@ -1042,6 +1122,10 @@ function filterTrainingPlans() {
     if (searchTerm) activeFilters.push(`Recherche: "${searchTerm}"`);
     if (difficultyFilter) activeFilters.push(`Difficulté: ${difficultyFilter}`);
     if (focusFilter) activeFilters.push(`Focus: ${focusFilter}`);
+    if (coachFilter) {
+        const coachName = document.querySelector(`#training-coach-filter option[value="${coachFilter}"]`)?.text || coachFilter;
+        activeFilters.push(`Coach: ${coachName}`);
+    }
     
     activeFilters.forEach(filter => {
         const tag = document.createElement('span');
@@ -1054,10 +1138,12 @@ function filterTrainingPlans() {
         const title = plan.dataset.title;
         const difficulty = plan.dataset.difficulty;
         const focus = plan.dataset.focus;
+        const coach = plan.dataset.coach;
         const showPlan = 
             (!searchTerm || title.includes(searchTerm)) &&
             (!difficultyFilter || difficulty === difficultyFilter) &&
-            (!focusFilter || focus === focusFilter);
+            (!focusFilter || focus === focusFilter) &&
+            (!coachFilter || coach === coachFilter);
         
         plan.style.display = showPlan ? '' : 'none';
     });
@@ -1113,14 +1199,14 @@ function sortTrainingPlans(field, button) {
 }
 
 function removeTrainingFilter(filter) {
-    const filterText = filter.split(': ')[1];
-    
     if (filter.includes('Recherche')) {
         document.getElementById('training-search').value = '';
     } else if (filter.includes('Difficulté')) {
         document.getElementById('training-difficulty-filter').value = '';
     } else if (filter.includes('Focus')) {
         document.getElementById('training-focus-filter').value = '';
+    } else if (filter.includes('Coach')) {
+        document.getElementById('training-coach-filter').value = '';
     }
     
     filterTrainingPlans();
@@ -1130,6 +1216,7 @@ function resetTrainingFilters() {
     document.getElementById('training-search').value = '';
     document.getElementById('training-difficulty-filter').value = '';
     document.getElementById('training-focus-filter').value = '';
+    document.getElementById('training-coach-filter').value = '';
     document.querySelectorAll('#training-plans-tab .sort-btn').forEach(btn => {
         btn.classList.remove('active');
     });
@@ -1163,15 +1250,6 @@ function showTab(tabName) {
     }
 }
 
-// Initialisation au chargement
-document.addEventListener('DOMContentLoaded', function() {
-    // Vérifie s'il y a un hash dans l'URL pour afficher la bonne tab
-    if (window.location.hash === '#training-plans') {
-        showTab('training-plans');
-    }
-});
-</script>
-<script>
 // ==================== NOTIFICATIONS 15 MINUTES AVANT SESSION ====================
 function checkSessionNotifications() {
     const sessions = document.querySelectorAll('.session-item');
@@ -1185,10 +1263,10 @@ function checkSessionNotifications() {
         const diffMinutes = (sessionDate - now) / 1000 / 60; // différence en minutes
 
         // Notification si session dans les 15 prochaines minutes et pas déjà notifiée
-        if (diffMinutes > 0 && diffMinutes <= 10 && !session.dataset.notified) {
+        if (diffMinutes > 0 && diffMinutes <= 15 && !session.dataset.notified) {
             showNotification(
-                Session prochaine !,
-                La session #${session.dataset.id} commence à ${sessionDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                'Session prochaine !',
+                `La session #${session.dataset.id} commence à ${sessionDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`
             );
             session.dataset.notified = 'true';
         }
@@ -1212,6 +1290,18 @@ function showNotification(title, message) {
 setInterval(checkSessionNotifications, 60000);
 
 // Vérification au chargement
-document.addEventListener('DOMContentLoaded', checkSessionNotifications);
+document.addEventListener('DOMContentLoaded', function() {
+    checkSessionNotifications();
+    
+    // Demander la permission pour les notifications
+    if (Notification.permission === 'default') {
+        Notification.requestPermission();
+    }
+    
+    // Vérifie s'il y a un hash dans l'URL pour afficher la bonne tab
+    if (window.location.hash === '#training-plans') {
+        showTab('training-plans');
+    }
+});
 </script>
 {% endblock %}

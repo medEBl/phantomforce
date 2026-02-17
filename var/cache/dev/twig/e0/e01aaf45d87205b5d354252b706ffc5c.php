@@ -556,6 +556,6 @@ class __TwigTemplate_4c58015f752e5e6e53597bde20326d8a extends Template
     </div>
 </div>
 {% endblock %}
-", "tournament/stats.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\tournament\\stats.html.twig");
+", "tournament/stats.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\tournament\\stats.html.twig");
     }
 }

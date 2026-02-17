@@ -55,6 +55,18 @@
                         {% endif %}
                     </p>
                 </div>
+                
+                <!-- NOUVEAU : Localisation badge -->
+                {% if matchy.location %}
+                <div class="col-md-6 mb-3">
+                    <label class="text-muted">Localisation</label>
+                    <p>
+                        <span class="badge-admin" style="background: #ffc107; color: #000;">
+                            <i class="fas fa-map-marker-alt me-1"></i> Localisé
+                        </span>
+                    </p>
+                </div>
+                {% endif %}
             </div>
         </div>
         
@@ -100,6 +112,43 @@
                 </div>
             </div>
         </div>
+        
+        <!-- NOUVEAU : Section Localisation détaillée -->
+        {% if matchy.location %}
+        <div class="admin-card" style="border-left: 4px solid #ffc107;">
+            <h5 class="mb-3" style="color: #ffc107;">
+                <i class="fas fa-map-marker-alt me-2"></i>Localisation de l'arène
+            </h5>
+            
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label class="text-muted">Adresse</label>
+                    <p class="h6">{{ matchy.location }}</p>
+                </div>
+                
+                {% if matchy.latitude and matchy.longitude %}
+                <div class="col-md-6 mb-3">
+                    <label class="text-muted">Latitude</label>
+                    <p class="h6">{{ matchy.latitude|number_format(6) }}</p>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label class="text-muted">Longitude</label>
+                    <p class="h6">{{ matchy.longitude|number_format(6) }}</p>
+                </div>
+                
+                <div class="col-md-12">
+                    <a href="https://www.google.com/maps/search/?api=1&query={{ matchy.latitude }},{{ matchy.longitude }}" 
+                       target="_blank" 
+                       class="btn-admin" 
+                       style="background: #ffc107; color: #000; border: none;">
+                        <i class="fas fa-map-marked-alt"></i> Ouvrir dans Google Maps
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
     </div>
     
     <!-- Actions -->
@@ -161,6 +210,29 @@
                 </div>
             {% endif %}
         </div>
+        
+        <!-- NOUVEAU : Mini carte de localisation -->
+        {% if matchy.location and matchy.latitude and matchy.longitude %}
+        <div class="admin-card">
+            <h5 class="mb-3"><i class="fas fa-map-pin me-2" style="color: #ffc107;"></i>Aperçu</h5>
+            
+            <div style="height: 150px; background: rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden; position: relative;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: linear-gradient(45deg, #1a1a2e, #16213e);">
+                    <div style="text-align: center;">
+                        <i class="fas fa-map-marked-alt fa-3x mb-2" style="color: #ffc107;"></i>
+                        <p class="mb-0 small">{{ matchy.location|slice(0, 30) }}{{ matchy.location|length > 30 ? '...' : '' }}</p>
+                        <p class="mb-0 small text-muted">{{ matchy.latitude|number_format(4) }}, {{ matchy.longitude|number_format(4) }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-2 text-center">
+                <small class="text-muted">
+                    <i class="fas fa-info-circle"></i> Cliquez sur "Ouvrir dans Google Maps" pour voir la carte
+                </small>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

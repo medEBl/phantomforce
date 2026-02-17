@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_back.html.twig' %}
 
 {% block title %}⚔️ BLOOD ARENA - Équipe {{ team.name }}{% endblock %}
 
@@ -232,6 +232,7 @@
     .coach-card {
         background: linear-gradient(135deg, rgba(255, 204, 0, 0.1), rgba(255, 102, 0, 0.1));
         border: 2px solid var(--fire-yellow);
+        grid-column: 1 / -1;
     }
     
     .coach-avatar {
@@ -258,9 +259,102 @@
         margin-bottom: 0.5rem;
     }
     
+    /* Styles pour la section membres */
+    .members-section {
+        margin: 2rem 0;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 102, 0, 0.3);
+    }
+    
+    .members-title {
+        font-family: 'Orbitron', sans-serif;
+        color: var(--fire-yellow);
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .members-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+    
+    .member-card {
+        background: rgba(34, 34, 34, 0.8);
+        border: 1px solid rgba(255, 102, 0, 0.3);
+        border-radius: 10px;
+        padding: 1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .member-card:hover {
+        border-color: var(--blood-red);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255, 0, 60, 0.2);
+    }
+    
+    .member-avatar {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+    }
+    
+    .member-info {
+        flex: 1;
+    }
+    
+    .member-name {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--fire-yellow);
+        margin-bottom: 0.3rem;
+    }
+    
+    .member-details {
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        flex-wrap: wrap;
+    }
+    
+    .member-rank {
+        color: var(--blood-orange);
+    }
+    
+    .member-game {
+        color: var(--info-blue);
+    }
+    
+    .no-members {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text-muted);
+        font-style: italic;
+        border: 2px dashed rgba(255, 102, 0, 0.3);
+        border-radius: 10px;
+    }
+    
     .statistics-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 1rem;
         margin: 2rem 0;
     }
@@ -391,6 +485,10 @@
             grid-template-columns: 1fr;
         }
         
+        .members-grid {
+            grid-template-columns: 1fr;
+        }
+        
         .actions-bar {
             flex-direction: column;
         }
@@ -456,7 +554,7 @@
             <div class="info-card">
                 <span class="info-label">📅 DATE DE CRÉATION</span>
                 <div class="info-value">
-                    <span class="date-badge">{{ team.creationDate|date('d/m/Y') }}</span>
+                    <span class="date-badge">{{ team.creationDate|date('d/m/Y H:i') }}</span>
                 </div>
             </div>
             
@@ -468,21 +566,21 @@
             </div>
         </div>
         
-                <!-- Coach -->
-        {% if team.coachId %}
-            <div class="info-card coach-card" style="grid-column: 1 / -1;">
-                <span class="info-label">👑 COACH</span>
+        <!-- Coach -->
+        {% if team.coach %}
+            <div class="info-card coach-card">
+                <span class="info-label">👑 COACH DE L'ÉQUIPE</span>
                 <div style="display: flex; align-items: center; margin-top: 1rem;">
                     <div class="coach-avatar">
                         👑
                     </div>
                     <div class="coach-info">
-                        <div class="coach-name">Coach ID: {{ team.coachId }}</div>
+                        <div class="coach-name">{{ team.coach.username }}</div>
                         <div style="color: var(--text-muted);">
-                            Identifiant du coach : #{{ team.coachId }}
+                            <i class="fas fa-envelope"></i> {{ team.coach.email }}
                         </div>
                         <div style="color: var(--text-muted); margin-top: 0.5rem;">
-                            Équipe coachée depuis le {{ team.creationDate|date('d/m/Y') }}
+                            <i class="fas fa-calendar"></i> Coach depuis le {{ team.creationDate|date('d/m/Y') }}
                         </div>
                     </div>
                 </div>
@@ -496,34 +594,78 @@
             </div>
         {% endif %}
         
-        <!-- Statistiques (exemple) -->
+        <!-- Section Membres de l'équipe -->
+        <div class="members-section">
+            <h3 class="members-title">
+                <i class="fas fa-users"></i> MEMBRES DE L'ÉQUIPE ({{ team.members|length }})
+            </h3>
+            
+            {% if team.members|length > 0 %}
+                <div class="members-grid">
+                    {% for member in team.members %}
+                        <div class="member-card">
+                            <div class="member-avatar">
+                                {{ member.pseudo|first|upper }}
+                            </div>
+                            <div class="member-info">
+                                <div class="member-name">{{ member.pseudo }}</div>
+                                <div class="member-details">
+                                    <span class="member-rank"><i class="fas fa-star"></i> {{ member.rank }}</span>
+                                    {% if member.game %}
+                                        <span class="member-game"><i class="fas fa-gamepad"></i> {{ member.game }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="member-details" style="margin-top: 0.3rem;">
+                                    <small><i class="fas fa-calendar-alt"></i> {{ member.dateOfCreation|date('d/m/Y') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-members">
+                    <i class="fas fa-user-slash fa-2x mb-2"></i>
+                    <p>Aucun membre dans cette équipe pour le moment</p>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Statistiques -->
         <div class="statistics-grid">
             <div class="stat-card">
-                <div class="stat-value">{{ team.players|default(5) }}</div>
-                <div class="stat-label">JOUEURS</div>
+                <div class="stat-value">{{ team.members|length }}</div>
+                <div class="stat-label">MEMBRES</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">{{ team.wins|default(12) }}</div>
+                <div class="stat-value">{{ team.matchesAsTeam1|length + team.matchesAsTeam2|length }}</div>
+                <div class="stat-label">MATCHS</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ team.matchesWon|length }}</div>
                 <div class="stat-label">VICTOIRES</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">{{ team.losses|default(3) }}</div>
-                <div class="stat-label">DÉFAITES</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{ team.tournaments|default(8) }}</div>
-                <div class="stat-label">TOURNOIS</div>
+                <div class="stat-value">{{ team.members|filter(m => m.rank == 'Diamant' or m.rank == 'Champion')|length }}</div>
+                <div class="stat-label">TOP JOUEURS</div>
             </div>
         </div>
         
         <!-- Barre d'actions -->
         <div class="actions-bar">
             <a href="{{ path('app_back_team_index') }}" class="btn btn-back">
-                🔙 RETOUR À LA LISTE
+                <i class="fas fa-arrow-left"></i> RETOUR
             </a>
             <a href="{{ path('app_back_team_edit', {'id': team.id}) }}" class="btn btn-edit">
-                ✏️ MODIFIER
+                <i class="fas fa-edit"></i> MODIFIER
             </a>
+            <form method="post" action="{{ path('app_back_team_delete', {'id': team.id}) }}" 
+                  onsubmit="return confirm('⚠️ Êtes-vous sûr de vouloir supprimer cette équipe ? Cette action conservera les agents mais les désassociera de l\'équipe.');"
+                  style="display: inline;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ team.id) }}">
+                <button type="submit" class="btn btn-delete">
+                    <i class="fas fa-trash"></i> SUPPRIMER
+                </button>
+            </form>
         </div>
         
     </div>
@@ -537,15 +679,18 @@
             document.querySelector('.show-container').style.opacity = '1';
         }, 100);
         
-        // Confirmation de suppression
-        const deleteBtn = document.querySelector('.btn-delete');
-        if (deleteBtn) {
-            deleteBtn.addEventListener('click', function(e) {
-                if (!confirm('⚠️ Êtes-vous sûr de vouloir supprimer cette équipe ? Cette action est irréversible.')) {
-                    e.preventDefault();
-                }
-            });
-        }
+        // Animation des cartes
+        const cards = document.querySelectorAll('.info-card, .member-card, .stat-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
     });
 </script>
 {% endblock %}

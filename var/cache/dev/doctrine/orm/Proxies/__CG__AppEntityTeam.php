@@ -22,21 +22,23 @@ class Team extends \App\Entity\Team implements \Doctrine\ORM\Proxy\InternalProxy
     
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
-        "\0".parent::class."\0".'coach_id' => [parent::class, 'coach_id', null],
+        "\0".parent::class."\0".'coach' => [parent::class, 'coach', null],
         "\0".parent::class."\0".'creation_date' => [parent::class, 'creation_date', null],
         "\0".parent::class."\0".'game' => [parent::class, 'game', null],
         "\0".parent::class."\0".'id' => [parent::class, 'id', null],
         "\0".parent::class."\0".'matchesAsTeam1' => [parent::class, 'matchesAsTeam1', null],
         "\0".parent::class."\0".'matchesAsTeam2' => [parent::class, 'matchesAsTeam2', null],
         "\0".parent::class."\0".'matchesWon' => [parent::class, 'matchesWon', null],
+        "\0".parent::class."\0".'members' => [parent::class, 'members', null],
         "\0".parent::class."\0".'name' => [parent::class, 'name', null],
-        'coach_id' => [parent::class, 'coach_id', null],
+        'coach' => [parent::class, 'coach', null],
         'creation_date' => [parent::class, 'creation_date', null],
         'game' => [parent::class, 'game', null],
         'id' => [parent::class, 'id', null],
         'matchesAsTeam1' => [parent::class, 'matchesAsTeam1', null],
         'matchesAsTeam2' => [parent::class, 'matchesAsTeam2', null],
         'matchesWon' => [parent::class, 'matchesWon', null],
+        'members' => [parent::class, 'members', null],
         'name' => [parent::class, 'name', null],
     ];
 

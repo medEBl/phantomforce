@@ -724,6 +724,50 @@
         50% { opacity: 1; transform: scale(1); }
         100% { opacity: 0; transform: scale(0); }
     }
+
+    /* ================= COACH & TEAM SELECT STYLES ================= */
+    .select-with-info {
+        position: relative;
+    }
+
+    .select-with-info select {
+        padding-left: 60px;
+    }
+
+    .select-icon {
+        position: absolute;
+        left: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        color: var(--red);
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .coach-preview, .team-preview {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background: rgba(255, 45, 45, 0.05);
+        border: 1px solid rgba(255, 45, 45, 0.1);
+        border-radius: var(--radius);
+        font-size: 13px;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .coach-preview i, .team-preview i {
+        color: var(--red);
+        font-size: 14px;
+    }
+
+    .preview-highlight {
+        color: var(--red);
+        font-weight: 600;
+        margin-left: 5px;
+    }
 </style>
 {% endblock %}
 
@@ -773,36 +817,51 @@
         <p>Remplissez les informations ci-dessous pour créer une nouvelle session de coaching</p>
     </div>
 
-    {{ form_start(form, {'attr': {'class': 'coaching-form', 'id': 'createForm'}}) }}
+    {{ form_start(form, {'attr': {'class': 'coaching-form', 'id': 'createForm', 'novalidate': 'novalidate'}}) }}
     
     <div class="form-row">
         <div class="form-group">
-            {{ form_label(form.coach_id, null, {'label_attr': {'class': 'form-label'}}) }}
-            <div class="position-relative">
-                {{ form_widget(form.coach_id, {'attr': {'class': 'form-control', 'placeholder': 'ID du coach'}}) }}
-                <span class="form-icon">👨‍🏫</span>
+            {{ form_label(form.coach, null, {'label_attr': {'class': 'form-label'}}) }}
+            <div class="select-with-info">
+                <span class="select-icon">👨‍🏫</span>
+                {{ form_widget(form.coach, {'attr': {'class': 'form-control', 'id': 'coach_select'}}) }}
             </div>
-            {{ form_errors(form.coach_id) }}
+            <div class="coach-preview" id="coachPreview" style="display: none;">
+                <i class="fas fa-user-tie"></i>
+                <span>Coach sélectionné : <span class="preview-highlight" id="selectedCoachName"></span></span>
+            </div>
+            {{ form_errors(form.coach) }}
         </div>
 
         <div class="form-group">
-            {{ form_label(form.team_id, null, {'label_attr': {'class': 'form-label'}}) }}
-            <div class="position-relative">
-                {{ form_widget(form.team_id, {'attr': {'class': 'form-control', 'placeholder': 'ID de l\'équipe'}}) }}
-                <span class="form-icon">👥</span>
+            {{ form_label(form.team, null, {'label_attr': {'class': 'form-label'}}) }}
+            <div class="select-with-info">
+                <span class="select-icon">👥</span>
+                {{ form_widget(form.team, {'attr': {'class': 'form-control', 'id': 'team_select'}}) }}
             </div>
-            {{ form_errors(form.team_id) }}
+            <div class="team-preview" id="teamPreview" style="display: none;">
+                <i class="fas fa-users"></i>
+                <span>Équipe sélectionnée : <span class="preview-highlight" id="selectedTeamName"></span></span>
+            </div>
+            {{ form_errors(form.team) }}
         </div>
     </div>
 
     <div class="form-row">
         <div class="form-group">
-            {{ form_label(form.session_date, null, {'label_attr': {'class': 'form-label'}}) }}
-            <div class="datetime-input">
-                {{ form_widget(form.session_date, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            {{ form_errors(form.session_date) }}
-        </div>
+    {{ form_label(form.session_date, null, {'label_attr': {'class': 'form-label'}}) }}
+    <div class="datetime-input">
+        {{ form_widget(form.session_date, {'attr': {
+            'class': 'form-control',
+            'data-default': 'now'|date('Y-m-d\\TH:i')
+        }}) }}
+    </div>
+    <div class="form-help">
+        <i class="fas fa-info-circle"></i>
+        <span>Heures acceptées : 8h00 - 20h00 (format 24h)</span>
+    </div>
+    {{ form_errors(form.session_date) }}
+</div>
 
         <div class="form-group">
             {{ form_label(form.duration, null, {'label_attr': {'class': 'form-label'}}) }}
@@ -810,15 +869,18 @@
                 {{ form_widget(form.duration, {'attr': {'class': 'form-control', 'placeholder': 'Durée en minutes (ex: 60)'}}) }}
                 <span class="form-icon">⏱️</span>
             </div>
+            <div class="duration-hint" style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">
+                ⚡ Doit être un multiple de 15 minutes (15, 30, 45, 60, etc.)
+            </div>
             {{ form_errors(form.duration) }}
         </div>
     </div>
 
-    <!-- CHAMP TRAINING PLAN AJOUTÉ -->
+    <!-- CHAMP TRAINING PLAN -->
     <div class="form-group training-plan-select">
         {{ form_label(form.training_plan, null, {'label_attr': {'class': 'form-label'}}) }}
         <div class="position-relative">
-            {{ form_widget(form.training_plan, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.training_plan, {'attr': {'class': 'form-control', 'id': 'training_plan_select'}}) }}
         </div>
         <div class="plan-preview" id="planPreview">
             <h4><i class="fas fa-dumbbell"></i> Aperçu du plan</h4>
@@ -826,7 +888,6 @@
             <div class="plan-tags">
                 <span class="plan-tag" id="planFocus">Focus: -</span>
                 <span class="plan-tag" id="planDifficulty">Difficulté: -</span>
-                <span class="plan-tag" id="planCoach">Coach: -</span>
             </div>
         </div>
         {{ form_errors(form.training_plan) }}
@@ -837,7 +898,8 @@
         {{ form_widget(form.notes, {'attr': {
             'class': 'form-control',
             'placeholder': 'Objectifs de la session, points à travailler, stratégies à aborder...',
-            'rows': '8'
+            'rows': '8',
+            'id': 'session_notes'
         }}) }}
         <div class="char-counter" id="notesCounter">
             <span id="notesCount">0</span> / 2000 caractères
@@ -866,38 +928,108 @@
 <div class="success-message" id="successMessage">
     ✅ Session créée avec succès !
 </div>
+{% endblock %}
 
 {% block javascripts %}
+{{ parent() }}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('createForm');
     const createButton = document.getElementById('createButton');
     const loadingOverlay = document.getElementById('loadingOverlay');
     const successMessage = document.getElementById('successMessage');
-    const notesTextarea = document.querySelector('#coaching_session_notes');
+    const notesTextarea = document.getElementById('session_notes');
     const notesCounter = document.getElementById('notesCounter');
     const notesCount = document.getElementById('notesCount');
-    const trainingPlanSelect = document.querySelector('#coaching_session_training_plan');
+    const trainingPlanSelect = document.getElementById('training_plan_select');
+    const coachSelect = document.getElementById('coach_select');
+    const teamSelect = document.getElementById('team_select');
+    const coachPreview = document.getElementById('coachPreview');
+    const teamPreview = document.getElementById('teamPreview');
+    const selectedCoachName = document.getElementById('selectedCoachName');
+    const selectedTeamName = document.getElementById('selectedTeamName');
     const planPreview = document.getElementById('planPreview');
     const planDescription = document.getElementById('planDescription');
     const planFocus = document.getElementById('planFocus');
     const planDifficulty = document.getElementById('planDifficulty');
-    const planCoach = document.getElementById('planCoach');
     
-    // Données des plans (serait idéalement chargé dynamiquement via API)
-    const trainingPlans = {
-        {% if training_plans is defined %}
-            {% for plan in training_plans %}
-                {{ plan.id }}: {
-                    title: "{{ plan.title }}",
-                    description: "{{ plan.description|slice(0, 150) }}...",
-                    focus: "{{ plan.focusArea }}",
-                    difficulty: "{{ plan.difficultyLevel }}",
-                    coach: "Coach #{{ plan.coachId }}"
+    // Données pour les aperçus (passées depuis le contrôleur)
+    const coaches = {
+        {% if coaches is defined %}
+            {% for coach in coaches %}
+                {{ coach.id }}: {
+                    name: "{{ coach.fullName }}",
+                    username: "{{ coach.username }}"
                 },
             {% endfor %}
         {% endif %}
     };
+    
+    const teams = {
+        {% if teams is defined %}
+            {% for team in teams %}
+                {{ team.id }}: {
+                    name: "{{ team.name }}",
+                    game: "{{ team.game }}"
+                },
+            {% endfor %}
+        {% endif %}
+    };
+    
+    const trainingPlans = {
+        {% if training_plans is defined %}
+            {% for plan in training_plans %}
+                {{ plan.id }}: {
+                    title: "{{ plan.title|e('js') }}",
+                    description: "{{ plan.description|slice(0, 150)|e('js') }}...",
+                    focus: "{{ plan.focusArea }}",
+                    difficulty: "{{ plan.difficultyLevel }}"
+                },
+            {% endfor %}
+        {% endif %}
+    };
+    
+    // Gestion de l'aperçu du coach
+    if (coachSelect) {
+        coachSelect.addEventListener('change', function() {
+            const coachId = this.value;
+            
+            if (coachId && coaches[coachId]) {
+                const coach = coaches[coachId];
+                selectedCoachName.textContent = coach.name;
+                coachPreview.style.display = 'flex';
+                
+                // Animation
+                coachPreview.style.animation = 'none';
+                setTimeout(() => {
+                    coachPreview.style.animation = 'fadeIn 0.3s ease-out';
+                }, 10);
+            } else {
+                coachPreview.style.display = 'none';
+            }
+        });
+    }
+    
+    // Gestion de l'aperçu de l'équipe
+    if (teamSelect) {
+        teamSelect.addEventListener('change', function() {
+            const teamId = this.value;
+            
+            if (teamId && teams[teamId]) {
+                const team = teams[teamId];
+                selectedTeamName.textContent = team.name + ' (' + team.game + ')';
+                teamPreview.style.display = 'flex';
+                
+                // Animation
+                teamPreview.style.animation = 'none';
+                setTimeout(() => {
+                    teamPreview.style.animation = 'fadeIn 0.3s ease-out';
+                }, 10);
+            } else {
+                teamPreview.style.display = 'none';
+            }
+        });
+    }
     
     // Gestion de l'aperçu du plan d'entraînement
     if (trainingPlanSelect) {
@@ -910,7 +1042,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 planDescription.textContent = plan.description;
                 planFocus.textContent = `Focus: ${plan.focus}`;
                 planDifficulty.textContent = `Difficulté: ${plan.difficulty}`;
-                planCoach.textContent = `Coach: ${plan.coach}`;
                 
                 planPreview.classList.add('active');
                 
@@ -936,12 +1067,6 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.background = '';
             this.style.boxShadow = '';
         });
-        
-        // Auto-sélection du premier plan si disponible
-        if (trainingPlanSelect.options.length > 1 && !trainingPlanSelect.value) {
-            trainingPlanSelect.value = trainingPlanSelect.options[1].value;
-            trainingPlanSelect.dispatchEvent(new Event('change'));
-        }
     }
     
     // Initialize notes counter
@@ -971,36 +1096,35 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Basic validation
         let isValid = true;
-        const requiredInputs = form.querySelectorAll('.form-control[required], select[required]');
+        const requiredInputs = form.querySelectorAll('[required]');
         
         requiredInputs.forEach(input => {
-            if (!input.value.trim() && input.type !== 'select-one') {
+            if (!input.value.trim()) {
                 input.classList.add('error');
                 isValid = false;
                 
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'form-error';
-                errorDiv.textContent = 'Ce champ est obligatoire';
-                
-                if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('form-error')) {
-                    input.parentNode.insertBefore(errorDiv, input.nextSibling);
+                // Vérifier si un message d'erreur existe déjà
+                let errorDiv = input.nextElementSibling;
+                while (errorDiv && !errorDiv.classList.contains('form-error')) {
+                    errorDiv = errorDiv.nextElementSibling;
                 }
-            } else if (input.type === 'select-one' && !input.value) {
-                input.classList.add('error');
-                isValid = false;
                 
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'form-error';
-                errorDiv.textContent = 'Veuillez sélectionner un plan d\'entraînement';
-                
-                if (!input.nextElementSibling || !input.nextElementSibling.classList.contains('form-error')) {
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error';
+                    errorDiv.textContent = 'Ce champ est obligatoire';
                     input.parentNode.insertBefore(errorDiv, input.nextSibling);
                 }
             } else {
                 input.classList.remove('error');
-                const error = input.nextElementSibling;
-                if (error && error.classList.contains('form-error')) {
-                    error.remove();
+                // Supprimer les messages d'erreur
+                let errorDiv = input.nextElementSibling;
+                while (errorDiv) {
+                    if (errorDiv.classList && errorDiv.classList.contains('form-error')) {
+                        errorDiv.remove();
+                        break;
+                    }
+                    errorDiv = errorDiv.nextElementSibling;
                 }
             }
         });
@@ -1013,23 +1137,55 @@ document.addEventListener('DOMContentLoaded', function() {
                 durationInput.classList.add('error');
                 isValid = false;
                 
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'form-error';
-                errorDiv.textContent = 'La durée doit être entre 15 et 480 minutes';
+                let errorDiv = durationInput.nextElementSibling;
+                while (errorDiv && !errorDiv.classList.contains('form-error')) {
+                    errorDiv = errorDiv.nextElementSibling;
+                }
                 
-                if (!durationInput.nextElementSibling || !durationInput.nextElementSibling.classList.contains('form-error')) {
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error';
+                    errorDiv.textContent = 'La durée doit être entre 15 et 480 minutes';
                     durationInput.parentNode.insertBefore(errorDiv, durationInput.nextSibling);
                 }
             } else if (duration % 15 !== 0) {
                 durationInput.classList.add('error');
                 isValid = false;
                 
-                const errorDiv = document.createElement('div');
-                errorDiv.className = 'form-error';
-                errorDiv.textContent = 'La durée doit être un multiple de 15 minutes (15, 30, 45, etc.)';
+                let errorDiv = durationInput.nextElementSibling;
+                while (errorDiv && !errorDiv.classList.contains('form-error')) {
+                    errorDiv = errorDiv.nextElementSibling;
+                }
                 
-                if (!durationInput.nextElementSibling || !durationInput.nextElementSibling.classList.contains('form-error')) {
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error';
+                    errorDiv.textContent = 'La durée doit être un multiple de 15 minutes (15, 30, 45, etc.)';
                     durationInput.parentNode.insertBefore(errorDiv, durationInput.nextSibling);
+                }
+            }
+        }
+        
+        // Validate date (not in past)
+        const dateInput = document.querySelector('input[type="datetime-local"]');
+        if (dateInput && dateInput.value) {
+            const selectedDate = new Date(dateInput.value);
+            const now = new Date();
+            
+            if (selectedDate < now) {
+                dateInput.classList.add('error');
+                isValid = false;
+                
+                let errorDiv = dateInput.nextElementSibling;
+                while (errorDiv && !errorDiv.classList.contains('form-error')) {
+                    errorDiv = errorDiv.nextElementSibling;
+                }
+                
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error';
+                    errorDiv.textContent = 'La date ne peut pas être dans le passé';
+                    dateInput.parentNode.insertBefore(errorDiv, dateInput.nextSibling);
                 }
             }
         }
@@ -1048,27 +1204,29 @@ document.addEventListener('DOMContentLoaded', function() {
         // Submit form after delay for animation
         setTimeout(() => {
             form.submit();
-        }, 2000);
+        }, 1500);
     });
     
     // Sparkle effect on create button hover
-    createButton.addEventListener('mouseenter', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        for (let i = 0; i < 5; i++) {
-            const sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-            sparkle.style.left = (x + Math.random() * 40 - 20) + 'px';
-            sparkle.style.top = (y + Math.random() * 40 - 20) + 'px';
-            this.appendChild(sparkle);
+    if (createButton) {
+        createButton.addEventListener('mouseenter', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             
-            setTimeout(() => {
-                sparkle.remove();
-            }, 1000);
-        }
-    });
+            for (let i = 0; i < 5; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = (x + Math.random() * 40 - 20) + 'px';
+                sparkle.style.top = (y + Math.random() * 40 - 20) + 'px';
+                this.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+        });
+    }
     
     // Real-time validation
     const formControls = document.querySelectorAll('.form-control, select');
@@ -1085,9 +1243,14 @@ document.addEventListener('DOMContentLoaded', function() {
         control.addEventListener('input', function() {
             if (this.value.trim()) {
                 this.classList.remove('error');
-                const error = this.nextElementSibling;
-                if (error && error.classList.contains('form-error')) {
-                    error.remove();
+                // Supprimer les messages d'erreur
+                let errorDiv = this.nextElementSibling;
+                while (errorDiv) {
+                    if (errorDiv.classList && errorDiv.classList.contains('form-error')) {
+                        errorDiv.remove();
+                        break;
+                    }
+                    errorDiv = errorDiv.nextElementSibling;
                 }
             }
         });
@@ -1096,10 +1259,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Date input enhancements
     const dateInput = document.querySelector('input[type="datetime-local"]');
     if (dateInput) {
-        // Set default to current date/time + 1 hour
+        // Set default to current date/time + 1 hour (arrondi à l'heure ou demi-heure)
         const now = new Date();
         now.setHours(now.getHours() + 1);
-        now.setMinutes(0);
+        
+        // Arrondir aux 30 minutes
+        const minutes = now.getMinutes();
+        if (minutes < 15) {
+            now.setMinutes(0);
+        } else if (minutes < 45) {
+            now.setMinutes(30);
+        } else {
+            now.setMinutes(0);
+            now.setHours(now.getHours() + 1);
+        }
+        
         now.setSeconds(0);
         
         const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
@@ -1122,18 +1296,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Success message simulation
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('success')) {
-        setTimeout(() => {
-            successMessage.classList.add('active');
-            
-            setTimeout(() => {
-                successMessage.classList.remove('active');
-            }, 4000);
-        }, 1000);
-    }
-    
     // Add animation to form groups
     const formGroups = document.querySelectorAll('.form-group');
     formGroups.forEach((group, index) => {
@@ -1147,7 +1309,18 @@ document.addEventListener('DOMContentLoaded', function() {
             firstInput.focus();
         }, 500);
     }
+    
+    // Check for success parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('success')) {
+        setTimeout(() => {
+            successMessage.classList.add('active');
+            
+            setTimeout(() => {
+                successMessage.classList.remove('active');
+            }, 4000);
+        }, 1000);
+    }
 });
 </script>
-{% endblock %}
 {% endblock %}

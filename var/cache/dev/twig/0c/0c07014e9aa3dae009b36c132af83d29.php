@@ -108,7 +108,9 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
         --neon-purple: #9d00ff;
         --neon-red: #ff003c;
         --neon-green: #00ff88;
+        --neon-yellow: #ffcc00;
         --dark-bg: #0a0a14;
+        --location-glow: rgba(255, 204, 0, 0.5);
     }
     
     body {
@@ -377,6 +379,66 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
         font-size: 1.4rem;
         font-weight: 600;
         font-family: 'Rajdhani', sans-serif;
+    }
+    
+    /* Style pour la carte de localisation */
+    .location-card {
+        background: rgba(255, 204, 0, 0.05);
+        border: 2px solid var(--neon-yellow);
+        grid-column: span 2;
+    }
+    
+    .location-card:hover {
+        border-color: var(--neon-green);
+        box-shadow: 0 10px 25px var(--location-glow);
+    }
+    
+    .location-label {
+        color: var(--neon-yellow) !important;
+    }
+    
+    .location-value {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .location-address {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+    }
+    
+    .location-coords {
+        font-family: 'Orbitron', monospace;
+        color: var(--neon-green);
+        font-size: 0.9rem;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 0.3rem 1rem;
+        border-radius: 20px;
+        border: 1px solid var(--neon-green);
+    }
+    
+    .location-map-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(45deg, var(--neon-yellow), #ffaa00);
+        color: black;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px var(--location-glow);
+    }
+    
+    .location-map-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 25px var(--neon-green);
     }
     
     .status-badge-detail {
@@ -671,6 +733,15 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
             grid-template-columns: 1fr;
         }
         
+        .location-card {
+            grid-column: span 1;
+        }
+        
+        .location-value {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
         .actions-container-detail {
             flex-direction: column;
             align-items: center;
@@ -700,7 +771,7 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
         yield from [];
     }
 
-    // line 599
+    // line 670
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -713,49 +784,49 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 600
+        // line 671
         yield "<div class=\"gaming-container\">
     
     <!-- Éléments flottants -->
     <div class=\"floating-elements\">
         ";
-        // line 604
-        $context["icons"] = ["🎮", "⚡", "🔥", "👑", "🕹️", "🎯", "🏆", "💥", "🚀", "⭐"];
-        // line 605
+        // line 675
+        $context["icons"] = ["🎮", "⚡", "🔥", "👑", "🕹️", "🎯", "🏆", "💥", "🚀", "⭐", "📍", "🗺️"];
+        // line 676
         yield "        ";
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(range(1, 10));
         foreach ($context['_seq'] as $context["_key"] => $context["i"]) {
-            // line 606
+            // line 677
             yield "            ";
-            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 606, $this->source); })())));
-            // line 607
+            $context["iconIndex"] = ($context["i"] % Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 677, $this->source); })())));
+            // line 678
             yield "            ";
             $context["leftPosition"] = (5 + (($context["i"] * 10) % 90));
-            // line 608
+            // line 679
             yield "            ";
             $context["delay"] = (($context["i"] * 1.5) % 21);
-            // line 609
+            // line 680
             yield "            ";
             $context["duration"] = (15 + (($context["i"] * 2) % 11));
-            // line 610
+            // line 681
             yield "            <div class=\"floating-element\" style=\"
                 left: ";
-            // line 611
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 611, $this->source); })()), "html", null, true);
+            // line 682
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["leftPosition"]) || array_key_exists("leftPosition", $context) ? $context["leftPosition"] : (function () { throw new RuntimeError('Variable "leftPosition" does not exist.', 682, $this->source); })()), "html", null, true);
             yield "%;
                 animation-delay: ";
-            // line 612
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 612, $this->source); })()), "html", null, true);
+            // line 683
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["delay"]) || array_key_exists("delay", $context) ? $context["delay"] : (function () { throw new RuntimeError('Variable "delay" does not exist.', 683, $this->source); })()), "html", null, true);
             yield "s;
                 animation-duration: ";
-            // line 613
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 613, $this->source); })()), "html", null, true);
+            // line 684
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["duration"]) || array_key_exists("duration", $context) ? $context["duration"] : (function () { throw new RuntimeError('Variable "duration" does not exist.', 684, $this->source); })()), "html", null, true);
             yield "s;
             \">
                 ";
-            // line 615
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 615, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 615, $this->source); })()), [], "array", false, false, false, 615), "html", null, true);
+            // line 686
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["icons"]) || array_key_exists("icons", $context) ? $context["icons"] : (function () { throw new RuntimeError('Variable "icons" does not exist.', 686, $this->source); })()), (isset($context["iconIndex"]) || array_key_exists("iconIndex", $context) ? $context["iconIndex"] : (function () { throw new RuntimeError('Variable "iconIndex" does not exist.', 686, $this->source); })()), [], "array", false, false, false, 686), "html", null, true);
             yield "
             </div>
         ";
@@ -763,15 +834,15 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['i'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 618
+        // line 689
         yield "    </div>
     
     <!-- En-tête -->
     <div class=\"header-glow\">
         <h1 class=\"main-title\">DÉTAILS DU MATCH</h1>
         <div class=\"match-id-badge\">MATCH #";
-        // line 623
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 623, $this->source); })()), "id", [], "any", false, false, false, 623), "html", null, true);
+        // line 694
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 694, $this->source); })()), "id", [], "any", false, false, false, 694), "html", null, true);
         yield "</div>
         <p class=\"text-light\" style=\"font-size: 1.1rem; opacity: 0.9;\">
             ARENA E-SPORT • CONFIGURATION DU COMBAT
@@ -782,13 +853,13 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
     <div class=\"match-card-detail\">
         <div class=\"match-header-detail\">
             <div class=\"match-game-detail\">";
-        // line 632
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 632, $this->source); })()), "game", [], "any", false, false, false, 632)), "html", null, true);
+        // line 703
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 703, $this->source); })()), "game", [], "any", false, false, false, 703)), "html", null, true);
         yield "</div>
             <div class=\"match-date-detail\">
                 ";
-        // line 634
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 634, $this->source); })()), "matchDate", [], "any", false, false, false, 634)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 634, $this->source); })()), "matchDate", [], "any", false, false, false, 634), "d/m/Y • H:i"), "html", null, true)) : ("DATE NON DÉFINIE"));
+        // line 705
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 705, $this->source); })()), "matchDate", [], "any", false, false, false, 705)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 705, $this->source); })()), "matchDate", [], "any", false, false, false, 705), "d/m/Y • H:i"), "html", null, true)) : ("DATE NON DÉFINIE"));
         yield "
             </div>
         </div>
@@ -796,87 +867,87 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
         <!-- Scores des équipes -->
         <div class=\"teams-container-detail\">
             <div class=\"team-card ";
-        // line 640
-        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 640, $this->source); })()), "winnerTeam", [], "any", false, false, false, 640) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 640, $this->source); })()), "winnerTeam", [], "any", false, false, false, 640), "id", [], "any", false, false, false, 640) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 640, $this->source); })()), "team1", [], "any", false, false, false, 640), "id", [], "any", false, false, false, 640)))) {
+        // line 711
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 711, $this->source); })()), "winnerTeam", [], "any", false, false, false, 711) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 711, $this->source); })()), "winnerTeam", [], "any", false, false, false, 711), "id", [], "any", false, false, false, 711) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 711, $this->source); })()), "team1", [], "any", false, false, false, 711), "id", [], "any", false, false, false, 711)))) {
             yield "winner";
         }
         yield "\">
                 <div class=\"team-name-detail\">
                     ";
-        // line 642
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "team1", [], "any", false, true, false, 642), "name", [], "any", true, true, false, 642)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 642, $this->source); })()), "team1", [], "any", false, false, false, 642), "name", [], "any", false, false, false, 642), "ÉQUIPE 1")) : ("ÉQUIPE 1")), "html", null, true);
+        // line 713
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "team1", [], "any", false, true, false, 713), "name", [], "any", true, true, false, 713)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 713, $this->source); })()), "team1", [], "any", false, false, false, 713), "name", [], "any", false, false, false, 713), "ÉQUIPE 1")) : ("ÉQUIPE 1")), "html", null, true);
         yield "
                     ";
-        // line 643
-        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 643, $this->source); })()), "team1", [], "any", false, false, false, 643) && CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 643, $this->source); })()), "team1", [], "any", false, false, false, 643), "game", [], "any", false, false, false, 643))) {
-            // line 644
+        // line 714
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 714, $this->source); })()), "team1", [], "any", false, false, false, 714) && CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 714, $this->source); })()), "team1", [], "any", false, false, false, 714), "game", [], "any", false, false, false, 714))) {
+            // line 715
             yield "                        <div style=\"font-size: 0.9rem; color: var(--neon-blue); margin-top: 0.3rem;\">
                             Jeu: ";
-            // line 645
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 645, $this->source); })()), "team1", [], "any", false, false, false, 645), "game", [], "any", false, false, false, 645), "html", null, true);
+            // line 716
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 716, $this->source); })()), "team1", [], "any", false, false, false, 716), "game", [], "any", false, false, false, 716), "html", null, true);
             yield "
                         </div>
                     ";
         }
-        // line 648
+        // line 719
         yield "                </div>
                 <div class=\"team-score-detail\">";
-        // line 649
-        yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam1", [], "any", true, true, false, 649) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 649, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 649)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 649, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 649), "html", null, true)) : ("0"));
+        // line 720
+        yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam1", [], "any", true, true, false, 720) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 720, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 720)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 720, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 720), "html", null, true)) : ("0"));
         yield "</div>
                 ";
-        // line 650
-        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 650, $this->source); })()), "winnerTeam", [], "any", false, false, false, 650) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 650, $this->source); })()), "winnerTeam", [], "any", false, false, false, 650), "id", [], "any", false, false, false, 650) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 650, $this->source); })()), "team1", [], "any", false, false, false, 650), "id", [], "any", false, false, false, 650)))) {
-            // line 651
+        // line 721
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 721, $this->source); })()), "winnerTeam", [], "any", false, false, false, 721) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 721, $this->source); })()), "winnerTeam", [], "any", false, false, false, 721), "id", [], "any", false, false, false, 721) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 721, $this->source); })()), "team1", [], "any", false, false, false, 721), "id", [], "any", false, false, false, 721)))) {
+            // line 722
             yield "                    <div style=\"color: var(--neon-green); font-family: 'Orbitron'; font-size: 0.9rem; margin-top: 0.5rem;\">
                         🏆 GAGNANT
                     </div>
                 ";
         }
-        // line 655
+        // line 726
         yield "            </div>
             
             <div class=\"vs-detail\">VS</div>
             
             <div class=\"team-card ";
-        // line 659
-        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 659, $this->source); })()), "winnerTeam", [], "any", false, false, false, 659) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 659, $this->source); })()), "winnerTeam", [], "any", false, false, false, 659), "id", [], "any", false, false, false, 659) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 659, $this->source); })()), "team2", [], "any", false, false, false, 659), "id", [], "any", false, false, false, 659)))) {
+        // line 730
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 730, $this->source); })()), "winnerTeam", [], "any", false, false, false, 730) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 730, $this->source); })()), "winnerTeam", [], "any", false, false, false, 730), "id", [], "any", false, false, false, 730) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 730, $this->source); })()), "team2", [], "any", false, false, false, 730), "id", [], "any", false, false, false, 730)))) {
             yield "winner";
         }
         yield "\">
                 <div class=\"team-name-detail\">
                     ";
-        // line 661
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "team2", [], "any", false, true, false, 661), "name", [], "any", true, true, false, 661)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 661, $this->source); })()), "team2", [], "any", false, false, false, 661), "name", [], "any", false, false, false, 661), "ÉQUIPE 2")) : ("ÉQUIPE 2")), "html", null, true);
+        // line 732
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "team2", [], "any", false, true, false, 732), "name", [], "any", true, true, false, 732)) ? (Twig\Extension\CoreExtension::default(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 732, $this->source); })()), "team2", [], "any", false, false, false, 732), "name", [], "any", false, false, false, 732), "ÉQUIPE 2")) : ("ÉQUIPE 2")), "html", null, true);
         yield "
                     ";
-        // line 662
-        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 662, $this->source); })()), "team2", [], "any", false, false, false, 662) && CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 662, $this->source); })()), "team2", [], "any", false, false, false, 662), "game", [], "any", false, false, false, 662))) {
-            // line 663
+        // line 733
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 733, $this->source); })()), "team2", [], "any", false, false, false, 733) && CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 733, $this->source); })()), "team2", [], "any", false, false, false, 733), "game", [], "any", false, false, false, 733))) {
+            // line 734
             yield "                        <div style=\"font-size: 0.9rem; color: var(--neon-blue); margin-top: 0.3rem;\">
                             Jeu: ";
-            // line 664
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 664, $this->source); })()), "team2", [], "any", false, false, false, 664), "game", [], "any", false, false, false, 664), "html", null, true);
+            // line 735
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 735, $this->source); })()), "team2", [], "any", false, false, false, 735), "game", [], "any", false, false, false, 735), "html", null, true);
             yield "
                         </div>
                     ";
         }
-        // line 667
+        // line 738
         yield "                </div>
                 <div class=\"team-score-detail\">";
-        // line 668
-        yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam2", [], "any", true, true, false, 668) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 668, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 668)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 668, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 668), "html", null, true)) : ("0"));
+        // line 739
+        yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam2", [], "any", true, true, false, 739) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 739, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 739)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 739, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 739), "html", null, true)) : ("0"));
         yield "</div>
                 ";
-        // line 669
-        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 669, $this->source); })()), "winnerTeam", [], "any", false, false, false, 669) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 669, $this->source); })()), "winnerTeam", [], "any", false, false, false, 669), "id", [], "any", false, false, false, 669) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 669, $this->source); })()), "team2", [], "any", false, false, false, 669), "id", [], "any", false, false, false, 669)))) {
-            // line 670
+        // line 740
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 740, $this->source); })()), "winnerTeam", [], "any", false, false, false, 740) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 740, $this->source); })()), "winnerTeam", [], "any", false, false, false, 740), "id", [], "any", false, false, false, 740) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 740, $this->source); })()), "team2", [], "any", false, false, false, 740), "id", [], "any", false, false, false, 740)))) {
+            // line 741
             yield "                    <div style=\"color: var(--neon-green); font-family: 'Orbitron'; font-size: 0.9rem; margin-top: 0.5rem;\">
                         🏆 GAGNANT
                     </div>
                 ";
         }
-        // line 674
+        // line 745
         yield "            </div>
         </div>
         
@@ -885,16 +956,16 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
             <div class=\"info-card\">
                 <div class=\"info-label\">🎮 JEU</div>
                 <div class=\"info-value\">";
-        // line 681
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 681, $this->source); })()), "game", [], "any", false, false, false, 681), "html", null, true);
+        // line 752
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 752, $this->source); })()), "game", [], "any", false, false, false, 752), "html", null, true);
         yield "</div>
             </div>
             
             <div class=\"info-card\">
                 <div class=\"info-label\">📅 DATE & HEURE</div>
                 <div class=\"info-value\">";
-        // line 686
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 686, $this->source); })()), "matchDate", [], "any", false, false, false, 686)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 686, $this->source); })()), "matchDate", [], "any", false, false, false, 686), "d/m/Y • H:i:s"), "html", null, true)) : ("Non définie"));
+        // line 757
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 757, $this->source); })()), "matchDate", [], "any", false, false, false, 757)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 757, $this->source); })()), "matchDate", [], "any", false, false, false, 757), "d/m/Y • H:i:s"), "html", null, true)) : ("Non définie"));
         yield "</div>
             </div>
             
@@ -902,50 +973,50 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
                 <div class=\"info-label\">📊 STATUT</div>
                 <div class=\"info-value\">
                     ";
-        // line 692
-        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 692, $this->source); })()), "status", [], "any", false, false, false, 692) == "planned")) {
-            // line 693
+        // line 763
+        if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 763, $this->source); })()), "status", [], "any", false, false, false, 763) == "planned")) {
+            // line 764
             yield "                        <span class=\"status-badge-detail status-planned\">PLANIFIÉ</span>
                     ";
-        } elseif ((CoreExtension::getAttribute($this->env, $this->source,         // line 694
-(isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 694, $this->source); })()), "status", [], "any", false, false, false, 694) == "ongoing")) {
-            // line 695
+        } elseif ((CoreExtension::getAttribute($this->env, $this->source,         // line 765
+(isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 765, $this->source); })()), "status", [], "any", false, false, false, 765) == "ongoing")) {
+            // line 766
             yield "                        <span class=\"status-badge-detail status-ongoing\">EN COURS</span>
                     ";
-        } elseif ((CoreExtension::getAttribute($this->env, $this->source,         // line 696
-(isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 696, $this->source); })()), "status", [], "any", false, false, false, 696) == "finished")) {
-            // line 697
+        } elseif ((CoreExtension::getAttribute($this->env, $this->source,         // line 767
+(isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 767, $this->source); })()), "status", [], "any", false, false, false, 767) == "finished")) {
+            // line 768
             yield "                        <span class=\"status-badge-detail status-finished\">TERMINÉ</span>
                     ";
-        } elseif ((CoreExtension::getAttribute($this->env, $this->source,         // line 698
-(isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 698, $this->source); })()), "status", [], "any", false, false, false, 698) == "cancelled")) {
-            // line 699
+        } elseif ((CoreExtension::getAttribute($this->env, $this->source,         // line 769
+(isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 769, $this->source); })()), "status", [], "any", false, false, false, 769) == "cancelled")) {
+            // line 770
             yield "                        <span class=\"status-badge-detail status-cancelled\">ANNULÉ</span>
                     ";
         } else {
-            // line 701
+            // line 772
             yield "                        <span class=\"status-badge-detail status-planned\">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 701, $this->source); })()), "status", [], "any", false, false, false, 701)), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(Twig\Extension\CoreExtension::upper($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 772, $this->source); })()), "status", [], "any", false, false, false, 772)), "html", null, true);
             yield "</span>
                     ";
         }
-        // line 703
+        // line 774
         yield "                </div>
             </div>
             
             <div class=\"info-card\">
                 <div class=\"info-label\">📈 SCORE ÉQUIPE 1</div>
                 <div class=\"info-value\">";
-        // line 708
-        yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam1", [], "any", true, true, false, 708) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 708, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 708)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 708, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 708), "html", null, true)) : ("0"));
+        // line 779
+        yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam1", [], "any", true, true, false, 779) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 779, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 779)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 779, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 779), "html", null, true)) : ("0"));
         yield "</div>
             </div>
             
             <div class=\"info-card\">
                 <div class=\"info-label\">📉 SCORE ÉQUIPE 2</div>
                 <div class=\"info-value\">";
-        // line 713
-        yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam2", [], "any", true, true, false, 713) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 713, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 713)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 713, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 713), "html", null, true)) : ("0"));
+        // line 784
+        yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam2", [], "any", true, true, false, 784) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 784, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 784)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 784, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 784), "html", null, true)) : ("0"));
         yield "</div>
             </div>
             
@@ -953,71 +1024,122 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
                 <div class=\"info-label\">🏆 GAGNANT</div>
                 <div class=\"info-value\">
                     ";
-        // line 719
-        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 719, $this->source); })()), "winnerTeam", [], "any", false, false, false, 719)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 720
+        // line 790
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 790, $this->source); })()), "winnerTeam", [], "any", false, false, false, 790)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 791
             yield "                        ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 720, $this->source); })()), "winnerTeam", [], "any", false, false, false, 720), "name", [], "any", false, false, false, 720), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 791, $this->source); })()), "winnerTeam", [], "any", false, false, false, 791), "name", [], "any", false, false, false, 791), "html", null, true);
             yield "
                         <div style=\"font-size: 0.9rem; color: var(--neon-green); margin-top: 0.3rem;\">
                             Score gagnant: ";
-            // line 722
-            yield (((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 722, $this->source); })()), "winnerTeam", [], "any", false, false, false, 722), "id", [], "any", false, false, false, 722) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 722, $this->source); })()), "team1", [], "any", false, false, false, 722), "id", [], "any", false, false, false, 722))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 722, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 722), "html", null, true)) : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 722, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 722), "html", null, true)));
+            // line 793
+            yield (((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 793, $this->source); })()), "winnerTeam", [], "any", false, false, false, 793), "id", [], "any", false, false, false, 793) == CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 793, $this->source); })()), "team1", [], "any", false, false, false, 793), "id", [], "any", false, false, false, 793))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 793, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 793), "html", null, true)) : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 793, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 793), "html", null, true)));
             yield "
                         </div>
                     ";
         } else {
-            // line 725
+            // line 796
             yield "                        <span style=\"color: #ff9999;\">Aucun gagnant désigné</span>
                     ";
         }
-        // line 727
+        // line 798
         yield "                </div>
             </div>
-        </div>
+            
+            <!-- NOUVEAU : Carte de localisation -->
+            ";
+        // line 802
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 802, $this->source); })()), "location", [], "any", false, false, false, 802)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 803
+            yield "            <div class=\"info-card location-card\">
+                <div class=\"info-label location-label\">📍 LOCALISATION</div>
+                <div class=\"info-value location-value\">
+                    <span class=\"location-address\">";
+            // line 806
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 806, $this->source); })()), "location", [], "any", false, false, false, 806), "html", null, true);
+            yield "</span>
+                    
+                    ";
+            // line 808
+            if ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 808, $this->source); })()), "latitude", [], "any", false, false, false, 808) && CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 808, $this->source); })()), "longitude", [], "any", false, false, false, 808))) {
+                // line 809
+                yield "                        <div class=\"location-coords\">
+                            ";
+                // line 810
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 810, $this->source); })()), "latitude", [], "any", false, false, false, 810), 4), "html", null, true);
+                yield ", ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatNumber(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 810, $this->source); })()), "longitude", [], "any", false, false, false, 810), 4), "html", null, true);
+                yield "
+                        </div>
+                        
+                        <a href=\"https://www.google.com/maps/search/?api=1&query=";
+                // line 813
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 813, $this->source); })()), "latitude", [], "any", false, false, false, 813), "html", null, true);
+                yield ",";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 813, $this->source); })()), "longitude", [], "any", false, false, false, 813), "html", null, true);
+                yield "\" 
+                           target=\"_blank\" 
+                           class=\"location-map-link\">
+                            🗺️ VOIR SUR GOOGLE MAPS
+                        </a>
+                    ";
+            } else {
+                // line 819
+                yield "                        <div style=\"color: var(--neon-yellow); font-size: 0.9rem; margin-top: 0.5rem;\">
+                            (Coordonnées non spécifiées)
+                        </div>
+                    ";
+            }
+            // line 823
+            yield "                </div>
+            </div>
+            ";
+        }
+        // line 826
+        yield "        </div>
         
         <!-- Bannière du gagnant -->
         ";
-        // line 732
-        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 732, $this->source); })()), "winnerTeam", [], "any", false, false, false, 732)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 733
+        // line 829
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 829, $this->source); })()), "winnerTeam", [], "any", false, false, false, 829)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 830
             yield "            <div class=\"winner-banner\">
                 <div class=\"winner-text\">🏆 VICTOIRE 🏆</div>
                 <div class=\"winner-team\">";
-            // line 735
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 735, $this->source); })()), "winnerTeam", [], "any", false, false, false, 735), "name", [], "any", false, false, false, 735), "html", null, true);
+            // line 832
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 832, $this->source); })()), "winnerTeam", [], "any", false, false, false, 832), "name", [], "any", false, false, false, 832), "html", null, true);
             yield "</div>
                 <div style=\"margin-top: 1rem; color: rgba(255, 255, 255, 0.7); font-size: 1.2rem;\">
                     Score final : ";
-            // line 737
-            yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam1", [], "any", true, true, false, 737) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 737, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 737)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 737, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 737), "html", null, true)) : ("0"));
+            // line 834
+            yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam1", [], "any", true, true, false, 834) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 834, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 834)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 834, $this->source); })()), "scoreTeam1", [], "any", false, false, false, 834), "html", null, true)) : ("0"));
             yield " - ";
-            yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam2", [], "any", true, true, false, 737) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 737, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 737)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 737, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 737), "html", null, true)) : ("0"));
+            yield (((CoreExtension::getAttribute($this->env, $this->source, ($context["matchy"] ?? null), "scoreTeam2", [], "any", true, true, false, 834) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 834, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 834)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 834, $this->source); })()), "scoreTeam2", [], "any", false, false, false, 834), "html", null, true)) : ("0"));
             yield "
                 </div>
             </div>
         ";
         }
-        // line 741
+        // line 838
         yield "        
         <!-- Actions principales -->
         <div class=\"actions-container-detail\">
             <a href=\"";
-        // line 744
+        // line 841
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_index");
         yield "\" class=\"action-btn-detail back-btn\">
                 ← RETOUR À LA LISTE
             </a>
             
             <a href=\"";
-        // line 748
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 748, $this->source); })()), "id", [], "any", false, false, false, 748)]), "html", null, true);
+        // line 845
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 845, $this->source); })()), "id", [], "any", false, false, false, 845)]), "html", null, true);
         yield "\" class=\"action-btn-detail edit-btn-detail\">
                 ✏️ MODIFIER LE MATCH
             </a>
         </div>
         
-        <!-- Section de suppression (nouvelle section) -->
+        <!-- Section de suppression -->
         <div class=\"delete-section\">
             <div class=\"delete-header\">
                 <div class=\"delete-title\">⚠️ ZONE DE SUPPRESSION</div>
@@ -1028,13 +1150,13 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
             
             <div class=\"delete-form-container\">
                 <form method=\"post\" action=\"";
-        // line 763
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 763, $this->source); })()), "id", [], "any", false, false, false, 763)]), "html", null, true);
+        // line 860
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_matchy_delete", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 860, $this->source); })()), "id", [], "any", false, false, false, 860)]), "html", null, true);
         yield "\" 
                       onsubmit=\"return confirmDelete();\" class=\"delete-form\">
                     <input type=\"hidden\" name=\"_token\" value=\"";
-        // line 765
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 765, $this->source); })()), "id", [], "any", false, false, false, 765))), "html", null, true);
+        // line 862
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("delete" . CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 862, $this->source); })()), "id", [], "any", false, false, false, 862))), "html", null, true);
         yield "\">
                     <button type=\"submit\" class=\"delete-btn-detail\">
                         🗑️ SUPPRIMER DÉFINITIVEMENT
@@ -1089,21 +1211,38 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
                 deleteSection.style.transform = 'translateY(0)';
             }, 500);
         }
+        
+        // Animation spéciale pour la carte de localisation
+        const locationCard = document.querySelector('.location-card');
+        if (locationCard) {
+            locationCard.style.opacity = '0';
+            locationCard.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                locationCard.style.transition = 'all 0.7s ease';
+                locationCard.style.opacity = '1';
+                locationCard.style.transform = 'translateY(0)';
+            }, 800);
+        }
     });
     
     // Fonction de confirmation pour suppression
     function confirmDelete() {
         const gameName = '";
-        // line 823
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 823, $this->source); })()), "game", [], "any", false, false, false, 823), "js"), "html", null, true);
+        // line 933
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 933, $this->source); })()), "game", [], "any", false, false, false, 933), "js"), "html", null, true);
         yield "';
         const team1Name = '";
-        // line 824
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 824, $this->source); })()), "team1", [], "any", false, false, false, 824)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 824, $this->source); })()), "team1", [], "any", false, false, false, 824), "name", [], "any", false, false, false, 824), "js"), "html", null, true)) : ("Équipe 1"));
+        // line 934
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 934, $this->source); })()), "team1", [], "any", false, false, false, 934)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 934, $this->source); })()), "team1", [], "any", false, false, false, 934), "name", [], "any", false, false, false, 934), "js"), "html", null, true)) : ("Équipe 1"));
         yield "';
         const team2Name = '";
-        // line 825
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 825, $this->source); })()), "team2", [], "any", false, false, false, 825)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 825, $this->source); })()), "team2", [], "any", false, false, false, 825), "name", [], "any", false, false, false, 825), "js"), "html", null, true)) : ("Équipe 2"));
+        // line 935
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 935, $this->source); })()), "team2", [], "any", false, false, false, 935)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 935, $this->source); })()), "team2", [], "any", false, false, false, 935), "name", [], "any", false, false, false, 935), "js"), "html", null, true)) : ("Équipe 2"));
+        yield "';
+        const location = '";
+        // line 936
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 936, $this->source); })()), "location", [], "any", false, false, false, 936)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 936, $this->source); })()), "location", [], "any", false, false, false, 936), "js"), "html", null, true)) : ("Sans localisation"));
         yield "';
         
         const message = `⚠️ CONFIRMATION DE SUPPRESSION ⚠️\\n\\n` +
@@ -1111,9 +1250,10 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
                        `• Match: \${gameName}\\n` +
                        `• \${team1Name} VS \${team2Name}\\n` +
                        `• Date: ";
-        // line 831
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 831, $this->source); })()), "matchDate", [], "any", false, false, false, 831)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 831, $this->source); })()), "matchDate", [], "any", false, false, false, 831), "d/m/Y H:i"), "html", null, true)) : ("N/A"));
-        yield "\\n\\n` +
+        // line 942
+        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 942, $this->source); })()), "matchDate", [], "any", false, false, false, 942)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["matchy"]) || array_key_exists("matchy", $context) ? $context["matchy"] : (function () { throw new RuntimeError('Variable "matchy" does not exist.', 942, $this->source); })()), "matchDate", [], "any", false, false, false, 942), "d/m/Y H:i"), "html", null, true)) : ("N/A"));
+        yield "\\n` +
+                       `• Lieu: \${location}\\n\\n` +
                        `Cette action est IRRÉVERSIBLE !\\n\\n` +
                        `Êtes-vous ABSOLUMENT SÛR de vouloir continuer ?`;
         
@@ -1151,7 +1291,7 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  1115 => 831,  1106 => 825,  1102 => 824,  1098 => 823,  1037 => 765,  1032 => 763,  1014 => 748,  1007 => 744,  1002 => 741,  993 => 737,  988 => 735,  984 => 733,  982 => 732,  975 => 727,  971 => 725,  965 => 722,  959 => 720,  957 => 719,  948 => 713,  940 => 708,  933 => 703,  927 => 701,  923 => 699,  921 => 698,  918 => 697,  916 => 696,  913 => 695,  911 => 694,  908 => 693,  906 => 692,  897 => 686,  889 => 681,  880 => 674,  874 => 670,  872 => 669,  868 => 668,  865 => 667,  859 => 664,  856 => 663,  854 => 662,  850 => 661,  843 => 659,  837 => 655,  831 => 651,  829 => 650,  825 => 649,  822 => 648,  816 => 645,  813 => 644,  811 => 643,  807 => 642,  800 => 640,  791 => 634,  786 => 632,  774 => 623,  767 => 618,  758 => 615,  753 => 613,  749 => 612,  745 => 611,  742 => 610,  739 => 609,  736 => 608,  733 => 607,  730 => 606,  725 => 605,  723 => 604,  717 => 600,  704 => 599,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
+        return array (  1254 => 942,  1245 => 936,  1241 => 935,  1237 => 934,  1233 => 933,  1159 => 862,  1154 => 860,  1136 => 845,  1129 => 841,  1124 => 838,  1115 => 834,  1110 => 832,  1106 => 830,  1104 => 829,  1099 => 826,  1094 => 823,  1088 => 819,  1077 => 813,  1069 => 810,  1066 => 809,  1064 => 808,  1059 => 806,  1054 => 803,  1052 => 802,  1046 => 798,  1042 => 796,  1036 => 793,  1030 => 791,  1028 => 790,  1019 => 784,  1011 => 779,  1004 => 774,  998 => 772,  994 => 770,  992 => 769,  989 => 768,  987 => 767,  984 => 766,  982 => 765,  979 => 764,  977 => 763,  968 => 757,  960 => 752,  951 => 745,  945 => 741,  943 => 740,  939 => 739,  936 => 738,  930 => 735,  927 => 734,  925 => 733,  921 => 732,  914 => 730,  908 => 726,  902 => 722,  900 => 721,  896 => 720,  893 => 719,  887 => 716,  884 => 715,  882 => 714,  878 => 713,  871 => 711,  862 => 705,  857 => 703,  845 => 694,  838 => 689,  829 => 686,  824 => 684,  820 => 683,  816 => 682,  813 => 681,  810 => 680,  807 => 679,  804 => 678,  801 => 677,  796 => 676,  794 => 675,  788 => 671,  775 => 670,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -1170,7 +1310,9 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
         --neon-purple: #9d00ff;
         --neon-red: #ff003c;
         --neon-green: #00ff88;
+        --neon-yellow: #ffcc00;
         --dark-bg: #0a0a14;
+        --location-glow: rgba(255, 204, 0, 0.5);
     }
     
     body {
@@ -1439,6 +1581,66 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
         font-size: 1.4rem;
         font-weight: 600;
         font-family: 'Rajdhani', sans-serif;
+    }
+    
+    /* Style pour la carte de localisation */
+    .location-card {
+        background: rgba(255, 204, 0, 0.05);
+        border: 2px solid var(--neon-yellow);
+        grid-column: span 2;
+    }
+    
+    .location-card:hover {
+        border-color: var(--neon-green);
+        box-shadow: 0 10px 25px var(--location-glow);
+    }
+    
+    .location-label {
+        color: var(--neon-yellow) !important;
+    }
+    
+    .location-value {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .location-address {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+    }
+    
+    .location-coords {
+        font-family: 'Orbitron', monospace;
+        color: var(--neon-green);
+        font-size: 0.9rem;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 0.3rem 1rem;
+        border-radius: 20px;
+        border: 1px solid var(--neon-green);
+    }
+    
+    .location-map-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(45deg, var(--neon-yellow), #ffaa00);
+        color: black;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px var(--location-glow);
+    }
+    
+    .location-map-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 25px var(--neon-green);
     }
     
     .status-badge-detail {
@@ -1733,6 +1935,15 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
             grid-template-columns: 1fr;
         }
         
+        .location-card {
+            grid-column: span 1;
+        }
+        
+        .location-value {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
         .actions-container-detail {
             flex-direction: column;
             align-items: center;
@@ -1759,7 +1970,7 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
     
     <!-- Éléments flottants -->
     <div class=\"floating-elements\">
-        {% set icons = ['🎮', '⚡', '🔥', '👑', '🕹️', '🎯', '🏆', '💥', '🚀', '⭐'] %}
+        {% set icons = ['🎮', '⚡', '🔥', '👑', '🕹️', '🎯', '🏆', '💥', '🚀', '⭐', '📍', '🗺️'] %}
         {% for i in 1..10 %}
             {% set iconIndex = (i % icons|length) %}
             {% set leftPosition = 5 + ((i * 10) % 90) %}
@@ -1884,6 +2095,32 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
                     {% endif %}
                 </div>
             </div>
+            
+            <!-- NOUVEAU : Carte de localisation -->
+            {% if matchy.location %}
+            <div class=\"info-card location-card\">
+                <div class=\"info-label location-label\">📍 LOCALISATION</div>
+                <div class=\"info-value location-value\">
+                    <span class=\"location-address\">{{ matchy.location }}</span>
+                    
+                    {% if matchy.latitude and matchy.longitude %}
+                        <div class=\"location-coords\">
+                            {{ matchy.latitude|number_format(4) }}, {{ matchy.longitude|number_format(4) }}
+                        </div>
+                        
+                        <a href=\"https://www.google.com/maps/search/?api=1&query={{ matchy.latitude }},{{ matchy.longitude }}\" 
+                           target=\"_blank\" 
+                           class=\"location-map-link\">
+                            🗺️ VOIR SUR GOOGLE MAPS
+                        </a>
+                    {% else %}
+                        <div style=\"color: var(--neon-yellow); font-size: 0.9rem; margin-top: 0.5rem;\">
+                            (Coordonnées non spécifiées)
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
         </div>
         
         <!-- Bannière du gagnant -->
@@ -1908,7 +2145,7 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
             </a>
         </div>
         
-        <!-- Section de suppression (nouvelle section) -->
+        <!-- Section de suppression -->
         <div class=\"delete-section\">
             <div class=\"delete-header\">
                 <div class=\"delete-title\">⚠️ ZONE DE SUPPRESSION</div>
@@ -1974,6 +2211,19 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
                 deleteSection.style.transform = 'translateY(0)';
             }, 500);
         }
+        
+        // Animation spéciale pour la carte de localisation
+        const locationCard = document.querySelector('.location-card');
+        if (locationCard) {
+            locationCard.style.opacity = '0';
+            locationCard.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                locationCard.style.transition = 'all 0.7s ease';
+                locationCard.style.opacity = '1';
+                locationCard.style.transform = 'translateY(0)';
+            }, 800);
+        }
     });
     
     // Fonction de confirmation pour suppression
@@ -1981,18 +2231,20 @@ class __TwigTemplate_0c838e5fc3eed4dbf7b438b76808068d extends Template
         const gameName = '{{ matchy.game|escape('js') }}';
         const team1Name = '{{ matchy.team1 ? matchy.team1.name|escape('js') : \"Équipe 1\" }}';
         const team2Name = '{{ matchy.team2 ? matchy.team2.name|escape('js') : \"Équipe 2\" }}';
+        const location = '{{ matchy.location ? matchy.location|escape('js') : \"Sans localisation\" }}';
         
         const message = `⚠️ CONFIRMATION DE SUPPRESSION ⚠️\\n\\n` +
                        `Vous êtes sur le point de supprimer définitivement :\\n` +
                        `• Match: \${gameName}\\n` +
                        `• \${team1Name} VS \${team2Name}\\n` +
-                       `• Date: {{ matchy.matchDate ? matchy.matchDate|date('d/m/Y H:i') : 'N/A' }}\\n\\n` +
+                       `• Date: {{ matchy.matchDate ? matchy.matchDate|date('d/m/Y H:i') : 'N/A' }}\\n` +
+                       `• Lieu: \${location}\\n\\n` +
                        `Cette action est IRRÉVERSIBLE !\\n\\n` +
                        `Êtes-vous ABSOLUMENT SÛR de vouloir continuer ?`;
         
         return confirm(message);
     }
 </script>
-{% endblock %}", "front/matchy/show.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\front\\matchy\\show.html.twig");
+{% endblock %}", "front/matchy/show.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\front\\matchy\\show.html.twig");
     }
 }

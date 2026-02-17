@@ -2515,6 +2515,6 @@ class __TwigTemplate_ad7afdafeb8f94cdd19759ebe60bbba7 extends Template
         });
     });
 </script>
-{% endblock %}", "matchy/index.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\matchy\\index.html.twig");
+{% endblock %}", "matchy/index.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\matchy\\index.html.twig");
     }
 }

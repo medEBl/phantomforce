@@ -127,10 +127,16 @@
     border: 1px solid rgba(155, 89, 182, 0.3);
 }
 
-.tag-date {
+.tag-team {
     background: rgba(241, 196, 15, 0.2);
     color: #f1c40f;
     border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+.tag-date {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.3);
 }
 
 /* ================= PLAN CONTENT ================= */
@@ -264,6 +270,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .session-date {
@@ -282,6 +289,13 @@
 .session-team {
     color: var(--text-muted);
     font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.session-team i {
+    color: var(--red);
 }
 
 .no-sessions {
@@ -493,10 +507,18 @@
             <i class="fas fa-calendar-alt"></i>
             <span>Créé le {{ training_plan.createdAt|date('d/m/Y') }}</span>
         </div>
+        {% if training_plan.coach %}
         <div class="plan-meta-item">
             <i class="fas fa-user-tie"></i>
-            <span>Coach #{{ training_plan.coachId }}</span>
+            <span>{{ training_plan.coach.fullName }}</span>
         </div>
+        {% endif %}
+        {% if training_plan.team %}
+        <div class="plan-meta-item">
+            <i class="fas fa-users"></i>
+            <span>{{ training_plan.team.name }}</span>
+        </div>
+        {% endif %}
     </div>
 </div>
 
@@ -513,10 +535,18 @@
                 <i class="fas fa-chart-line"></i>
                 {{ training_plan.difficultyLevel }}
             </span>
+            {% if training_plan.coach %}
             <span class="plan-tag tag-coach">
                 <i class="fas fa-user-tie"></i>
-                Coach #{{ training_plan.coachId }}
+                {{ training_plan.coach.fullName }}
             </span>
+            {% endif %}
+            {% if training_plan.team %}
+            <span class="plan-tag tag-team">
+                <i class="fas fa-users"></i>
+                {{ training_plan.team.name }}
+            </span>
+            {% endif %}
             <span class="plan-tag tag-date">
                 <i class="fas fa-clock"></i>
                 {{ training_plan.createdAt|date('d/m/Y') }}
@@ -554,8 +584,8 @@
                 <div class="stat-value">
                     {% set uniqueTeams = [] %}
                     {% for session in training_plan.coachingSessions %}
-                        {% if session.teamId not in uniqueTeams %}
-                            {% set uniqueTeams = uniqueTeams|merge([session.teamId]) %}
+                        {% if session.team and session.team.id not in uniqueTeams %}
+                            {% set uniqueTeams = uniqueTeams|merge([session.team.id]) %}
                         {% endif %}
                     {% endfor %}
                     {{ uniqueTeams|length }}
@@ -597,8 +627,41 @@
                     <i class="fas fa-user-tie"></i>
                     Coach Responsable
                 </div>
-                <div class="info-value">Coach #{{ training_plan.coachId }}</div>
-                <div class="info-details">Identifiant du coach supervisant ce plan</div>
+                <div class="info-value">
+                    {% if training_plan.coach %}
+                        {{ training_plan.coach.fullName }}
+                    {% else %}
+                        Non assigné
+                    {% endif %}
+                </div>
+                <div class="info-details">
+                    {% if training_plan.coach %}
+                        @{{ training_plan.coach.username }} • {{ training_plan.coach.country }}
+                    {% else %}
+                        Aucun coach assigné à ce plan
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-users"></i>
+                    Équipe Cible
+                </div>
+                <div class="info-value">
+                    {% if training_plan.team %}
+                        {{ training_plan.team.name }}
+                    {% else %}
+                        Non assignée
+                    {% endif %}
+                </div>
+                <div class="info-details">
+                    {% if training_plan.team %}
+                        {{ training_plan.team.game }}
+                    {% else %}
+                        Aucune équipe assignée à ce plan
+                    {% endif %}
+                </div>
             </div>
             
             <div class="info-card">
@@ -633,10 +696,18 @@
                                     <i class="fas fa-clock"></i>
                                     {{ session.duration }} min
                                 </div>
+                                {% if session.team %}
                                 <div class="session-team">
                                     <i class="fas fa-users"></i>
-                                    Équipe #{{ session.teamId }}
+                                    {{ session.team.name }}
                                 </div>
+                                {% endif %}
+                                {% if session.coach %}
+                                <div class="session-team">
+                                    <i class="fas fa-user-tie"></i>
+                                    {{ session.coach.fullName }}
+                                </div>
+                                {% endif %}
                             </div>
                             <a href="{{ path('app_coaching_session_show', {'id': session.id}) }}" 
                                class="btn-show" style="padding: 8px 16px;">
@@ -649,6 +720,9 @@
                         <i class="fas fa-video-slash"></i>
                         <h3>Aucune session associée</h3>
                         <p>Ce plan d'entraînement n'est pas encore utilisé dans une session de coaching.</p>
+                        <a href="{{ path('app_coaching_session_new') }}" class="btn-new" style="margin-top: 15px; display: inline-block;">
+                            <i class="fas fa-plus-circle"></i> Créer une session
+                        </a>
                     </div>
                 {% endif %}
             </div>
@@ -680,6 +754,7 @@
 {% endblock %}
 
 {% block javascripts %}
+{{ parent() }}
 <script>
 function confirmDelete() {
     if (confirm('⚠️ ATTENTION : Êtes-vous sûr de vouloir supprimer ce plan d\'entraînement ?\n\nCette action supprimera également toutes les sessions de coaching associées à ce plan.\n\nCette action est irréversible !')) {
@@ -696,7 +771,21 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.opacity = '0';
         }, index * 100);
     });
+    
+    // Vérifier s'il y a des sessions associées et ajuster le message de suppression
+    const sessionsCount = {{ training_plan.coachingSessions|length }};
+    const deleteButton = document.querySelector('.btn-delete');
+    if (deleteButton && sessionsCount > 0) {
+        deleteButton.setAttribute('onclick', 'confirmDeleteWithSessions()');
+    }
 });
+
+function confirmDeleteWithSessions() {
+    const sessionsCount = {{ training_plan.coachingSessions|length }};
+    if (confirm(`⚠️ ATTENTION : Ce plan a ${sessionsCount} session(s) de coaching associée(s).\n\nLa suppression de ce plan supprimera également toutes ces sessions.\n\nCette action est irréversible !`)) {
+        document.querySelector('#delete-form form').submit();
+    }
+}
 
 // Effet de survol amélioré
 document.querySelectorAll('.info-card, .stat-card').forEach(card => {

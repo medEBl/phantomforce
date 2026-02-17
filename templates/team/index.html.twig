@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}🎮 ARENA - Équipes E-sport{% endblock %}
+{% block title %}⚔️ ARENA - Équipes E-sport{% endblock %}
 
 {% block stylesheets %}
 {{ parent() }}
@@ -12,16 +12,18 @@
         --fire-red: #ff3300;
         --dark-red: #cc0000;
         --neon-red: #ff003c;
+        --red-glow: rgba(255, 0, 0, 0.7);
+        --red-light: rgba(255, 51, 51, 0.3);
         --black-bg: #000000;
         --dark-gray: #1a1a1a;
         --gray: #333333;
         --light-gray: #666666;
         --white: #ffffff;
         --red-gradient: linear-gradient(135deg, #ff0000 0%, #cc0000 50%, #990000 100%);
-        --red-glow: rgba(255, 0, 0, 0.7);
-        --red-light-glow: rgba(255, 51, 51, 0.3);
-        --electric-blue: #00ffff;
-        --cyber-green: #00ff00;
+        --fire-gradient: linear-gradient(45deg, #ff0000, #ff3300, #cc0000);
+        --team-win: #00ff88;
+        --team-loss: #ff335c;
+        --match-pending: #ffcc00;
     }
     
     body {
@@ -45,7 +47,266 @@
             radial-gradient(circle at 40% 90%, rgba(255, 51, 51, 0.1) 0%, transparent 50%);
         z-index: -1;
     }
-    
+    /* Styles pour les modales - DESIGN GAMING */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeInModal 0.3s ease;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(26, 0, 0, 0.95), rgba(51, 0, 0, 0.95));
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            border: 2px solid var(--blood-red);
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            position: relative;
+            animation: slideInModal 0.3s ease;
+        }
+
+        @keyframes slideInModal {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--blood-red), 
+                var(--fire-red),
+                var(--dark-red),
+                var(--neon-red));
+            border-radius: 22px;
+            z-index: -1;
+            filter: blur(15px);
+            animation: borderGlow 4s linear infinite;
+            background-size: 400% 400%;
+            opacity: 0.5;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--fire-red);
+            text-shadow: 0 0 10px rgba(255, 51, 0, 0.5);
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--blood-red);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            color: var(--fire-red);
+        }
+
+        .modal-body {
+            margin-bottom: 2rem;
+            color: #cc9999;
+        }
+
+        .modal-body p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--fire-red);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .modal-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .modal-option {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .modal-option:hover::before {
+            left: 100%;
+        }
+
+        .modal-option:hover {
+            border-color: var(--blood-red);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .modal-option.selected {
+            border-color: var(--fire-red);
+            background: rgba(255, 204, 0, 0.15);
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .modal-option small {
+            display: block;
+            color: #cc9999;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .modal-option.selected small {
+            color: var(--fire-yellow);
+        }
+
+        .modal-option .option-icon {
+            font-size: 1.5rem;
+            margin-right: 0.8rem;
+            display: inline-block;
+        }
+
+        .modal-option .option-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .modal-btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .modal-btn.confirm {
+            background: linear-gradient(45deg, var(--blood-red), var(--dark-red));
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .modal-btn.cancel {
+            background: linear-gradient(45deg, #333333, #666666);
+            color: white;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .modal-btn.confirm:hover {
+            background: linear-gradient(45deg, var(--dark-red), var(--blood-red));
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+        }
+
+        .modal-btn.cancel:hover {
+            background: linear-gradient(45deg, #444444, #777777);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Style pour les checkbox dans la modale */
+        .modal-body label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #cc9999;
+            margin: 0.5rem 0;
+            cursor: pointer;
+        }
+
+        .modal-body input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--blood-red);
+            cursor: pointer;
+        }
+
+        #selectedCount {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--electric-blue);
+            color: var(--electric-blue);
+            font-family: 'Orbitron', sans-serif;
+            margin-top: 1rem;
+        }
     .gaming-container {
         position: relative;
         padding: 2rem;
@@ -119,105 +380,11 @@
                          0 0 40px rgba(255, 0, 0, 0.5); }
     }
     
-    .advanced-controls {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        margin-bottom: 2rem;
-        flex-wrap: wrap;
-        padding: 1.5rem;
-        background: rgba(26, 0, 0, 0.9);
-        border-radius: 15px;
-        border: 1px solid rgba(255, 0, 0, 0.3);
-    }
-    
-    .control-btn {
-        position: relative;
-        background: linear-gradient(45deg, var(--dark-red), var(--blood-red));
-        border: none;
-        padding: 0.8rem 1.5rem;
-        font-family: 'Orbitron', sans-serif;
-        font-weight: 700;
-        font-size: 0.9rem;
-        color: white;
-        border-radius: 10px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-        z-index: 1;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        min-width: 150px;
-        justify-content: center;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-    }
-    
-    .control-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: 0.5s;
-        z-index: -1;
-    }
-    
-    .control-btn:hover::before {
-        left: 100%;
-    }
-    
-    .control-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
-    }
-    
-    .export-btn {
-        background: linear-gradient(45deg, #0066cc, #004499);
-        box-shadow: 0 0 15px rgba(0, 102, 204, 0.5);
-    }
-    
-    .export-btn:hover {
-        box-shadow: 0 0 25px rgba(0, 102, 204, 0.8);
-    }
-    
-    .print-btn {
-        background: linear-gradient(45deg, #009900, #006600);
-        box-shadow: 0 0 15px rgba(0, 153, 0, 0.5);
-    }
-    
-    .print-btn:hover {
-        box-shadow: 0 0 25px rgba(0, 153, 0, 0.8);
-    }
-    
-    .stats-btn {
-        background: linear-gradient(45deg, #9900cc, #660099);
-        box-shadow: 0 0 15px rgba(153, 0, 204, 0.5);
-    }
-    
-    .stats-btn:hover {
-        box-shadow: 0 0 25px rgba(153, 0, 204, 0.8);
-    }
-    
-    .bulk-btn {
-        background: linear-gradient(45deg, #cc9900, #996600);
-        box-shadow: 0 0 15px rgba(204, 153, 0, 0.5);
-    }
-    
-    .bulk-btn:hover {
-        box-shadow: 0 0 25px rgba(204, 153, 0, 0.8);
-    }
-    
     .controls-container {
         display: flex;
         justify-content: center;
         gap: 2rem;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         flex-wrap: wrap;
     }
     
@@ -267,86 +434,55 @@
         background: linear-gradient(45deg, var(--fire-red), var(--blood-red));
     }
     
-    .music-control-btn {
-        position: relative;
-        background: linear-gradient(45deg, #8b0000, #660000);
-        border: none;
-        padding: 1rem 2.5rem;
-        font-family: 'Orbitron', sans-serif;
-        font-weight: 700;
-        font-size: 1.2rem;
-        color: white;
-        border-radius: 12px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 25px rgba(139, 0, 0, 0.5);
-        z-index: 1;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        min-width: 300px;
-        justify-content: center;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+    .map-btn {
+        background: linear-gradient(45deg, #0066cc, #003399) !important;
     }
     
-    .music-control-btn::before {
-        content: '';
+    .map-btn:hover {
+        background: linear-gradient(45deg, #003399, #0066cc) !important;
+    }
+    
+    .live-counter {
         position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-        transition: 0.5s;
-        z-index: -1;
+        top: -10px;
+        right: -10px;
+        background: var(--fire-red);
+        color: white;
+        font-family: 'Orbitron', monospace;
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 12px;
+        border: 2px solid white;
+        animation: counterPulse 2s infinite;
+        box-shadow: 0 0 10px rgba(255, 51, 0, 0.8);
+        z-index: 10;
     }
     
-    .music-control-btn:hover::before {
-        left: 100%;
-    }
-    
-    .music-control-btn:hover {
-        transform: translateY(-5px) scale(1.05);
-        box-shadow: 0 0 40px rgba(139, 0, 0, 0.8);
-        background: linear-gradient(45deg, #660000, #8b0000);
-    }
-    
-    .music-control-btn.muted {
-        background: linear-gradient(45deg, #333333, #666666);
-        box-shadow: 0 0 25px rgba(51, 51, 51, 0.5);
-    }
-    
-    .music-control-btn.muted:hover {
-        box-shadow: 0 0 40px rgba(51, 51, 51, 0.8);
-    }
-    
-    .music-control-btn.playing {
-        animation: pulseMusic 1.5s infinite;
-    }
-    
-    @keyframes pulseMusic {
-        0%, 100% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.5); }
-        50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.9); }
+    @keyframes counterPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
     }
     
     .teams-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
         gap: 2rem;
         padding: 2rem 0;
+        position: relative;
     }
     
     .team-card {
         background: rgba(26, 0, 0, 0.9);
         border-radius: 15px;
-        padding: 1.5rem;
+        padding: 1.8rem;
         position: relative;
         overflow: hidden;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1px solid rgba(255, 0, 0, 0.3);
         backdrop-filter: blur(10px);
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
     }
     
     .team-card:hover {
@@ -391,49 +527,225 @@
         text-shadow: 0 0 5px rgba(255, 51, 0, 0.7);
     }
     
+    .team-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        flex-shrink: 0;
+        position: relative;
+    }
+    
     .team-name {
         font-family: 'Orbitron', sans-serif;
         font-size: 1.8rem;
         font-weight: 700;
         color: white;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
     }
     
-    .team-name::before {
-        content: '⚔️';
-        color: var(--blood-red);
-        animation: pulse 1s infinite;
-        text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    .team-game {
+        color: var(--fire-red);
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        text-shadow: 0 0 5px rgba(255, 51, 0, 0.5);
     }
     
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.2); }
+    .team-stats {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 0, 0, 0.3);
     }
     
-    .team-info {
+    .stat-item {
+        text-align: center;
+    }
+    
+    .stat-value {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: var(--fire-red);
+        text-shadow: 0 0 10px rgba(255, 51, 0, 0.7);
+    }
+    
+    .stat-label {
+        color: #cc9999;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+    
+    .team-details {
         display: flex;
         flex-direction: column;
         gap: 0.8rem;
         margin-bottom: 1.5rem;
     }
     
-    .info-item {
+    .detail-item {
         display: flex;
         align-items: center;
         gap: 0.5rem;
         color: #cc9999;
-        font-size: 1.1rem;
+        font-size: 0.95rem;
+        min-height: 24px;
     }
     
-    .info-item strong {
+    .detail-item strong {
         color: var(--fire-red);
-        min-width: 120px;
+        min-width: 80px;
+        flex-shrink: 0;
         text-shadow: 0 0 5px rgba(255, 51, 0, 0.5);
+    }
+    
+    .detail-item span {
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .member-badge {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background: rgba(255, 0, 0, 0.15);
+        color: var(--blood-red);
+        border: 1px solid var(--blood-red);
+        margin-left: 0.5rem;
+    }
+    
+    .member-tooltip {
+        cursor: help;
+        border-bottom: 1px dotted var(--fire-red);
+    }
+    
+    /* Styles pour la section des matchs */
+    .matches-section {
+        margin: 1rem 0;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        border-left: 3px solid var(--blood-red);
+        flex-grow: 1;
+        overflow: hidden;
+    }
+    
+    .matches-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1rem;
+        color: var(--fire-red);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .matches-list {
+        max-height: 200px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--blood-red) rgba(0, 0, 0, 0.3);
+        padding-right: 5px;
+    }
+    
+    .matches-list::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    .matches-list::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 3px;
+    }
+    
+    .matches-list::-webkit-scrollbar-thumb {
+        background: var(--blood-red);
+        border-radius: 3px;
+    }
+    
+    .match-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.6rem;
+        margin-bottom: 0.5rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+    }
+    
+    .match-item:hover {
+        background: rgba(255, 0, 0, 0.2);
+        transform: translateX(3px);
+    }
+    
+    .match-opponent {
+        color: #cc9999;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .match-result {
+        font-weight: 700;
+        padding: 0.2rem 0.8rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+        min-width: 45px;
+        text-align: center;
+    }
+    
+    .match-win {
+        background: rgba(0, 255, 136, 0.2);
+        color: var(--team-win);
+        border: 1px solid var(--team-win);
+    }
+    
+    .match-loss {
+        background: rgba(255, 51, 92, 0.2);
+        color: var(--team-loss);
+        border: 1px solid var(--team-loss);
+    }
+    
+    .match-pending {
+        background: rgba(255, 204, 0, 0.2);
+        color: var(--match-pending);
+        border: 1px solid var(--match-pending);
+    }
+    
+    .match-score {
+        font-family: 'Orbitron', monospace;
+        color: white;
+        margin-right: 0.5rem;
+        min-width: 50px;
+        text-align: center;
+    }
+    
+    .match-status-icon {
+        margin-right: 0.3rem;
+    }
+    
+    .no-matches {
+        color: #cc9999;
+        font-style: italic;
+        font-size: 0.9rem;
+        text-align: center;
+        padding: 1rem;
     }
     
     .actions-container {
@@ -442,10 +754,11 @@
         justify-content: center;
         padding-top: 1rem;
         border-top: 1px solid rgba(255, 0, 0, 0.2);
+        flex-shrink: 0;
     }
     
     .action-btn {
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 1.2rem;
         border: none;
         border-radius: 8px;
         font-family: 'Rajdhani', sans-serif;
@@ -453,12 +766,16 @@
         font-size: 0.9rem;
         cursor: pointer;
         transition: all 0.3s ease;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 0.5rem;
         text-decoration: none;
+        flex: 1;
+        justify-content: center;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
     }
     
     .view-btn {
@@ -480,6 +797,21 @@
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
         filter: brightness(1.3);
+    }
+    
+    .action-btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: 0.5s;
+    }
+    
+    .action-btn:hover::after {
+        left: 100%;
     }
     
     .no-teams {
@@ -550,51 +882,6 @@
             transform: translateY(-100px) rotate(360deg);
             opacity: 0;
         }
-    }
-    
-    .game-icon {
-        display: inline-block;
-        background: rgba(255, 0, 0, 0.3);
-        color: white;
-        padding: 0.2rem 0.8rem;
-        border-radius: 5px;
-        font-size: 0.9rem;
-        margin-left: 0.5rem;
-        border: 1px solid rgba(255, 0, 0, 0.5);
-    }
-    
-    .volume-controls {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        z-index: 1000;
-    }
-    
-    .volume-slider {
-        background: rgba(0, 0, 0, 0.9);
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid var(--blood-red);
-        display: none;
-    }
-    
-    .volume-slider.active {
-        display: block;
-        animation: slideUp 0.3s ease;
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-    }
-    
-    @keyframes slideUp {
-        from { transform: translateY(20px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
-    
-    .volume-slider input {
-        width: 100%;
-        margin: 5px 0;
     }
     
     /* Filtres */
@@ -749,231 +1036,222 @@
         transition: all 0.3s ease;
     }
     
-    /* Styles pour les modales et popups */
-    .modal-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        z-index: 9999;
-        align-items: center;
+    /* Actions avancées */
+    .advanced-actions {
+        display: flex;
         justify-content: center;
-        backdrop-filter: blur(5px);
+        gap: 1rem;
+        margin: 1.5rem 0;
+        flex-wrap: wrap;
     }
     
-    .modal-overlay.active {
+    .advanced-btn {
+        background: linear-gradient(45deg, var(--dark-red), var(--blood-red));
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
         display: flex;
-        animation: fadeInModal 0.3s ease;
-    }
-    
-    @keyframes fadeInModal {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    
-    .modal-content {
-        background: linear-gradient(135deg, rgba(26, 0, 0, 0.95), rgba(51, 0, 0, 0.95));
-        border-radius: 20px;
-        padding: 2rem;
-        max-width: 500px;
-        width: 90%;
-        border: 2px solid var(--blood-red);
-        box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
-        position: relative;
-    }
-    
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+        gap: 0.5rem;
+        font-size: 0.9rem;
     }
     
-    .modal-title {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 1.8rem;
-        color: var(--fire-red);
-        text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-    }
-    
-    .close-modal {
-        background: none;
-        border: none;
-        color: var(--blood-red);
-        font-size: 2rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        line-height: 1;
-    }
-    
-    .close-modal:hover {
-        transform: scale(1.2);
-        text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
-    }
-    
-    .modal-body {
-        margin-bottom: 2rem;
-    }
-    
-    .modal-options {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin: 1rem 0;
-    }
-    
-    .modal-option {
-        background: rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(255, 0, 0, 0.3);
-        border-radius: 10px;
-        padding: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: center;
-    }
-    
-    .modal-option:hover {
-        background: rgba(255, 0, 0, 0.2);
-        border-color: var(--blood-red);
-        transform: translateY(-3px);
-    }
-    
-    .modal-option.selected {
-        background: rgba(255, 0, 0, 0.3);
-        border-color: var(--fire-red);
-        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-    }
-    
-    .modal-footer {
-        display: flex;
-        justify-content: flex-end;
-        gap: 1rem;
-        margin-top: 2rem;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(255, 0, 0, 0.3);
-    }
-    
-    .modal-btn {
-        padding: 0.8rem 2rem;
-        border: none;
-        border-radius: 10px;
-        font-family: 'Orbitron', sans-serif;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    
-    .modal-btn.confirm {
-        background: linear-gradient(45deg, var(--blood-red), var(--dark-red));
-        color: white;
-    }
-    
-    .modal-btn.cancel {
-        background: linear-gradient(45deg, #333333, #666666);
-        color: white;
-    }
-    
-    .modal-btn:hover {
+    .advanced-btn:hover {
         transform: translateY(-3px);
         box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
     }
     
-    /* Styles pour les notifications */
-    .notification {
+    /* Notifications */
+    .notification-bell {
         position: fixed;
-        top: 20px;
+        bottom: 20px;
         right: 20px;
-        padding: 1rem 2rem;
-        border-radius: 10px;
-        background: linear-gradient(45deg, rgba(0, 100, 0, 0.9), rgba(0, 150, 0, 0.9));
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, var(--blood-red), var(--dark-red));
+        border: none;
         color: white;
-        font-family: 'Rajdhani', sans-serif;
-        font-weight: 700;
-        z-index: 9999;
-        transform: translateX(120%);
-        transition: transform 0.3s ease;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(0, 255, 0, 0.3);
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        transition: all 0.3s ease;
     }
     
-    .notification.show {
-        transform: translateX(0);
+    .notification-bell:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
     }
     
-    .notification.error {
-        background: linear-gradient(45deg, rgba(100, 0, 0, 0.9), rgba(150, 0, 0, 0.9));
-    }
-    
-    .notification.info {
-        background: linear-gradient(45deg, rgba(0, 0, 100, 0.9), rgba(0, 0, 150, 0.9));
-    }
-    
-    /* Styles pour l'impression */
-    @media print {
-        body {
-            background: white !important;
-            color: black !important;
-        }
-        
-        .header-glow, .controls-container, .advanced-controls, .music-control-btn, 
-        .add-team-btn, .filters-container, .action-btn, .floating-elements {
-            display: none !important;
-        }
-        
-        .team-card {
-            break-inside: avoid;
-            border: 1px solid #ccc !important;
-            box-shadow: none !important;
-            background: white !important;
-            color: black !important;
-            margin-bottom: 20px;
-        }
-        
-        .teams-grid {
-            display: block !important;
-        }
-        
-        .team-name {
-            color: black !important;
-            text-shadow: none !important;
-        }
-        
-        .team-id, .game-icon {
-            border-color: #ccc !important;
-            color: #666 !important;
-        }
-    }
-    
-    /* Styles pour la sélection multiple */
-    .team-card.selected {
-        border-color: var(--electric-blue);
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-    }
-    
-    .selection-checkbox {
+    .notification-badge {
         position: absolute;
-        top: 1rem;
-        left: 1rem;
+        top: -5px;
+        right: -5px;
+        background: var(--fire-red);
+        color: white;
+        font-size: 0.7rem;
         width: 20px;
         height: 20px;
-        accent-color: var(--blood-red);
-        cursor: pointer;
-        transform: scale(1.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: badgePulse 1.5s infinite;
     }
     
-    .selection-mode-active .selection-checkbox {
-        display: block !important;
+    @keyframes badgePulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
     }
     
-    .selection-mode-active .team-card {
-        cursor: pointer;
+    /* Modal notifications */
+    .notifications-modal {
+        display: none;
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 350px;
+        max-height: 400px;
+        background: rgba(26, 0, 0, 0.95);
+        border: 2px solid var(--blood-red);
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        z-index: 1001;
+        overflow: hidden;
+    }
+    
+    .notifications-modal.active {
+        display: block;
+        animation: slideUp 0.3s ease;
+    }
+    
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .notifications-header {
+        padding: 1rem;
+        background: rgba(255, 0, 0, 0.2);
+        border-bottom: 1px solid var(--blood-red);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .notifications-title {
+        font-family: 'Orbitron', sans-serif;
+        color: var(--fire-red);
+        font-size: 1.1rem;
+    }
+    
+    .notifications-list {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    
+    .notification-item {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .notification-item:hover {
+        background: rgba(255, 0, 0, 0.1);
+    }
+    
+    .notification-item.unread {
+        background: rgba(255, 0, 0, 0.15);
+    }
+    
+    .notification-time {
+        font-size: 0.8rem;
+        color: #cc9999;
+        margin-top: 0.3rem;
+    }
+    
+    /* Toast */
+    .toast {
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        background: rgba(26, 0, 0, 0.95);
+        border: 2px solid var(--blood-red);
+        border-radius: 10px;
+        padding: 1rem;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        display: none;
+        z-index: 1002;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        max-width: 300px;
+        animation: slideInRight 0.3s ease;
+    }
+    
+    .toast.show {
+        display: block;
+    }
+    
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Stats overlay */
+    .stats-overlay {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: rgba(26, 0, 0, 0.9);
+        border: 2px solid var(--blood-red);
+        border-radius: 10px;
+        padding: 1rem;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        z-index: 999;
+        display: none;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    }
+    
+    .stats-overlay.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    .stats-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .stats-value {
+        color: var(--fire-red);
+        font-weight: 700;
+    }
+    
+    /* Team highlight */
+    .team-card.highlighted {
+        animation: highlightPulse 2s infinite;
+        border-color: var(--neon-red);
+        box-shadow: 0 0 25px rgba(255, 0, 60, 0.6);
+    }
+    
+    @keyframes highlightPulse {
+        0%, 100% { 
+            border-color: var(--neon-red);
+            box-shadow: 0 0 25px rgba(255, 0, 60, 0.6);
+        }
+        50% { 
+            border-color: var(--blood-red);
+            box-shadow: 0 0 35px rgba(255, 0, 0, 0.8);
+        }
     }
     
     @media (max-width: 768px) {
@@ -994,7 +1272,7 @@
             align-items: center;
         }
         
-        .add-team-btn, .music-control-btn {
+        .add-team-btn {
             min-width: 250px;
             font-size: 1rem;
         }
@@ -1007,27 +1285,55 @@
             margin-top: 0;
         }
         
-        .advanced-controls {
+        .team-stats {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .team-card {
+            min-height: 550px;
+        }
+        
+        .advanced-actions {
             flex-direction: column;
             align-items: center;
         }
         
-        .control-btn {
-            min-width: 100%;
-            margin-bottom: 0.5rem;
+        .notifications-modal {
+            width: 90%;
+            right: 5%;
+            bottom: 100px;
         }
+    }
+    
+    @media (max-width: 480px) {
+        .gaming-container {
+            padding: 1rem;
+        }
+        
+        .team-card {
+            padding: 1.5rem;
+        }
+        
+        .team-name {
+            font-size: 1.5rem;
+        }
+        
+        .detail-item {
+            font-size: 0.9rem;
+        }
+        
+        .action-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+        
     }
 </style>
 {% endblock %}
 
 {% block body %}
 <div class="gaming-container">
-    
-    <!-- Audio pour la musique (caché pour l'instant) -->
-    <audio id="esportMusic" loop style="display: none;">
-        <source src="{{ asset('music/music.mp3') }}" type="audio/mpeg">
-        Votre navigateur ne supporte pas l'audio.
-    </audio>
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class="floating-elements">
@@ -1047,43 +1353,82 @@
         {% endfor %}
     </div>
     
+    <!-- Bell notifications -->
+    <button class="notification-bell" id="notificationBell">
+        🔔
+        <span class="notification-badge" id="notificationBadge">0</span>
+    </button>
+    
+    <!-- Notifications modal -->
+    <div class="notifications-modal" id="notificationsModal">
+        <div class="notifications-header">
+            <h4 class="notifications-title">🔔 NOTIFICATIONS</h4>
+            <button onclick="clearNotifications()" style="background:none;border:none;color:#cc9999;cursor:pointer;">
+                Tout effacer
+            </button>
+        </div>
+        <div class="notifications-list" id="notificationsList">
+            <!-- Les notifications seront ajoutées ici par JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+    
+    <!-- Stats overlay -->
+    <div class="stats-overlay" id="statsOverlay">
+        <div class="stats-item">
+            <span>Équipes totales:</span>
+            <span class="stats-value" id="statTotal">0</span>
+        </div>
+        <div class="stats-item">
+            <span>Avec coach:</span>
+            <span class="stats-value" id="statWithCoach">0</span>
+        </div>
+        <div class="stats-item">
+            <span>Sans coach:</span>
+            <span class="stats-value" id="statWithoutCoach">0</span>
+        </div>
+        <div class="stats-item">
+            <span>Total membres:</span>
+            <span class="stats-value" id="statMembers">0</span>
+        </div>
+    </div>
+    
     <!-- En-tête avec effet néon -->
     <div class="header-glow">
         <h1 class="main-title">PHANTOM FORCE - ÉQUIPES</h1>
         <p class="text-light mb-4" style="font-size: 1.2rem; opacity: 0.9;">
             COMMANDEZ VOS LÉGIONS • {{ teams|length }} ÉQUIPES EN COMBAT
         </p>
-    </div>
-    
-    <!-- Nouveaux contrôles avancés -->
-    <div class="advanced-controls">
-        <button id="exportBtn" class="control-btn export-btn">
-            📤 EXPORTER LES DONNÉES
-        </button>
-        
-        <button id="printBtn" class="control-btn print-btn">
-            🖨️ IMPRIMER LA LISTE
-        </button>
-        
-        <button id="statsBtn" class="control-btn stats-btn">
-            📊 STATISTIQUES
-        </button>
-        
-        <button id="bulkActionsBtn" class="control-btn bulk-btn">
-            🎯 ACTIONS GROUPÉES
-        </button>
+        <div class="live-counter" id="liveCounter">⚡ ÉLITE</div>
     </div>
     
     <!-- Contrôles principaux -->
     <div class="controls-container">
-    {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_PLAYER')) %}
+        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_PLAYER')) %}
         <a href="{{ path('app_team_new') }}" class="add-team-btn">
-            ⚔️ CRÉER UNE NOUVELLE LÉGION
+            ⚔️ CRÉER UNE NOUVELLE ÉQUIPE
         </a>
-         {% endif %}
-        
-        <button id="musicBtn" class="music-control-btn">
-            🔊 MUSIQUE DE COMBAT
+        <a href="{{ path('app_map') }}" class="add-team-btn map-btn">
+            🗺️ CARTE DES ARÈNES
+        </a>
+        {% endif %}
+    </div>
+    
+    <!-- Actions avancées -->
+    <div class="advanced-actions">
+        <button class="advanced-btn" id="exportBtn">
+            📄 Exporter la liste
+        </button>
+        <button class="advanced-btn" id="statsBtn">
+            📊 Afficher les stats
+        </button>
+        <button class="advanced-btn" id="highlightBtn">
+            ⭐ Équipes en vedette
+        </button>
+        <button class="advanced-btn" id="refreshBtn">
+            🔄 Actualiser
         </button>
     </div>
     
@@ -1110,18 +1455,6 @@
             </div>
             
             <div class="filter-group">
-                <label class="filter-label">📅 TRIER PAR :</label>
-                <select id="sortBy" class="filter-select">
-                    <option value="id-asc">ID ↑</option>
-                    <option value="id-desc">ID ↓</option>
-                    <option value="name-asc">Nom (A-Z)</option>
-                    <option value="name-desc">Nom (Z-A)</option>
-                    <option value="date-asc">Date (ancien)</option>
-                    <option value="date-desc">Date (récent)</option>
-                </select>
-            </div>
-            
-            <div class="filter-group">
                 <label class="filter-label">👑 AVEC COACH :</label>
                 <select id="coachFilter" class="filter-select">
                     <option value="">Toutes</option>
@@ -1130,11 +1463,20 @@
                 </select>
             </div>
             
+            <div class="filter-group">
+                <label class="filter-label">👥 AVEC MEMBRES :</label>
+                <select id="membersFilter" class="filter-select">
+                    <option value="">Toutes</option>
+                    <option value="with">Avec membres</option>
+                    <option value="without">Sans membres</option>
+                </select>
+            </div>
+            
             <button id="resetFilters" class="reset-btn">🔄 Réinitialiser</button>
         </div>
         
         <div class="results-counter">
-            <span id="teamCount">{{ teams|length }}</span> LÉGIONS DISPONIBLES
+            <span id="teamCount">{{ teams|length }}</span> ÉQUIPES ENREGISTRÉES
         </div>
     </div>
     
@@ -1142,79 +1484,218 @@
         <!-- Grille des équipes -->
         <div class="teams-grid" id="teamsGrid">
             {% for team in teams %}
+                {# Récupérer tous les matchs de l'équipe #}
+                {% set teamMatches = team.matchesAsTeam1|merge(team.matchesAsTeam2) %}
+                {% set wins = 0 %}
+                {% for match in teamMatches %}
+                    {% if match.winnerTeam and match.winnerTeam.id == team.id %}
+                        {% set wins = wins + 1 %}
+                    {% endif %}
+                {% endfor %}
+                {% set losses = teamMatches|length - wins %}
+                
                 <div class="team-card" 
                      data-id="{{ team.id }}" 
                      data-name="{{ team.name|lower }}" 
                      data-game="{{ team.game|lower }}" 
-                     data-date="{{ team.creationDate ? team.creationDate|date('U') : 0 }}"
-                     data-coach="{{ team.coachId ? 'yes' : 'no' }}">
-                    <!-- Checkbox pour sélection multiple -->
-                    <input type="checkbox" class="selection-checkbox" style="display: none;">
+                     data-coach="{{ team.coach ? 'yes' : 'no' }}"
+                     data-members="{{ team.members|length }}">
                     
                     <div class="team-id">#{{ team.id }}</div>
                     
-                    <h2 class="team-name">
-                        {{ team.name|upper }}
-                    </h2>
+                    <div class="team-header">
+                        <div class="team-name">{{ team.name|upper }}</div>
+                        <div class="team-game">{{ team.game }}</div>
+                    </div>
                     
-                    <div class="team-info">
-                        <div class="info-item">
-                            <strong>🎮 JEU :</strong>
-                            <span class="game-value">{{ team.game }}</span>
-                            <span class="game-icon">{{ team.game|slice(0, 3)|upper }}</span>
+                    <div class="team-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">{{ teamMatches|length }}</div>
+                            <div class="stat-label">MATCHS</div>
                         </div>
-                        
-                        <div class="info-item">
-                            <strong>📅 CRÉATION :</strong>
-                            <span class="date-value">{{ team.creationDate ? team.creationDate|date('d/m/Y H:i') : 'N/A' }}</span>
+                        <div class="stat-item">
+                            <div class="stat-value">{{ wins }}</div>
+                            <div class="stat-label">VICTOIRES</div>
                         </div>
-                        
-                        <div class="info-item">
-                            <strong>👑 COACH :</strong>
-                            <span style="color: {% if team.coachId %}var(--fire-red){% else %}var(--blood-red){% endif %};">
-                                {{ team.coachId ? team.coachId : 'EN ATTENTE' }}
-                            </span>
-                        </div>
-                        
-                        <div class="info-item">
-                            <strong>🏆 STATUT :</strong>
-                            <span style="color: var(--fire-red); font-weight: bold;">COMBAT READY</span>
+                        <div class="stat-item">
+                            <div class="stat-value">{{ losses }}</div>
+                            <div class="stat-label">DÉFAITES</div>
                         </div>
                     </div>
                     
+                    <div class="team-details">
+                        <div class="detail-item">
+                            <strong>👑 COACH :</strong>
+                            <span style="color: {% if team.coach %}var(--fire-red){% else %}var(--blood-red){% endif %};">
+                                {{ team.coach ? team.coach.username : 'EN ATTENTE' }}
+                            </span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <strong>👥 MEMBRES :</strong>
+                            <span>
+                                {{ team.members|length }} membre(s)
+                                {% if team.members|length > 0 %}
+                                    <span class="member-badge member-tooltip" title="
+                                        {%- for member in team.members -%}
+                                            {{ member.pseudo }} ({{ member.rank }}){% if not loop.last %}, {% endif %}
+                                        {%- endfor -%}">
+                                        👥
+                                    </span>
+                                {% endif %}
+                            </span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <strong>📅 CRÉATION :</strong>
+                            <span>{{ team.creationDate ? team.creationDate|date('d/m/Y') : 'N/A' }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <strong>📊 WIN RATE :</strong>
+                            <span style="color: var(--fire-red); font-weight: bold;">
+                                {% if teamMatches|length > 0 %}
+                                    {{ ((wins / teamMatches|length) * 100)|number_format(1) }}%
+                                {% else %}
+                                    0%
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Section des matchs -->
+                    <!-- Section des matchs de l'équipe -->
+<div class="matches-section">
+    <div class="matches-title">
+        <span>⚔️ DERNIERS MATCHS</span>
+        <span style="color: var(--fire-red);">({{ team.matchesAsTeam1|length + team.matchesAsTeam2|length }})</span>
+    </div>
+    
+    <div class="matches-list">
+        {% set allMatches = team.matchesAsTeam1|merge(team.matchesAsTeam2) %}
+        {% if allMatches|length > 0 %}
+            {# Trier les matchs par date (du plus récent au plus ancien) #}
+            {% set sortedMatches = allMatches|sort((a, b) => b.matchDate <=> a.matchDate) %}
+            
+            {% for match in sortedMatches|slice(0, 5) %}
+                {# Vérifier que team1 et team2 existent avant d'accéder à leurs propriétés #}
+                {% if match.team1 is not null and match.team2 is not null %}
+                    {# Déterminer l'adversaire #}
+                    {% if match.team1.id == team.id %}
+                        {% set opponent = match.team2 %}
+                        {% set teamScore = match.scoreTeam1 %}
+                        {% set opponentScore = match.scoreTeam2 %}
+                    {% elseif match.team2.id == team.id %}
+                        {% set opponent = match.team1 %}
+                        {% set teamScore = match.scoreTeam2 %}
+                        {% set opponentScore = match.scoreTeam1 %}
+                    {% else %}
+                        {# Match sans équipe valide #}
+                        {% set opponent = null %}
+                        {% set teamScore = '?' %}
+                        {% set opponentScore = '?' %}
+                    {% endif %}
+                    
+                    {# Vérifier si l'équipe est gagnante #}
+                    {% set isWinner = match.winnerTeam is not null and match.winnerTeam.id == team.id %}
+                    
+                    {# Icône de statut #}
+                    {% set statusIcon = '' %}
+                    {% if match.status == 'ongoing' %}
+                        {% set statusIcon = '🔥' %}
+                    {% elseif match.status == 'planned' %}
+                        {% set statusIcon = '📅' %}
+                    {% elseif match.status == 'finished' %}
+                        {% set statusIcon = '✓' %}
+                    {% elseif match.status == 'cancelled' %}
+                        {% set statusIcon = '✗' %}
+                    {% endif %}
+                    
+                    <div class="match-item">
+                        <span class="match-opponent" title="VS {{ opponent ? opponent.name : 'Équipe inconnue' }}">
+                            <span class="match-status-icon">{{ statusIcon }}</span>
+                            {% if opponent %}
+                                {{ opponent.name|slice(0, 15) }}{{ opponent.name|length > 15 ? '...' : '' }}
+                            {% else %}
+                                Équipe ?
+                            {% endif %}
+                        </span>
+                        <div style="display: flex; align-items: center;">
+                            <span class="match-score">{{ teamScore ?? '?' }} - {{ opponentScore ?? '?' }}</span>
+                            {% if match.status == 'finished' %}
+                                <span class="match-result {% if isWinner %}match-win{% else %}match-loss{% endif %}">
+                                    {% if isWinner %}V{% else %}D{% endif %}
+                                </span>
+                            {% elseif match.status == 'ongoing' %}
+                                <span class="match-result match-pending">EN COURS</span>
+                            {% elseif match.status == 'planned' %}
+                                <span class="match-result match-pending">À VENIR</span>
+                            {% elseif match.status == 'cancelled' %}
+                                <span class="match-result match-loss">ANNULÉ</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% else %}
+                    {# Match avec équipes manquantes #}
+                    <div class="match-item">
+                        <span class="match-opponent" style="color: var(--blood-red);">
+                            <span class="match-status-icon">⚠️</span>
+                            Match incomplet (équipe manquante)
+                        </span>
+                        <span class="match-score">?-?</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            
+            {% if allMatches|length > 5 %}
+                <div style="text-align: center; margin-top: 0.8rem;">
+                    <a href="{{ path('app_team_show', {'id': team.id}) }}" style="color: var(--fire-red); text-decoration: none; font-size: 0.9rem;">
+                        Voir les {{ allMatches|length }} matchs →
+                    </a>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="no-matches">
+                <span>Aucun match enregistré pour cette équipe</span>
+            </div>
+        {% endif %}
+    </div>
+</div>
                     <div class="actions-container">
                         <a href="{{ path('app_team_show', {'id': team.id}) }}" 
                            class="action-btn view-btn"
                            title="Voir les détails de l'équipe">
                             👁️ ANALYSER
                         </a>
-                         {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_PLAYER')) %}
+                        
+                        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_PLAYER')) %}
                         <a href="{{ path('app_team_edit', {'id': team.id}) }}" 
                            class="action-btn edit-btn"
                            title="Modifier l'équipe">
                             ⚙️ MODIFIER
                         </a>
-                        {% endif %}
-                        <form method="post" 
-                              action="{{ path('app_team_delete', {'id': team.id}) }}"
-                              onsubmit="return confirm('💀 Êtes-vous sûr de vouloir dissoudre cette légion ? Cette action est irréversible !');"
-                              style="display: inline;">
+                        
+                        <form method="post" action="{{ path('app_team_delete', {'id': team.id}) }}" 
+                              onsubmit="return confirm('💀 Êtes-vous sûr de vouloir dissoudre cette légion ? Cette action conservera les agents mais les désassociera de l\'équipe.');"
+                              style="display: inline; margin: 0;">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ team.id) }}">
-                            {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_COACH') and not is_granted('ROLE_PLAYER')) %}
                             <button type="submit" class="action-btn delete-btn" title="Supprimer l'équipe">
-                                💥 DISSOUDRE
+                                🗑️ DISSOUDRE
                             </button>
-                            {% endif %}
                         </form>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
         </div>
         
-        <!-- Statistiques -->
+        <!-- Informations -->
         <div class="mt-5 text-center text-light" style="opacity: 0.8;">
             <p style="font-family: 'Orbitron', sans-serif; font-size: 0.9rem;">
-                ⚔️ <span id="activeTeams">{{ teams|length }}</span> LÉGIONS ACTIVES • DERNIÈRE MISE À JOUR : {{ "now"|date('H:i:s') }}
+                ⚔️ <span id="activeTeams">{{ teams|length }}</span> ÉQUIPES ACTIVES • 
+                <span id="totalMembers">{{ teams|reduce((carry, team) => carry + team.members|length, 0) }}</span> AGENTS • 
+                <span id="totalMatches">{{ teams|reduce((carry, team) => carry + (team.matchesAsTeam1|length) + (team.matchesAsTeam2|length), 0) }}</span> MATCHS •
+                DERNIÈRE MISE À JOUR : {{ "now"|date('H:i:s') }}
             </p>
         </div>
         
@@ -1222,9 +1703,9 @@
         <!-- Message quand aucune équipe n'existe -->
         <div class="no-teams">
             <h2>⚠️ ARÈNE DÉSERTE ⚠️</h2>
-            <p>Aucune légion n'a encore été créée. Forgez la première !</p>
+            <p>Aucune équipe n'a encore été créée. Forgez la première !</p>
             <a href="{{ path('app_team_new') }}" class="add-team-btn" style="display: inline-block; width: auto;">
-                🏆 FORGER LA PREMIÈRE LÉGION
+                🏆 FORGER LA PREMIÈRE ÉQUIPE
             </a>
         </div>
     {% endif %}
@@ -1340,37 +1821,251 @@
     const searchInput = document.getElementById('searchInput');
     const clearSearch = document.getElementById('clearSearch');
     const gameFilter = document.getElementById('gameFilter');
-    const sortBy = document.getElementById('sortBy');
     const coachFilter = document.getElementById('coachFilter');
+    const membersFilter = document.getElementById('membersFilter');
     const resetFiltersBtn = document.getElementById('resetFilters');
     const teamCount = document.getElementById('teamCount');
     const activeTeams = document.getElementById('activeTeams');
     const exportBtn = document.getElementById('exportBtn');
-    const printBtn = document.getElementById('printBtn');
     const statsBtn = document.getElementById('statsBtn');
-    const bulkActionsBtn = document.getElementById('bulkActionsBtn');
+    const highlightBtn = document.getElementById('highlightBtn');
+    const refreshBtn = document.getElementById('refreshBtn');
     
-    // Fonction pour mettre à jour le compteur
+    // Notifications
+    const notificationBell = document.getElementById('notificationBell');
+    const notificationBadge = document.getElementById('notificationBadge');
+    const notificationsModal = document.getElementById('notificationsModal');
+    const notificationsList = document.getElementById('notificationsList');
+    
+    // Toast et stats
+    const toast = document.getElementById('toast');
+    const statsOverlay = document.getElementById('statsOverlay');
+    const statTotal = document.getElementById('statTotal');
+    const statWithCoach = document.getElementById('statWithCoach');
+    const statWithoutCoach = document.getElementById('statWithoutCoach');
+    const statMembers = document.getElementById('statMembers');
+    
+    // Fonction pour afficher un toast
+    function showToast(message, duration = 3000) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, duration);
+    }
+    
+    // Fonction pour ajouter une notification
+    function addNotification(message, type = 'info') {
+        const timestamp = new Date().toLocaleTimeString('fr-FR', { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        
+        const notification = {
+            id: Date.now(),
+            message: message,
+            type: type,
+            timestamp: timestamp,
+            read: false
+        };
+        
+        notifications.unshift(notification);
+        updateNotificationBadge();
+        renderNotifications();
+        saveNotifications();
+        
+        if (type === 'alert') {
+            playNotificationSound();
+        }
+        
+        showToast(message);
+    }
+    
+    function playNotificationSound() {
+        try {
+            const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
+            audio.volume = 0.3;
+            audio.play();
+        } catch (e) {}
+    }
+    
+    function updateNotificationBadge() {
+        const unreadCount = notifications.filter(n => !n.read).length;
+        notificationBadge.textContent = unreadCount;
+        notificationBadge.style.display = unreadCount > 0 ? 'block' : 'none';
+    }
+    
+    function renderNotifications() {
+        notificationsList.innerHTML = '';
+        
+        if (notifications.length === 0) {
+            notificationsList.innerHTML = `
+                <div class="notification-item" style="text-align: center; color: #cc9999;">
+                    Aucune notification
+                </div>
+            `;
+            return;
+        }
+        
+        notifications.forEach(notification => {
+            const div = document.createElement('div');
+            div.className = `notification-item ${notification.read ? '' : 'unread'}`;
+            div.innerHTML = `
+                <div>${notification.message}</div>
+                <div class="notification-time">${notification.timestamp}</div>
+            `;
+            
+            div.addEventListener('click', () => {
+                notification.read = true;
+                updateNotificationBadge();
+                renderNotifications();
+                saveNotifications();
+            });
+            
+            notificationsList.appendChild(div);
+        });
+    }
+    
+    function clearNotifications() {
+        notifications = [];
+        updateNotificationBadge();
+        renderNotifications();
+        saveNotifications();
+    }
+    
+    function saveNotifications() {
+        try {
+            localStorage.setItem('teamNotifications', JSON.stringify(notifications));
+        } catch (e) {}
+    }
+    
+    function loadNotifications() {
+        try {
+            const saved = localStorage.getItem('teamNotifications');
+            if (saved) {
+                notifications = JSON.parse(saved);
+                updateNotificationBadge();
+                renderNotifications();
+            }
+        } catch (e) {}
+    }
+    
     function updateCounter(visibleCount) {
         teamCount.textContent = visibleCount;
         if (activeTeams) {
             activeTeams.textContent = visibleCount;
         }
         
-        // Animation du compteur
         teamCount.style.transform = 'scale(1.2)';
         setTimeout(() => {
             teamCount.style.transform = 'scale(1)';
         }, 200);
+        
+        updateStats();
     }
     
-    // Fonction de recherche
+    function updateStats() {
+        const visibleTeams = document.querySelectorAll('.team-card:not(.hidden)');
+        const withCoach = document.querySelectorAll('.team-card[data-coach="yes"]:not(.hidden)').length;
+        const withoutCoach = document.querySelectorAll('.team-card[data-coach="no"]:not(.hidden)').length;
+        
+        let totalMembers = 0;
+        visibleTeams.forEach(team => {
+            totalMembers += parseInt(team.dataset.members || 0);
+        });
+        
+        statTotal.textContent = visibleTeams.length;
+        statWithCoach.textContent = withCoach;
+        statWithoutCoach.textContent = withoutCoach;
+        statMembers.textContent = totalMembers;
+    }
+    
+    function exportTeams() {
+        const visibleTeams = Array.from(document.querySelectorAll('.team-card:not(.hidden)'));
+        
+        if (visibleTeams.length === 0) {
+            showToast('Aucune équipe à exporter');
+            return;
+        }
+        
+        let exportData = 'PHANTOM FORCE - LISTE DES ÉQUIPES\n';
+        exportData += '================================\n\n';
+        
+        visibleTeams.forEach((team, index) => {
+            const name = team.querySelector('.team-name').textContent;
+            const game = team.querySelector('.team-game').textContent;
+            const coach = team.querySelector('.detail-item:first-child span').textContent;
+            const members = team.querySelector('.detail-item:nth-child(2) span').textContent;
+            const date = team.querySelector('.detail-item:nth-child(3) span').textContent;
+            const stats = team.querySelectorAll('.stat-value');
+            const matches = stats[0].textContent;
+            const wins = stats[1].textContent;
+            const losses = stats[2].textContent;
+            
+            exportData += `${index + 1}. ${name}\n`;
+            exportData += `   Jeu: ${game}\n`;
+            exportData += `   Coach: ${coach}\n`;
+            exportData += `   Membres: ${members}\n`;
+            exportData += `   Création: ${date}\n`;
+            exportData += `   Stats: ${matches} matchs (${wins}V - ${losses}D)\n`;
+            exportData += '\n';
+        });
+        
+        exportData += `\nTotal: ${visibleTeams.length} équipe(s)\n`;
+        exportData += `Exporté le: ${new Date().toLocaleDateString('fr-FR')}`;
+        
+        const blob = new Blob([exportData], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `equipes-phantom-force-${new Date().toISOString().split('T')[0]}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showToast(`Liste exportée (${visibleTeams.length} équipes)`);
+        addNotification(`Liste de ${visibleTeams.length} équipes exportée`, 'info');
+    }
+    
+    function toggleHighlight() {
+        isHighlightActive = !isHighlightActive;
+        
+        document.querySelectorAll('.team-card').forEach(card => {
+            if (isHighlightActive) {
+                // Mettre en vedette les équipes avec beaucoup de membres ou sans coach
+                const members = parseInt(card.dataset.members || 0);
+                const hasCoach = card.dataset.coach === 'yes';
+                
+                if (members >= 5 || !hasCoach) {
+                    card.classList.add('highlighted');
+                }
+            } else {
+                card.classList.remove('highlighted');
+            }
+        });
+        
+        if (isHighlightActive) {
+            highlightBtn.innerHTML = '⭐ Désactiver vedettes';
+            showToast('Équipes en vedette activées');
+        } else {
+            highlightBtn.innerHTML = '⭐ Équipes en vedette';
+            showToast('Équipes en vedette désactivées');
+        }
+    }
+    
+    function toggleRefresh() {
+        showToast('Page actualisée', 'success');
+        location.reload();
+    }
+    
     function searchTeams() {
         const searchTerm = searchInput.value.toLowerCase().trim();
         
         currentTeams.forEach(team => {
             const teamName = team.dataset.name;
-            const gameName = team.querySelector('.game-value').textContent.toLowerCase();
+            const gameName = team.dataset.game;
             
             if (searchTerm === '' || 
                 teamName.includes(searchTerm) || 
@@ -1384,25 +2079,31 @@
         applyFilters();
     }
     
-    // Fonction pour appliquer tous les filtres
     function applyFilters() {
         let visibleTeams = [];
         
         currentTeams.forEach(team => {
             let isVisible = !team.classList.contains('filtered-out');
             
-            // Filtre par jeu
             const selectedGame = gameFilter.value.toLowerCase();
             if (selectedGame && team.dataset.game !== selectedGame) {
                 isVisible = false;
             }
             
-            // Filtre par coach
             const coachStatus = coachFilter.value;
             if (coachStatus === 'with' && team.dataset.coach === 'no') {
                 isVisible = false;
             }
             if (coachStatus === 'without' && team.dataset.coach === 'yes') {
+                isVisible = false;
+            }
+            
+            const membersCount = parseInt(team.dataset.members || 0);
+            const membersStatus = membersFilter.value;
+            if (membersStatus === 'with' && membersCount === 0) {
+                isVisible = false;
+            }
+            if (membersStatus === 'without' && membersCount > 0) {
                 isVisible = false;
             }
             
@@ -1414,452 +2115,7 @@
             }
         });
         
-        // Appliquer le tri
-        sortTeams(visibleTeams);
-        
-        // Mettre à jour le compteur
         updateCounter(visibleTeams.length);
-    }
-    
-    // Fonction de tri
-    function sortTeams(teams) {
-        const sortValue = sortBy.value;
-        const [criteria, order] = sortValue.split('-');
-        
-        teams.sort((a, b) => {
-            let aValue, bValue;
-            
-            switch(criteria) {
-                case 'id':
-                    aValue = parseInt(a.dataset.id);
-                    bValue = parseInt(b.dataset.id);
-                    break;
-                case 'name':
-                    aValue = a.dataset.name;
-                    bValue = b.dataset.name;
-                    break;
-                case 'date':
-                    aValue = parseInt(a.dataset.date);
-                    bValue = parseInt(b.dataset.date);
-                    break;
-                default:
-                    return 0;
-            }
-            
-            // Comparaison
-            if (typeof aValue === 'string') {
-                return order === 'asc' ? 
-                    aValue.localeCompare(bValue) : 
-                    bValue.localeCompare(aValue);
-            } else {
-                return order === 'asc' ? 
-                    aValue - bValue : 
-                    bValue - aValue;
-            }
-        });
-        
-        // Réorganiser le DOM
-        const grid = document.getElementById('teamsGrid');
-        if (grid) {
-            teams.forEach(team => {
-                grid.appendChild(team);
-            });
-        }
-    }
-    
-    // Gestion de la musique
-    const musicBtn = document.getElementById('musicBtn');
-    const music = document.getElementById('esportMusic');
-    let isPlaying = false;
-    
-    musicBtn.addEventListener('click', function() {
-        if (!isPlaying) {
-            music.play().then(() => {
-                isPlaying = true;
-                musicBtn.innerHTML = '🔊 MUSIQUE ON';
-                musicBtn.style.background = 'linear-gradient(45deg, var(--blood-red), var(--fire-red))';
-                musicBtn.classList.add('playing');
-            }).catch(error => {
-                console.log("Audio error:", error);
-                showNotification("Cliquez d'abord sur la page pour autoriser l'audio.", "error");
-            });
-        } else {
-            music.pause();
-            isPlaying = false;
-            musicBtn.innerHTML = '🔇 MUSIQUE OFF';
-            musicBtn.style.background = 'linear-gradient(45deg, #8b0000, #660000)';
-            musicBtn.classList.remove('playing');
-        }
-    });
-    
-    // Fonctions pour les modales
-    function openModal(modalId) {
-        document.getElementById(modalId).classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeModal(modalId) {
-        document.getElementById(modalId).classList.remove('active');
-        document.body.style.overflow = 'auto';
-        
-        // Réinitialiser les sélections dans les modales
-        const options = document.querySelectorAll('.modal-option');
-        options.forEach(option => {
-            option.classList.remove('selected');
-        });
-    }
-    
-    // Fonction pour afficher les notifications
-    function showNotification(message, type = 'success') {
-        const notification = document.getElementById('notification');
-        notification.textContent = message;
-        notification.className = 'notification ' + type;
-        notification.classList.add('show');
-        
-        setTimeout(() => {
-            notification.classList.remove('show');
-        }, 3000);
-    }
-    
-    // Gestion de l'export
-    exportBtn.addEventListener('click', () => {
-        openModal('exportModal');
-    });
-    
-    // Gestion de l'impression
-    printBtn.addEventListener('click', () => {
-        // Ajouter un en-tête d'impression
-        const printContent = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>Liste des Équipes E-sport - PHANTOM FORCE</title>
-                <style>
-                    body { font-family: Arial, sans-serif; margin: 20px; }
-                    h1 { color: #ff0000; }
-                    .team { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
-                    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-                    th { background-color: #f2f2f2; }
-                </style>
-            </head>
-            <body>
-                <h1>📊 LISTE DES ÉQUIPES E-SPORT - PHANTOM FORCE</h1>
-                <p>Date d'exportation : ${new Date().toLocaleDateString()}</p>
-                <p>Nombre total d'équipes : ${allTeams.length}</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Jeu</th>
-                            <th>Date de création</th>
-                            <th>Coach</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${Array.from(document.querySelectorAll('.team-card:not(.hidden)')).map(team => {
-                            const id = team.dataset.id;
-                            const name = team.querySelector('.team-name').textContent.trim();
-                            const game = team.querySelector('.game-value').textContent;
-                            const date = team.querySelector('.date-value').textContent;
-                            const coach = team.querySelector('.info-item:nth-child(3) span').textContent;
-                            
-                            return `
-                                <tr>
-                                    <td>${id}</td>
-                                    <td>${name}</td>
-                                    <td>${game}</td>
-                                    <td>${date}</td>
-                                    <td>${coach}</td>
-                                </tr>
-                            `;
-                        }).join('')}
-                    </tbody>
-                </table>
-            </body>
-            </html>
-        `;
-        
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(printContent);
-        printWindow.document.close();
-        printWindow.print();
-        
-        showNotification("Impression lancée", "success");
-    });
-    
-    // Gestion des statistiques
-    statsBtn.addEventListener('click', () => {
-        openModal('statsModal');
-        
-        // Calculer les statistiques
-        const totalTeams = allTeams.length;
-        const visibleTeams = document.querySelectorAll('.team-card:not(.hidden)').length;
-        
-        // Statistiques par jeu
-        const games = {};
-        allTeams.forEach(team => {
-            const game = team.querySelector('.game-value').textContent;
-            games[game] = (games[game] || 0) + 1;
-        });
-        
-        // Statistiques par coach
-        let withCoach = 0;
-        let withoutCoach = 0;
-        allTeams.forEach(team => {
-            const coachStatus = team.dataset.coach;
-            if (coachStatus === 'yes') {
-                withCoach++;
-            } else {
-                withoutCoach++;
-            }
-        });
-        
-        // Générer le contenu HTML
-        const statsContent = document.getElementById('statsContent');
-        statsContent.innerHTML = `
-            <div style="margin-bottom: 1rem;">
-                <h4 style="color: var(--fire-red);">📈 STATISTIQUES GÉNÉRALES</h4>
-                <p>Total des équipes : <strong>${totalTeams}</strong></p>
-                <p>Équipes visibles : <strong>${visibleTeams}</strong></p>
-                <p>Avec coach : <strong>${withCoach}</strong></p>
-                <p>Sans coach : <strong>${withoutCoach}</strong></p>
-            </div>
-            <div>
-                <h4 style="color: var(--fire-red);">🎮 RÉPARTITION PAR JEU</h4>
-                <ul>
-                    ${Object.entries(games).map(([game, count]) => `
-                        <li>${game} : <strong>${count}</strong> équipes (${Math.round((count/totalTeams)*100)}%)</li>
-                    `).join('')}
-                </ul>
-            </div>
-        `;
-    });
-    
-    // Gestion des actions groupées
-    bulkActionsBtn.addEventListener('click', () => {
-        openModal('bulkModal');
-        updateSelectedCount();
-    });
-    
-    // Mise à jour du compteur de sélection
-    function updateSelectedCount() {
-        const selectedCountElement = document.getElementById('selectedCount');
-        if (selectedCountElement) {
-            selectedCountElement.innerHTML = `<strong>${selectedTeams.size}</strong> équipes sélectionnées`;
-            selectedCountElement.style.display = selectedTeams.size > 0 ? 'block' : 'none';
-        }
-    }
-    
-    // Activation/désactivation du mode sélection
-    function toggleSelectionMode() {
-        isSelectionMode = !isSelectionMode;
-        document.body.classList.toggle('selection-mode-active', isSelectionMode);
-        
-        const checkboxes = document.querySelectorAll('.selection-checkbox');
-        checkboxes.forEach(checkbox => {
-            checkbox.style.display = isSelectionMode ? 'block' : 'none';
-        });
-        
-        // Ajouter/supprimer l'événement de clic sur les cartes
-        allTeams.forEach(team => {
-            if (isSelectionMode) {
-                team.addEventListener('click', handleTeamSelection);
-            } else {
-                team.removeEventListener('click', handleTeamSelection);
-                team.classList.remove('selected');
-                const checkbox = team.querySelector('.selection-checkbox');
-                if (checkbox) checkbox.checked = false;
-            }
-        });
-        
-        selectedTeams.clear();
-        updateSelectedCount();
-        
-        showNotification(
-            isSelectionMode ? 
-            "Mode sélection activé - Cliquez sur les cartes pour sélectionner/désélectionner" : 
-            "Mode sélection désactivé",
-            "info"
-        );
-    }
-    
-    // Gestion de la sélection d'une équipe
-    function handleTeamSelection(e) {
-        // Empêcher la sélection si on clique sur un lien ou un bouton
-        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) {
-            return;
-        }
-        
-        const team = e.currentTarget;
-        const checkbox = team.querySelector('.selection-checkbox');
-        const teamId = team.dataset.id;
-        
-        if (checkbox.checked) {
-            checkbox.checked = false;
-            team.classList.remove('selected');
-            selectedTeams.delete(teamId);
-        } else {
-            checkbox.checked = true;
-            team.classList.add('selected');
-            selectedTeams.add(teamId);
-        }
-        
-        updateSelectedCount();
-    }
-    
-    // Gestion des sélections dans les modales
-    document.querySelectorAll('.modal-option').forEach(option => {
-        option.addEventListener('click', function() {
-            const parent = this.parentElement;
-            parent.querySelectorAll('.modal-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            this.classList.add('selected');
-        });
-    });
-    
-    // Fonction d'export des données
-    function exportData() {
-        const selectedOption = document.querySelector('.modal-option.selected');
-        if (!selectedOption) {
-            showNotification("Veuillez sélectionner un format d'export", "error");
-            return;
-        }
-        
-        const format = selectedOption.dataset.format;
-        const exportAll = document.getElementById('exportAll').checked;
-        const exportSelected = document.getElementById('exportSelected').checked;
-        
-        // Déterminer quelles équipes exporter
-        let teamsToExport;
-        if (exportSelected && selectedTeams.size > 0) {
-            teamsToExport = Array.from(allTeams).filter(team => 
-                selectedTeams.has(team.dataset.id)
-            );
-        } else {
-            teamsToExport = Array.from(document.querySelectorAll('.team-card:not(.hidden)'));
-        }
-        
-        // Préparer les données
-        const data = teamsToExport.map(team => {
-            return {
-                id: team.dataset.id,
-                name: team.querySelector('.team-name').textContent.trim(),
-                game: team.querySelector('.game-value').textContent,
-                creationDate: team.querySelector('.date-value').textContent,
-                coach: team.querySelector('.info-item:nth-child(3) span').textContent,
-                status: "COMBAT READY"
-            };
-        });
-        
-        // Exporter selon le format
-        switch(format) {
-            case 'csv':
-                exportToCSV(data);
-                break;
-            case 'json':
-                exportToJSON(data);
-                break;
-            case 'pdf':
-                exportToPDF(data);
-                break;
-        }
-        
-        closeModal('exportModal');
-    }
-    
-    // Export en CSV
-    function exportToCSV(data) {
-        const headers = ['ID', 'Nom', 'Jeu', 'Date de création', 'Coach', 'Statut'];
-        const csvRows = [
-            headers.join(','),
-            ...data.map(row => [
-                row.id,
-                `"${row.name}"`,
-                `"${row.game}"`,
-                `"${row.creationDate}"`,
-                `"${row.coach}"`,
-                `"${row.status}"`
-            ].join(','))
-        ];
-        
-        const csvString = csvRows.join('\n');
-        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `equipes-esport-${new Date().toISOString().slice(0,10)}.csv`;
-        link.click();
-        
-        showNotification("Export CSV terminé", "success");
-    }
-    
-    // Export en JSON
-    function exportToJSON(data) {
-        const jsonString = JSON.stringify(data, null, 2);
-        const blob = new Blob([jsonString], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `equipes-esport-${new Date().toISOString().slice(0,10)}.json`;
-        link.click();
-        
-        showNotification("Export JSON terminé", "success");
-    }
-    
-    // Export en PDF (simulé)
-    function exportToPDF(data) {
-        // Dans un environnement réel, vous utiliseriez une bibliothèque comme jsPDF
-        // Ici, nous simulons avec un CSV pour l'exemple
-        showNotification("Export PDF simulé - Utilisez l'export CSV pour l'instant", "info");
-        exportToCSV(data);
-    }
-    
-    // Exécution des actions groupées
-    function executeBulkAction() {
-        const selectedOption = document.querySelector('#bulkModal .modal-option.selected');
-        if (!selectedOption) {
-            showNotification("Veuillez sélectionner une action", "error");
-            return;
-        }
-        
-        const action = selectedOption.dataset.action;
-        
-        switch(action) {
-            case 'select':
-                toggleSelectionMode();
-                break;
-            case 'delete':
-                if (selectedTeams.size === 0) {
-                    showNotification("Aucune équipe sélectionnée", "error");
-                    return;
-                }
-                if (confirm(`Êtes-vous sûr de vouloir supprimer ${selectedTeams.size} équipe(s) ?`)) {
-                    // Dans un environnement réel, vous enverriez une requête au serveur
-                    showNotification(`Suppression de ${selectedTeams.size} équipe(s) simulée`, "info");
-                }
-                break;
-            case 'export':
-                if (selectedTeams.size === 0) {
-                    showNotification("Aucune équipe sélectionnée", "error");
-                    return;
-                }
-                openModal('exportModal');
-                document.getElementById('exportAll').checked = false;
-                document.getElementById('exportSelected').checked = true;
-                break;
-            case 'duplicate':
-                if (selectedTeams.size === 0) {
-                    showNotification("Aucune équipe sélectionnée", "error");
-                    return;
-                }
-                showNotification(`Duplication de ${selectedTeams.size} équipe(s) simulée`, "info");
-                break;
-        }
-        
-        closeModal('bulkModal');
     }
     
     // Événements
@@ -1871,76 +2127,70 @@
     });
     
     gameFilter.addEventListener('change', applyFilters);
-    sortBy.addEventListener('change', applyFilters);
     coachFilter.addEventListener('change', applyFilters);
+    membersFilter.addEventListener('change', applyFilters);
     
     resetFiltersBtn.addEventListener('click', () => {
         searchInput.value = '';
         gameFilter.value = '';
-        sortBy.value = 'id-asc';
         coachFilter.value = '';
+        membersFilter.value = '';
         
         currentTeams.forEach(team => {
             team.classList.remove('hidden', 'filtered-out');
         });
         
         applyFilters();
+        showToast('Filtres réinitialisés');
     });
     
-    // Effet de survol amélioré pour les cartes
-    const cards = document.querySelectorAll('.team-card');
-    cards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            if (isSelectionMode) return;
-            
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            this.style.transform = `translateY(-10px) scale(1.02) rotateX(${(y - rect.height/2)/20}deg) rotateY(${(x - rect.width/2)/20}deg)`;
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            if (isSelectionMode) return;
-            this.style.transform = 'translateY(0) scale(1) rotateX(0) rotateY(0)';
-        });
+    exportBtn.addEventListener('click', exportTeams);
+    statsBtn.addEventListener('click', () => {
+        statsOverlay.classList.toggle('active');
+        if (statsOverlay.classList.contains('active')) {
+            updateStats();
+        }
+    });
+    highlightBtn.addEventListener('click', toggleHighlight);
+    refreshBtn.addEventListener('click', toggleRefresh);
+    
+    notificationBell.addEventListener('click', () => {
+        notificationsModal.classList.toggle('active');
+        if (notificationsModal.classList.contains('active')) {
+            notifications.forEach(n => n.read = true);
+            updateNotificationBadge();
+            renderNotifications();
+            saveNotifications();
+        }
     });
     
-    // Effet d'étincelle au clic
-    document.addEventListener('click', function(e) {
-        const spark = document.createElement('div');
-        spark.style.position = 'fixed';
-        spark.style.left = e.clientX + 'px';
-        spark.style.top = e.clientY + 'px';
-        spark.style.width = '10px';
-        spark.style.height = '10px';
-        spark.style.background = 'radial-gradient(circle, var(--blood-red) 0%, transparent 70%)';
-        spark.style.borderRadius = '50%';
-        spark.style.pointerEvents = 'none';
-        spark.style.zIndex = '9999';
-        spark.style.boxShadow = '0 0 10px var(--blood-red)';
-        spark.style.animation = 'sparkFade 0.5s forwards';
-        
-        document.body.appendChild(spark);
-        
-        setTimeout(() => {
-            spark.remove();
-        }, 500);
+    document.addEventListener('click', (e) => {
+        if (!notificationsModal.contains(e.target) && !notificationBell.contains(e.target)) {
+            notificationsModal.classList.remove('active');
+        }
+        if (!statsOverlay.contains(e.target) && e.target !== statsBtn) {
+            statsOverlay.classList.remove('active');
+        }
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            notificationsModal.classList.remove('active');
+            statsOverlay.classList.remove('active');
+        }
     });
     
     // Initialisation
     document.addEventListener('DOMContentLoaded', () => {
         applyFilters();
+        loadNotifications();
         
-        // Ajouter l'animation CSS pour les étincelles
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes sparkFade {
-                0% { transform: scale(1); opacity: 1; }
-                100% { transform: scale(3); opacity: 0; }
+        setTimeout(() => {
+            if (notifications.length === 0) {
+                addNotification('Bienvenue sur Phantom Force Équipes!', 'info');
+                addNotification(`Suivez ${allTeams.length} équipes`, 'info');
             }
-        `;
-        document.head.appendChild(style);
+        }, 1000);
     });
 </script>
 {% endblock %}

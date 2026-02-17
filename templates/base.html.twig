@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {% block stylesheets %}{% endblock %}
     
     <style>
@@ -68,7 +68,18 @@
             pointer-events: none;
             animation: backgroundPulse 15s ease-in-out infinite alternate;
         }
-
+         .select2-container--default .select2-selection--multiple {
+        background-color: rgba(0, 0, 0, 0.8);
+        border: 2px solid var(--blood-orange);
+        border-radius: 12px;
+        color: white;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: var(--blood-red);
+            border: none;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+        }
         @keyframes backgroundPulse {
             0% { opacity: 0.7; }
             100% { opacity: 1; }

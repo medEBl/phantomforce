@@ -12,7 +12,9 @@
         --neon-purple: #9d00ff;
         --neon-red: #ff003c;
         --neon-green: #00ff88;
+        --neon-yellow: #ffcc00;
         --dark-bg: #0a0a14;
+        --location-glow: rgba(255, 204, 0, 0.5);
     }
     
     body {
@@ -281,6 +283,66 @@
         font-size: 1.4rem;
         font-weight: 600;
         font-family: 'Rajdhani', sans-serif;
+    }
+    
+    /* Style pour la carte de localisation */
+    .location-card {
+        background: rgba(255, 204, 0, 0.05);
+        border: 2px solid var(--neon-yellow);
+        grid-column: span 2;
+    }
+    
+    .location-card:hover {
+        border-color: var(--neon-green);
+        box-shadow: 0 10px 25px var(--location-glow);
+    }
+    
+    .location-label {
+        color: var(--neon-yellow) !important;
+    }
+    
+    .location-value {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .location-address {
+        font-size: 1.2rem;
+        margin-right: 1rem;
+    }
+    
+    .location-coords {
+        font-family: 'Orbitron', monospace;
+        color: var(--neon-green);
+        font-size: 0.9rem;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 0.3rem 1rem;
+        border-radius: 20px;
+        border: 1px solid var(--neon-green);
+    }
+    
+    .location-map-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(45deg, var(--neon-yellow), #ffaa00);
+        color: black;
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        text-decoration: none;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px var(--location-glow);
+    }
+    
+    .location-map-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 25px var(--neon-green);
     }
     
     .status-badge-detail {
@@ -575,6 +637,15 @@
             grid-template-columns: 1fr;
         }
         
+        .location-card {
+            grid-column: span 1;
+        }
+        
+        .location-value {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
         .actions-container-detail {
             flex-direction: column;
             align-items: center;
@@ -601,7 +672,7 @@
     
     <!-- Éléments flottants -->
     <div class="floating-elements">
-        {% set icons = ['🎮', '⚡', '🔥', '👑', '🕹️', '🎯', '🏆', '💥', '🚀', '⭐'] %}
+        {% set icons = ['🎮', '⚡', '🔥', '👑', '🕹️', '🎯', '🏆', '💥', '🚀', '⭐', '📍', '🗺️'] %}
         {% for i in 1..10 %}
             {% set iconIndex = (i % icons|length) %}
             {% set leftPosition = 5 + ((i * 10) % 90) %}
@@ -726,6 +797,32 @@
                     {% endif %}
                 </div>
             </div>
+            
+            <!-- NOUVEAU : Carte de localisation -->
+            {% if matchy.location %}
+            <div class="info-card location-card">
+                <div class="info-label location-label">📍 LOCALISATION</div>
+                <div class="info-value location-value">
+                    <span class="location-address">{{ matchy.location }}</span>
+                    
+                    {% if matchy.latitude and matchy.longitude %}
+                        <div class="location-coords">
+                            {{ matchy.latitude|number_format(4) }}, {{ matchy.longitude|number_format(4) }}
+                        </div>
+                        
+                        <a href="https://www.google.com/maps/search/?api=1&query={{ matchy.latitude }},{{ matchy.longitude }}" 
+                           target="_blank" 
+                           class="location-map-link">
+                            🗺️ VOIR SUR GOOGLE MAPS
+                        </a>
+                    {% else %}
+                        <div style="color: var(--neon-yellow); font-size: 0.9rem; margin-top: 0.5rem;">
+                            (Coordonnées non spécifiées)
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
         </div>
         
         <!-- Bannière du gagnant -->
@@ -750,7 +847,7 @@
             </a>
         </div>
         
-        <!-- Section de suppression (nouvelle section) -->
+        <!-- Section de suppression -->
         <div class="delete-section">
             <div class="delete-header">
                 <div class="delete-title">⚠️ ZONE DE SUPPRESSION</div>
@@ -816,6 +913,19 @@
                 deleteSection.style.transform = 'translateY(0)';
             }, 500);
         }
+        
+        // Animation spéciale pour la carte de localisation
+        const locationCard = document.querySelector('.location-card');
+        if (locationCard) {
+            locationCard.style.opacity = '0';
+            locationCard.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                locationCard.style.transition = 'all 0.7s ease';
+                locationCard.style.opacity = '1';
+                locationCard.style.transform = 'translateY(0)';
+            }, 800);
+        }
     });
     
     // Fonction de confirmation pour suppression
@@ -823,12 +933,14 @@
         const gameName = '{{ matchy.game|escape('js') }}';
         const team1Name = '{{ matchy.team1 ? matchy.team1.name|escape('js') : "Équipe 1" }}';
         const team2Name = '{{ matchy.team2 ? matchy.team2.name|escape('js') : "Équipe 2" }}';
+        const location = '{{ matchy.location ? matchy.location|escape('js') : "Sans localisation" }}';
         
         const message = `⚠️ CONFIRMATION DE SUPPRESSION ⚠️\n\n` +
                        `Vous êtes sur le point de supprimer définitivement :\n` +
                        `• Match: ${gameName}\n` +
                        `• ${team1Name} VS ${team2Name}\n` +
-                       `• Date: {{ matchy.matchDate ? matchy.matchDate|date('d/m/Y H:i') : 'N/A' }}\n\n` +
+                       `• Date: {{ matchy.matchDate ? matchy.matchDate|date('d/m/Y H:i') : 'N/A' }}\n` +
+                       `• Lieu: ${location}\n\n` +
                        `Cette action est IRRÉVERSIBLE !\n\n` +
                        `Êtes-vous ABSOLUMENT SÛR de vouloir continuer ?`;
         

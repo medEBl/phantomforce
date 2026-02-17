@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_back.html.twig' %}
 
 {% block title %}⚔️ BLOOD ARENA - Modifier {{ team.name }}{% endblock %}
 
@@ -50,7 +50,7 @@
         position: relative;
         padding: 2rem;
         animation: fadeIn 1s ease-out;
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
     }
     
@@ -456,6 +456,69 @@
         color: var(--blood-red);
     }
     
+    /* Styles pour la sélection multiple */
+    .members-select {
+        min-height: 150px;
+        padding: 0.5rem;
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid var(--blood-orange);
+        border-radius: 12px;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+    
+    .members-select option {
+        padding: 0.8rem 1rem;
+        background: rgba(34, 34, 34, 0.9);
+        border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .members-select option:hover {
+        background: rgba(255, 102, 0, 0.3);
+    }
+    
+    .members-select option:checked {
+        background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+        color: white;
+        font-weight: bold;
+    }
+    
+    .members-select:focus {
+        outline: none;
+        border-color: var(--fire-yellow);
+        box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
+    }
+    
+    .selected-counter {
+        display: inline-block;
+        background: var(--blood-red);
+        color: white;
+        border-radius: 20px;
+        padding: 0.2rem 1rem;
+        font-size: 0.9rem;
+        margin-left: 1rem;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 5px var(--blood-red); }
+        50% { box-shadow: 0 0 15px var(--blood-red); }
+    }
+    
+    .members-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+    
     .floating-elements {
         position: fixed;
         width: 100%;
@@ -515,6 +578,12 @@
         
         .game-grid {
             grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .members-stats {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
     }
 </style>
@@ -633,17 +702,45 @@
             <div class="input-icon">📅</div>
         </div>
         
+        <!-- CHAMP COACH CORRIGÉ (remplace coach_id) -->
         <div class="form-group">
             <label class="form-label">
-                <span>👑 COACH (FACULTATIF)</span>
+                <span>👑 COACH DE L'ÉQUIPE</span>
             </label>
-            {{ form_widget(form.coach_id, {
+            {{ form_widget(form.coach, {
                 'attr': {
-                    'class': 'form-input',
-                    'placeholder': 'ID du coach (ex: 1, 2, 3...)'
+                    'class': 'form-select',
+                    'placeholder': 'Sélectionnez un coach'
                 }
             }) }}
             <div class="input-icon">👑</div>
+        </div>
+        
+        <!-- CHAMP MEMBRES (agents) -->
+        <div class="form-group">
+            <label class="form-label">
+                <span>👥 MEMBRES DE L'ÉQUIPE</span>
+                <span class="selected-counter" id="selectedCount">{{ team.members|length }} sélectionné(s)</span>
+            </label>
+            
+            {{ form_widget(form.members, {
+                'attr': {
+                    'class': 'members-select',
+                    'size': 6,
+                    'multiple': 'multiple'
+                }
+            }) }}
+            
+            <div class="members-stats">
+                <div>
+                    <span id="totalMembers">{{ form.members.vars.choices|length }}</span> agents disponibles
+                </div>
+                <div>
+                    <span>💡</span> Maintenez <kbd>Ctrl</kbd> (Windows) ou <kbd>⌘</kbd> (Mac) pour sélection multiple
+                </div>
+            </div>
+            
+            <div class="input-icon">👥</div>
         </div>
         
         <div class="form-actions">
@@ -723,8 +820,28 @@
         });
     }
     
+    // Gestion du compteur de membres sélectionnés
+    const membersSelect = document.querySelector('select[name*="members"]');
+    const selectedCount = document.getElementById('selectedCount');
+    
+    if (membersSelect && selectedCount) {
+        function updateSelectedCount() {
+            const selected = Array.from(membersSelect.selectedOptions).length;
+            selectedCount.textContent = selected + ' sélectionné(s)';
+            
+            // Animation du compteur
+            selectedCount.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                selectedCount.style.transform = 'scale(1)';
+            }, 200);
+        }
+        
+        membersSelect.addEventListener('change', updateSelectedCount);
+        updateSelectedCount();
+    }
+    
     // Animation des inputs au focus
-    const formInputs = document.querySelectorAll('.form-input, .form-select');
+    const formInputs = document.querySelectorAll('.form-input, .form-select, .members-select');
     
     formInputs.forEach(input => {
         input.addEventListener('focus', function() {

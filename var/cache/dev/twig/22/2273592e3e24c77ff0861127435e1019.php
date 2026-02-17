@@ -471,6 +471,6 @@ class __TwigTemplate_7c3d88bfd0a44b1cadd6b08a5f79f390 extends Template
     align-items: center;
 }
 </style>
-{% endblock %}", "back/entrainement/show.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\back\\entrainement\\show.html.twig");
+{% endblock %}", "back/entrainement/show.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\back\\entrainement\\show.html.twig");
     }
 }

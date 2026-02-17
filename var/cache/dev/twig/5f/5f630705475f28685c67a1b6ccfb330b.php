@@ -281,6 +281,51 @@ class __TwigTemplate_bb3957fd295d913187b8913b22f696af extends Template
     margin-bottom: 25px;
 }
 
+/* ================= SELECT WITH ICON ================= */
+.select-with-info {
+    position: relative;
+}
+
+.select-with-info select {
+    padding-left: 45px;
+}
+
+.select-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: var(--red);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.info-preview {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: rgba(255, 45, 45, 0.05);
+    border: 1px solid rgba(255, 45, 45, 0.1);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.info-preview i {
+    color: var(--red);
+    font-size: 14px;
+}
+
+.preview-highlight {
+    color: var(--red);
+    font-weight: 600;
+    margin-left: 5px;
+}
+
 /* ================= FORM ACTIONS ================= */
 .form-actions {
     display: flex;
@@ -380,6 +425,37 @@ class __TwigTemplate_bb3957fd295d913187b8913b22f696af extends Template
     pointer-events: none;
 }
 
+/* ================= CURRENT INFO SECTION ================= */
+.current-info {
+    background: rgba(255, 45, 45, 0.05);
+    border: 1px solid rgba(255, 45, 45, 0.1);
+    border-radius: var(--radius);
+    padding: 15px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.current-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.current-info-item i {
+    color: var(--red);
+    font-size: 14px;
+}
+
+.current-info-item strong {
+    color: var(--text-light);
+    margin-left: 5px;
+}
+
 /* ================= FORM FOOTER ================= */
 .form-footer {
     margin-top: 30px;
@@ -417,25 +493,6 @@ class __TwigTemplate_bb3957fd295d913187b8913b22f696af extends Template
 .form-group.error select {
     border-color: #e74c3c;
     background: rgba(231, 76, 60, 0.05);
-}
-
-/* ================= CURRENT DATE INFO ================= */
-.current-date-info {
-    background: rgba(255, 45, 45, 0.1);
-    border: 1px solid rgba(255, 45, 45, 0.2);
-    border-radius: var(--radius);
-    padding: 15px;
-    margin-top: 15px;
-    font-size: 13px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.current-date-info i {
-    color: var(--red);
-    font-size: 14px;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -504,7 +561,7 @@ class __TwigTemplate_bb3957fd295d913187b8913b22f696af extends Template
         yield from [];
     }
 
-    // line 403
+    // line 460
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -517,7 +574,7 @@ class __TwigTemplate_bb3957fd295d913187b8913b22f696af extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 404
+        // line 461
         yield "<div class=\"edit-hero\">
     <h1>📝 MODIFIER PLAN D'ENTRAÎNEMENT</h1>
     <p>Mettez à jour les détails de votre plan d'entraînement pour optimiser les performances de votre équipe.</p>
@@ -530,56 +587,56 @@ class __TwigTemplate_bb3957fd295d913187b8913b22f696af extends Template
         </div>
         <div class=\"form-title\">
             <h2>Édition du plan #";
-        // line 415
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 415, $this->source); })()), "id", [], "any", false, false, false, 415), "html", null, true);
+        // line 472
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 472, $this->source); })()), "id", [], "any", false, false, false, 472), "html", null, true);
         yield "</h2>
             <p>Modifiez les champs ci-dessous pour mettre à jour votre plan d'entraînement</p>
         </div>
     </div>
 
     ";
-        // line 420
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 420, $this->source); })()), 'form_start', ["attr" => ["class" => "training-form"]]);
+        // line 477
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 477, $this->source); })()), 'form_start', ["attr" => ["class" => "training-form", "novalidate" => "novalidate"]]);
         yield "
     
     <div class=\"form-row\">
         <div class=\"form-group\">
             ";
-        // line 424
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 424, $this->source); })()), "title", [], "any", false, false, false, 424), 'label', ["label" => "Titre du plan"]);
+        // line 481
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 481, $this->source); })()), "title", [], "any", false, false, false, 481), 'label', ["label" => "Titre du plan"]);
         yield "
             ";
-        // line 425
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 425, $this->source); })()), "title", [], "any", false, false, false, 425), 'widget', ["attr" => ["placeholder" => "Ex: Stratégie défensive avancée", "class" => "form-input"]]);
-        // line 428
+        // line 482
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 482, $this->source); })()), "title", [], "any", false, false, false, 482), 'widget', ["attr" => ["placeholder" => "Ex: Stratégie défensive avancée", "class" => "form-input"]]);
+        // line 485
         yield "
             <div class=\"form-help\">
                 <i class=\"fas fa-info-circle\"></i>
                 <span>Un titre clair et descriptif pour votre plan</span>
             </div>
             ";
-        // line 433
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 433, $this->source); })()), "title", [], "any", false, false, false, 433), 'errors');
+        // line 490
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 490, $this->source); })()), "title", [], "any", false, false, false, 490), 'errors');
         yield "
         </div>
         
         <div class=\"form-group\">
             ";
-        // line 437
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 437, $this->source); })()), "focus_area", [], "any", false, false, false, 437), 'label', ["label" => "Zone de focus"]);
+        // line 494
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 494, $this->source); })()), "focus_area", [], "any", false, false, false, 494), 'label', ["label" => "Zone de focus"]);
         yield "
             ";
-        // line 438
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 438, $this->source); })()), "focus_area", [], "any", false, false, false, 438), 'widget', ["attr" => ["placeholder" => "Ex: Défense, Attaque, Stratégie", "class" => "form-input"]]);
-        // line 441
+        // line 495
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 495, $this->source); })()), "focus_area", [], "any", false, false, false, 495), 'widget', ["attr" => ["class" => "form-input"]]);
+        // line 497
         yield "
             <div class=\"form-help\">
                 <i class=\"fas fa-bullseye\"></i>
                 <span>La principale compétence visée par ce plan</span>
             </div>
             ";
-        // line 446
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 446, $this->source); })()), "focus_area", [], "any", false, false, false, 446), 'errors');
+        // line 502
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 502, $this->source); })()), "focus_area", [], "any", false, false, false, 502), 'errors');
         yield "
         </div>
     </div>
@@ -587,160 +644,228 @@ class __TwigTemplate_bb3957fd295d913187b8913b22f696af extends Template
     <div class=\"form-row\">
         <div class=\"form-group\">
             ";
-        // line 452
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 452, $this->source); })()), "difficulty_level", [], "any", false, false, false, 452), 'label', ["label" => "Niveau de difficulté"]);
+        // line 508
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 508, $this->source); })()), "difficulty_level", [], "any", false, false, false, 508), 'label', ["label" => "Niveau de difficulté"]);
         yield "
             ";
-        // line 453
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 453, $this->source); })()), "difficulty_level", [], "any", false, false, false, 453), 'widget', ["attr" => ["class" => "form-input"]]);
-        // line 455
+        // line 509
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 509, $this->source); })()), "difficulty_level", [], "any", false, false, false, 509), 'widget', ["attr" => ["class" => "form-input"]]);
+        // line 511
         yield "
             <div class=\"form-help\">
                 <i class=\"fas fa-chart-line\"></i>
                 <span>Adaptez la difficulté au niveau de votre équipe</span>
             </div>
             ";
-        // line 460
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 460, $this->source); })()), "difficulty_level", [], "any", false, false, false, 460), 'errors');
+        // line 516
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 516, $this->source); })()), "difficulty_level", [], "any", false, false, false, 516), 'errors');
         yield "
         </div>
         
         <div class=\"form-group\">
             ";
-        // line 464
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 464, $this->source); })()), "coach_id", [], "any", false, false, false, 464), 'label', ["label" => "ID du Coach"]);
+        // line 520
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 520, $this->source); })()), "coach", [], "any", false, false, false, 520), 'label', ["label" => "Coach responsable"]);
         yield "
-            ";
-        // line 465
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 465, $this->source); })()), "coach_id", [], "any", false, false, false, 465), 'widget', ["attr" => ["placeholder" => "Ex: 1", "class" => "form-input"]]);
-        // line 468
+            <div class=\"select-with-info\">
+                <span class=\"select-icon\">👨‍🏫</span>
+                ";
+        // line 523
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 523, $this->source); })()), "coach", [], "any", false, false, false, 523), 'widget', ["attr" => ["class" => "form-input", "id" => "coach_select"]]);
+        // line 526
         yield "
-            <div class=\"form-help\">
-                <i class=\"fas fa-user-tie\"></i>
-                <span>Identifiant du coach responsable</span>
             </div>
             ";
-        // line 473
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 473, $this->source); })()), "coach_id", [], "any", false, false, false, 473), 'errors');
+        // line 528
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 528, $this->source); })()), "coach", [], "any", false, false, false, 528)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 529
+            yield "                <div class=\"info-preview\" id=\"coachPreview\">
+                    <i class=\"fas fa-user-tie\"></i>
+                    <span><strong>Coach actuel :</strong> ";
+            // line 531
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 531, $this->source); })()), "coach", [], "any", false, false, false, 531), "fullName", [], "any", false, false, false, 531), "html", null, true);
+            yield " (@";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 531, $this->source); })()), "coach", [], "any", false, false, false, 531), "username", [], "any", false, false, false, 531), "html", null, true);
+            yield ")</span>
+                </div>
+            ";
+        }
+        // line 534
+        yield "            <div class=\"form-help\">
+                <i class=\"fas fa-user-tie\"></i>
+                <span>Sélectionnez le coach responsable</span>
+            </div>
+            ";
+        // line 538
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 538, $this->source); })()), "coach", [], "any", false, false, false, 538), 'errors');
+        yield "
+        </div>
+    </div>
+    
+    <div class=\"form-row\">
+        <div class=\"form-group\">
+            ";
+        // line 544
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 544, $this->source); })()), "team", [], "any", false, false, false, 544), 'label', ["label" => "Équipe cible"]);
+        yield "
+            <div class=\"select-with-info\">
+                <span class=\"select-icon\">👥</span>
+                ";
+        // line 547
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 547, $this->source); })()), "team", [], "any", false, false, false, 547), 'widget', ["attr" => ["class" => "form-input", "id" => "team_select"]]);
+        // line 550
+        yield "
+            </div>
+            ";
+        // line 552
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 552, $this->source); })()), "team", [], "any", false, false, false, 552)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 553
+            yield "                <div class=\"info-preview\" id=\"teamPreview\">
+                    <i class=\"fas fa-users\"></i>
+                    <span><strong>Équipe actuelle :</strong> ";
+            // line 555
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 555, $this->source); })()), "team", [], "any", false, false, false, 555), "name", [], "any", false, false, false, 555), "html", null, true);
+            yield " (";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 555, $this->source); })()), "team", [], "any", false, false, false, 555), "game", [], "any", false, false, false, 555), "html", null, true);
+            yield ")</span>
+                </div>
+            ";
+        }
+        // line 558
+        yield "            <div class=\"form-help\">
+                <i class=\"fas fa-users\"></i>
+                <span>Sélectionnez l'équipe concernée par ce plan</span>
+            </div>
+            ";
+        // line 562
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 562, $this->source); })()), "team", [], "any", false, false, false, 562), 'errors');
+        yield "
+        </div>
+        
+        <div class=\"form-group\">
+            ";
+        // line 566
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 566, $this->source); })()), "created_at", [], "any", false, false, false, 566), 'label', ["label" => "Date de création"]);
+        yield "
+            <div class=\"date-picker-container\">
+                ";
+        // line 568
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 568, $this->source); })()), "created_at", [], "any", false, false, false, 568), 'widget', ["attr" => ["class" => "form-input"]]);
+        // line 570
+        yield "
+                <i class=\"fas fa-calendar-alt date-icon\"></i>
+            </div>
+            <div class=\"form-help\">
+                <i class=\"fas fa-calendar\"></i>
+                <span>Date de création du plan (format : AAAA-MM-JJ)</span>
+            </div>
+            ";
+        // line 577
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 577, $this->source); })()), "created_at", [], "any", false, false, false, 577), 'errors');
         yield "
         </div>
     </div>
     
     <div class=\"form-group\">
         ";
-        // line 478
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 478, $this->source); })()), "description", [], "any", false, false, false, 478), 'label', ["label" => "Description détaillée"]);
+        // line 582
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 582, $this->source); })()), "description", [], "any", false, false, false, 582), 'label', ["label" => "Description détaillée"]);
         yield "
         ";
-        // line 479
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 479, $this->source); })()), "description", [], "any", false, false, false, 479), 'widget', ["attr" => ["placeholder" => "Décrivez en détail les objectifs, exercices et stratégies de ce plan d'entraînement...", "class" => "form-textarea", "rows" => "6"]]);
-        // line 483
+        // line 583
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 583, $this->source); })()), "description", [], "any", false, false, false, 583), 'widget', ["attr" => ["placeholder" => "Décrivez en détail les objectifs, exercices et stratégies de ce plan d'entraînement...", "class" => "form-textarea", "rows" => "6", "id" => "plan_description"]]);
+        // line 588
         yield "
         <div class=\"form-help\">
             <i class=\"fas fa-align-left\"></i>
             <span>Incluez tous les détails importants pour la mise en œuvre du plan</span>
         </div>
         ";
-        // line 488
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 488, $this->source); })()), "description", [], "any", false, false, false, 488), 'errors');
+        // line 593
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 593, $this->source); })()), "description", [], "any", false, false, false, 593), 'errors');
         yield "
     </div>
     
-    <div class=\"form-group optional\">
-        ";
-        // line 492
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 492, $this->source); })()), "created_at", [], "any", false, false, false, 492), 'label', ["label" => "Date de création"]);
-        yield "
-        <div class=\"date-picker-container\">
+    ";
+        // line 596
+        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 596, $this->source); })()), "createdAt", [], "any", false, false, false, 596)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 597
+            yield "        <div class=\"current-info\">
+            <div class=\"current-info-item\">
+                <i class=\"fas fa-calendar-check\"></i>
+                <span>Date actuelle: <strong>";
+            // line 600
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 600, $this->source); })()), "createdAt", [], "any", false, false, false, 600), "d/m/Y"), "html", null, true);
+            yield "</strong></span>
+            </div>
             ";
-        // line 494
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 494, $this->source); })()), "created_at", [], "any", false, false, false, 494), 'widget', ["attr" => ["class" => "form-input"]]);
-        // line 496
-        yield "
-            <i class=\"fas fa-calendar-alt date-icon\"></i>
-        </div>
-        <div class=\"current-date-info\">
-            <i class=\"fas fa-info-circle\"></i>
-            <span>
-                Date actuelle : <strong>";
-        // line 502
-        yield (((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 502, $this->source); })()), "createdAt", [], "any", false, false, false, 502)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 502, $this->source); })()), "createdAt", [], "any", false, false, false, 502), "d/m/Y"), "html", null, true)) : ("Non définie"));
-        yield "</strong>
-                ";
-        // line 503
-        if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 503, $this->source); })()), "createdAt", [], "any", false, false, false, 503)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 504
-            yield "                    (";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 504, $this->source); })()), "createdAt", [], "any", false, false, false, 504), "H:i"), "html", null, true);
-            yield ")
-                ";
+            // line 602
+            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 602, $this->source); })()), "coach", [], "any", false, false, false, 602)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                // line 603
+                yield "                <div class=\"current-info-item\">
+                    <i class=\"fas fa-user-tie\"></i>
+                    <span>Coach: <strong>";
+                // line 605
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 605, $this->source); })()), "coach", [], "any", false, false, false, 605), "fullName", [], "any", false, false, false, 605), "html", null, true);
+                yield "</strong></span>
+                </div>
+            ";
+            }
+            // line 608
+            yield "            ";
+            if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 608, $this->source); })()), "team", [], "any", false, false, false, 608)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                // line 609
+                yield "                <div class=\"current-info-item\">
+                    <i class=\"fas fa-users\"></i>
+                    <span>Équipe: <strong>";
+                // line 611
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["training_plan"]) || array_key_exists("training_plan", $context) ? $context["training_plan"] : (function () { throw new RuntimeError('Variable "training_plan" does not exist.', 611, $this->source); })()), "team", [], "any", false, false, false, 611), "name", [], "any", false, false, false, 611), "html", null, true);
+                yield "</strong></span>
+                </div>
+            ";
+            }
+            // line 614
+            yield "        </div>
+    ";
         }
-        // line 506
-        yield "            </span>
-        </div>
-        <div class=\"form-help\">
-            <i class=\"fas fa-calendar\"></i>
-            <span>Modifiez la date de création si nécessaire (format : AAAA-MM-JJ)</span>
-        </div>
-        ";
-        // line 512
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 512, $this->source); })()), "created_at", [], "any", false, false, false, 512), 'errors');
-        yield "
-    </div>
-    
+        // line 616
+        yield "    
     <div class=\"form-actions\">
         <button type=\"submit\" class=\"btn-save\">
             <i class=\"fas fa-save\"></i>
-            ";
-        // line 518
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((array_key_exists("button_label", $context)) ? (Twig\Extension\CoreExtension::default((isset($context["button_label"]) || array_key_exists("button_label", $context) ? $context["button_label"] : (function () { throw new RuntimeError('Variable "button_label" does not exist.', 518, $this->source); })()), "Mettre à jour")) : ("Mettre à jour")), "html", null, true);
-        yield "
+            Mettre à jour
         </button>
         
         <a href=\"";
-        // line 521
+        // line 623
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_index");
-        yield "\" class=\"btn-cancel\">
+        yield "#training-plans\" class=\"btn-cancel\">
             <i class=\"fas fa-arrow-left\"></i>
-            Retour au dashboard
+            Annuler
         </a>
         
-        ";
-        // line 526
-        if (array_key_exists("delete_form", $context)) {
-            // line 527
-            yield "            <button type=\"button\" class=\"btn-delete\" onclick=\"confirmDelete()\">
-                <i class=\"fas fa-trash\"></i>
-                Supprimer
-            </button>
-        ";
-        }
-        // line 532
-        yield "    </div>
+        <button type=\"button\" class=\"btn-delete\" onclick=\"confirmDelete()\">
+            <i class=\"fas fa-trash\"></i>
+            Supprimer
+        </button>
+    </div>
     
     ";
-        // line 534
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 534, $this->source); })()), 'form_end');
+        // line 634
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 634, $this->source); })()), 'form_end');
         yield "
     
-    ";
-        // line 536
-        if (array_key_exists("delete_form", $context)) {
-            // line 537
-            yield "        <div id=\"delete-form\" style=\"display: none;\">
-            ";
-            // line 538
-            yield Twig\Extension\CoreExtension::include($this->env, $context, "training_plan/_delete_form.html.twig");
-            yield "
-        </div>
-    ";
-        }
-        // line 541
-        yield "</div>
+    <div id=\"delete-form\" style=\"display: none;\">
+        ";
+        // line 637
+        yield Twig\Extension\CoreExtension::include($this->env, $context, "training_plan/_delete_form.html.twig");
+        yield "
+    </div>
+</div>
 
 <div class=\"form-footer\">
     <a href=\"";
-        // line 544
+        // line 642
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_coaching_session_index");
         yield "#training-plans\" class=\"back-link\">
         <i class=\"fas fa-list\"></i>
@@ -757,7 +882,7 @@ class __TwigTemplate_bb3957fd295d913187b8913b22f696af extends Template
         yield from [];
     }
 
-    // line 551
+    // line 649
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -770,46 +895,176 @@ class __TwigTemplate_bb3957fd295d913187b8913b22f696af extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 552
-        yield "<script>
-function confirmDelete() {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce plan d\\'entraînement ? Cette action est irréversible.')) {
-        document.querySelector('#delete-form form').submit();
-    }
-}
+        // line 650
+        yield from $this->yieldParentBlock("javascripts", $context, $blocks);
+        yield "
+<script>
+// Données pour les aperçus
+const coaches = {
+    ";
+        // line 654
+        if (array_key_exists("coaches", $context)) {
+            // line 655
+            yield "        ";
+            $context['_parent'] = $context;
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["coaches"]) || array_key_exists("coaches", $context) ? $context["coaches"] : (function () { throw new RuntimeError('Variable "coaches" does not exist.', 655, $this->source); })()));
+            foreach ($context['_seq'] as $context["_key"] => $context["coach"]) {
+                // line 656
+                yield "            ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coach"], "id", [], "any", false, false, false, 656), "html", null, true);
+                yield ": {
+                name: \"";
+                // line 657
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coach"], "fullName", [], "any", false, false, false, 657), "js"), "html", null, true);
+                yield "\",
+                username: \"";
+                // line 658
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["coach"], "username", [], "any", false, false, false, 658), "js"), "html", null, true);
+                yield "\"
+            },
+        ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_key'], $context['coach'], $context['_parent']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 661
+            yield "    ";
+        }
+        // line 662
+        yield "};
 
-// Ajout de classes pour la validation
-document.querySelectorAll('.form-group').forEach(group => {
-    const input = group.querySelector('input, textarea, select');
-    if (input) {
-        input.addEventListener('blur', function() {
-            if (this.value.trim() === '' && this.hasAttribute('required')) {
-                group.classList.add('error');
-            } else {
-                group.classList.remove('error');
+const teams = {
+    ";
+        // line 665
+        if (array_key_exists("teams", $context)) {
+            // line 666
+            yield "        ";
+            $context['_parent'] = $context;
+            $context['_seq'] = CoreExtension::ensureTraversable((isset($context["teams"]) || array_key_exists("teams", $context) ? $context["teams"] : (function () { throw new RuntimeError('Variable "teams" does not exist.', 666, $this->source); })()));
+            foreach ($context['_seq'] as $context["_key"] => $context["team"]) {
+                // line 667
+                yield "            ";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["team"], "id", [], "any", false, false, false, 667), "html", null, true);
+                yield ": {
+                name: \"";
+                // line 668
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["team"], "name", [], "any", false, false, false, 668), "js"), "html", null, true);
+                yield "\",
+                game: \"";
+                // line 669
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["team"], "game", [], "any", false, false, false, 669), "js"), "html", null, true);
+                yield "\"
+            },
+        ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_key'], $context['team'], $context['_parent']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 672
+            yield "    ";
+        }
+        // line 673
+        yield "};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const coachSelect = document.getElementById('coach_select');
+    const teamSelect = document.getElementById('team_select');
+    const coachPreview = document.getElementById('coachPreview');
+    const teamPreview = document.getElementById('teamPreview');
+    const descriptionTextarea = document.getElementById('plan_description');
+    
+    // Gestion de l'aperçu du coach
+    if (coachSelect) {
+        coachSelect.addEventListener('change', function() {
+            const coachId = this.value;
+            
+            if (coachId && coaches[coachId]) {
+                const coach = coaches[coachId];
+                
+                let preview = document.getElementById('coachPreview');
+                if (!preview) {
+                    preview = document.createElement('div');
+                    preview.id = 'coachPreview';
+                    preview.className = 'info-preview';
+                    this.closest('.form-group').appendChild(preview);
+                }
+                
+                preview.innerHTML = `<i class=\"fas fa-user-tie\"></i>
+                    <span><strong>Nouveau coach :</strong> \${coach.name} (@\${coach.username})</span>`;
+                preview.style.display = 'flex';
+            } else if (coachPreview) {
+                coachPreview.style.display = coachSelect.value ? 'flex' : 'none';
             }
         });
     }
-});
-
-// Formatage de la date pour l'input date
-const createdAtInput = document.querySelector('#training_plan_created_at');
-if (createdAtInput && createdAtInput.value) {
-    // Convertir la date au format YYYY-MM-DD pour l'input date
-    const date = new Date(createdAtInput.value);
-    const formattedDate = date.toISOString().split('T')[0];
-    createdAtInput.value = formattedDate;
-}
-
-// Afficher la date actuelle dans le placeholder
-if (createdAtInput && !createdAtInput.value) {
-    const today = new Date();
-    const formattedToday = today.toISOString().split('T')[0];
-    createdAtInput.placeholder = formattedToday;
-}
-
-// Animation d'entrée
-document.addEventListener('DOMContentLoaded', function() {
+    
+    // Gestion de l'aperçu de l'équipe
+    if (teamSelect) {
+        teamSelect.addEventListener('change', function() {
+            const teamId = this.value;
+            
+            if (teamId && teams[teamId]) {
+                const team = teams[teamId];
+                
+                let preview = document.getElementById('teamPreview');
+                if (!preview) {
+                    preview = document.createElement('div');
+                    preview.id = 'teamPreview';
+                    preview.className = 'info-preview';
+                    this.closest('.form-group').appendChild(preview);
+                }
+                
+                preview.innerHTML = `<i class=\"fas fa-users\"></i>
+                    <span><strong>Nouvelle équipe :</strong> \${team.name} (\${team.game})</span>`;
+                preview.style.display = 'flex';
+            } else if (teamPreview) {
+                teamPreview.style.display = teamSelect.value ? 'flex' : 'none';
+            }
+        });
+    }
+    
+    // Validation des formulaires
+    function validateForm() {
+        let isValid = true;
+        
+        // Titre (5-255 caractères)
+        const titleInput = document.querySelector('#training_plan_title');
+        if (titleInput && titleInput.value.trim()) {
+            const length = titleInput.value.trim().length;
+            if (length < 5 || length > 255) {
+                titleInput.classList.add('error');
+                isValid = false;
+            } else {
+                titleInput.classList.remove('error');
+            }
+        }
+        
+        // Description (20-2000 caractères)
+        if (descriptionTextarea && descriptionTextarea.value.trim()) {
+            const length = descriptionTextarea.value.trim().length;
+            if (length < 20 || length > 2000) {
+                descriptionTextarea.classList.add('error');
+                isValid = false;
+            } else {
+                descriptionTextarea.classList.remove('error');
+            }
+        }
+        
+        return isValid;
+    }
+    
+    // Soumission du formulaire
+    const form = document.querySelector('.training-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+                alert('Veuillez corriger les erreurs dans le formulaire avant de soumettre.');
+            }
+        });
+    }
+    
+    // Animation d'entrée
     const formGroups = document.querySelectorAll('.form-group');
     formGroups.forEach((group, index) => {
         setTimeout(() => {
@@ -817,27 +1072,44 @@ document.addEventListener('DOMContentLoaded', function() {
             group.style.opacity = '0';
         }, index * 100);
     });
+    
+    // Confirmation avant de quitter si modifications
+    let formModified = false;
+    if (form) {
+        form.addEventListener('input', () => {
+            formModified = true;
+        });
+        
+        window.addEventListener('beforeunload', (e) => {
+            if (formModified) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+        
+        form.addEventListener('submit', () => {
+            formModified = false;
+        });
+    }
 });
 
-// Confirmation avant de quitter la page si des modifications existent
-let formModified = false;
-const form = document.querySelector('.training-form');
-if (form) {
-    form.addEventListener('input', () => {
-        formModified = true;
-    });
-    
-    window.addEventListener('beforeunload', (e) => {
-        if (formModified) {
-            e.preventDefault();
-            e.returnValue = '';
+function confirmDelete() {
+    if (confirm('⚠️ ATTENTION : Êtes-vous sûr de vouloir supprimer définitivement ce plan d\\'entraînement ? Cette action est irréversible.')) {
+        document.querySelector('#delete-form form').submit();
+    }
+}
+
+// Formatage de la date pour l'input date
+const createdAtInput = document.querySelector('#training_plan_created_at');
+if (createdAtInput && createdAtInput.value) {
+    // Si la valeur est déjà au bon format, on la garde
+    if (!createdAtInput.value.match(/^\\d{4}-\\d{2}-\\d{2}\$/)) {
+        const date = new Date(createdAtInput.value);
+        if (!isNaN(date.getTime())) {
+            const formattedDate = date.toISOString().split('T')[0];
+            createdAtInput.value = formattedDate;
         }
-    });
-    
-    // Réinitialiser formModified après soumission
-    form.addEventListener('submit', () => {
-        formModified = false;
-    });
+    }
 }
 </script>
 ";
@@ -871,7 +1143,7 @@ if (form) {
      */
     public function getDebugInfo(): array
     {
-        return array (  774 => 552,  761 => 551,  744 => 544,  739 => 541,  733 => 538,  730 => 537,  728 => 536,  723 => 534,  719 => 532,  712 => 527,  710 => 526,  702 => 521,  696 => 518,  687 => 512,  679 => 506,  673 => 504,  671 => 503,  667 => 502,  659 => 496,  657 => 494,  652 => 492,  645 => 488,  638 => 483,  636 => 479,  632 => 478,  624 => 473,  617 => 468,  615 => 465,  611 => 464,  604 => 460,  597 => 455,  595 => 453,  591 => 452,  582 => 446,  575 => 441,  573 => 438,  569 => 437,  562 => 433,  555 => 428,  553 => 425,  549 => 424,  542 => 420,  534 => 415,  521 => 404,  508 => 403,  102 => 6,  89 => 5,  66 => 3,  43 => 1,);
+        return array (  967 => 673,  964 => 672,  955 => 669,  951 => 668,  946 => 667,  941 => 666,  939 => 665,  934 => 662,  931 => 661,  922 => 658,  918 => 657,  913 => 656,  908 => 655,  906 => 654,  899 => 650,  886 => 649,  869 => 642,  861 => 637,  855 => 634,  841 => 623,  832 => 616,  828 => 614,  822 => 611,  818 => 609,  815 => 608,  809 => 605,  805 => 603,  803 => 602,  798 => 600,  793 => 597,  791 => 596,  785 => 593,  778 => 588,  776 => 583,  772 => 582,  764 => 577,  755 => 570,  753 => 568,  748 => 566,  741 => 562,  735 => 558,  727 => 555,  723 => 553,  721 => 552,  717 => 550,  715 => 547,  709 => 544,  700 => 538,  694 => 534,  686 => 531,  682 => 529,  680 => 528,  676 => 526,  674 => 523,  668 => 520,  661 => 516,  654 => 511,  652 => 509,  648 => 508,  639 => 502,  632 => 497,  630 => 495,  626 => 494,  619 => 490,  612 => 485,  610 => 482,  606 => 481,  599 => 477,  591 => 472,  578 => 461,  565 => 460,  102 => 6,  89 => 5,  66 => 3,  43 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -1063,6 +1335,51 @@ if (form) {
     margin-bottom: 25px;
 }
 
+/* ================= SELECT WITH ICON ================= */
+.select-with-info {
+    position: relative;
+}
+
+.select-with-info select {
+    padding-left: 45px;
+}
+
+.select-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: var(--red);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.info-preview {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: rgba(255, 45, 45, 0.05);
+    border: 1px solid rgba(255, 45, 45, 0.1);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.info-preview i {
+    color: var(--red);
+    font-size: 14px;
+}
+
+.preview-highlight {
+    color: var(--red);
+    font-weight: 600;
+    margin-left: 5px;
+}
+
 /* ================= FORM ACTIONS ================= */
 .form-actions {
     display: flex;
@@ -1162,6 +1479,37 @@ if (form) {
     pointer-events: none;
 }
 
+/* ================= CURRENT INFO SECTION ================= */
+.current-info {
+    background: rgba(255, 45, 45, 0.05);
+    border: 1px solid rgba(255, 45, 45, 0.1);
+    border-radius: var(--radius);
+    padding: 15px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.current-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.current-info-item i {
+    color: var(--red);
+    font-size: 14px;
+}
+
+.current-info-item strong {
+    color: var(--text-light);
+    margin-left: 5px;
+}
+
 /* ================= FORM FOOTER ================= */
 .form-footer {
     margin-top: 30px;
@@ -1199,25 +1547,6 @@ if (form) {
 .form-group.error select {
     border-color: #e74c3c;
     background: rgba(231, 76, 60, 0.05);
-}
-
-/* ================= CURRENT DATE INFO ================= */
-.current-date-info {
-    background: rgba(255, 45, 45, 0.1);
-    border: 1px solid rgba(255, 45, 45, 0.2);
-    border-radius: var(--radius);
-    padding: 15px;
-    margin-top: 15px;
-    font-size: 13px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.current-date-info i {
-    color: var(--red);
-    font-size: 14px;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -1295,7 +1624,7 @@ if (form) {
         </div>
     </div>
 
-    {{ form_start(form, {'attr': {'class': 'training-form'}}) }}
+    {{ form_start(form, {'attr': {'class': 'training-form', 'novalidate': 'novalidate'}}) }}
     
     <div class=\"form-row\">
         <div class=\"form-group\">
@@ -1314,7 +1643,6 @@ if (form) {
         <div class=\"form-group\">
             {{ form_label(form.focus_area, 'Zone de focus') }}
             {{ form_widget(form.focus_area, {'attr': {
-                'placeholder': 'Ex: Défense, Attaque, Stratégie',
                 'class': 'form-input'
             }}) }}
             <div class=\"form-help\">
@@ -1339,16 +1667,64 @@ if (form) {
         </div>
         
         <div class=\"form-group\">
-            {{ form_label(form.coach_id, 'ID du Coach') }}
-            {{ form_widget(form.coach_id, {'attr': {
-                'placeholder': 'Ex: 1',
-                'class': 'form-input'
-            }}) }}
+            {{ form_label(form.coach, 'Coach responsable') }}
+            <div class=\"select-with-info\">
+                <span class=\"select-icon\">👨‍🏫</span>
+                {{ form_widget(form.coach, {'attr': {
+                    'class': 'form-input',
+                    'id': 'coach_select'
+                }}) }}
+            </div>
+            {% if training_plan.coach %}
+                <div class=\"info-preview\" id=\"coachPreview\">
+                    <i class=\"fas fa-user-tie\"></i>
+                    <span><strong>Coach actuel :</strong> {{ training_plan.coach.fullName }} (@{{ training_plan.coach.username }})</span>
+                </div>
+            {% endif %}
             <div class=\"form-help\">
                 <i class=\"fas fa-user-tie\"></i>
-                <span>Identifiant du coach responsable</span>
+                <span>Sélectionnez le coach responsable</span>
             </div>
-            {{ form_errors(form.coach_id) }}
+            {{ form_errors(form.coach) }}
+        </div>
+    </div>
+    
+    <div class=\"form-row\">
+        <div class=\"form-group\">
+            {{ form_label(form.team, 'Équipe cible') }}
+            <div class=\"select-with-info\">
+                <span class=\"select-icon\">👥</span>
+                {{ form_widget(form.team, {'attr': {
+                    'class': 'form-input',
+                    'id': 'team_select'
+                }}) }}
+            </div>
+            {% if training_plan.team %}
+                <div class=\"info-preview\" id=\"teamPreview\">
+                    <i class=\"fas fa-users\"></i>
+                    <span><strong>Équipe actuelle :</strong> {{ training_plan.team.name }} ({{ training_plan.team.game }})</span>
+                </div>
+            {% endif %}
+            <div class=\"form-help\">
+                <i class=\"fas fa-users\"></i>
+                <span>Sélectionnez l'équipe concernée par ce plan</span>
+            </div>
+            {{ form_errors(form.team) }}
+        </div>
+        
+        <div class=\"form-group\">
+            {{ form_label(form.created_at, 'Date de création') }}
+            <div class=\"date-picker-container\">
+                {{ form_widget(form.created_at, {'attr': {
+                    'class': 'form-input'
+                }}) }}
+                <i class=\"fas fa-calendar-alt date-icon\"></i>
+            </div>
+            <div class=\"form-help\">
+                <i class=\"fas fa-calendar\"></i>
+                <span>Date de création du plan (format : AAAA-MM-JJ)</span>
+            </div>
+            {{ form_errors(form.created_at) }}
         </div>
     </div>
     
@@ -1357,7 +1733,8 @@ if (form) {
         {{ form_widget(form.description, {'attr': {
             'placeholder': 'Décrivez en détail les objectifs, exercices et stratégies de ce plan d\\'entraînement...',
             'class': 'form-textarea',
-            'rows': '6'
+            'rows': '6',
+            'id': 'plan_description'
         }}) }}
         <div class=\"form-help\">
             <i class=\"fas fa-align-left\"></i>
@@ -1366,56 +1743,49 @@ if (form) {
         {{ form_errors(form.description) }}
     </div>
     
-    <div class=\"form-group optional\">
-        {{ form_label(form.created_at, 'Date de création') }}
-        <div class=\"date-picker-container\">
-            {{ form_widget(form.created_at, {'attr': {
-                'class': 'form-input'
-            }}) }}
-            <i class=\"fas fa-calendar-alt date-icon\"></i>
+    {% if training_plan.createdAt %}
+        <div class=\"current-info\">
+            <div class=\"current-info-item\">
+                <i class=\"fas fa-calendar-check\"></i>
+                <span>Date actuelle: <strong>{{ training_plan.createdAt|date('d/m/Y') }}</strong></span>
+            </div>
+            {% if training_plan.coach %}
+                <div class=\"current-info-item\">
+                    <i class=\"fas fa-user-tie\"></i>
+                    <span>Coach: <strong>{{ training_plan.coach.fullName }}</strong></span>
+                </div>
+            {% endif %}
+            {% if training_plan.team %}
+                <div class=\"current-info-item\">
+                    <i class=\"fas fa-users\"></i>
+                    <span>Équipe: <strong>{{ training_plan.team.name }}</strong></span>
+                </div>
+            {% endif %}
         </div>
-        <div class=\"current-date-info\">
-            <i class=\"fas fa-info-circle\"></i>
-            <span>
-                Date actuelle : <strong>{{ training_plan.createdAt ? training_plan.createdAt|date('d/m/Y') : 'Non définie' }}</strong>
-                {% if training_plan.createdAt %}
-                    ({{ training_plan.createdAt|date('H:i') }})
-                {% endif %}
-            </span>
-        </div>
-        <div class=\"form-help\">
-            <i class=\"fas fa-calendar\"></i>
-            <span>Modifiez la date de création si nécessaire (format : AAAA-MM-JJ)</span>
-        </div>
-        {{ form_errors(form.created_at) }}
-    </div>
+    {% endif %}
     
     <div class=\"form-actions\">
         <button type=\"submit\" class=\"btn-save\">
             <i class=\"fas fa-save\"></i>
-            {{ button_label|default('Mettre à jour') }}
+            Mettre à jour
         </button>
         
-        <a href=\"{{ path('app_coaching_session_index') }}\" class=\"btn-cancel\">
+        <a href=\"{{ path('app_coaching_session_index') }}#training-plans\" class=\"btn-cancel\">
             <i class=\"fas fa-arrow-left\"></i>
-            Retour au dashboard
+            Annuler
         </a>
         
-        {% if delete_form is defined %}
-            <button type=\"button\" class=\"btn-delete\" onclick=\"confirmDelete()\">
-                <i class=\"fas fa-trash\"></i>
-                Supprimer
-            </button>
-        {% endif %}
+        <button type=\"button\" class=\"btn-delete\" onclick=\"confirmDelete()\">
+            <i class=\"fas fa-trash\"></i>
+            Supprimer
+        </button>
     </div>
     
     {{ form_end(form) }}
     
-    {% if delete_form is defined %}
-        <div id=\"delete-form\" style=\"display: none;\">
-            {{ include('training_plan/_delete_form.html.twig') }}
-        </div>
-    {% endif %}
+    <div id=\"delete-form\" style=\"display: none;\">
+        {{ include('training_plan/_delete_form.html.twig') }}
+    </div>
 </div>
 
 <div class=\"form-footer\">
@@ -1427,45 +1797,130 @@ if (form) {
 {% endblock %}
 
 {% block javascripts %}
+{{ parent() }}
 <script>
-function confirmDelete() {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce plan d\\'entraînement ? Cette action est irréversible.')) {
-        document.querySelector('#delete-form form').submit();
-    }
-}
+// Données pour les aperçus
+const coaches = {
+    {% if coaches is defined %}
+        {% for coach in coaches %}
+            {{ coach.id }}: {
+                name: \"{{ coach.fullName|e('js') }}\",
+                username: \"{{ coach.username|e('js') }}\"
+            },
+        {% endfor %}
+    {% endif %}
+};
 
-// Ajout de classes pour la validation
-document.querySelectorAll('.form-group').forEach(group => {
-    const input = group.querySelector('input, textarea, select');
-    if (input) {
-        input.addEventListener('blur', function() {
-            if (this.value.trim() === '' && this.hasAttribute('required')) {
-                group.classList.add('error');
-            } else {
-                group.classList.remove('error');
+const teams = {
+    {% if teams is defined %}
+        {% for team in teams %}
+            {{ team.id }}: {
+                name: \"{{ team.name|e('js') }}\",
+                game: \"{{ team.game|e('js') }}\"
+            },
+        {% endfor %}
+    {% endif %}
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const coachSelect = document.getElementById('coach_select');
+    const teamSelect = document.getElementById('team_select');
+    const coachPreview = document.getElementById('coachPreview');
+    const teamPreview = document.getElementById('teamPreview');
+    const descriptionTextarea = document.getElementById('plan_description');
+    
+    // Gestion de l'aperçu du coach
+    if (coachSelect) {
+        coachSelect.addEventListener('change', function() {
+            const coachId = this.value;
+            
+            if (coachId && coaches[coachId]) {
+                const coach = coaches[coachId];
+                
+                let preview = document.getElementById('coachPreview');
+                if (!preview) {
+                    preview = document.createElement('div');
+                    preview.id = 'coachPreview';
+                    preview.className = 'info-preview';
+                    this.closest('.form-group').appendChild(preview);
+                }
+                
+                preview.innerHTML = `<i class=\"fas fa-user-tie\"></i>
+                    <span><strong>Nouveau coach :</strong> \${coach.name} (@\${coach.username})</span>`;
+                preview.style.display = 'flex';
+            } else if (coachPreview) {
+                coachPreview.style.display = coachSelect.value ? 'flex' : 'none';
             }
         });
     }
-});
-
-// Formatage de la date pour l'input date
-const createdAtInput = document.querySelector('#training_plan_created_at');
-if (createdAtInput && createdAtInput.value) {
-    // Convertir la date au format YYYY-MM-DD pour l'input date
-    const date = new Date(createdAtInput.value);
-    const formattedDate = date.toISOString().split('T')[0];
-    createdAtInput.value = formattedDate;
-}
-
-// Afficher la date actuelle dans le placeholder
-if (createdAtInput && !createdAtInput.value) {
-    const today = new Date();
-    const formattedToday = today.toISOString().split('T')[0];
-    createdAtInput.placeholder = formattedToday;
-}
-
-// Animation d'entrée
-document.addEventListener('DOMContentLoaded', function() {
+    
+    // Gestion de l'aperçu de l'équipe
+    if (teamSelect) {
+        teamSelect.addEventListener('change', function() {
+            const teamId = this.value;
+            
+            if (teamId && teams[teamId]) {
+                const team = teams[teamId];
+                
+                let preview = document.getElementById('teamPreview');
+                if (!preview) {
+                    preview = document.createElement('div');
+                    preview.id = 'teamPreview';
+                    preview.className = 'info-preview';
+                    this.closest('.form-group').appendChild(preview);
+                }
+                
+                preview.innerHTML = `<i class=\"fas fa-users\"></i>
+                    <span><strong>Nouvelle équipe :</strong> \${team.name} (\${team.game})</span>`;
+                preview.style.display = 'flex';
+            } else if (teamPreview) {
+                teamPreview.style.display = teamSelect.value ? 'flex' : 'none';
+            }
+        });
+    }
+    
+    // Validation des formulaires
+    function validateForm() {
+        let isValid = true;
+        
+        // Titre (5-255 caractères)
+        const titleInput = document.querySelector('#training_plan_title');
+        if (titleInput && titleInput.value.trim()) {
+            const length = titleInput.value.trim().length;
+            if (length < 5 || length > 255) {
+                titleInput.classList.add('error');
+                isValid = false;
+            } else {
+                titleInput.classList.remove('error');
+            }
+        }
+        
+        // Description (20-2000 caractères)
+        if (descriptionTextarea && descriptionTextarea.value.trim()) {
+            const length = descriptionTextarea.value.trim().length;
+            if (length < 20 || length > 2000) {
+                descriptionTextarea.classList.add('error');
+                isValid = false;
+            } else {
+                descriptionTextarea.classList.remove('error');
+            }
+        }
+        
+        return isValid;
+    }
+    
+    // Soumission du formulaire
+    const form = document.querySelector('.training-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+                alert('Veuillez corriger les erreurs dans le formulaire avant de soumettre.');
+            }
+        });
+    }
+    
+    // Animation d'entrée
     const formGroups = document.querySelectorAll('.form-group');
     formGroups.forEach((group, index) => {
         setTimeout(() => {
@@ -1473,29 +1928,46 @@ document.addEventListener('DOMContentLoaded', function() {
             group.style.opacity = '0';
         }, index * 100);
     });
+    
+    // Confirmation avant de quitter si modifications
+    let formModified = false;
+    if (form) {
+        form.addEventListener('input', () => {
+            formModified = true;
+        });
+        
+        window.addEventListener('beforeunload', (e) => {
+            if (formModified) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+        
+        form.addEventListener('submit', () => {
+            formModified = false;
+        });
+    }
 });
 
-// Confirmation avant de quitter la page si des modifications existent
-let formModified = false;
-const form = document.querySelector('.training-form');
-if (form) {
-    form.addEventListener('input', () => {
-        formModified = true;
-    });
-    
-    window.addEventListener('beforeunload', (e) => {
-        if (formModified) {
-            e.preventDefault();
-            e.returnValue = '';
+function confirmDelete() {
+    if (confirm('⚠️ ATTENTION : Êtes-vous sûr de vouloir supprimer définitivement ce plan d\\'entraînement ? Cette action est irréversible.')) {
+        document.querySelector('#delete-form form').submit();
+    }
+}
+
+// Formatage de la date pour l'input date
+const createdAtInput = document.querySelector('#training_plan_created_at');
+if (createdAtInput && createdAtInput.value) {
+    // Si la valeur est déjà au bon format, on la garde
+    if (!createdAtInput.value.match(/^\\d{4}-\\d{2}-\\d{2}\$/)) {
+        const date = new Date(createdAtInput.value);
+        if (!isNaN(date.getTime())) {
+            const formattedDate = date.toISOString().split('T')[0];
+            createdAtInput.value = formattedDate;
         }
-    });
-    
-    // Réinitialiser formModified après soumission
-    form.addEventListener('submit', () => {
-        formModified = false;
-    });
+    }
 }
 </script>
-{% endblock %}", "training_plan/edit.html.twig", "C:\\xampp\\htdocs\\esport\\templates\\training_plan\\edit.html.twig");
+{% endblock %}", "training_plan/edit.html.twig", "C:\\xampp\\htdocs\\esport (3)\\esport\\templates\\training_plan\\edit.html.twig");
     }
 }
