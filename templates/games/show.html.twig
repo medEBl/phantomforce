@@ -1,0 +1,438 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ game.title }} - FreeToGame{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    :root {
+        --blood-red: #ff0000;
+        --fire-red: #ff3300;
+        --dark-red: #cc0000;
+        --neon-red: #ff003c;
+        --red-glow: rgba(255, 0, 0, 0.7);
+        --red-light: rgba(255, 51, 51, 0.3);
+        --black-bg: #000000;
+        --dark-gray: #1a1a1a;
+        --gray: #333333;
+        --light-gray: #666666;
+        --white: #ffffff;
+    }
+    
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: var(--fire-red);
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-family: 'Orbitron', sans-serif;
+        transition: all 0.3s;
+        position: relative;
+        padding-left: 20px;
+    }
+    
+    .back-link::before {
+        content: '←';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: left 0.3s;
+    }
+    
+    .back-link:hover {
+        color: var(--blood-red);
+        padding-left: 25px;
+        text-shadow: 0 0 10px var(--blood-red);
+    }
+    
+    .game-detail-header {
+        background: linear-gradient(135deg, #000000 0%, #330000 50%, #660000 100%);
+        padding: 50px 30px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+        border: 2px solid var(--blood-red);
+        box-shadow: 0 0 30px var(--red-glow);
+    }
+    
+    .game-detail-header::before {
+        content: '🎮';
+        position: absolute;
+        top: -30px;
+        right: -30px;
+        font-size: 200px;
+        opacity: 0.1;
+        transform: rotate(15deg);
+        color: var(--blood-red);
+    }
+    
+    .game-detail-header::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, transparent 70%);
+        animation: rotate 20s linear infinite;
+    }
+    
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .game-detail-header h1 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 3rem;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 15px;
+        text-shadow: 0 0 20px var(--blood-red);
+        position: relative;
+        z-index: 1;
+        animation: textPulse 2s infinite alternate;
+    }
+    
+    @keyframes textPulse {
+        from { text-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+        to { text-shadow: 0 0 30px rgba(255, 0, 0, 0.9), 0 0 40px rgba(255, 0, 0, 0.5); }
+    }
+    
+    .game-detail-header p {
+        color: var(--fire-red);
+        font-size: 1.2rem;
+        font-family: 'Rajdhani', sans-serif;
+        letter-spacing: 2px;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .game-main-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .game-image-section {
+        position: relative;
+    }
+    
+    .game-thumbnail {
+        width: 100%;
+        border-radius: 10px;
+        border: 2px solid var(--dark-red);
+        box-shadow: 0 0 20px rgba(255,0,0,0.3);
+        transition: all 0.3s;
+    }
+    
+    .game-thumbnail:hover {
+        transform: scale(1.02);
+        border-color: var(--blood-red);
+        box-shadow: 0 0 30px var(--red-glow);
+    }
+    
+    .game-stats {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    .stat-box {
+        flex: 1;
+        background: linear-gradient(135deg, #1a0000, #000000);
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid var(--dark-red);
+        transition: all 0.3s;
+    }
+    
+    .stat-box:hover {
+        transform: translateY(-5px);
+        border-color: var(--blood-red);
+        box-shadow: 0 5px 15px rgba(255,0,0,0.3);
+    }
+    
+    .stat-value {
+        color: var(--fire-red);
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-family: 'Orbitron', sans-serif;
+        margin-bottom: 5px;
+    }
+    
+    .stat-label {
+        color: #cc9999;
+        font-size: 0.9rem;
+        font-family: 'Rajdhani', sans-serif;
+    }
+    
+    .game-detail-content {
+        background: linear-gradient(135deg, #1a0000, #000000);
+        border-radius: 10px;
+        padding: 30px;
+        border: 1px solid var(--dark-red);
+        box-shadow: 0 0 20px rgba(255,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .game-detail-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--blood-red), var(--fire-red), var(--dark-red));
+    }
+    
+    .game-detail-content h2 {
+        color: white;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px rgba(255,0,0,0.5);
+    }
+    
+    .game-description {
+        color: #cc9999;
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 25px;
+        font-family: 'Rajdhani', sans-serif;
+    }
+    
+    .play-now-btn {
+        display: inline-block;
+        padding: 15px 40px;
+        background: linear-gradient(45deg, var(--dark-red), var(--blood-red));
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .play-now-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s;
+    }
+    
+    .play-now-btn:hover::before {
+        left: 100%;
+    }
+    
+    .play-now-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 25px var(--red-glow);
+    }
+    
+    .screenshots-section {
+        margin: 50px 0;
+    }
+    
+    .screenshots-section h2 {
+        color: white;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 25px;
+        text-shadow: 0 0 10px rgba(255,0,0,0.5);
+        border-left: 4px solid var(--blood-red);
+        padding-left: 20px;
+    }
+    
+    .game-screenshots {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .screenshot {
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 1px solid var(--dark-red);
+    }
+    
+    .screenshot:hover {
+        transform: scale(1.05);
+        border-color: var(--blood-red);
+        box-shadow: 0 0 20px var(--red-glow);
+    }
+    
+    .requirements-section {
+        margin: 50px 0;
+        background: linear-gradient(135deg, #1a0000, #000000);
+        border-radius: 10px;
+        padding: 30px;
+        border: 1px solid var(--dark-red);
+    }
+    
+    .requirements-section h2 {
+        color: white;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 25px;
+        text-shadow: 0 0 10px rgba(255,0,0,0.5);
+    }
+    
+    .requirements-table {
+        background: #000000;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .requirements-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .requirements-table tr {
+        border-bottom: 1px solid #330000;
+    }
+    
+    .requirements-table tr:last-child {
+        border-bottom: none;
+    }
+    
+    .requirements-table td {
+        padding: 15px 20px;
+        color: #cc9999;
+        font-family: 'Rajdhani', sans-serif;
+    }
+    
+    .requirements-table td:first-child {
+        color: var(--fire-red);
+        font-weight: bold;
+        width: 200px;
+        background: #0a0000;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+        .game-main-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .game-detail-header h1 {
+            font-size: 2.2rem;
+        }
+        
+        .requirements-table td {
+            display: block;
+            width: 100%;
+        }
+        
+        .requirements-table td:first-child {
+            width: 100%;
+            background: transparent;
+            padding-bottom: 5px;
+        }
+        
+        .requirements-table td:last-child {
+            padding-top: 5px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <a href="{{ path('app_games_index') }}" class="back-link">Retour à la liste</a>
+    
+    <div class="game-detail-header">
+        <h1>{{ game.title }}</h1>
+        <p>{{ game.genre }} • {{ game.platform }} • {{ game.developer }}</p>
+    </div>
+    
+    <div class="game-main-content">
+        <div class="game-image-section">
+            <img src="{{ game.thumbnail }}" alt="{{ game.title }}" class="game-thumbnail">
+            
+            <div class="game-stats">
+                <div class="stat-box">
+                    <div class="stat-value">{{ game.release_date|date('Y') }}</div>
+                    <div class="stat-label">Date de sortie</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">{{ game.publisher }}</div>
+                    <div class="stat-label">Éditeur</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-detail-content">
+            <h2>🔥 À PROPOS DU JEU</h2>
+            <div class="game-description">
+                {{ game.description|nl2br }}
+            </div>
+            
+            <a href="{{ game.game_url }}" target="_blank" class="play-now-btn">
+                🎮 JOUER MAINTENANT
+            </a>
+        </div>
+    </div>
+    
+    {% if game.screenshots|length > 0 %}
+        <div class="screenshots-section">
+            <h2>📸 CAPTURES D'ÉCRAN</h2>
+            <div class="game-screenshots">
+                {% for screenshot in game.screenshots %}
+                    <img src="{{ screenshot.image }}" alt="Screenshot" class="screenshot" onclick="window.open('{{ screenshot.image }}', '_blank')">
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if game.minimum_system_requirements %}
+        <div class="requirements-section">
+            <h2>⚙️ CONFIGURATION REQUISE</h2>
+            <div class="requirements-table">
+                <table>
+                    <tr>
+                        <td>Système d'exploitation</td>
+                        <td>{{ game.minimum_system_requirements.os }}</td>
+                    </tr>
+                    <tr>
+                        <td>Processeur</td>
+                        <td>{{ game.minimum_system_requirements.processor }}</td>
+                    </tr>
+                    <tr>
+                        <td>Mémoire</td>
+                        <td>{{ game.minimum_system_requirements.memory }}</td>
+                    </tr>
+                    <tr>
+                        <td>Graphiques</td>
+                        <td>{{ game.minimum_system_requirements.graphics }}</td>
+                    </tr>
+                    <tr>
+                        <td>Espace disque</td>
+                        <td>{{ game.minimum_system_requirements.storage }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

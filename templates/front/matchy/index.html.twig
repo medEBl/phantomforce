@@ -419,7 +419,6 @@
         white-space: nowrap;
     }
     
-    /* Style pour la localisation */
     .location-item {
         background: rgba(255, 193, 7, 0.1);
         border-left: 3px solid var(--location-yellow);
@@ -672,7 +671,6 @@
         }
     }
     
-    /* Filtres */
     .filters-container {
         background: rgba(26, 0, 0, 0.9);
         border-radius: 15px;
@@ -813,7 +811,6 @@
         color: var(--blood-red);
     }
     
-    /* Styles pour l'effet de filtrage */
     .match-card.hidden {
         display: none;
     }
@@ -824,7 +821,6 @@
         transition: all 0.3s ease;
     }
     
-    /* Actions avancées */
     .advanced-actions {
         display: flex;
         justify-content: center;
@@ -854,7 +850,6 @@
         box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
     }
     
-    /* Notifications */
     .notification-bell {
         position: fixed;
         bottom: 20px;
@@ -898,7 +893,6 @@
         50% { transform: scale(1.2); }
     }
     
-    /* Modal notifications */
     .notifications-modal {
         display: none;
         position: fixed;
@@ -964,7 +958,6 @@
         margin-top: 0.3rem;
     }
     
-    /* Toast */
     .toast {
         position: fixed;
         bottom: 100px;
@@ -991,7 +984,6 @@
         to { transform: translateX(0); opacity: 1; }
     }
     
-    /* Stats overlay */
     .stats-overlay {
         position: fixed;
         top: 20px;
@@ -1024,7 +1016,6 @@
         font-weight: 700;
     }
     
-    /* Match highlight */
     .match-card.highlighted {
         animation: highlightPulse 2s infinite;
         border-color: var(--neon-red);
@@ -1220,6 +1211,9 @@
         <a href="{{ path('app_map') }}" class="add-match-btn" style="background: linear-gradient(45deg, #0066cc, #003399);">
             🗺️ CARTE DES ARÈNES
         </a>
+        <a href="{{ path('app_games_index') }}" class="add-match-btn" style="background: linear-gradient(45deg, #00cc66, #00994d);">
+            🎮 JEUX GRATUITS
+        </a>
         {% endif %}
     </div>
     
@@ -1333,7 +1327,9 @@
                     <div class="match-id">#{{ match.id }}</div>
                     
                     <div class="match-header">
-                        <div class="match-game">{{ match.game|upper }}</div>
+                        <div class="match-game">
+                            {{ match.game|upper }}
+                        </div>
                         <div class="match-date">
                             {{ match.matchDate ? match.matchDate|date('d/m/Y H:i') : 'Date non définie' }}
                         </div>
@@ -1394,7 +1390,7 @@
                             </span>
                         </div>
                         
-                        <!-- NOUVEAU : Afficher la localisation -->
+                        <!-- Afficher la localisation -->
                         {% if match.location %}
                         <div class="detail-item location-item">
                             <strong>📍 LIEU :</strong>
@@ -1540,7 +1536,6 @@
         renderNotifications();
         saveNotifications();
         
-        // Notification sonore (optionnelle)
         if (type === 'alert') {
             playNotificationSound();
         }
@@ -1548,25 +1543,22 @@
         showToast(message);
     }
     
-    // Fonction pour jouer un son de notification
     function playNotificationSound() {
         try {
             const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
             audio.volume = 0.3;
             audio.play();
         } catch (e) {
-            // Fallback silencieux si l'audio échoue
+            // Fallback silencieux
         }
     }
     
-    // Fonction pour mettre à jour le badge de notification
     function updateNotificationBadge() {
         const unreadCount = notifications.filter(n => !n.read).length;
         notificationBadge.textContent = unreadCount;
         notificationBadge.style.display = unreadCount > 0 ? 'block' : 'none';
     }
     
-    // Fonction pour afficher les notifications
     function renderNotifications() {
         notificationsList.innerHTML = '';
         
@@ -1598,7 +1590,6 @@
         });
     }
     
-    // Fonction pour effacer toutes les notifications
     function clearNotifications() {
         notifications = [];
         updateNotificationBadge();
@@ -1606,7 +1597,6 @@
         saveNotifications();
     }
     
-    // Fonction pour sauvegarder les notifications dans localStorage
     function saveNotifications() {
         try {
             localStorage.setItem('matchNotifications', JSON.stringify(notifications));
@@ -1615,7 +1605,6 @@
         }
     }
     
-    // Fonction pour charger les notifications depuis localStorage
     function loadNotifications() {
         try {
             const saved = localStorage.getItem('matchNotifications');
@@ -1629,14 +1618,12 @@
         }
     }
     
-    // Fonction pour mettre à jour le compteur
     function updateCounter(visibleCount) {
         matchCount.textContent = visibleCount;
         if (activeMatches) {
             activeMatches.textContent = visibleCount;
         }
         
-        // Animation du compteur
         matchCount.style.transform = 'scale(1.2)';
         setTimeout(() => {
             matchCount.style.transform = 'scale(1)';
@@ -1645,7 +1632,6 @@
         updateStats();
     }
     
-    // Fonction pour mettre à jour les statistiques
     function updateStats() {
         const visibleMatches = document.querySelectorAll('.match-card:not(.hidden)');
         const ongoing = document.querySelectorAll('.match-card.ongoing:not(.hidden)').length;
@@ -1660,7 +1646,6 @@
         statWithLocation.textContent = withLocation;
     }
     
-    // Fonction pour exporter la liste des matchs
     function exportMatches() {
         const visibleMatches = Array.from(document.querySelectorAll('.match-card:not(.hidden)'));
         
@@ -1680,9 +1665,7 @@
             const team2 = match.querySelector('.team-info:last-child .team-name').textContent;
             const score2 = match.querySelector('.team-info:last-child .team-score').textContent;
             const status = match.dataset.status.toUpperCase();
-            const hasWinner = match.dataset.winner === 'yes';
             
-            // Récupérer la localisation
             const locationElement = match.querySelector('.location-item span, .location-item .location-link');
             const location = locationElement ? locationElement.textContent.trim() : 'Non spécifiée';
             
@@ -1691,14 +1674,13 @@
             exportData += `   ${team1} ${score1} - ${score2} ${team2}\n`;
             exportData += `   Statut: ${status}\n`;
             exportData += `   Lieu: ${location}\n`;
-            exportData += `   ${hasWinner ? 'Avec gagnant' : 'Sans gagnant'}\n`;
+            exportData += `   ${match.dataset.winner === 'yes' ? 'Avec gagnant' : 'Sans gagnant'}\n`;
             exportData += '\n';
         });
         
         exportData += `\nTotal: ${visibleMatches.length} match(s)\n`;
         exportData += `Exporté le: ${new Date().toLocaleDateString('fr-FR')}`;
         
-        // Créer un blob et télécharger
         const blob = new Blob([exportData], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1713,13 +1695,11 @@
         addNotification(`Liste de ${visibleMatches.length} matchs exportée`, 'info');
     }
     
-    // Fonction pour mettre en vedette les matchs importants
     function toggleHighlight() {
         isHighlightActive = !isHighlightActive;
         
         document.querySelectorAll('.match-card').forEach(card => {
             if (isHighlightActive) {
-                // Mettre en vedette les matchs en cours et ceux sans gagnant
                 if (card.classList.contains('ongoing') || card.dataset.winner === 'no') {
                     card.classList.add('highlighted');
                 }
@@ -1738,7 +1718,6 @@
         }
     }
     
-    // Fonction pour activer/désactiver l'actualisation automatique
     function toggleAutoRefresh() {
         if (autoRefreshInterval) {
             clearInterval(autoRefreshInterval);
@@ -1749,7 +1728,7 @@
         } else {
             autoRefreshInterval = setInterval(() => {
                 simulateLiveUpdates();
-            }, 10000); // Actualiser toutes les 10 secondes
+            }, 10000);
             
             refreshBtn.innerHTML = '🔄 Actualisation active';
             showToast('Actualisation automatique activée (10s)');
@@ -1757,12 +1736,10 @@
         }
     }
     
-    // Fonction pour simuler des mises à jour en direct
     function simulateLiveUpdates() {
         const ongoingMatches = document.querySelectorAll('.match-card.ongoing:not(.hidden)');
         
         if (ongoingMatches.length > 0) {
-            // Simuler un changement de score aléatoire
             ongoingMatches.forEach(card => {
                 if (Math.random() > 0.7) {
                     const score1El = card.querySelector('.team-info:first-child .team-score');
@@ -1771,7 +1748,6 @@
                     let score1 = parseInt(score1El.textContent);
                     let score2 = parseInt(score2El.textContent);
                     
-                    // Augmenter aléatoirement un score
                     if (Math.random() > 0.5) {
                         score1 += Math.floor(Math.random() * 2) + 1;
                     } else {
@@ -1781,7 +1757,6 @@
                     score1El.textContent = score1;
                     score2El.textContent = score2;
                     
-                    // Animation
                     score1El.style.transform = 'scale(1.2)';
                     score2El.style.transform = 'scale(1.2)';
                     setTimeout(() => {
@@ -1789,7 +1764,6 @@
                         score2El.style.transform = 'scale(1)';
                     }, 300);
                     
-                    // Mettre à jour la barre de score
                     const totalScore = score1 + score2;
                     const percentage1 = totalScore > 0 ? (score1 / totalScore * 100) : 50;
                     const scoreBar = card.querySelector('.score-bar');
@@ -1797,7 +1771,6 @@
                         scoreBar.style.width = `${percentage1}%`;
                     }
                     
-                    // Notification pour les changements importants
                     if (Math.abs(score1 - score2) >= 5) {
                         const game = card.querySelector('.match-game').textContent;
                         addNotification(`${game}: Écart important (${score1}-${score2})`, 'alert');
@@ -1805,7 +1778,6 @@
                 }
             });
             
-            // Mettre à jour la date de dernière mise à jour
             const now = new Date();
             const timeString = now.toLocaleTimeString('fr-FR', { 
                 hour: '2-digit', 
@@ -1825,7 +1797,6 @@
         }
     }
     
-    // Fonction pour afficher/masquer les statistiques
     function toggleStats() {
         statsOverlay.classList.toggle('active');
         
@@ -1837,7 +1808,6 @@
         }
     }
     
-    // Fonction de recherche
     function searchMatches() {
         const searchTerm = searchInput.value.toLowerCase().trim();
         
@@ -1864,26 +1834,22 @@
         applyFilters();
     }
     
-    // Fonction pour appliquer tous les filtres
     function applyFilters() {
         let visibleMatches = [];
         
         currentMatches.forEach(match => {
             let isVisible = !match.classList.contains('filtered-out');
             
-            // Filtre par jeu
             const selectedGame = gameFilter.value.toLowerCase();
             if (selectedGame && match.dataset.game !== selectedGame) {
                 isVisible = false;
             }
             
-            // Filtre par statut
             const selectedStatus = statusFilter.value;
             if (selectedStatus && match.dataset.status !== selectedStatus) {
                 isVisible = false;
             }
             
-            // Filtre par gagnant
             const winnerStatus = winnerFilter.value;
             if (winnerStatus === 'with' && match.dataset.winner === 'no') {
                 isVisible = false;
@@ -1892,7 +1858,6 @@
                 isVisible = false;
             }
             
-            // Filtre par localisation
             const locationStatus = locationFilter.value;
             if (locationStatus === 'with' && match.dataset.location === 'no') {
                 isVisible = false;
@@ -1909,7 +1874,6 @@
             }
         });
         
-        // Mettre à jour le compteur
         updateCounter(visibleMatches.length);
     }
     
@@ -1918,7 +1882,6 @@
         applyFilters();
         loadNotifications();
         
-        // Notifications de bienvenue
         setTimeout(() => {
             if (notifications.length === 0) {
                 addNotification('Bienvenue sur Phantom Force Matchs!', 'info');
@@ -1926,7 +1889,6 @@
             }
         }, 1000);
         
-        // Afficher le nom complet des équipes au survol
         document.querySelectorAll('.team-name').forEach(element => {
             element.addEventListener('mouseenter', function() {
                 const title = this.getAttribute('title');
@@ -1941,7 +1903,6 @@
             });
         });
         
-        // Animation du compteur live
         if (liveCounter) {
             setInterval(() => {
                 liveCounter.style.transform = 'scale(1.1)';
@@ -1953,7 +1914,6 @@
             }, 2000);
         }
         
-        // Mise à jour de la barre de score en direct
         updateScoreBars();
     });
     
@@ -1985,17 +1945,14 @@
         showToast('Filtres réinitialisés');
     });
     
-    // Boutons avancés
     exportBtn.addEventListener('click', exportMatches);
     statsBtn.addEventListener('click', toggleStats);
     highlightBtn.addEventListener('click', toggleHighlight);
     refreshBtn.addEventListener('click', toggleAutoRefresh);
     
-    // Notifications
     notificationBell.addEventListener('click', () => {
         notificationsModal.classList.toggle('active');
         
-        // Marquer toutes comme lues lorsqu'on ouvre
         if (notificationsModal.classList.contains('active')) {
             notifications.forEach(n => n.read = true);
             updateNotificationBadge();
@@ -2004,7 +1961,6 @@
         }
     });
     
-    // Fermer les notifications en cliquant à l'extérieur
     document.addEventListener('click', (e) => {
         if (!notificationsModal.contains(e.target) && !notificationBell.contains(e.target)) {
             notificationsModal.classList.remove('active');
@@ -2015,7 +1971,6 @@
         }
     });
     
-    // Effet de survol amélioré pour les cartes
     const cards = document.querySelectorAll('.match-card');
     cards.forEach(card => {
         card.addEventListener('mousemove', function(e) {
@@ -2033,19 +1988,21 @@
         });
     });
     
-    // Effet de score en temps réel
     function updateScoreBars() {
         document.querySelectorAll('.match-card').forEach(card => {
-            const score1 = parseInt(card.querySelector('.team-info:first-child .team-score').textContent);
-            const score2 = parseInt(card.querySelector('.team-info:last-child .team-score').textContent);
-            const totalScore = score1 + score2;
-            const percentage1 = totalScore > 0 ? (score1 / totalScore * 100) : 50;
-            
+            const score1El = card.querySelector('.team-info:first-child .team-score');
+            const score2El = card.querySelector('.team-info:last-child .team-score');
             const scoreBar = card.querySelector('.score-bar');
-            if (scoreBar) {
+            
+            // Vérifier que les éléments existent avant de les utiliser
+            if (score1El && score2El && scoreBar) {
+                const score1 = parseInt(score1El.textContent) || 0;
+                const score2 = parseInt(score2El.textContent) || 0;
+                const totalScore = score1 + score2;
+                const percentage1 = totalScore > 0 ? (score1 / totalScore * 100) : 50;
+                
                 scoreBar.style.width = `${percentage1}%`;
                 
-                // Animation pour les matchs en cours
                 if (card.classList.contains('ongoing')) {
                     scoreBar.style.animation = 'pulse 2s infinite';
                 }
@@ -2053,7 +2010,6 @@
         });
     }
     
-    // Effet de particules au clic
     document.addEventListener('click', function(e) {
         if (e.target.closest('.match-card') || e.target.closest('.action-btn') || 
             e.target.closest('.add-match-btn') || e.target.closest('.advanced-btn') ||
@@ -2081,34 +2037,28 @@
         }, 500);
     });
     
-    // Raccourcis clavier
     document.addEventListener('keydown', (e) => {
-        // Ctrl+E pour exporter
         if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
             e.preventDefault();
             exportMatches();
         }
         
-        // Ctrl+S pour les stats
         if ((e.ctrlKey || e.metaKey) && e.key === 's') {
             e.preventDefault();
             toggleStats();
         }
         
-        // Ctrl+H pour highlight
         if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
             e.preventDefault();
             toggleHighlight();
         }
         
-        // Échap pour fermer les modals
         if (e.key === 'Escape') {
             notificationsModal.classList.remove('active');
             statsOverlay.classList.remove('active');
         }
     });
     
-    // Ajouter l'animation CSS pour les particules
     const style = document.createElement('style');
     style.textContent = `
         @keyframes sparkFade {
@@ -2118,7 +2068,6 @@
     `;
     document.head.appendChild(style);
     
-    // Détection de matchs urgents au chargement
     setTimeout(() => {
         const urgentMatches = document.querySelectorAll('.match-card.ongoing');
         if (urgentMatches.length > 0) {
@@ -2126,4 +2075,5 @@
         }
     }, 2000);
 </script>
+{{ include('chatbot/_widget.html.twig') }}
 {% endblock %}

@@ -354,6 +354,20 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
+    <service id="Google\Client" class="Google\Client">
+      <call method="setDeveloperKey">
+        <argument>%env(GOOGLE_API_KEY)%</argument>
+      </call>
+      <call method="setClientId">
+        <argument>%env(GOOGLE_CLIENT_ID)%</argument>
+      </call>
+      <call method="setClientSecret">
+        <argument>%env(GOOGLE_CLIENT_SECRET)%</argument>
+      </call>
+      <call method="setAuthConfig">
+        <argument>%env(resolve:GOOGLE_AUTH_CONFIG)%</argument>
+      </call>
+    </service>
     <service id="App\Entity" class="App\Entity" abstract="true">
       <tag name="container.excluded" source="in &quot;config/services.yaml&quot;"/>
     </service>
@@ -454,11 +468,25 @@
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Back\TeamController"/>
       </call>
     </service>
+    <service id="App\Controller\ChatbotController" class="App\Controller\ChatbotController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\ChatbotController"/>
+      </call>
+    </service>
     <service id="App\Controller\CoachingSessionController" class="App\Controller\CoachingSessionController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\CoachingSessionController"/>
+      </call>
+    </service>
+    <service id="App\Controller\FreeToGameController" class="App\Controller\FreeToGameController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\FreeToGameController"/>
       </call>
     </service>
     <service id="App\Controller\FrontController" class="App\Controller\FrontController" public="true" autowire="true" autoconfigure="true">
@@ -683,6 +711,15 @@
       <argument>%env(RECAPTCHA_SECRET_KEY)%</argument>
       <argument type="service" id="request_stack"/>
     </service>
+    <service id="App\Service\ChatbotService" class="App\Service\ChatbotService" autowire="true" autoconfigure="true">
+      <argument type="service" id=".debug.http_client"/>
+      <argument type="service" id="App\Repository\MatchyRepository"/>
+      <argument type="service" id="App\Repository\TeamRepository"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
+    <service id="App\Service\FreeToGameService" class="App\Service\FreeToGameService" autowire="true" autoconfigure="true">
+      <argument type="service" id=".debug.http_client"/>
+    </service>
     <service id="App\Service\NotificationService" class="App\Service\NotificationService" autowire="true" autoconfigure="true">
       <argument type="service" id="mailer.mailer"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
@@ -717,7 +754,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.NLH83r4"/>
+      <argument type="service" id=".service_locator.3eardw4"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -2153,6 +2190,11 @@
         <argument type="service" id="monolog.logger.http_client" on-invalid="ignore"/>
       </call>
       <factory class="Symfony\Component\HttpClient\HttpClient" method="create"/>
+    </service>
+    <service id="psr18.http_client" class="Symfony\Component\HttpClient\Psr18Client">
+      <argument type="service" id=".debug.http_client"/>
+      <argument>null</argument>
+      <argument>null</argument>
     </service>
     <service id="http_client.abstract_retry_strategy" class="Symfony\Component\HttpClient\Retry\GenericRetryStrategy" abstract="true">
       <argument type="abstract">http codes</argument>
@@ -3613,7 +3655,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.NLH83r4"/>
+      <argument type="service" id=".service_locator.3eardw4"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <argument type="service" id="request_stack"/>
@@ -7606,9 +7648,15 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Back\TeamController" class="App\Controller\Back\TeamController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Back\TeamController" class="App\Controller\Back\TeamController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Back\TeamController" class="App\Controller\Back\TeamController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ChatbotController" class="App\Controller\ChatbotController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ChatbotController" class="App\Controller\ChatbotController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\ChatbotController" class="App\Controller\ChatbotController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CoachingSessionController" class="App\Controller\CoachingSessionController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CoachingSessionController" class="App\Controller\CoachingSessionController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CoachingSessionController" class="App\Controller\CoachingSessionController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\FreeToGameController" class="App\Controller\FreeToGameController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\FreeToGameController" class="App\Controller\FreeToGameController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\FreeToGameController" class="App\Controller\FreeToGameController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\FrontController" class="App\Controller\FrontController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\FrontController" class="App\Controller\FrontController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\FrontController" class="App\Controller\FrontController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -8297,11 +8345,23 @@
         <argument key="team" type="service_closure" id=".errored..service_locator.7ZF768O.App\Entity\Team"/>
       </argument>
     </service>
+    <service id=".service_locator.T3WiwKe" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="chatbot" type="service_closure" id="App\Service\ChatbotService"/>
+      </argument>
+    </service>
     <service id=".service_locator.5RxUGVv" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="coachingSessionRepository" type="service_closure" id="App\Repository\CoachingSessionRepository"/>
         <argument key="trainingPlanRepository" type="service_closure" id="App\Repository\TrainingPlanRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.w9LQtEy" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="freeToGame" type="service_closure" id="App\Service\FreeToGameService"/>
       </argument>
     </service>
     <service id=".service_locator.qouIDzd" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8442,7 +8502,7 @@
         <argument key="user" type="service_closure" id=".errored..service_locator.rvMNZGh.App\Entity\User"/>
       </argument>
     </service>
-    <service id=".service_locator.NLH83r4" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.3eardw4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminDashboardController::index" type="service_closure" id=".service_locator.0odLNlP"/>
@@ -8492,12 +8552,16 @@
         <argument key="App\Controller\Back\TeamController::index" type="service_closure" id=".service_locator.nAmwTrk"/>
         <argument key="App\Controller\Back\TeamController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Back\TeamController::show" type="service_closure" id=".service_locator.zgeOBW8"/>
+        <argument key="App\Controller\ChatbotController::ask" type="service_closure" id=".service_locator.T3WiwKe"/>
+        <argument key="App\Controller\ChatbotController::suggestions" type="service_closure" id=".service_locator.T3WiwKe"/>
         <argument key="App\Controller\CoachingSessionController::delete" type="service_closure" id=".service_locator.ozCmgbx"/>
         <argument key="App\Controller\CoachingSessionController::edit" type="service_closure" id=".service_locator.ozCmgbx"/>
         <argument key="App\Controller\CoachingSessionController::index" type="service_closure" id=".service_locator.5RxUGVv"/>
         <argument key="App\Controller\CoachingSessionController::meet" type="service_closure" id=".service_locator.TsVqtcP"/>
         <argument key="App\Controller\CoachingSessionController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\CoachingSessionController::show" type="service_closure" id=".service_locator.TsVqtcP"/>
+        <argument key="App\Controller\FreeToGameController::index" type="service_closure" id=".service_locator.w9LQtEy"/>
+        <argument key="App\Controller\FreeToGameController::show" type="service_closure" id=".service_locator.w9LQtEy"/>
         <argument key="App\Controller\Front\AgentProfileController::delete" type="service_closure" id=".service_locator.RqBRMGZ"/>
         <argument key="App\Controller\Front\AgentProfileController::edit" type="service_closure" id=".service_locator.RqBRMGZ"/>
         <argument key="App\Controller\Front\AgentProfileController::index" type="service_closure" id=".service_locator.qouIDzd"/>
@@ -8508,7 +8572,7 @@
         <argument key="App\Controller\MapController::index" type="service_closure" id=".service_locator.Cd_yw2x"/>
         <argument key="App\Controller\MatchyController::delete" type="service_closure" id=".service_locator.pSIx7mu"/>
         <argument key="App\Controller\MatchyController::edit" type="service_closure" id=".service_locator.pSIx7mu"/>
-        <argument key="App\Controller\MatchyController::index" type="service_closure" id=".service_locator.Cd_yw2x"/>
+        <argument key="App\Controller\MatchyController::index" type="service_closure" id=".service_locator.qZCeF9c"/>
         <argument key="App\Controller\MatchyController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\MatchyController::show" type="service_closure" id=".service_locator.vJJ7DQy"/>
         <argument key="App\Controller\PaymentController::delete" type="service_closure" id=".service_locator.aMXBPGT"/>
@@ -8601,12 +8665,16 @@
         <argument key="App\Controller\Back\TeamController:index" type="service_closure" id=".service_locator.nAmwTrk"/>
         <argument key="App\Controller\Back\TeamController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Back\TeamController:show" type="service_closure" id=".service_locator.zgeOBW8"/>
+        <argument key="App\Controller\ChatbotController:ask" type="service_closure" id=".service_locator.T3WiwKe"/>
+        <argument key="App\Controller\ChatbotController:suggestions" type="service_closure" id=".service_locator.T3WiwKe"/>
         <argument key="App\Controller\CoachingSessionController:delete" type="service_closure" id=".service_locator.ozCmgbx"/>
         <argument key="App\Controller\CoachingSessionController:edit" type="service_closure" id=".service_locator.ozCmgbx"/>
         <argument key="App\Controller\CoachingSessionController:index" type="service_closure" id=".service_locator.5RxUGVv"/>
         <argument key="App\Controller\CoachingSessionController:meet" type="service_closure" id=".service_locator.TsVqtcP"/>
         <argument key="App\Controller\CoachingSessionController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\CoachingSessionController:show" type="service_closure" id=".service_locator.TsVqtcP"/>
+        <argument key="App\Controller\FreeToGameController:index" type="service_closure" id=".service_locator.w9LQtEy"/>
+        <argument key="App\Controller\FreeToGameController:show" type="service_closure" id=".service_locator.w9LQtEy"/>
         <argument key="App\Controller\Front\AgentProfileController:delete" type="service_closure" id=".service_locator.RqBRMGZ"/>
         <argument key="App\Controller\Front\AgentProfileController:edit" type="service_closure" id=".service_locator.RqBRMGZ"/>
         <argument key="App\Controller\Front\AgentProfileController:index" type="service_closure" id=".service_locator.qouIDzd"/>
@@ -8617,7 +8685,7 @@
         <argument key="App\Controller\MapController:index" type="service_closure" id=".service_locator.Cd_yw2x"/>
         <argument key="App\Controller\MatchyController:delete" type="service_closure" id=".service_locator.pSIx7mu"/>
         <argument key="App\Controller\MatchyController:edit" type="service_closure" id=".service_locator.pSIx7mu"/>
-        <argument key="App\Controller\MatchyController:index" type="service_closure" id=".service_locator.Cd_yw2x"/>
+        <argument key="App\Controller\MatchyController:index" type="service_closure" id=".service_locator.qZCeF9c"/>
         <argument key="App\Controller\MatchyController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\MatchyController:show" type="service_closure" id=".service_locator.vJJ7DQy"/>
         <argument key="App\Controller\PaymentController:delete" type="service_closure" id=".service_locator.aMXBPGT"/>
@@ -9450,9 +9518,21 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\ChatbotController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\ChatbotController"/>
+      <argument>App\Controller\ChatbotController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
     <service id=".service_locator.O2p6Lk7.App\Controller\CoachingSessionController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\CoachingSessionController"/>
       <argument>App\Controller\CoachingSessionController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\FreeToGameController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\FreeToGameController"/>
+      <argument>App\Controller\FreeToGameController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
@@ -11025,6 +11105,7 @@
     <service id="Symfony\Component\AssetMapper\AssetMapperInterface" alias="asset_mapper"/>
     <service id="Symfony\Component\AssetMapper\ImportMap\ImportMapManager" alias="asset_mapper.importmap.manager"/>
     <service id="Symfony\Contracts\HttpClient\HttpClientInterface" alias=".debug.http_client"/>
+    <service id="Psr\Http\Client\ClientInterface" alias="psr18.http_client"/>
     <service id="mailer" alias="mailer.mailer"/>
     <service id="Symfony\Component\Mailer\MailerInterface" alias="mailer.mailer"/>
     <service id="Symfony\Component\Mailer\Transport\TransportInterface" alias="mailer.default_transport"/>
@@ -11148,7 +11229,7 @@
     <service id="Knp\Component\Pager\ArgumentAccess\ArgumentAccessInterface" alias="Knp\Component\Pager\ArgumentAccess\RequestArgumentAccess"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.7nzbL4K" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.NLH83r4"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.3eardw4"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -11189,7 +11270,7 @@
     <service id=".service_locator.qrNhk2c" alias=".service_locator.ESgEUJd"/>
     <service id=".service_locator.PbKiXGa" alias=".service_locator.vQH8NxC"/>
     <service id=".service_locator.R0Sb2kd" alias=".service_locator.rvMNZGh"/>
-    <service id=".service_locator.CzPO.9L" alias=".service_locator.NLH83r4"/>
+    <service id=".service_locator..LR6ymP" alias=".service_locator.3eardw4"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.F9PKc.7"/>
     <service id=".service_locator.4nhX4_Z" alias=".service_locator.5nkj21w"/>
     <service id=".service_locator.XtmiKbi" alias=".service_locator.MfxSDRP"/>
@@ -11246,7 +11327,9 @@
     <service id=".service_locator.4RLV2vu" alias=".service_locator.nAmwTrk"/>
     <service id=".service_locator.cRRfbYz" alias=".service_locator.zgeOBW8"/>
     <service id=".service_locator.YcNEvuP" alias=".service_locator.7ZF768O"/>
+    <service id=".service_locator.OPjX24H" alias=".service_locator.T3WiwKe"/>
     <service id=".service_locator.MnMaXe5" alias=".service_locator.5RxUGVv"/>
+    <service id=".service_locator._SJPX.0" alias=".service_locator.w9LQtEy"/>
     <service id=".service_locator.XaCdRJ2" alias=".service_locator.qouIDzd"/>
     <service id=".service_locator.DmjysrO" alias=".service_locator.5Rv1IeU"/>
     <service id=".service_locator.TOggxyt" alias=".service_locator.r0EpZfZ"/>

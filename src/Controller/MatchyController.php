@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Matchy;
 use App\Form\MatchyType;
 use App\Repository\MatchyRepository;
+use App\Repository\TeamRepository;  // ← AJOUTEZ CETTE LIGNE
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,12 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class MatchyController extends AbstractController
 {
     #[Route('/', name: 'app_matchy_index', methods: ['GET'])]
-    public function index(MatchyRepository $matchyRepository): Response
+    public function index(MatchyRepository $matchyRepository, TeamRepository $teamRepository): Response  // ← AJOUTEZ ICI
     {
-        // CHANGER CETTE LIGNE :
-        // return $this->render('matchy/index.html.twig', [
         return $this->render('front/matchy/index.html.twig', [
             'matchies' => $matchyRepository->findAll(),
+            'teams' => $teamRepository->findAll(),  // ← AJOUTEZ CETTE LIGNE
         ]);
     }
 
