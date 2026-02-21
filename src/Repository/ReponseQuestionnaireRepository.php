@@ -16,28 +16,36 @@ class ReponseQuestionnaireRepository extends ServiceEntityRepository
         parent::__construct($registry, ReponseQuestionnaire::class);
     }
 
-    //    /**
-    //     * @return ReponseQuestionnaire[] Returns an array of ReponseQuestionnaire objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * For "Questionnaire Validé" badge per agent in the list
+     */
+    public function findAnsweredAgentIds(): array
+    {
+        $rows = $this->createQueryBuilder('r')
+            ->select('DISTINCT a.id AS agentId')
+            ->join('r.agent', 'a')
+            ->getQuery()
+            ->getScalarResult();
 
-    //    public function findOneBySomeField($value): ?ReponseQuestionnaire
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return array_map(static fn($row) => (int) $row['agentId'], $rows);
+    }
+
+    public function countDistinctGamesAnswered(): int
+    {
+        return (int) $this->createQueryBuilder('r')
+            ->select('COUNT(DISTINCT q.game)')
+            ->join('r.questionnaire', 'q')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countNoSkips(): int
+    {
+        return (int) $this->createQueryBuilder('r')
+            ->select('COUNT(r.id)')
+            ->where('r.rep3 IS NOT NULL')
+            ->andWhere('r.rep4 IS NOT NULL')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

@@ -7,6 +7,7 @@ use App\Entity\ReponseQuestionnaire;
 use App\Form\ReponseQuestionnaireType;
 use App\Repository\QuestionnaireAgentRepository;
 use App\Repository\ReponseQuestionnaireRepository;
+use App\Service\AiEvaluationService; // ✅ IMPORTANT: Import the AI Service
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,57 +18,64 @@ use Symfony\Component\Routing\Attribute\Route;
 class ReponseQuestionnaireController extends AbstractController
 {
     /**
-     * READ: Show the answers if they exist.
+     * READ: Show the answers AND Run Live AI Analysis
      */
     #[Route('/{id}/questionnaire', name: 'front_agent_questionnaire', methods: ['GET'])]
     public function show(
         Agent $agent,
         QuestionnaireAgentRepository $questionnaireRepo,
-        ReponseQuestionnaireRepository $repRepo
+        ReponseQuestionnaireRepository $repRepo,
+        AiEvaluationService $aiService // ✅ INJECT SERVICE HERE
     ): Response {
         
+        // 1. Security Check
         $user = $this->getUser();
         if ($user && method_exists($agent, 'getPlayer') && $agent->getPlayer() !== $user) {
             throw $this->createAccessDeniedException('Not your agent.');
         }
 
-        // 1. Get the game name from the Agent
+        // 2. Find the Questionnaire for the Agent's Game
         $game = trim((string) $agent->getGame());
-        
-        // 2. Try to find the Questionnaire
         $questionnaire = $questionnaireRepo->findOneBy(['game' => $game]);
 
-        // 🛑 DEBUG: If not found, STOP and show why.
         if (!$questionnaire) {
-            dd([
-                'STATUS' => 'ERROR: Mismatch Detected',
-                'Your Agent plays' => $game,
-                'We looked in "questionnaire_agent" table for' => $game,
-                'Result' => 'Not Found. Please check spelling in database (e.g. "fortnitre" vs "Fortnite")'
+            // If the game doesn't match any questionnaire in the DB
+            return $this->render('front/questionnaire_show.html.twig', [
+                'agent' => $agent,
+                'questionnaire' => null, // Handle null in twig or show error
+                'reponse' => null,
+                'error' => "Questionnaire not found for game: " . $game
             ]);
         }
 
-        // 3. Check if User has answered
+        // 3. Find the User's Answers
         $reponse = $repRepo->findOneBy([
             'agent' => $agent,
             'questionnaire' => $questionnaire,
         ]);
 
-        // 4. If NO answers found, redirect to EDIT page
+        // 4. If no answers, redirect to the Edit page to fill them out
         if (!$reponse) {
             return $this->redirectToRoute('front_agent_questionnaire_edit', ['id' => $agent->getId()]);
         }
 
-        // 5. Show answers
+        // -----------------------------------------------------------
+        // ⚡ LIVE AI EXECUTION
+        // -----------------------------------------------------------
+        // We calculate the score right now because it is not stored in the DB.
+        $aiResult = $aiService->evaluate($questionnaire, $reponse);
+
+        // 5. Render the View
         return $this->render('front/questionnaire_show.html.twig', [
             'agent' => $agent,
             'questionnaire' => $questionnaire,
             'reponse' => $reponse,
+            'aiResult' => $aiResult, // ✅ PASS RESULT TO VIEW
         ]);
     }
 
     /**
-     * WRITE: Create or Update answers.
+     * WRITE: Create or Update answers
      */
     #[Route('/{id}/questionnaire/edit', name: 'front_agent_questionnaire_edit', methods: ['GET', 'POST'])]
     public function edit(
@@ -75,7 +83,8 @@ class ReponseQuestionnaireController extends AbstractController
         Request $request,
         QuestionnaireAgentRepository $questionnaireRepo,
         ReponseQuestionnaireRepository $repRepo,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        AiEvaluationService $aiService // ✅ INJECT SERVICE HERE
     ): Response {
         
         $user = $this->getUser();
@@ -83,7 +92,6 @@ class ReponseQuestionnaireController extends AbstractController
             throw $this->createAccessDeniedException('Not your agent.');
         }
 
-        // 1. Get the Current Questionnaire for this game
         $game = trim((string) $agent->getGame());
         $currentQuestionnaire = $questionnaireRepo->findOneBy(['game' => $game]);
 
@@ -92,21 +100,16 @@ class ReponseQuestionnaireController extends AbstractController
             return $this->redirectToRoute('front_agent_index');
         }
 
-        // 2. Find ANY existing answer for this Agent (Don't check questionnaire ID yet)
         $reponse = $repRepo->findOneBy(['agent' => $agent]);
 
         if (!$reponse) {
-            // Case A: No answers yet -> Create New
             $reponse = new ReponseQuestionnaire();
             $reponse->setAgent($agent);
             $reponse->setQuestionnaire($currentQuestionnaire);
         } else {
-            // Case B: Found existing answers -> Update the link to the current questionnaire
-            // This ensures the Form uses the correct questions
             $reponse->setQuestionnaire($currentQuestionnaire);
         }
 
-        // 3. Create Form (It will now be pre-filled with data from Case B)
         $form = $this->createForm(ReponseQuestionnaireType::class, $reponse);
         $form->handleRequest($request);
 
@@ -117,8 +120,18 @@ class ReponseQuestionnaireController extends AbstractController
             $em->persist($reponse);
             $em->flush();
 
-            $this->addFlash('success', 'Answers saved successfully.');
-            return $this->redirectToRoute('front_agent_index');
+            // ✅ RUN AI ON SUBMIT
+            $aiResult = $aiService->evaluate($currentQuestionnaire, $reponse);
+            
+            $this->addFlash('success', 'Answers saved & Evaluated by Coach AI!');
+
+            // ✅ RENDER DIRECTLY (Do not redirect) to show the AI result immediately
+            return $this->render('front/questionnaire_show.html.twig', [
+                'agent' => $agent,
+                'questionnaire' => $currentQuestionnaire,
+                'reponse' => $reponse,
+                'aiResult' => $aiResult 
+            ]);
         }
 
         return $this->render('front/questionnaire.html.twig', [

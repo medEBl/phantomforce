@@ -20,7 +20,6 @@ class QuestionnaireAgentRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('qa');
 
-        // ✅ CHANGE HERE: Only search in 'qa.game'
         if ($q) {
             $qb->andWhere('qa.game LIKE :q')
                ->setParameter('q', '%'.$q.'%');

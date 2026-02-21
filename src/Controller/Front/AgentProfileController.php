@@ -7,50 +7,67 @@ use App\Form\AgentEditType;
 use App\Form\FrontAgentCreateType;
 use App\Repository\AgentRepository;
 use App\Repository\ReponseQuestionnaireRepository;
+use App\Repository\QuestionnaireAgentRepository; 
+use App\Service\AiEvaluationService;            
+use App\Service\DiscordScoutService; // ✅ Added import here
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request; // ✅ Needed for search
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Service\BadgeService;
+
+// QR Code Imports
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\Writer\SvgWriter;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/front/agents')]
 class AgentProfileController extends AbstractController
 {
     #[Route('/', name: 'front_agent_index', methods: ['GET'])]
     public function index(
-        AgentRepository $repo, 
+        AgentRepository $repo,
         ReponseQuestionnaireRepository $repRepo,
-        Request $request // ✅ Inject Request
+        BadgeService $badgeService,
+        Request $request
     ): Response
     {
-        // 1. Get parameters from URL (e.g. ?q=valorant&sort=rank&dir=DESC)
         $q = $request->query->get('q');
-        $sort = $request->query->get('sort', 'id'); // Default sort by ID
-        $dir = $request->query->get('dir', 'ASC');  // Default direction ASC
+        $sort = $request->query->get('sort', 'id');
+        $dir = $request->query->get('dir', 'ASC');
 
-        // 2. Use the searchAndSort method from your Repository
         $agents = $repo->searchAndSort($q, $sort, $dir);
+        $badges = $badgeService->getBadges();
 
-        // 3. Logic for answered questionnaires (Unchanged)
-        $responses = $repRepo->findAll();
         $answeredIds = [];
-        foreach ($responses as $r) {
-            if ($r->getAgent()) {
-                $answeredIds[] = $r->getAgent()->getId();
-            }
+        if (method_exists($repRepo, 'findAnsweredAgentIds')) {
+            $answeredIds = $repRepo->findAnsweredAgentIds();
         }
 
-        return $this->render('front/index.html.twig', [ 
+        return $this->render('front/index.html.twig', [
             'agents' => $agents,
             'answeredIds' => $answeredIds,
-            // 4. Pass params to view so we can keep them in links/inputs
             'q' => $q,
             'sort' => $sort,
-            'dir' => $dir
+            'dir' => $dir,
+            'badges' => $badges,
+            'pageTitle' => "Mes Profils d'Agent",
+            'searchPlaceholder' => "Rechercher (Pseudo, Jeu...)",
         ]);
     }
 
-    // ... (Keep the rest of the methods: new, show, edit, delete EXACTLY the same) ...
+    #[Route('/badges', name: 'front_badges', methods: ['GET'])]
+    public function badges(BadgeService $badgeService): Response
+    {
+        return $this->render('front/badges.html.twig', [
+            'badges' => $badgeService->getBadges(),
+        ]);
+    }
     
     #[Route('/new', name: 'front_agent_new', methods: ['GET','POST'])]
     public function new(Request $request, EntityManagerInterface $em, AgentRepository $repo): Response
@@ -86,15 +103,75 @@ class AgentProfileController extends AbstractController
 
     #[Route('/{id}', name: 'front_agent_show', methods: ['GET'])]
     public function show(
-        Agent $agent,
-        ReponseQuestionnaireRepository $repRepo 
+        Agent $agent, 
+        ReponseQuestionnaireRepository $repRepo,
+        QuestionnaireAgentRepository $questRepo,
+        AiEvaluationService $aiService,
+        DiscordScoutService $discordScout, // ✅ Cleaned up parameter
+        Request $request
     ): Response
     {
+        // 1. Get Response & Questionnaire
         $reponse = $repRepo->findOneBy(['agent' => $agent]);
+        
+        // 2. AI LOGIC: Only run if user clicked the button (?analyze=1)
+        $aiResult = null;
+        $runAi = $request->query->get('analyze'); 
 
+        // ✅ FIXED: Missing Brackets were here
+        if ($runAi && $reponse) {
+            $game = trim((string) $agent->getGame());
+            $questionnaire = $questRepo->findOneBy(['game' => $game]);
+            
+            if ($questionnaire) {
+                // RUN AI NOW
+                $aiResult = $aiService->evaluate($questionnaire, $reponse, $request->getLocale());
+                
+                // --- NEW: DISCORD SCOUT ALERT ---
+                if (isset($aiResult['score']) && $aiResult['score'] >= 80) {
+                    $profileUrl = $this->generateUrl(
+                        'front_agent_show', 
+                        ['id' => $agent->getId()], 
+                        UrlGeneratorInterface::ABSOLUTE_URL
+                    );
+                    
+                    $discordScout->sendHighScorerAlert(
+                        $agent->getPseudo(), 
+                        $game, 
+                        $aiResult['score'], 
+                        $profileUrl
+                    );
+                }
+            } // ✅ Closed $questionnaire IF
+        } // ✅ Closed $runAi IF
+
+        // 3. QR Code Logic
+        $url = $agent->getSocialsLink();
+        if (empty($url)) {
+            $url = $this->generateUrl('front_agent_show', ['id' => $agent->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+        }
+
+        $qrCode = new QrCode(
+            data: $url,
+            encoding: new Encoding('UTF-8'),
+            errorCorrectionLevel: ErrorCorrectionLevel::High,
+            size: 200,
+            margin: 10,
+            roundBlockSizeMode: RoundBlockSizeMode::Margin,
+            foregroundColor: new Color(0, 0, 0),
+            backgroundColor: new Color(255, 255, 255)
+        );
+
+        $writer = new SvgWriter();
+        $result = $writer->write($qrCode);
+        $qrCodeDataUri = $result->getDataUri();
+
+        // 4. Render
         return $this->render('front/show.html.twig', [
             'agent' => $agent,
-            'reponse' => $reponse, 
+            'reponse' => $reponse,
+            'qrCode' => $qrCodeDataUri, 
+            'aiResult' => $aiResult, 
         ]);
     }
 
