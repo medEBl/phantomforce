@@ -26,24 +26,22 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function translateText(string $text, string $targetLang = null): string
+public function translateText(string $text, string $targetLang = null): string
     {
-        // 1. If no language provided, get it from Session (default to 'en')
+        // 1. Get language from Session
         if ($targetLang === null) {
             $session = $this->requestStack->getSession();
-            $targetLang = $session->get('lang', 'en');
+            $targetLang = $session->get('lang', 'fr');
         }
 
-        // 2. Don't translate if empty or target is same as source (assuming source is 'en' or 'fr')
-        // Adjust 'en' below to whatever your default database language is
-        if (empty($text) || $targetLang === 'en') { 
+        // 2. If target is French, just return the text! 
+        // (Make sure this says 'fr' and NOT 'en'!)
+        if (empty($text) || $targetLang === 'fr') { 
             return $text;
         }
 
-        try {
-            return $this->translator->translate($text, $targetLang);
-        } catch (\Exception $e) {
-            return $text;
-        }
+        // 3. ⚠️ REMOVED TRY/CATCH! ⚠️
+        // Now if Google fails, the site will crash and tell us exactly why.
+        return $this->translator->translate($text, $targetLang);
     }
 }
