@@ -1,0 +1,712 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phantom Force - {{ training_plan.title }}{% endblock %}
+
+{% block inline_styles %}
+<style>
+/* ================= DETAIL PAGE STYLES ================= */
+.detail-hero {
+    text-align: center;
+    padding: 60px 20px 30px;
+    position: relative;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.detail-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff0000, #ff2d2d, #ff5e5e);
+    border-radius: 2px;
+    animation: widthGrow 1.2s ease-out;
+}
+
+.detail-hero h1 {
+    font-size: 42px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff0000, #ff2d2d, #ff5e5e, #ff8a8a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    text-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+    animation: textGlow 3s infinite alternate;
+}
+
+.detail-hero .plan-meta {
+    color: var(--text-muted);
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.plan-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.plan-meta-item i {
+    color: var(--red);
+}
+
+/* ================= PLAN CARD ================= */
+.plan-card-detail {
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.6s ease-out;
+}
+
+.plan-card-header {
+    background: linear-gradient(135deg, rgba(255,0,0,0.15), rgba(255,45,45,0.1));
+    padding: 30px 40px;
+    border-bottom: 1px solid rgba(255, 45, 45, 0.2);
+}
+
+.plan-id {
+    font-size: 14px;
+    color: var(--red);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.plan-title-detail {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.plan-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.plan-tag {
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tag-focus {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.tag-difficulty {
+    background: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.tag-coach {
+    background: rgba(155, 89, 182, 0.2);
+    color: #9b59b6;
+    border: 1px solid rgba(155, 89, 182, 0.3);
+}
+
+.tag-date {
+    background: rgba(241, 196, 15, 0.2);
+    color: #f1c40f;
+    border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+/* ================= PLAN CONTENT ================= */
+.plan-content {
+    padding: 40px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 45, 45, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title i {
+    color: var(--red);
+    font-size: 18px;
+}
+
+.description-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    padding: 25px;
+    margin-bottom: 30px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.description-content p {
+    margin-bottom: 15px;
+}
+
+.description-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* ================= INFO GRID ================= */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    padding: 25px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.info-card:hover {
+    border-color: var(--red);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.1);
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,45,45,0.05), transparent);
+    z-index: -1;
+}
+
+.info-label {
+    font-size: 12px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.info-details {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* ================= SESSIONS LIST ================= */
+.sessions-section {
+    margin-top: 40px;
+}
+
+.sessions-list {
+    margin-top: 20px;
+}
+
+.session-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    transition: var(--transition);
+}
+
+.session-item:hover {
+    border-color: var(--red);
+    background: rgba(255, 45, 45, 0.05);
+}
+
+.session-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.session-date {
+    font-size: 14px;
+    color: var(--text-light);
+    font-weight: 600;
+    min-width: 150px;
+}
+
+.session-duration {
+    color: var(--green);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.session-team {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.no-sessions {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(255, 45, 45, 0.05);
+    border: 2px dashed rgba(255, 45, 45, 0.3);
+    border-radius: var(--radius);
+}
+
+.no-sessions i {
+    font-size: 48px;
+    color: rgba(255, 45, 45, 0.5);
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* ================= ACTIONS BAR ================= */
+.actions-bar {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-action {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-back {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-back:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    transform: translateY(-2px);
+    border-color: rgba(255, 45, 45, 0.3);
+}
+
+.btn-edit {
+    background: rgba(255, 45, 45, 0.1);
+    color: var(--red);
+    border: 1px solid rgba(255, 45, 45, 0.3);
+    flex: 1;
+    justify-content: center;
+}
+
+.btn-edit:hover {
+    background: rgba(255, 45, 45, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 45, 45, 0.2);
+}
+
+.btn-delete {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.btn-delete:hover {
+    background: rgba(231, 76, 60, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+}
+
+/* ================= STATS BAR ================= */
+.stats-bar-detail {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.stat-card {
+    background: rgba(255, 45, 45, 0.05);
+    border: 1px solid rgba(255, 45, 45, 0.1);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.stat-card:hover {
+    border-color: var(--red);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.1);
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff2d2d, #ff5e5e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 5px;
+    animation: pulse 2s infinite;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .detail-hero {
+        padding: 40px 20px 20px;
+    }
+    
+    .detail-hero h1 {
+        font-size: 32px;
+    }
+    
+    .plan-card-header,
+    .plan-content {
+        padding: 25px;
+    }
+    
+    .plan-title-detail {
+        font-size: 24px;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-bar-detail {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .actions-bar {
+        flex-direction: column;
+    }
+    
+    .btn-action {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .session-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .session-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes widthGrow {
+    from { width: 0; }
+    to { width: 150px; }
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 5px 15px rgba(255, 0, 0, 0.3); }
+    100% { text-shadow: 0 5px 25px rgba(255, 0, 0, 0.6); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="detail-hero">
+    <h1>📋 {{ training_plan.title }}</h1>
+    <div class="plan-meta">
+        <div class="plan-meta-item">
+            <i class="fas fa-hashtag"></i>
+            <span>Plan #{{ training_plan.id }}</span>
+        </div>
+        <div class="plan-meta-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Créé le {{ training_plan.createdAt|date('d/m/Y') }}</span>
+        </div>
+        <div class="plan-meta-item">
+            <i class="fas fa-user-tie"></i>
+            <span>Coach #{{ training_plan.coachId }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="plan-card-detail">
+    <div class="plan-card-header">
+        <div class="plan-id">PLAN D'ENTRAÎNEMENT</div>
+        <h2 class="plan-title-detail">{{ training_plan.title }}</h2>
+        <div class="plan-tags">
+            <span class="plan-tag tag-focus">
+                <i class="fas fa-bullseye"></i>
+                {{ training_plan.focusArea }}
+            </span>
+            <span class="plan-tag tag-difficulty">
+                <i class="fas fa-chart-line"></i>
+                {{ training_plan.difficultyLevel }}
+            </span>
+            <span class="plan-tag tag-coach">
+                <i class="fas fa-user-tie"></i>
+                Coach #{{ training_plan.coachId }}
+            </span>
+            <span class="plan-tag tag-date">
+                <i class="fas fa-clock"></i>
+                {{ training_plan.createdAt|date('d/m/Y') }}
+            </span>
+        </div>
+    </div>
+    
+    <div class="plan-content">
+        <div class="stats-bar-detail">
+            <div class="stat-card">
+                <div class="stat-value">{{ training_plan.coachingSessions|length }}</div>
+                <div class="stat-label">Sessions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">
+                    {% set totalDuration = 0 %}
+                    {% for session in training_plan.coachingSessions %}
+                        {% set totalDuration = totalDuration + session.duration %}
+                    {% endfor %}
+                    {{ totalDuration }}
+                </div>
+                <div class="stat-label">Minutes totales</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">
+                    {% if training_plan.coachingSessions|length > 0 %}
+                        {{ (totalDuration / training_plan.coachingSessions|length)|round }}
+                    {% else %}
+                        0
+                    {% endif %}
+                </div>
+                <div class="stat-label">Moy. par session</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">
+                    {% set uniqueTeams = [] %}
+                    {% for session in training_plan.coachingSessions %}
+                        {% if session.teamId not in uniqueTeams %}
+                            {% set uniqueTeams = uniqueTeams|merge([session.teamId]) %}
+                        {% endif %}
+                    {% endfor %}
+                    {{ uniqueTeams|length }}
+                </div>
+                <div class="stat-label">Équipes</div>
+            </div>
+        </div>
+        
+        <div class="section-title">
+            <i class="fas fa-align-left"></i>
+            Description détaillée
+        </div>
+        
+        <div class="description-content">
+            {{ training_plan.description|nl2br }}
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-bullseye"></i>
+                    Focus Principal
+                </div>
+                <div class="info-value">{{ training_plan.focusArea }}</div>
+                <div class="info-details">Zone de compétence ciblée par ce plan d'entraînement</div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-chart-line"></i>
+                    Niveau de Difficulté
+                </div>
+                <div class="info-value">{{ training_plan.difficultyLevel }}</div>
+                <div class="info-details">Adapté au niveau d'expérience de l'équipe</div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-user-tie"></i>
+                    Coach Responsable
+                </div>
+                <div class="info-value">Coach #{{ training_plan.coachId }}</div>
+                <div class="info-details">Identifiant du coach supervisant ce plan</div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-label">
+                    <i class="fas fa-calendar-alt"></i>
+                    Date de Création
+                </div>
+                <div class="info-value">{{ training_plan.createdAt|date('d/m/Y') }}</div>
+                <div class="info-details">À {{ training_plan.createdAt|date('H:i') }}</div>
+            </div>
+        </div>
+        
+        <div class="sessions-section">
+            <div class="section-title">
+                <i class="fas fa-video"></i>
+                Sessions associées
+                <span style="margin-left: auto; font-size: 14px; color: var(--text-muted);">
+                    {{ training_plan.coachingSessions|length }} session(s)
+                </span>
+            </div>
+            
+            <div class="sessions-list">
+                {% if training_plan.coachingSessions|length > 0 %}
+                    {% for session in training_plan.coachingSessions %}
+                        <div class="session-item">
+                            <div class="session-info">
+                                <div class="session-date">
+                                    <i class="fas fa-calendar"></i>
+                                    {{ session.sessionDate|date('d/m/Y H:i') }}
+                                </div>
+                                <div class="session-duration">
+                                    <i class="fas fa-clock"></i>
+                                    {{ session.duration }} min
+                                </div>
+                                <div class="session-team">
+                                    <i class="fas fa-users"></i>
+                                    Équipe #{{ session.teamId }}
+                                </div>
+                            </div>
+                            <a href="{{ path('app_coaching_session_show', {'id': session.id}) }}" 
+                               class="btn-show" style="padding: 8px 16px;">
+                                <i class="fas fa-eye"></i> Voir
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-sessions">
+                        <i class="fas fa-video-slash"></i>
+                        <h3>Aucune session associée</h3>
+                        <p>Ce plan d'entraînement n'est pas encore utilisé dans une session de coaching.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="actions-bar">
+            <a href="{{ path('app_coaching_session_index') }}#training-plans" class="btn-action btn-back">
+                <i class="fas fa-arrow-left"></i>
+                Retour à la liste
+            </a>
+            
+            <a href="{{ path('app_training_plan_edit', {'id': training_plan.id}) }}" class="btn-action btn-edit">
+                <i class="fas fa-edit"></i>
+                Modifier ce plan
+            </a>
+            
+            <button type="button" class="btn-action btn-delete" onclick="confirmDelete()">
+                <i class="fas fa-trash"></i>
+                Supprimer
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Formulaire de suppression caché -->
+<div id="delete-form" style="display: none;">
+    {{ include('training_plan/_delete_form.html.twig') }}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+function confirmDelete() {
+    if (confirm('⚠️ ATTENTION : Êtes-vous sûr de vouloir supprimer ce plan d\'entraînement ?\n\nCette action supprimera également toutes les sessions de coaching associées à ce plan.\n\nCette action est irréversible !')) {
+        document.querySelector('#delete-form form').submit();
+    }
+}
+
+// Animation d'entrée
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.info-card, .stat-card, .session-item');
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.animation = `fadeIn 0.5s ease-out forwards`;
+            card.style.opacity = '0';
+        }, index * 100);
+    });
+});
+
+// Effet de survol amélioré
+document.querySelectorAll('.info-card, .stat-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+});
+</script>
+{% endblock %}
