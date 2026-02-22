@@ -14,6 +14,7 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/esport-analyst/test-api' => [[['_route' => 'app_analyst_test_api', '_controller' => 'App\\Controller\\AiEsportAnalystController::testApi'], null, null, null, false, false, null]],
         '/admin' => [
             [['_route' => 'app_back_dashboard', '_controller' => 'App\\Controller\\Back\\DashboardController::index'], null, null, null, true, false, null],
             [['_route' => 'admin_dashboard', '_controller' => 'App\\Controller\\AdminController::dashboard'], null, ['GET' => 0], null, false, false, null],
@@ -65,6 +66,18 @@ return [
         '/questionnaire/agent' => [[['_route' => 'app_questionnaire_agent_index', '_controller' => 'App\\Controller\\QuestionnaireAgentController::index'], null, ['GET' => 0], null, true, false, null]],
         '/questionnaire/agent/new' => [[['_route' => 'app_questionnaire_agent_new', '_controller' => 'App\\Controller\\QuestionnaireAgentController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/map' => [[['_route' => 'app_map', '_controller' => 'App\\Controller\\MapController::index'], null, ['GET' => 0], null, false, false, null]],
+        '/ai' => [[['_route' => 'app_ai', '_controller' => 'App\\Controller\\AiController::index'], null, null, null, false, false, null]],
+        '/ai/generate' => [[['_route' => 'app_ai_generate', '_controller' => 'App\\Controller\\AiController::generate'], null, null, null, false, false, null]],
+        '/ai/workout-form' => [[['_route' => 'app_ai_workout_form', '_controller' => 'App\\Controller\\AiController::workoutForm'], null, null, null, false, false, null]],
+        '/ai/workout-generate' => [[['_route' => 'app_ai_workout_generate', '_controller' => 'App\\Controller\\AiController::workoutGenerate'], null, ['POST' => 0], null, false, false, null]],
+        '/api/workout' => [[['_route' => 'api_workout', '_controller' => 'App\\Controller\\AiController::apiWorkout'], null, ['POST' => 0], null, false, false, null]],
+        '/ai/analyst' => [[['_route' => 'app_analyst_dashboard', '_controller' => 'App\\Controller\\AiController::analystDashboard'], null, null, null, false, false, null]],
+        '/ai/analyst/player/search' => [[['_route' => 'app_analyst_player_search', '_controller' => 'App\\Controller\\AiController::playerSearch'], null, null, null, false, false, null]],
+        '/ai/analyst/team/search' => [[['_route' => 'app_analyst_team_search', '_controller' => 'App\\Controller\\AiController::teamSearch'], null, null, null, false, false, null]],
+        '/esport-analyst' => [[['_route' => 'app_esport_analyst', '_controller' => 'App\\Controller\\AiEsportAnalystController::index'], null, null, null, false, false, null]],
+        '/esport-analyst/predict-match' => [[['_route' => 'app_analyst_predict_match', '_controller' => 'App\\Controller\\AiEsportAnalystController::predictMatch'], null, ['POST' => 0], null, false, false, null]],
+        '/esport-analyst/live-analysis' => [[['_route' => 'app_analyst_live', '_controller' => 'App\\Controller\\AiEsportAnalystController::liveAnalysis'], null, null, null, false, false, null]],
+        '/calendar' => [[['_route' => 'app_calendar', '_controller' => 'App\\Controller\\CalendarController::index'], null, ['GET' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -110,96 +123,102 @@ return [
                         .'|/edit(*:407)'
                         .'|(*:415)'
                     .')'
+                    .'|pi/esport/live\\-stats/([^/]++)(*:454)'
                 .')'
                 .'|/back/(?'
                     .'|payment/([^/]++)(?'
-                        .'|(*:453)'
-                        .'|/edit(*:466)'
-                        .'|(*:474)'
+                        .'|(*:491)'
+                        .'|/edit(*:504)'
+                        .'|(*:512)'
                     .')'
                     .'|entrainement/([^/]++)(?'
-                        .'|(*:507)'
-                        .'|/modifier(*:524)'
-                        .'|(*:532)'
+                        .'|(*:545)'
+                        .'|/modifier(*:562)'
+                        .'|(*:570)'
                     .')'
                     .'|session\\-coaching/([^/]++)(?'
-                        .'|(*:570)'
-                        .'|/modifier(*:587)'
-                        .'|(*:595)'
+                        .'|(*:608)'
+                        .'|/modifier(*:625)'
+                        .'|(*:633)'
                     .')'
                 .')'
-                .'|/games/([^/]++)(*:620)'
+                .'|/games/([^/]++)(*:658)'
                 .'|/matchy/([^/]++)(?'
-                    .'|(*:647)'
-                    .'|/edit(*:660)'
-                    .'|(*:668)'
+                    .'|(*:685)'
+                    .'|/edit(*:698)'
+                    .'|(*:706)'
                 .')'
                 .'|/t(?'
                     .'|eam/([^/]++)(?'
-                        .'|(*:697)'
-                        .'|/edit(*:710)'
-                        .'|(*:718)'
+                        .'|(*:735)'
+                        .'|/edit(*:748)'
+                        .'|(*:756)'
                     .')'
                     .'|raining/plan/([^/]++)(?'
-                        .'|(*:751)'
-                        .'|/edit(*:764)'
-                        .'|(*:772)'
+                        .'|(*:789)'
+                        .'|/edit(*:802)'
+                        .'|(*:810)'
                     .')'
                     .'|ournament/(?'
-                        .'|(\\d+)/edit(*:804)'
-                        .'|(\\d+)/delete(*:824)'
-                        .'|(\\d+)/detail(*:844)'
-                        .'|(\\d+)/toggle(*:864)'
+                        .'|(\\d+)/edit(*:842)'
+                        .'|(\\d+)/delete(*:862)'
+                        .'|(\\d+)/detail(*:882)'
+                        .'|(\\d+)/toggle(*:902)'
                         .'|([^/]++)/reward(?'
-                            .'|(*:890)'
+                            .'|(*:928)'
                             .'|/(?'
-                                .'|new(*:905)'
+                                .'|new(*:943)'
                                 .'|([^/]++)(?'
-                                    .'|/edit(*:929)'
-                                    .'|(*:937)'
+                                    .'|/edit(*:967)'
+                                    .'|(*:975)'
                                 .')'
                             .')'
                         .')'
                     .')'
                 .')'
                 .'|/coaching/session/([^/]++)(?'
-                    .'|(*:979)'
-                    .'|/(?'
-                        .'|edit(*:995)'
-                        .'|meet(*:1007)'
-                    .')'
                     .'|(*:1017)'
+                    .'|/(?'
+                        .'|edit(*:1034)'
+                        .'|meet(*:1047)'
+                    .')'
+                    .'|(*:1057)'
                 .')'
                 .'|/front/agents/([^/]++)(?'
-                    .'|(*:1052)'
+                    .'|(*:1092)'
                     .'|/(?'
-                        .'|edit(*:1069)'
-                        .'|delete(*:1084)'
+                        .'|edit(*:1109)'
+                        .'|delete(*:1124)'
                         .'|questionnaire(?'
-                            .'|(*:1109)'
-                            .'|/edit(*:1123)'
+                            .'|(*:1149)'
+                            .'|/edit(*:1163)'
                         .')'
                     .')'
                 .')'
                 .'|/payment/([^/]++)(?'
-                    .'|(*:1155)'
-                    .'|/edit(*:1169)'
-                    .'|(*:1178)'
+                    .'|(*:1195)'
+                    .'|/edit(*:1209)'
+                    .'|(*:1218)'
                 .')'
                 .'|/shop/([^/]++)(?'
-                    .'|(*:1205)'
-                    .'|/edit(*:1219)'
-                    .'|(*:1228)'
+                    .'|(*:1245)'
+                    .'|/edit(*:1259)'
+                    .'|(*:1268)'
                 .')'
                 .'|/user/([^/]++)(?'
-                    .'|(*:1255)'
-                    .'|/edit(*:1269)'
-                    .'|(*:1278)'
+                    .'|(*:1295)'
+                    .'|/edit(*:1309)'
+                    .'|(*:1318)'
                 .')'
                 .'|/questionnaire/agent/([^/]++)(?'
-                    .'|(*:1320)'
-                    .'|/edit(*:1334)'
-                    .'|(*:1343)'
+                    .'|(*:1360)'
+                    .'|/edit(*:1374)'
+                    .'|(*:1383)'
+                .')'
+                .'|/esport\\-analyst/(?'
+                    .'|player/([^/]++)(*:1428)'
+                    .'|team/([^/]++)(*:1450)'
+                    .'|export\\-report/([^/]++)/([^/]++)(*:1491)'
                 .')'
             .')/?$}sDu',
     ],
@@ -228,55 +247,59 @@ return [
         394 => [[['_route' => 'app_agent_show', '_controller' => 'App\\Controller\\AgentController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         407 => [[['_route' => 'app_agent_edit', '_controller' => 'App\\Controller\\AgentController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         415 => [[['_route' => 'app_agent_delete', '_controller' => 'App\\Controller\\AgentController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        453 => [[['_route' => 'app_back_payment_show', '_controller' => 'App\\Controller\\Back\\PaymentBackController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        466 => [[['_route' => 'app_back_payment_edit', '_controller' => 'App\\Controller\\Back\\PaymentBackController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        474 => [[['_route' => 'app_back_payment_delete', '_controller' => 'App\\Controller\\Back\\PaymentBackController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        507 => [[['_route' => 'app_back_training_plan_show', '_controller' => 'App\\Controller\\Back\\PlanEntrainementController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        524 => [[['_route' => 'app_back_training_plan_edit', '_controller' => 'App\\Controller\\Back\\PlanEntrainementController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        532 => [[['_route' => 'app_back_training_plan_delete', '_controller' => 'App\\Controller\\Back\\PlanEntrainementController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        570 => [[['_route' => 'app_back_coaching_session_show', '_controller' => 'App\\Controller\\Back\\SessionCoachingController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        587 => [[['_route' => 'app_back_coaching_session_edit', '_controller' => 'App\\Controller\\Back\\SessionCoachingController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        595 => [[['_route' => 'app_back_coaching_session_delete', '_controller' => 'App\\Controller\\Back\\SessionCoachingController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        620 => [[['_route' => 'app_games_show', '_controller' => 'App\\Controller\\FreeToGameController::show'], ['id'], null, null, false, true, null]],
-        647 => [[['_route' => 'app_matchy_show', '_controller' => 'App\\Controller\\MatchyController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        660 => [[['_route' => 'app_matchy_edit', '_controller' => 'App\\Controller\\MatchyController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        668 => [[['_route' => 'app_matchy_delete', '_controller' => 'App\\Controller\\MatchyController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        697 => [[['_route' => 'app_team_show', '_controller' => 'App\\Controller\\TeamController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        710 => [[['_route' => 'app_team_edit', '_controller' => 'App\\Controller\\TeamController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        718 => [[['_route' => 'app_team_delete', '_controller' => 'App\\Controller\\TeamController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        751 => [[['_route' => 'app_training_plan_show', '_controller' => 'App\\Controller\\TrainingPlanController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        764 => [[['_route' => 'app_training_plan_edit', '_controller' => 'App\\Controller\\TrainingPlanController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        772 => [[['_route' => 'app_training_plan_delete', '_controller' => 'App\\Controller\\TrainingPlanController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        804 => [[['_route' => 'app_tournament_edit', '_controller' => 'App\\Controller\\TournamentFrontController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        824 => [[['_route' => 'app_tournament_delete', '_controller' => 'App\\Controller\\TournamentFrontController::delete'], ['id'], ['POST' => 0], null, false, false, null]],
-        844 => [[['_route' => 'app_tournament_detail', '_controller' => 'App\\Controller\\TournamentFrontController::show'], ['id'], ['GET' => 0], null, false, false, null]],
-        864 => [[['_route' => 'app_tournament_toggle', '_controller' => 'App\\Controller\\TournamentFrontController::toggleStatus'], ['id'], ['POST' => 0], null, false, false, null]],
-        890 => [[['_route' => 'app_admin_reward_index', '_controller' => 'App\\Controller\\Admin\\TournamentRewardController::index'], ['tournamentId'], ['GET' => 0], null, true, false, null]],
-        905 => [[['_route' => 'app_admin_reward_new', '_controller' => 'App\\Controller\\Admin\\TournamentRewardController::new'], ['tournamentId'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        929 => [[['_route' => 'app_admin_reward_edit', '_controller' => 'App\\Controller\\Admin\\TournamentRewardController::edit'], ['tournamentId', 'id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        937 => [[['_route' => 'app_admin_reward_delete', '_controller' => 'App\\Controller\\Admin\\TournamentRewardController::delete'], ['tournamentId', 'id'], ['POST' => 0], null, false, true, null]],
-        979 => [[['_route' => 'app_coaching_session_show', '_controller' => 'App\\Controller\\CoachingSessionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        995 => [[['_route' => 'app_coaching_session_edit', '_controller' => 'App\\Controller\\CoachingSessionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1007 => [[['_route' => 'app_coaching_session_meet', '_controller' => 'App\\Controller\\CoachingSessionController::meet'], ['id'], ['GET' => 0], null, false, false, null]],
-        1017 => [[['_route' => 'app_coaching_session_delete', '_controller' => 'App\\Controller\\CoachingSessionController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1052 => [[['_route' => 'front_agent_show', '_controller' => 'App\\Controller\\Front\\AgentProfileController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1069 => [[['_route' => 'front_agent_edit', '_controller' => 'App\\Controller\\Front\\AgentProfileController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1084 => [[['_route' => 'front_agent_delete', '_controller' => 'App\\Controller\\Front\\AgentProfileController::delete'], ['id'], ['POST' => 0], null, false, false, null]],
-        1109 => [[['_route' => 'front_agent_questionnaire_show', '_controller' => 'App\\Controller\\Front\\ReponseQuestionnaireController::show'], ['id'], ['GET' => 0], null, false, false, null]],
-        1123 => [[['_route' => 'front_agent_questionnaire_edit', '_controller' => 'App\\Controller\\Front\\ReponseQuestionnaireController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1155 => [[['_route' => 'app_payment_show', '_controller' => 'App\\Controller\\PaymentController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1169 => [[['_route' => 'app_payment_edit', '_controller' => 'App\\Controller\\PaymentController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1178 => [[['_route' => 'app_payment_delete', '_controller' => 'App\\Controller\\PaymentController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1205 => [[['_route' => 'app_shop_item_show', '_controller' => 'App\\Controller\\ShopItemController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1219 => [[['_route' => 'app_shop_item_edit', '_controller' => 'App\\Controller\\ShopItemController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1228 => [[['_route' => 'app_shop_item_delete', '_controller' => 'App\\Controller\\ShopItemController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1255 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\UserController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1269 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1278 => [[['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\UserController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1320 => [[['_route' => 'app_questionnaire_agent_show', '_controller' => 'App\\Controller\\QuestionnaireAgentController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1334 => [[['_route' => 'app_questionnaire_agent_edit', '_controller' => 'App\\Controller\\QuestionnaireAgentController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1343 => [
-            [['_route' => 'app_questionnaire_agent_delete', '_controller' => 'App\\Controller\\QuestionnaireAgentController::delete'], ['id'], ['POST' => 0], null, false, true, null],
+        454 => [[['_route' => 'api_live_stats', '_controller' => 'App\\Controller\\AiEsportAnalystController::liveStats'], ['matchId'], null, null, false, true, null]],
+        491 => [[['_route' => 'app_back_payment_show', '_controller' => 'App\\Controller\\Back\\PaymentBackController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        504 => [[['_route' => 'app_back_payment_edit', '_controller' => 'App\\Controller\\Back\\PaymentBackController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        512 => [[['_route' => 'app_back_payment_delete', '_controller' => 'App\\Controller\\Back\\PaymentBackController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        545 => [[['_route' => 'app_back_training_plan_show', '_controller' => 'App\\Controller\\Back\\PlanEntrainementController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        562 => [[['_route' => 'app_back_training_plan_edit', '_controller' => 'App\\Controller\\Back\\PlanEntrainementController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        570 => [[['_route' => 'app_back_training_plan_delete', '_controller' => 'App\\Controller\\Back\\PlanEntrainementController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        608 => [[['_route' => 'app_back_coaching_session_show', '_controller' => 'App\\Controller\\Back\\SessionCoachingController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        625 => [[['_route' => 'app_back_coaching_session_edit', '_controller' => 'App\\Controller\\Back\\SessionCoachingController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        633 => [[['_route' => 'app_back_coaching_session_delete', '_controller' => 'App\\Controller\\Back\\SessionCoachingController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        658 => [[['_route' => 'app_games_show', '_controller' => 'App\\Controller\\FreeToGameController::show'], ['id'], null, null, false, true, null]],
+        685 => [[['_route' => 'app_matchy_show', '_controller' => 'App\\Controller\\MatchyController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        698 => [[['_route' => 'app_matchy_edit', '_controller' => 'App\\Controller\\MatchyController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        706 => [[['_route' => 'app_matchy_delete', '_controller' => 'App\\Controller\\MatchyController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        735 => [[['_route' => 'app_team_show', '_controller' => 'App\\Controller\\TeamController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        748 => [[['_route' => 'app_team_edit', '_controller' => 'App\\Controller\\TeamController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        756 => [[['_route' => 'app_team_delete', '_controller' => 'App\\Controller\\TeamController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        789 => [[['_route' => 'app_training_plan_show', '_controller' => 'App\\Controller\\TrainingPlanController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        802 => [[['_route' => 'app_training_plan_edit', '_controller' => 'App\\Controller\\TrainingPlanController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        810 => [[['_route' => 'app_training_plan_delete', '_controller' => 'App\\Controller\\TrainingPlanController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        842 => [[['_route' => 'app_tournament_edit', '_controller' => 'App\\Controller\\TournamentFrontController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        862 => [[['_route' => 'app_tournament_delete', '_controller' => 'App\\Controller\\TournamentFrontController::delete'], ['id'], ['POST' => 0], null, false, false, null]],
+        882 => [[['_route' => 'app_tournament_detail', '_controller' => 'App\\Controller\\TournamentFrontController::show'], ['id'], ['GET' => 0], null, false, false, null]],
+        902 => [[['_route' => 'app_tournament_toggle', '_controller' => 'App\\Controller\\TournamentFrontController::toggleStatus'], ['id'], ['POST' => 0], null, false, false, null]],
+        928 => [[['_route' => 'app_admin_reward_index', '_controller' => 'App\\Controller\\Admin\\TournamentRewardController::index'], ['tournamentId'], ['GET' => 0], null, true, false, null]],
+        943 => [[['_route' => 'app_admin_reward_new', '_controller' => 'App\\Controller\\Admin\\TournamentRewardController::new'], ['tournamentId'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        967 => [[['_route' => 'app_admin_reward_edit', '_controller' => 'App\\Controller\\Admin\\TournamentRewardController::edit'], ['tournamentId', 'id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        975 => [[['_route' => 'app_admin_reward_delete', '_controller' => 'App\\Controller\\Admin\\TournamentRewardController::delete'], ['tournamentId', 'id'], ['POST' => 0], null, false, true, null]],
+        1017 => [[['_route' => 'app_coaching_session_show', '_controller' => 'App\\Controller\\CoachingSessionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1034 => [[['_route' => 'app_coaching_session_edit', '_controller' => 'App\\Controller\\CoachingSessionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1047 => [[['_route' => 'app_coaching_session_meet', '_controller' => 'App\\Controller\\CoachingSessionController::meet'], ['id'], ['GET' => 0], null, false, false, null]],
+        1057 => [[['_route' => 'app_coaching_session_delete', '_controller' => 'App\\Controller\\CoachingSessionController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1092 => [[['_route' => 'front_agent_show', '_controller' => 'App\\Controller\\Front\\AgentProfileController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1109 => [[['_route' => 'front_agent_edit', '_controller' => 'App\\Controller\\Front\\AgentProfileController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1124 => [[['_route' => 'front_agent_delete', '_controller' => 'App\\Controller\\Front\\AgentProfileController::delete'], ['id'], ['POST' => 0], null, false, false, null]],
+        1149 => [[['_route' => 'front_agent_questionnaire_show', '_controller' => 'App\\Controller\\Front\\ReponseQuestionnaireController::show'], ['id'], ['GET' => 0], null, false, false, null]],
+        1163 => [[['_route' => 'front_agent_questionnaire_edit', '_controller' => 'App\\Controller\\Front\\ReponseQuestionnaireController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1195 => [[['_route' => 'app_payment_show', '_controller' => 'App\\Controller\\PaymentController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1209 => [[['_route' => 'app_payment_edit', '_controller' => 'App\\Controller\\PaymentController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1218 => [[['_route' => 'app_payment_delete', '_controller' => 'App\\Controller\\PaymentController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1245 => [[['_route' => 'app_shop_item_show', '_controller' => 'App\\Controller\\ShopItemController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1259 => [[['_route' => 'app_shop_item_edit', '_controller' => 'App\\Controller\\ShopItemController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1268 => [[['_route' => 'app_shop_item_delete', '_controller' => 'App\\Controller\\ShopItemController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1295 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\UserController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1309 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1318 => [[['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\UserController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1360 => [[['_route' => 'app_questionnaire_agent_show', '_controller' => 'App\\Controller\\QuestionnaireAgentController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1374 => [[['_route' => 'app_questionnaire_agent_edit', '_controller' => 'App\\Controller\\QuestionnaireAgentController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1383 => [[['_route' => 'app_questionnaire_agent_delete', '_controller' => 'App\\Controller\\QuestionnaireAgentController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1428 => [[['_route' => 'app_analyst_player', '_controller' => 'App\\Controller\\AiEsportAnalystController::analyzePlayer'], ['playerName'], null, null, false, true, null]],
+        1450 => [[['_route' => 'app_analyst_team', '_controller' => 'App\\Controller\\AiEsportAnalystController::analyzeTeam'], ['teamName'], null, null, false, true, null]],
+        1491 => [
+            [['_route' => 'app_analyst_export', '_controller' => 'App\\Controller\\AiEsportAnalystController::exportReport'], ['type', 'name'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

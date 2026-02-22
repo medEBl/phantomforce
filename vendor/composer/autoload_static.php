@@ -29,6 +29,7 @@ class ComposerStaticInitea49458ac31a47740780098cc2c31e92
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        '61ba3e92ef91a7a0f1cc260ebd9290e4' => __DIR__ . '/..' . '/openai-php/client/src/OpenAI.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
     );
@@ -138,6 +139,10 @@ class ComposerStaticInitea49458ac31a47740780098cc2c31e92
             'ParagonIE\\ConstantTime\\' => 23,
             'PHPStan\\PhpDocParser\\' => 21,
         ),
+        'O' => 
+        array (
+            'OpenAI\\' => 7,
+        ),
         'M' => 
         array (
             'Monolog\\' => 8,
@@ -147,6 +152,11 @@ class ComposerStaticInitea49458ac31a47740780098cc2c31e92
         array (
             'Knp\\Component\\' => 14,
             'Knp\\Bundle\\PaginatorBundle\\' => 27,
+        ),
+        'H' => 
+        array (
+            'Http\\Message\\MultipartStream\\' => 29,
+            'Http\\Discovery\\' => 15,
         ),
         'G' => 
         array (
@@ -550,6 +560,10 @@ class ComposerStaticInitea49458ac31a47740780098cc2c31e92
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
         ),
+        'OpenAI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/openai-php/client/src',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -565,6 +579,14 @@ class ComposerStaticInitea49458ac31a47740780098cc2c31e92
         'Knp\\Bundle\\PaginatorBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle/src',
+        ),
+        'Http\\Message\\MultipartStream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/multipart-stream-builder/src',
+        ),
+        'Http\\Discovery\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-http/discovery/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (

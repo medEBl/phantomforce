@@ -4,6 +4,106 @@
 
 {% block inline_styles %}
 <style>
+/* ================= CALENDAR BUTTON ================= */
+.btn-calendar {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #ff2d2d, #ff5e5e);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(255, 45, 45, 0.3);
+}
+
+.btn-calendar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-calendar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 45, 45, 0.5);
+}
+
+.btn-calendar:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-calendar i {
+    animation: calendarPulse 2s infinite;
+}
+
+@keyframes calendarPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* ================= BOUTONS IA AJOUTÉS ================= */
+.btn-ia {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #a82dff, #c85dff);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(168, 45, 255, 0.3);
+}
+
+.btn-ia::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-ia:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(168, 45, 255, 0.5);
+}
+
+.btn-ia:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-ia i {
+    animation: pulse 2s infinite;
+}
+
 /* ================= COACHING PAGE STYLES ================= */
 .coaching-hero {
     text-align: center;
@@ -100,6 +200,15 @@
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+/* ================= IA TOOLS BAR ================= */
+.ia-tools-bar {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 30px 0 40px;
+    flex-wrap: wrap;
 }
 
 /* ================= TABS ================= */
@@ -281,7 +390,7 @@
 
 .table-header {
     display: grid;
-    grid-template-columns: 80px 200px 200px 180px 150px 1fr 150px;
+    grid-template-columns: 80px 120px 120px 180px 150px 1fr 150px;
     background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(255,45,45,0.1));
     padding: 20px 25px;
     border-bottom: 2px solid var(--red);
@@ -294,7 +403,7 @@
 
 .table-row {
     display: grid;
-    grid-template-columns: 80px 200px 200px 180px 150px 1fr 150px;
+    grid-template-columns: 80px 120px 120px 180px 150px 1fr 150px;
     padding: 20px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     transition: var(--transition);
@@ -360,10 +469,10 @@
 /* ================= TRAINING PLANS TABLE ================= */
 .training-table-header {
     display: grid;
-    grid-template-columns: 80px 1fr 200px 150px 150px 150px 150px;
-    background: linear-gradient(90deg, rgba(52,152,219,0.2), rgba(52,152,219,0.1));
+    grid-template-columns: 80px 1fr 200px 150px 150px 150px;
+    background: linear-gradient(90deg, rgba(255,0,0,0.2), rgba(255,45,45,0.1));
     padding: 20px 25px;
-    border-bottom: 2px solid #3498db;
+    border-bottom: 2px solid var(--red);
     font-weight: 700;
     color: var(--text-light);
     font-size: 14px;
@@ -373,7 +482,7 @@
 
 .training-table-row {
     display: grid;
-    grid-template-columns: 80px 1fr 200px 150px 150px 150px 150px;
+    grid-template-columns: 80px 1fr 200px 150px 150px 150px;
     padding: 20px 25px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
     transition: var(--transition);
@@ -381,7 +490,7 @@
 }
 
 .training-table-row:hover {
-    background: rgba(52, 152, 219, 0.05);
+    background: rgba(255, 45, 45, 0.05);
     transform: translateX(5px);
 }
 
@@ -493,6 +602,90 @@
     box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
 }
 
+/* ================= BOUTON DÉTAILS TRAINING PLAN ================= */
+.btn-detail-plan {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    margin-top: 8px;
+    box-shadow: 0 2px 5px rgba(52, 152, 219, 0.3);
+    position: relative;
+    overflow: hidden;
+    width: fit-content;
+}
+
+.btn-detail-plan::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-detail-plan:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.5);
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.btn-detail-plan:hover::before {
+    left: 100%;
+}
+
+.btn-detail-plan i {
+    font-size: 12px;
+    animation: pulseDetail 2s infinite;
+}
+
+/* Animation pour l'icône */
+@keyframes pulseDetail {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Style pour le conteneur du training plan */
+.training-plan-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.training-plan-title {
+    font-weight: 700;
+    color: var(--text-light);
+    font-size: 14px;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.training-plan-focus {
+    font-size: 11px;
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
+    padding: 3px 10px;
+    border-radius: 12px;
+    display: inline-block;
+    width: fit-content;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+}
+
 /* ================= EMPTY STATE ================= */
 .empty-state {
     text-align: center;
@@ -539,10 +732,10 @@
 /* ================= RESPONSIVE ================= */
 @media (max-width: 1200px) {
     .table-header, .table-row {
-        grid-template-columns: 80px 180px 180px 150px 150px 1fr 150px;
+        grid-template-columns: 80px 120px 120px 150px 150px 1fr 150px;
     }
     .training-table-header, .training-table-row {
-        grid-template-columns: 80px 1fr 180px 140px 140px 140px 140px;
+        grid-template-columns: 80px 1fr 180px 140px 140px 140px;
     }
 }
 
@@ -599,6 +792,11 @@
     .tab-btn.active::after {
         display: none;
     }
+    
+    .btn-detail-plan {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 768px) {
@@ -642,6 +840,22 @@
     </div>
 </div>
 
+<!-- IA TOOLS BAR -->
+<div class="ia-tools-bar">
+    <a href="{{ path('app_ai_workout_form') }}" class="btn-ia">
+        <i class="fas fa-dumbbell"></i> Coach IA - Plan d'entraînement
+    </a>
+    <a href="{{ path('app_analyst_dashboard') }}" class="btn-ia">
+        <i class="fas fa-chart-line"></i> Analyste Pro - Esport
+    </a>
+    <a href="{{ path('app_analyst_player_search') }}?playerName=Faker" class="btn-ia">
+        <i class="fas fa-user"></i> Analyser Faker
+    </a>
+    <a href="{{ path('app_analyst_team_search') }}?teamName=T1" class="btn-ia">
+        <i class="fas fa-users"></i> Analyser T1
+    </a>
+</div>
+
 <!-- Tabs Navigation -->
 <div class="tabs-container">
     <div class="tabs-nav">
@@ -656,7 +870,7 @@
 
 <!-- Sessions de Coaching Tab -->
 <div id="sessions-tab" class="tab-content active">
-    <!-- Controls Bar -->
+    <!-- Controls Bar avec bouton calendrier -->
     <div class="controls-bar">
         <div class="search-box">
             <i class="fas fa-search"></i>
@@ -704,6 +918,13 @@
                 <i class="fas fa-redo"></i> Réinitialiser
             </button>
         </div>
+        
+        <!-- BOUTON CALENDRIER -->
+        <div style="margin-left: auto;">
+            <a href="{{ path('app_calendar') }}" class="btn-calendar">
+                <i class="fas fa-calendar-alt"></i> Vue Calendrier
+            </a>
+        </div>
     </div>
 
     <div class="filter-tags" id="session-filter-tags"></div>
@@ -728,7 +949,6 @@
                          data-team="{{ coaching_session.team ? coaching_session.team.id : '' }}"
                          data-duration="{{ coaching_session.duration }}"
                          data-date="{{ coaching_session.sessionDate ? coaching_session.sessionDate|date('Y-m-d H:i') : '' }}">
-                        
                         <div class="table-cell cell-id" data-label="ID">#{{ coaching_session.id }}</div>
                         
                         <div class="table-cell" data-label="Coach">
@@ -736,7 +956,7 @@
                                 <strong>{{ coaching_session.coach.fullName }}</strong><br>
                                 <small style="color: var(--text-muted);">@{{ coaching_session.coach.username }}</small>
                             {% else %}
-                                <span class="text-muted">Coach non assigné</span>
+                                <span class="text-muted">Non assigné</span>
                             {% endif %}
                         </div>
                         
@@ -745,7 +965,7 @@
                                 <strong>{{ coaching_session.team.name }}</strong><br>
                                 <small style="color: var(--text-muted);">{{ coaching_session.team.game }}</small>
                             {% else %}
-                                <span class="text-muted">Équipe non assignée</span>
+                                <span class="text-muted">Non assignée</span>
                             {% endif %}
                         </div>
                         
@@ -757,8 +977,16 @@
                         
                         <div class="table-cell cell-trainingplan" data-label="Training Plan">
                             {% if coaching_session.trainingPlan %}
-                                <strong>{{ coaching_session.trainingPlan.title }}</strong><br>
-                                <small style="color: var(--text-muted);">{{ coaching_session.trainingPlan.focusArea }}</small>
+                                <div class="training-plan-detail">
+                                    <div>
+                                        <span class="training-plan-title">{{ coaching_session.trainingPlan.title }}</span>
+                                        <span class="training-plan-focus">{{ coaching_session.trainingPlan.focusArea }}</span>
+                                    </div>
+                                    <a href="{{ path('app_training_plan_show', { id: coaching_session.trainingPlan.id }) }}"
+                                       class="btn-detail-plan">
+                                        <i class="fas fa-search"></i> Détails du plan
+                                    </a>
+                                </div>
                             {% else %}
                                 <span class="text-muted">Aucun plan assigné</span>
                             {% endif %}
@@ -771,11 +999,6 @@
                             <a href="{{ path('app_coaching_session_edit', {'id': coaching_session.id}) }}" class="btn-edit">
                                 <i class="fas fa-edit"></i> Éditer
                             </a>
-                            <a href="{{ path('app_coaching_session_meet', {'id': coaching_session.id}) }}" 
-                               class="btn-show" 
-                               style="background: linear-gradient(135deg, #3498db, #2980b9);">
-                                <i class="fas fa-video"></i> Rejoindre
-                            </a>
                         </div>
                     </div>
                 {% endfor %}
@@ -785,19 +1008,15 @@
                 <div class="empty-state-icon">🎮</div>
                 <h3>Aucune session de coaching trouvée</h3>
                 <p>Commencez par créer votre première session de coaching pour améliorer les performances de votre équipe.</p>
-                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
-                    <a href="{{ path('app_coaching_session_new') }}" class="btn-new">Créer une session</a>
-                {% endif %}
+                <a href="{{ path('app_coaching_session_new') }}" class="btn-new">Créer une session</a>
             </div>
         {% endif %}
     </div>
 
     <div style="text-align: center; margin-top: 40px;">
-        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
-            <a href="{{ path('app_coaching_session_new') }}" class="btn-new">
-                <i class="fas fa-plus-circle"></i> Nouvelle Session
-            </a>
-        {% endif %}
+        <a href="{{ path('app_coaching_session_new') }}" class="btn-new">
+            <i class="fas fa-plus-circle"></i> Nouvelle Session
+        </a>
     </div>
 </div>
 
@@ -816,29 +1035,15 @@
             <option value="Débutant">Débutant</option>
             <option value="Intermédiaire">Intermédiaire</option>
             <option value="Avancé">Avancé</option>
-            <option value="Expert">Expert</option>
-            <option value="Professionnel">Professionnel</option>
         </select>
         
         <select class="filter-select" id="training-focus-filter" onchange="filterTrainingPlans()">
             <option value="">Tous les focus</option>
-            <option value="Défense">Défense</option>
-            <option value="Attaque">Attaque</option>
-            <option value="Stratégie">Stratégie</option>
-            <option value="Communication">Communication</option>
-            <option value="Technique">Technique</option>
-            <option value="Physique">Physique</option>
-            <option value="Mental">Mental</option>
-            <option value="Tactique">Tactique</option>
-        </select>
-        
-        <select class="filter-select" id="training-coach-filter" onchange="filterTrainingPlans()">
-            <option value="">Tous les coachs</option>
-            {% set uniqueCoaches = [] %}
+            {% set uniqueFocus = [] %}
             {% for plan in training_plans %}
-                {% if plan.coach and plan.coach.id not in uniqueCoaches %}
-                    {% set uniqueCoaches = uniqueCoaches|merge([plan.coach.id]) %}
-                    <option value="{{ plan.coach.id }}">{{ plan.coach.fullName }}</option>
+                {% if plan.focusArea not in uniqueFocus %}
+                    {% set uniqueFocus = uniqueFocus|merge([plan.focusArea]) %}
+                    <option value="{{ plan.focusArea }}">{{ plan.focusArea }}</option>
                 {% endif %}
             {% endfor %}
         </select>
@@ -864,8 +1069,7 @@
             <div>Titre & Description</div>
             <div>Focus</div>
             <div>Difficulté</div>
-            <div>Coach</div>
-            <div>Équipe</div>
+            <div>Créé le</div>
             <div>Actions</div>
         </div>
 
@@ -877,9 +1081,7 @@
                          data-title="{{ training_plan.title|lower }}"
                          data-difficulty="{{ training_plan.difficultyLevel }}"
                          data-focus="{{ training_plan.focusArea }}"
-                         data-coach="{{ training_plan.coach ? training_plan.coach.id : '' }}"
                          data-date="{{ training_plan.createdAt ? training_plan.createdAt|date('Y-m-d') : '' }}">
-                        
                         <div class="cell-id" data-label="ID">#{{ training_plan.id }}</div>
                         
                         <div data-label="Titre & Description">
@@ -901,41 +1103,25 @@
                             </span>
                         </div>
                         
-                        <div data-label="Coach">
-                            {% if training_plan.coach %}
-                                <strong>{{ training_plan.coach.fullName }}</strong><br>
-                                <small style="color: var(--text-muted);">@{{ training_plan.coach.username }}</small>
-                            {% else %}
-                                <span class="text-muted">Coach non assigné</span>
-                            {% endif %}
-                        </div>
-                        
-                        <div data-label="Équipe">
-                            {% if training_plan.team %}
-                                <strong>{{ training_plan.team.name }}</strong><br>
-                                <small style="color: var(--text-muted);">{{ training_plan.team.game }}</small>
-                            {% else %}
-                                <span class="text-muted">Équipe non assignée</span>
-                            {% endif %}
+                        <div class="training-date" data-label="Crée le">
+                            {{ training_plan.createdAt ? training_plan.createdAt|date('d/m/Y') : 'N/A' }}
                         </div>
                         
                         <div class="action-buttons" data-label="Actions">
                             <a href="{{ path('app_training_plan_show', {'id': training_plan.id}) }}" class="btn-show">
                                 <i class="fas fa-eye"></i> Voir
                             </a>
-                            {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
-                                <a href="{{ path('app_training_plan_edit', {'id': training_plan.id}) }}" class="btn-edit">
-                                    <i class="fas fa-edit"></i> Éditer
-                                </a>
-                                <form method="post" action="{{ path('app_training_plan_delete', {'id': training_plan.id}) }}" 
-                                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce plan d\'entraînement ?');" 
-                                      style="display: inline;">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ training_plan.id) }}">
-                                    <button type="submit" class="btn-delete">
-                                        <i class="fas fa-trash"></i> Supprimer
-                                    </button>
-                                </form>
-                            {% endif %}
+                            <a href="{{ path('app_training_plan_edit', {'id': training_plan.id}) }}" class="btn-edit">
+                                <i class="fas fa-edit"></i> Éditer
+                            </a>
+                            <form method="post" action="{{ path('app_training_plan_delete', {'id': training_plan.id}) }}" 
+                                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce plan d\'entraînement ?');" 
+                                  style="display: inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ training_plan.id) }}">
+                                <button type="submit" class="btn-delete">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </button>
+                            </form>
                         </div>
                     </div>
                 {% endfor %}
@@ -945,19 +1131,15 @@
                 <div class="empty-state-icon">📋</div>
                 <h3>Aucun plan d'entraînement trouvé</h3>
                 <p>Créez votre premier plan d'entraînement pour structurer vos sessions de coaching.</p>
-                {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
-                    <a href="{{ path('app_training_plan_new') }}" class="btn-new">Créer un plan</a>
-                {% endif %}
+                <a href="{{ path('app_training_plan_new') }}" class="btn-new">Créer un plan</a>
             </div>
         {% endif %}
     </div>
 
-    <div style="text-align: center; margin-top: 40px;">
-        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_COACH') and not is_granted('ROLE_ORGANIZER') and not is_granted('ROLE_PLAYER')) %}
-            <a href="{{ path('app_training_plan_new') }}" class="btn-new">
-                <i class="fas fa-plus-circle"></i> Nouveau Plan d'Entraînement
-            </a>
-        {% endif %}
+    <div style="text-align: center; margin-top: 40px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="{{ path('app_training_plan_new') }}" class="btn-new">
+            <i class="fas fa-plus-circle"></i> Nouveau Plan d'Entraînement
+        </a>
     </div>
 </div>
 {% endblock %}
@@ -983,11 +1165,13 @@ function filterSessions() {
     
     if (searchTerm) activeFilters.push(`Recherche: "${searchTerm}"`);
     if (coachFilter) {
-        const coachName = document.querySelector(`#session-coach-filter option[value="${coachFilter}"]`)?.text || coachFilter;
+        const coachOption = document.querySelector(`#session-coach-filter option[value="${coachFilter}"]`);
+        const coachName = coachOption ? coachOption.textContent : coachFilter;
         activeFilters.push(`Coach: ${coachName}`);
     }
     if (teamFilter) {
-        const teamName = document.querySelector(`#session-team-filter option[value="${teamFilter}"]`)?.text || teamFilter;
+        const teamOption = document.querySelector(`#session-team-filter option[value="${teamFilter}"]`);
+        const teamName = teamOption ? teamOption.textContent : teamFilter;
         activeFilters.push(`Équipe: ${teamName}`);
     }
     if (durationFilter) {
@@ -1003,12 +1187,12 @@ function filterSessions() {
     activeFilters.forEach(filter => {
         const tag = document.createElement('span');
         tag.className = 'filter-tag';
-        tag.innerHTML = `${filter} <i class="fas fa-times" onclick="removeSessionFilter('${filter}')"></i>`;
+        tag.innerHTML = `${filter} <i class="fas fa-times" onclick="removeSessionFilter('${filter.split(':')[0].trim()}')"></i>`;
         filterTags.appendChild(tag);
     });
 
     sessions.forEach(session => {
-        const title = session.querySelector('.cell-trainingplan strong')?.textContent.toLowerCase() || '';
+        const title = session.querySelector('.training-plan-title')?.textContent.toLowerCase() || '';
         const coach = session.dataset.coach;
         const team = session.dataset.team;
         const duration = parseInt(session.dataset.duration);
@@ -1080,14 +1264,14 @@ function sortSessions(field, button) {
     });
 }
 
-function removeSessionFilter(filter) {
-    if (filter.includes('Recherche')) {
+function removeSessionFilter(filterType) {
+    if (filterType === 'Recherche') {
         document.getElementById('session-search').value = '';
-    } else if (filter.includes('Coach')) {
+    } else if (filterType === 'Coach') {
         document.getElementById('session-coach-filter').value = '';
-    } else if (filter.includes('Équipe')) {
+    } else if (filterType === 'Équipe') {
         document.getElementById('session-team-filter').value = '';
-    } else if (filter.includes('Durée')) {
+    } else if (filterType === 'Durée') {
         document.getElementById('session-duration-filter').value = '';
     }
     
@@ -1111,7 +1295,6 @@ function filterTrainingPlans() {
     const searchTerm = document.getElementById('training-search').value.toLowerCase();
     const difficultyFilter = document.getElementById('training-difficulty-filter').value;
     const focusFilter = document.getElementById('training-focus-filter').value;
-    const coachFilter = document.getElementById('training-coach-filter').value;
     const plans = document.querySelectorAll('.training-item');
     const filterTags = document.getElementById('training-filter-tags');
     
@@ -1122,15 +1305,11 @@ function filterTrainingPlans() {
     if (searchTerm) activeFilters.push(`Recherche: "${searchTerm}"`);
     if (difficultyFilter) activeFilters.push(`Difficulté: ${difficultyFilter}`);
     if (focusFilter) activeFilters.push(`Focus: ${focusFilter}`);
-    if (coachFilter) {
-        const coachName = document.querySelector(`#training-coach-filter option[value="${coachFilter}"]`)?.text || coachFilter;
-        activeFilters.push(`Coach: ${coachName}`);
-    }
     
     activeFilters.forEach(filter => {
         const tag = document.createElement('span');
         tag.className = 'filter-tag';
-        tag.innerHTML = `${filter} <i class="fas fa-times" onclick="removeTrainingFilter('${filter}')"></i>`;
+        tag.innerHTML = `${filter} <i class="fas fa-times" onclick="removeTrainingFilter('${filter.split(':')[0].trim()}')"></i>`;
         filterTags.appendChild(tag);
     });
 
@@ -1138,12 +1317,10 @@ function filterTrainingPlans() {
         const title = plan.dataset.title;
         const difficulty = plan.dataset.difficulty;
         const focus = plan.dataset.focus;
-        const coach = plan.dataset.coach;
         const showPlan = 
             (!searchTerm || title.includes(searchTerm)) &&
             (!difficultyFilter || difficulty === difficultyFilter) &&
-            (!focusFilter || focus === focusFilter) &&
-            (!coachFilter || coach === coachFilter);
+            (!focusFilter || focus === focusFilter);
         
         plan.style.display = showPlan ? '' : 'none';
     });
@@ -1198,15 +1375,13 @@ function sortTrainingPlans(field, button) {
     });
 }
 
-function removeTrainingFilter(filter) {
-    if (filter.includes('Recherche')) {
+function removeTrainingFilter(filterType) {
+    if (filterType === 'Recherche') {
         document.getElementById('training-search').value = '';
-    } else if (filter.includes('Difficulté')) {
+    } else if (filterType === 'Difficulté') {
         document.getElementById('training-difficulty-filter').value = '';
-    } else if (filter.includes('Focus')) {
+    } else if (filterType === 'Focus') {
         document.getElementById('training-focus-filter').value = '';
-    } else if (filter.includes('Coach')) {
-        document.getElementById('training-coach-filter').value = '';
     }
     
     filterTrainingPlans();
@@ -1216,7 +1391,6 @@ function resetTrainingFilters() {
     document.getElementById('training-search').value = '';
     document.getElementById('training-difficulty-filter').value = '';
     document.getElementById('training-focus-filter').value = '';
-    document.getElementById('training-coach-filter').value = '';
     document.querySelectorAll('#training-plans-tab .sort-btn').forEach(btn => {
         btn.classList.remove('active');
     });
@@ -1250,7 +1424,7 @@ function showTab(tabName) {
     }
 }
 
-// ==================== NOTIFICATIONS 15 MINUTES AVANT SESSION ====================
+// ==================== NOTIFICATIONS 10 MINUTES AVANT SESSION ====================
 function checkSessionNotifications() {
     const sessions = document.querySelectorAll('.session-item');
     const now = new Date();
@@ -1262,10 +1436,10 @@ function checkSessionNotifications() {
         const sessionDate = new Date(dateStr.replace(' ', 'T'));
         const diffMinutes = (sessionDate - now) / 1000 / 60; // différence en minutes
 
-        // Notification si session dans les 15 prochaines minutes et pas déjà notifiée
-        if (diffMinutes > 0 && diffMinutes <= 15 && !session.dataset.notified) {
+        // Notification si session dans les 10 prochaines minutes et pas déjà notifiée
+        if (diffMinutes > 0 && diffMinutes <= 10 && !session.dataset.notified) {
             showNotification(
-                'Session prochaine !',
+                `Session prochaine !`,
                 `La session #${session.dataset.id} commence à ${sessionDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`
             );
             session.dataset.notified = 'true';

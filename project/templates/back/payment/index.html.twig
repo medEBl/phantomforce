@@ -1,0 +1,289 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Gestion des Paiements - Admin Panel{% endblock %}
+
+{% block body %}
+<div class="admin-content">
+    <div class="admin-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="h3 mb-0">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Gestion des Paiements
+                </h1>
+                <p class="text-muted mb-0">Liste de tous les paiements du système</p>
+            </div>
+            <a href="{{ path('app_back_payment_new') }}" class="btn-admin btn-admin-primary">
+                <i class="fas fa-plus-circle"></i>
+                Nouveau Paiement
+            </a>
+        </div>
+    </div>
+
+    <!-- Statistiques rapides -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="admin-card">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-hashtag fa-2x" style="color: var(--admin-accent);"></i>
+                    </div>
+                    <div>
+                        <h3 class="h6 mb-1">Total</h3>
+                        <h2 class="h4 mb-0">{{ payments|length }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="admin-card">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-check-circle fa-2x" style="color: var(--admin-success);"></i>
+                    </div>
+                    <div>
+                        <h3 class="h6 mb-1">Payés</h3>
+                        <h2 class="h4 mb-0">{{ payments|filter(p => p.paymentStatus == 'success')|length }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="admin-card">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-clock fa-2x" style="color: #ffc107;"></i>
+                    </div>
+                    <div>
+                        <h3 class="h6 mb-1">En attente</h3>
+                        <h2 class="h4 mb-0">{{ payments|filter(p => p.paymentStatus == 'pending')|length }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="admin-card">
+                <div class="d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-times-circle fa-2x" style="color: var(--admin-danger);"></i>
+                    </div>
+                    <div>
+                        <h3 class="h6 mb-1">Échoués</h3>
+                        <h2 class="h4 mb-0">{{ payments|filter(p => p.paymentStatus == 'failed')|length }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tableau des paiements -->
+    <div class="admin-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h5 mb-0">
+                <i class="fas fa-list"></i>
+                Liste des paiements
+            </h2>
+            <div class="d-flex gap-2">
+                <div class="input-group" style="max-width: 300px;">
+                    <span class="input-group-text bg-transparent border-end-0">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" class="form-control form-control-sm border-start-0" 
+                           placeholder="Rechercher..." id="searchInput">
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Article</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                        <th>Méthode</th>
+                        <th>Statut</th>
+                        <th>Référence</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td>
+                            <span class="badge-admin" style="background: rgba(0, 243, 255, 0.1); color: var(--admin-accent);">
+                                #{{ payment.id }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if payment.shopItem %}
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="fas fa-cube" style="color: var(--admin-accent);"></i>
+                                    <div>
+                                        <div class="fw-bold">{{ payment.shopItem.itemName }}</div>
+                                        <small class="text-muted">{{ payment.shopItem.itemCategory }}</small>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <span class="text-muted">Aucun</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ payment.paymentDate|date('d/m/Y H:i') }}</td>
+                        <td class="fw-bold">{{ payment.amount|number_format(2, ',', ' ') }} €</td>
+                        <td>
+                            <span class="badge-admin" style="background: rgba(255, 255, 255, 0.1);">
+                                {% if payment.paymentMethod == 'card' %}
+                                    <i class="fas fa-credit-card me-1"></i> Carte
+                                {% elseif payment.paymentMethod == 'paypal' %}
+                                    <i class="fab fa-paypal me-1"></i> PayPal
+                                {% elseif payment.paymentMethod == 'transfer' %}
+                                    <i class="fas fa-exchange-alt me-1"></i> Virement
+                                {% elseif payment.paymentMethod == 'cash' %}
+                                    <i class="fas fa-money-bill me-1"></i> Espèces
+                                {% else %}
+                                    {{ payment.paymentMethod }}
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td>
+                            {% if payment.paymentStatus == 'success' %}
+                                <span class="badge-admin" style="background: rgba(0, 255, 136, 0.1); color: var(--admin-success);">
+                                    <i class="fas fa-check me-1"></i> Payé
+                                </span>
+                            {% elseif payment.paymentStatus == 'pending' %}
+                                <span class="badge-admin" style="background: rgba(255, 193, 7, 0.1); color: #ffc107;">
+                                    <i class="fas fa-clock me-1"></i> En attente
+                                </span>
+                            {% elseif payment.paymentStatus == 'failed' %}
+                                <span class="badge-admin" style="background: rgba(255, 0, 60, 0.1); color: var(--admin-danger);">
+                                    <i class="fas fa-times me-1"></i> Échoué
+                                </span>
+                            {% elseif payment.paymentStatus == 'cancelled' %}
+                                <span class="badge-admin" style="background: rgba(119, 119, 119, 0.1); color: #777;">
+                                    <i class="fas fa-ban me-1"></i> Annulé
+                                </span>
+                            {% else %}
+                                {{ payment.paymentStatus }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <code class="bg-dark px-2 py-1 rounded">{{ payment.transactionRef }}</code>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <a href="{{ path('app_back_payment_show', {'id': payment.id}) }}" 
+                                   class="btn-admin btn-admin-secondary btn-sm"
+                                   title="Voir">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ path('app_back_payment_edit', {'id': payment.id}) }}" 
+                                   class="btn-admin btn-admin-secondary btn-sm"
+                                   title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="post" action="{{ path('app_back_payment_delete', {'id': payment.id}) }}" 
+                                      onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce paiement ?');"
+                                      style="display: inline;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ payment.id) }}">
+                                    <button type="submit" class="btn-admin btn-admin-danger btn-sm" title="Supprimer">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center py-5">
+                            <div class="text-muted">
+                                <i class="fas fa-database fa-3x mb-3"></i>
+                                <h4>Aucun paiement trouvé</h4>
+                                <p>Créez votre premier paiement pour commencer</p>
+                                <a href="{{ path('app_back_payment_new') }}" class="btn-admin btn-admin-primary">
+                                    <i class="fas fa-plus-circle"></i>
+                                    Créer un paiement
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        {% if payments|length > 10 %}
+        <nav class="d-flex justify-content-between align-items-center mt-3">
+            <div class="text-muted">
+                Affichage de 1 à {{ payments|length }} sur {{ payments|length }} paiements
+            </div>
+            <ul class="pagination mb-0">
+                <li class="page-item disabled">
+                    <a class="page-link bg-transparent border-0" href="#">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link bg-transparent border-0" href="#">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link bg-transparent border-0" href="#">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Recherche en temps réel
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('.admin-table tbody tr');
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    }
+    
+    // Animation des lignes
+    tableRows.forEach((row, index) => {
+        if (row.style.display !== 'none') {
+            row.style.animationDelay = `${index * 0.05}s`;
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(10px)';
+            row.style.animation = 'fadeInUp 0.3s ease forwards';
+        }
+    });
+    
+    // Ajout de l'animation CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+});
+</script>
+{% endblock %}

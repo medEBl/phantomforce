@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendrier des Sessions{% endblock %}
+
+{% block stylesheets %}
+<!-- FullCalendar CSS -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+<style>
+    #calendar {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+    }
+    
+    .fc-toolbar-title {
+        color: var(--text-main) !important;
+    }
+    
+    .fc-button-primary {
+        background: var(--red-gradient) !important;
+        border: none !important;
+    }
+    
+    .fc-button-primary:hover {
+        background: var(--red) !important;
+    }
+    
+    .fc-daygrid-day {
+        background: var(--bg-card-light);
+    }
+    
+    .fc-day-today {
+        background: rgba(255,45,45,0.1) !important;
+    }
+    
+    .event-details {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        max-width: 300px;
+        display: none;
+        box-shadow: var(--shadow-lg);
+        z-index: 1000;
+    }
+    
+    .event-details h3 {
+        color: var(--red);
+        margin-bottom: 10px;
+    }
+    
+    .event-details p {
+        margin: 5px 0;
+        color: var(--text-muted);
+    }
+    
+    .event-details .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        color: var(--text-muted);
+    }
+    
+    .event-details .close-btn:hover {
+        color: var(--red);
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 style="text-align: center; margin: 30px 0;">
+        <i class="fas fa-calendar-alt" style="color: var(--red);"></i>
+        Calendrier des Sessions de Coaching
+    </h1>
+    
+    <div id="calendar"></div>
+</div>
+
+<!-- Panneau des détails d'événement -->
+<div id="eventDetails" class="event-details">
+    <span class="close-btn" onclick="closeDetails()">✖</span>
+    <h3 id="eventTitle"></h3>
+    <p id="eventStart"></p>
+    <p id="eventEnd"></p>
+    <p id="eventDescription"></p>
+</div>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/fr.js'></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        locale: 'fr',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        buttonText: {
+            today: 'Aujourd\'hui',
+            month: 'Mois',
+            week: 'Semaine',
+            day: 'Jour'
+        },
+        events: {{ events|raw }},
+        eventClick: function(info) {
+            // Afficher les détails de l'événement
+            document.getElementById('eventTitle').textContent = info.event.title;
+            document.getElementById('eventStart').innerHTML = '<i class="fas fa-clock"></i> Début: ' + formatDate(info.event.start);
+            document.getElementById('eventEnd').innerHTML = '<i class="fas fa-clock"></i> Fin: ' + formatDate(info.event.end);
+            document.getElementById('eventDescription').innerHTML = '<i class="fas fa-sticky-note"></i> Notes: ' + (info.event.extendedProps.description || 'Aucune note');
+            document.getElementById('eventDetails').style.display = 'block';
+        },
+        eventDidMount: function(info) {
+            // Tooltip au survol
+            info.el.setAttribute('title', info.event.title);
+        }
+    });
+    calendar.render();
+});
+
+function formatDate(date) {
+    return date.toLocaleString('fr-FR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+function closeDetails() {
+    document.getElementById('eventDetails').style.display = 'none';
+}
+
+// Fermer les détails en cliquant en dehors
+document.addEventListener('click', function(event) {
+    var details = document.getElementById('eventDetails');
+    if (!details.contains(event.target) && !event.target.closest('.fc-event')) {
+        details.style.display = 'none';
+    }
+});
+</script>
+{% endblock %}

@@ -46,7 +46,83 @@
             radial-gradient(circle at 40% 90%, rgba(255, 51, 51, 0.1) 0%, transparent 50%);
         z-index: -1;
     }
-    
+        /* Contrôle musique */
+    /* Contrôle musique - Position en haut à gauche */
+.music-control {
+    position: fixed;
+    top: 100px;
+    left: 10px;
+    z-index: 999;
+}
+
+.music-toggle-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--blood-red), var(--dark-red));
+    border: 2px solid white;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s infinite;
+}
+
+.music-toggle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+}
+
+.music-toggle-btn.playing {
+    background: linear-gradient(45deg, #00ff88, #00cc66);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+}
+
+.music-toggle-btn.playing:hover {
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+    100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+}
+
+/* Message audio non autorisé - adapté à la position gauche */
+.audio-error-message {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--blood-red);
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: white;
+    font-size: 0.9rem;
+    z-index: 1000;
+    animation: slideInLeft 0.3s ease;
+    display: none;
+    border-left: 4px solid #ffcc00;
+}
+
+.audio-error-message.show {
+    display: block;
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+        50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+        100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+    }
     .gaming-container {
         position: relative;
         padding: 2rem;
@@ -1463,6 +1539,16 @@
             </a>
         </div>
     {% endif %}
+    <!-- Contrôle musique -->
+        <div class="music-control">
+            <button id="musicToggleBtn" class="music-toggle-btn" title="Activer/Désactiver la musique">
+                🎵
+            </button>
+            <audio id="backgroundMusic" loop style="display: none;">
+                <source src="{{ asset('music/background.mp3') }}" type="audio/mpeg">
+                Votre navigateur ne supporte pas l'audio.
+            </audio>
+        </div>
 </div>
 
 <script>
@@ -2074,6 +2160,49 @@
             addNotification(`${urgentMatches.length} match(s) en cours nécessitent votre attention`, 'alert');
         }
     }, 2000);
+        // Gestion de la musique
+    const musicBtn = document.getElementById('musicToggleBtn');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    let isMusicPlaying = false;
+
+    if (musicBtn && backgroundMusic) {
+        // Charger l'état depuis localStorage
+        const savedMusicState = localStorage.getItem('musicPlaying');
+        if (savedMusicState === 'true') {
+            backgroundMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '🔊';
+            }).catch(e => console.log('Audio error:', e));
+        }
+
+        musicBtn.addEventListener('click', function() {
+            if (!isMusicPlaying) {
+                backgroundMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.innerHTML = '🔊';
+                    musicBtn.classList.add('playing');
+                    localStorage.setItem('musicPlaying', 'true');
+                }).catch(error => {
+                    console.log("Erreur audio:", error);
+                    alert("Cliquez d'abord sur la page pour autoriser l'audio.");
+                });
+            } else {
+                backgroundMusic.pause();
+                isMusicPlaying = false;
+                musicBtn.innerHTML = '🎵';
+                musicBtn.classList.remove('playing');
+                localStorage.setItem('musicPlaying', 'false');
+            }
+        });
+
+        // Gestion de l'autoplay bloqué par le navigateur
+        document.addEventListener('click', function initAudio() {
+            if (backgroundMusic.paused && !isMusicPlaying) {
+                // Ne pas lancer automatiquement, attendre le bouton
+            }
+        }, { once: true });
+    }
 </script>
 {{ include('chatbot/_widget.html.twig') }}
 {% endblock %}
