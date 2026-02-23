@@ -38,105 +38,32 @@ class ShopItem
     #[ORM\Column(length: 20)]
     private ?string $status = null;
 
-    public function getId(): ?int
+    #[ORM\OneToOne(mappedBy: 'shopItem', targetEntity: Payment::class, cascade: ['persist', 'remove'])]
+    private ?Payment $payment = null;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->purchaseDate = new \DateTimeImmutable();
+        $this->status = 'pending';
     }
 
-    public function getItemName(): ?string
-    {
-        return $this->itemName;
-    }
-
-    public function setItemName(string $itemName): static
-    {
-        $this->itemName = $itemName;
-
-        return $this;
-    }
-
-    public function getItemDescription(): ?string
-    {
-        return $this->itemDescription;
-    }
-
-    public function setItemDescription(string $itemDescription): static
-    {
-        $this->itemDescription = $itemDescription;
-
-        return $this;
-    }
-
-    public function getItemCategory(): ?string
-    {
-        return $this->itemCategory;
-    }
-
-    public function setItemCategory(string $itemCategory): static
-    {
-        $this->itemCategory = $itemCategory;
-
-        return $this;
-    }
-
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): static
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): static
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getTotalPrice(): ?string
-    {
-        return $this->totalPrice;
-    }
-
-    public function setTotalPrice(string $totalPrice): static
-    {
-        $this->totalPrice = $totalPrice;
-
-        return $this;
-    }
-
-    public function getPurchaseDate(): ?\DateTimeImmutable
-    {
-        return $this->purchaseDate;
-    }
-
-    public function setPurchaseDate(\DateTimeImmutable $purchaseDate): static
-    {
-        $this->purchaseDate = $purchaseDate;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-    
+    public function getId(): ?int { return $this->id; }
+    public function getItemName(): ?string { return $this->itemName; }
+    public function setItemName(string $itemName): static { $this->itemName = $itemName; return $this; }
+    public function getItemDescription(): ?string { return $this->itemDescription; }
+    public function setItemDescription(string $itemDescription): static { $this->itemDescription = $itemDescription; return $this; }
+    public function getItemCategory(): ?string { return $this->itemCategory; }
+    public function setItemCategory(string $itemCategory): static { $this->itemCategory = $itemCategory; return $this; }
+    public function getPrice(): ?string { return $this->price; }
+    public function setPrice(string $price): static { $this->price = $price; return $this; }
+    public function getQuantity(): ?int { return $this->quantity; }
+    public function setQuantity(int $quantity): static { $this->quantity = $quantity; return $this; }
+    public function getTotalPrice(): ?string { return $this->totalPrice; }
+    public function setTotalPrice(string $totalPrice): static { $this->totalPrice = $totalPrice; return $this; }
+    public function getPurchaseDate(): ?\DateTimeImmutable { return $this->purchaseDate; }
+    public function setPurchaseDate(\DateTimeImmutable $purchaseDate): static { $this->purchaseDate = $purchaseDate; return $this; }
+    public function getStatus(): ?string { return $this->status; }
+    public function setStatus(string $status): static { $this->status = $status; return $this; }
+    public function getPayment(): ?Payment { return $this->payment; }
+    public function setPayment(?Payment $payment): static { $this->payment = $payment; return $this; }
 }

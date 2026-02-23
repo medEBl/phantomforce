@@ -1,0 +1,264 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}🔥 Jeux Populaires - Phantom Shop{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="hero">
+        <h1>🎮 Jeux Vidéo Populaires</h1>
+        <p>Découvrez les jeux les mieux notés du moment</p>
+    </div>
+    
+    <div class="search-section">
+        <form action="{{ path('app_games_search') }}" method="get" class="search-form">
+            <input type="text" name="q" placeholder="Rechercher un jeu..." class="search-input">
+            <button type="submit" class="search-btn">
+                <i class="fas fa-search"></i> Rechercher
+            </button>
+        </form>
+    </div>
+    
+    <div class="games-grid">
+        {% for game in games %}
+            <div class="game-card">
+                {% if game.background_image %}
+                    <img src="{{ game.background_image }}" alt="{{ game.name }}" class="game-image">
+                {% else %}
+                    <div class="game-image-placeholder">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                {% endif %}
+                
+                <div class="game-info">
+                    <h3>{{ game.name }}</h3>
+                    
+                    <div class="game-meta">
+                        <span class="rating">
+                            <i class="fas fa-star"></i> 
+                            {{ game.rating|default('N/A') }}
+                        </span>
+                        
+                        <span class="released">
+                            <i class="far fa-calendar"></i>
+                            {{ game.released|date('d/m/Y') }}
+                        </span>
+                    </div>
+                    
+                    <div class="game-platforms">
+                        {% for platform in game.platforms|slice(0, 3) %}
+                            <span class="platform-badge">
+                                {{ platform.platform.name }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="game-actions">
+                        <a href="{{ path('app_game_detail', {'id': game.id}) }}" class="btn-view">
+                            <i class="fas fa-info-circle"></i> Détails
+                        </a>
+                        <a href="{{ path('app_payment_new', {'game_id': game.id}) }}" class="btn-buy">
+                            <i class="fas fa-shopping-cart"></i> Acheter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="no-games">
+                <i class="fas fa-sad-tear"></i>
+                <p>Aucun jeu trouvé</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+.search-section {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--red);
+}
+
+.search-btn {
+    padding: 12px 25px;
+    background: var(--red-gradient);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,45,45,0.3);
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.game-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--red);
+    box-shadow: 0 15px 30px rgba(255,45,45,0.3);
+}
+
+.game-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.game-image-placeholder {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #2a2a35, #1a1a25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    color: var(--red);
+}
+
+.game-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-info h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: white;
+    font-weight: 700;
+}
+
+.game-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.rating {
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.released {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.game-platforms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.platform-badge {
+    background: rgba(255,45,45,0.1);
+    border: 1px solid var(--red);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: var(--text-light);
+    text-transform: uppercase;
+}
+
+.game-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.btn-view, .btn-buy {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.btn-view {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-light);
+    color: var(--text-light);
+}
+
+.btn-view:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+}
+
+.btn-buy {
+    background: var(--red-gradient);
+    color: white;
+    border: none;
+}
+
+.btn-buy:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,45,45,0.4);
+}
+
+.no-games {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px;
+    color: var(--text-muted);
+    font-size: 18px;
+}
+
+.no-games i {
+    font-size: 60px;
+    margin-bottom: 20px;
+    color: var(--red);
+}
+</style>
+{% endblock %}

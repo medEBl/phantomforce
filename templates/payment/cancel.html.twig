@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement annulé{% endblock %}
+
+{% block body %}
+<div class="cancel-container">
+    <div class="cancel-icon">❌</div>
+    <h1>Paiement annulé</h1>
+    
+    <p>Votre paiement a été annulé ou a échoué. Vous pouvez réessayer.</p>
+    
+    <div class="payment-info">
+        <h3>Détails du paiement</h3>
+        <p><strong>Référence :</strong> {{ payment.transactionRef }}</p>
+        <p><strong>Montant :</strong> {{ payment.amount }} €</p>
+        <p><strong>Jeu :</strong> {{ payment.shopItem.itemName }}</p>
+    </div>
+    
+    <div class="actions">
+        <a href="{{ path('app_payment_checkout', {'id': payment.id}) }}" class="btn btn-primary">
+            Réessayer le paiement
+        </a>
+        <a href="{{ path('app_games_popular') }}" class="btn btn-secondary">
+            Autres jeux
+        </a>
+    </div>
+</div>
+
+<style>
+.cancel-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cancel-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.payment-info {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 30px 0;
+    text-align: left;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: #fff;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: #fff;
+}
+</style>
+{% endblock %}

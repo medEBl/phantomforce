@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de paiement - Phantom Shop</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #0a0a0a; color: #ffffff; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 20px auto; background: #1a1a2e; border: 3px solid #ff0033; border-radius: 15px; overflow: hidden; }
+        .header { background: linear-gradient(90deg, #ff0033, #ff3366); padding: 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 800; text-transform: uppercase; }
+        .content { padding: 30px; }
+        .success-badge { background: rgba(0,255,65,0.2); border: 2px solid #00ff41; border-radius: 30px; padding: 10px 20px; display: inline-block; color: #00ff41; font-weight: 900; margin-bottom: 20px; }
+        .info-card { background: rgba(255,255,255,0.05); border: 2px solid #00f3ff; border-radius: 10px; padding: 20px; margin: 20px 0; }
+        .info-card h2 { color: #00f3ff; margin-top: 0; border-bottom: 2px solid #00f3ff; padding-bottom: 10px; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .info-item { padding: 10px; background: rgba(0,243,255,0.1); border-radius: 8px; }
+        .info-label { display: block; color: #777; font-size: 12px; text-transform: uppercase; }
+        .info-value { display: block; color: #00f3ff; font-size: 18px; font-weight: 700; }
+        .total-amount { font-size: 32px; font-weight: 900; color: #00ff41; text-align: center; padding: 20px; background: rgba(0,255,65,0.1); border: 2px solid #00ff41; border-radius: 10px; margin: 20px 0; }
+        .button { display: inline-block; padding: 15px 30px; background: linear-gradient(90deg, #ff0033, #ff3366); color: white; text-decoration: none; border-radius: 30px; font-weight: 700; margin: 10px 0; }
+        .footer { background: #0a0a0a; padding: 20px; text-align: center; border-top: 2px solid #ff0033; color: #777; font-size: 14px; }
+        @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 PHANTOM SHOP 🔥</h1>
+            <p>Paiement confirmé avec succès !</p>
+        </div>
+        
+        <div class="content">
+            <div style="text-align: center;">
+                <span class="success-badge">✅ PAIEMENT RÉUSSI</span>
+            </div>
+            
+            <p style="color: #aaa; margin-bottom: 20px;">Bonjour,<br>Votre paiement a été traité avec succès.</p>
+            
+            <div class="info-card">
+                <h2>📋 DÉTAILS DE LA TRANSACTION</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Référence</span>
+                        <span class="info-value">{{ payment.transactionRef }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Méthode</span>
+                        <span class="info-value">
+                            {% if payment.paymentMethod == 'card' %}Carte bancaire
+                            {% elseif payment.paymentMethod == 'paypal' %}PayPal
+                            {% else %}Wallet{% endif %}
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date</span>
+                        <span class="info-value">{{ payment.paymentDate|date('d/m/Y') }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Heure</span>
+                        <span class="info-value">{{ payment.paymentDate|date('H:i') }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            {% if shopItem %}
+            <div class="info-card" style="border-color: #9d00ff;">
+                <h2 style="color: #9d00ff; border-color: #9d00ff;">🛍️ ARTICLE ACHETÉ</h2>
+                <p><strong>{{ shopItem.itemName }}</strong> - {{ shopItem.quantity }} x {{ shopItem.price }} €</p>
+            </div>
+            {% endif %}
+            
+            <div class="total-amount">TOTAL : {{ payment.amount }} €</div>
+            
+            <div style="text-align: center;">
+                <a href="#" class="button">VOIR MA COMMANDE</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© {{ "now"|date('Y') }} Phantom Shop. Tous droits réservés.</p>
+            <p>Cet email a été envoyé automatiquement, merci de ne pas y répondre.</p>
+        </div>
+    </div>
+</body>
+</html>

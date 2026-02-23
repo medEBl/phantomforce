@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Stripe</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>Test Paiement 10€</h1>
+    
+    <button id="pay-button">Payer 10€</button>
+
+    <script>
+        const stripe = Stripe('{{ stripe_key }}');
+        
+        document.getElementById('pay-button').addEventListener('click', async () => {
+            try {
+                // Créer un PaymentIntent simple
+                const response = await fetch('http://127.0.0.1:8000/api/stripe/test-payment', {
+                    method: 'POST'
+                });
+                
+                const data = await response.json();
+                
+                if (!data.success) {
+                    alert('Erreur: ' + data.error);
+                    return;
+                }
+                
+                // Rediriger vers Stripe Checkout
+                const { error } = await stripe.redirectToCheckout({
+                    sessionId: data.session_id
+                });
+                
+                if (error) {
+                    alert(error.message);
+                }
+                
+            } catch (err) {
+                alert('Erreur: ' + err.message);
+            }
+        });
+    </script>
+</body>
+</html>

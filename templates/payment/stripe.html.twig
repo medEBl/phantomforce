@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement Stripe - Phantom Shop{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="stripe-container">
+        <h1>💳 Paiement sécurisé</h1>
+        
+        <div class="game-summary">
+            <div class="game-name">{{ payment.shopItem.itemName }}</div>
+            <div class="price">{{ payment.amount }} €</div>
+        </div>
+
+        <form id="payment-form">
+            <div class="form-row">
+                <label for="card-holder-name">Nom sur la carte</label>
+                <input type="text" id="card-holder-name" class="form-control" placeholder="JEAN DUPONT" required>
+            </div>
+
+            <div class="form-row">
+                <label for="card-element">Informations de carte</label>
+                <div id="card-element"></div>
+            </div>
+
+            <button type="submit" id="submit-button" class="btn-pay">
+                <i class="fas fa-lock"></i> Payer {{ payment.amount }} €
+            </button>
+        </form>
+
+        <div class="security-badge">
+            <i class="fas fa-shield-alt"></i>
+            <span>Paiement 100% sécurisé par Stripe</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe('{{ stripe_key }}');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card', {
+        style: {
+            base: {
+                color: '#ffffff',
+                fontFamily: '"Inter", sans-serif',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#b3b3b3'
+                }
+            }
+        }
+    });
+    
+    cardElement.mount('#card-element');
+
+    document.getElementById('payment-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitButton = document.getElementById('submit-button');
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+
+        try {
+            const response = await fetch('/api/stripe/create-intent', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    amount: {{ payment.amount }},
+                    shop_item_id: {{ payment.shopItem.id }}
+                })
+            });
+
+            const data = await response.json();
+
+            if (!data.success) {
+                throw new Error(data.error);
+            }
+
+            const { error, paymentIntent } = await stripe.confirmCardPayment(data.client_secret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        name: document.getElementById('card-holder-name').value
+                    }
+                }
+            });
+
+            if (error) {
+                throw error;
+            }
+
+            if (paymentIntent.status === 'succeeded') {
+                window.location.href = '{{ path('app_payment_success', {'id': payment.id}) }}';
+            }
+
+        } catch (err) {
+            alert('Erreur: ' + err.message);
+            submitButton.disabled = false;
+            submitButton.innerHTML = '<i class="fas fa-lock"></i> Payer {{ payment.amount }} €';
+        }
+    });
+</script>
+
+<style>
+.stripe-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background: var(--bg-card);
+    border: 3px solid #6772e5;
+    border-radius: 15px;
+}
+
+.game-summary {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255,45,45,0.1);
+    border-radius: 10px;
+}
+
+.game-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--neon-red);
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--neon-green);
+}
+
+.form-row {
+    margin-bottom: 20px;
+}
+
+.form-row label {
+    display: block;
+    margin-bottom: 8px;
+    color: #6772e5;
+    font-weight: 600;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+}
+
+#card-element {
+    padding: 12px;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+}
+
+.btn-pay {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #6772e5, #555abf);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-pay:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(103, 114, 229, 0.4);
+}
+
+.btn-pay:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.security-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 15px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    color: var(--text-muted);
+}
+</style>
+{% endblock %}

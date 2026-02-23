@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test IA - Phantom Shop{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>🤖 Test IA</h1>
+    
+    <div class="card">
+        <h2>Recommandations pour Elden Ring</h2>
+        <ul>
+            {% for rec in recommendations %}
+                <li><strong>{{ rec.name }}</strong> - {{ rec.reason }}</li>
+            {% else %}
+                <li>Aucune recommandation</li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="card">
+        <h2>Description générée pour Cyberpunk 2077</h2>
+        <p>{{ description }}</p>
+    </div>
+    
+    <div class="card">
+        <h2>Analyse de sentiment</h2>
+        <p><strong>Sentiment:</strong> {{ sentiment.sentiment }}</p>
+        <p><strong>Score:</strong> {{ sentiment.score }}</p>
+        <p><strong>Mots-clés:</strong> {{ sentiment.mots_cles|join(', ') }}</p>
+    </div>
+</div>
+
+<style>
+.card {
+    background: var(--bg-card);
+    border: 2px solid var(--neon-blue);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+</style>
+{% endblock %}

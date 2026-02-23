@@ -37,6 +37,35 @@
                 
                 <div class="form-section">
                     <h3 class="form-section-title">
+                        <i class="fas fa-shopping-cart"></i>
+                        ARTICLE À PAYER
+                    </h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label class="form-label">
+                                <i class="fas fa-cube"></i>
+                                Article
+                                <span class="form-hint" data-toggle="tooltip" title="Article obligatoire associé au paiement">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+                            </label>
+                            {{ form_widget(form.shopItem, {'attr': {
+                                'class': 'neon-select',
+                                'required': 'required',
+                                'data-validation': 'Article obligatoire'
+                            }}) }}
+                            <div class="form-error">{{ form_errors(form.shopItem) }}</div>
+                            <div class="validation-info">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                L'article associé au paiement est obligatoire
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3 class="form-section-title">
                         <i class="fas fa-money-bill-wave"></i>
                         INFORMATIONS FINANCIÈRES
                     </h3>
@@ -46,24 +75,50 @@
                             <label class="form-label">
                                 <i class="fas fa-euro-sign"></i>
                                 Montant (€)
+                                <span class="form-hint" data-toggle="tooltip" title="Doit être positif, décimal avec max 2 chiffres après la virgule (ex: 99.99)">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
                             </label>
                             {{ form_widget(form.amount, {'attr': {
                                 'class': 'neon-input',
-                                'placeholder': 'Ex: 99.99'
+                                'placeholder': 'Ex: 99.99',
+                                'required': 'required',
+                                'pattern': '^\d+(\.\d{1,2})?$',
+                                'title': 'Format : 99.99 ou 99.9 ou 99',
+                                'min': '0.01',
+                                'step': '0.01',
+                                'data-validation': 'Montant positif requis'
                             }}) }}
                             <div class="form-error">{{ form_errors(form.amount) }}</div>
+                            <div class="validation-info">
+                                <i class="fas fa-check-circle"></i>
+                                Format : 99.99 • Doit être positif
+                            </div>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">
                                 <i class="fas fa-hashtag"></i>
                                 Référence
+                                <span class="form-hint" data-toggle="tooltip" title="5-255 caractères : lettres, chiffres, tirets, underscores">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
                             </label>
                             {{ form_widget(form.transactionRef, {'attr': {
                                 'class': 'neon-input',
-                                'placeholder': 'Ex: TRX' ~ random(100000, 999999)
+                                'placeholder': 'Ex: TRX' ~ random(100000, 999999),
+                                'required': 'required',
+                                'minlength': '5',
+                                'maxlength': '255',
+                                'pattern': '^[a-zA-Z0-9\-_]+$',
+                                'title': 'Lettres, chiffres, tirets et underscores uniquement',
+                                'data-validation': 'Référence obligatoire'
                             }}) }}
                             <div class="form-error">{{ form_errors(form.transactionRef) }}</div>
+                            <div class="validation-info">
+                                <i class="fas fa-ruler"></i>
+                                5-255 caractères • Lettres/chiffres uniquement
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,22 +134,40 @@
                             <label class="form-label">
                                 <i class="fas fa-credit-card"></i>
                                 Méthode de paiement
+                                <span class="form-hint" data-toggle="tooltip" title="Sélectionnez une méthode valide">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
                             </label>
                             {{ form_widget(form.paymentMethod, {'attr': {
-                                'class': 'neon-select'
+                                'class': 'neon-select',
+                                'required': 'required',
+                                'data-validation': 'Méthode obligatoire'
                             }}) }}
                             <div class="form-error">{{ form_errors(form.paymentMethod) }}</div>
+                            <div class="validation-info">
+                                <i class="fas fa-list"></i>
+                                Options : Carte • PayPal • Virement • Espèces • Chèque
+                            </div>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">
                                 <i class="fas fa-check-circle"></i>
                                 Statut
+                                <span class="form-hint" data-toggle="tooltip" title="Statut de la transaction">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
                             </label>
                             {{ form_widget(form.paymentStatus, {'attr': {
-                                'class': 'neon-select'
+                                'class': 'neon-select',
+                                'required': 'required',
+                                'data-validation': 'Statut obligatoire'
                             }}) }}
                             <div class="form-error">{{ form_errors(form.paymentStatus) }}</div>
+                            <div class="validation-info">
+                                <i class="fas fa-exchange-alt"></i>
+                                En attente • Complet • Échoué • Remboursé • Annulé
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -110,11 +183,81 @@
                             <label class="form-label">
                                 <i class="fas fa-clock"></i>
                                 Date du paiement
+                                <span class="form-hint" data-toggle="tooltip" title="Ne peut pas être dans le futur">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
                             </label>
                             {{ form_widget(form.paymentDate, {'attr': {
-                                'class': 'neon-input datetime-picker'
+                                'class': 'neon-input datetime-picker',
+                                'required': 'required',
+                                'max': "now"|date('Y-m-d\\TH:i'),
+                                'data-validation': 'Date passée obligatoire'
                             }}) }}
                             <div class="form-error">{{ form_errors(form.paymentDate) }}</div>
+                            <div class="validation-info">
+                                <i class="fas fa-calendar-times"></i>
+                                Date obligatoire • Ne peut pas être dans le futur
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RÉSUMÉ DES CONTRAINTES -->
+                <div class="form-section constraints-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-clipboard-check"></i>
+                        CONTRAINTES DE VALIDATION
+                    </h3>
+                    
+                    <div class="constraints-list">
+                        <div class="constraint-item">
+                            <div class="constraint-icon">
+                                <i class="fas fa-asterisk"></i>
+                            </div>
+                            <div class="constraint-content">
+                                <div class="constraint-title">CHAMPS OBLIGATOIRES</div>
+                                <div class="constraint-desc">Tous les champs marqués d'une étoile (*) doivent être remplis</div>
+                            </div>
+                        </div>
+                        
+                        <div class="constraint-item">
+                            <div class="constraint-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="constraint-content">
+                                <div class="constraint-title">MONTANT</div>
+                                <div class="constraint-desc">Doit être positif, format décimal valide (ex: 99.99)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="constraint-item">
+                            <div class="constraint-icon">
+                                <i class="fas fa-hashtag"></i>
+                            </div>
+                            <div class="constraint-content">
+                                <div class="constraint-title">RÉFÉRENCE</div>
+                                <div class="constraint-desc">5-255 caractères : lettres, chiffres, tirets et underscores uniquement</div>
+                            </div>
+                        </div>
+                        
+                        <div class="constraint-item">
+                            <div class="constraint-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="constraint-content">
+                                <div class="constraint-title">DATE</div>
+                                <div class="constraint-desc">Ne peut pas être dans le futur, format datetime valide</div>
+                            </div>
+                        </div>
+                        
+                        <div class="constraint-item">
+                            <div class="constraint-icon">
+                                <i class="fas fa-list-check"></i>
+                            </div>
+                            <div class="constraint-content">
+                                <div class="constraint-title">VALEURS PRÉDÉFINIES</div>
+                                <div class="constraint-desc">Méthode et Statut doivent être sélectionnés parmi les options proposées</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,6 +302,16 @@
                         </div>
                         
                         <div class="preview-details">
+                            <div class="detail">
+                                <span class="label">ARTICLE:</span>
+                                <span class="value" id="preview-item">
+                                    {% if payment.shopItem %}
+                                        <i class="fas fa-cube"></i> {{ payment.shopItem.itemName }} - {{ payment.shopItem.totalPrice|number_format(2, ',', ' ') }} €
+                                    {% else %}
+                                        <i class="fas fa-cube"></i> Aucun
+                                    {% endif %}
+                                </span>
+                            </div>
                             <div class="detail">
                                 <span class="label">MÉTHODE:</span>
                                 <span class="value" id="preview-method">
@@ -279,6 +432,16 @@
                         <span class="value">{{ payment.paymentDate|date('d/m/Y H:i') }}</span>
                     </div>
                     <div class="detail-modal">
+                        <span class="label">Article:</span>
+                        <span class="value">
+                            {% if payment.shopItem %}
+                                {{ payment.shopItem.itemName }} ({{ payment.shopItem.totalPrice|number_format(2, ',', ' ') }} €)
+                            {% else %}
+                                Aucun
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="detail-modal">
                         <span class="label">Statut:</span>
                         <span class="value {{ payment.paymentStatus }}">{{ payment.paymentStatus|upper }}</span>
                     </div>
@@ -360,6 +523,20 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    position: relative;
+}
+
+.form-label:after {
+    content: ' *';
+    color: var(--neon-red);
+    font-weight: bold;
+}
+
+.form-hint {
+    color: var(--neon-yellow);
+    cursor: help;
+    margin-left: auto;
+    font-size: 0.8rem;
 }
 
 .neon-input, .neon-select {
@@ -409,6 +586,75 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+.validation-info {
+    color: var(--neon-blue);
+    font-size: 0.75rem;
+    margin-top: 5px;
+    padding: 5px 10px;
+    background: rgba(0, 243, 255, 0.1);
+    border-radius: 5px;
+    border-left: 3px solid var(--neon-blue);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.validation-info i {
+    font-size: 0.7rem;
+}
+
+/* SECTION CONTRAINTES */
+.constraints-section {
+    background: rgba(157, 0, 255, 0.1);
+    border-color: var(--neon-purple);
+}
+
+.constraints-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.constraint-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(157, 0, 255, 0.2);
+}
+
+.constraint-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(157, 0, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--neon-purple);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.constraint-content {
+    flex: 1;
+}
+
+.constraint-title {
+    font-weight: 700;
+    color: var(--neon-blue);
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.constraint-desc {
+    color: #aaa;
+    font-size: 0.85rem;
+    line-height: 1.4;
 }
 
 /* FORM ACTIONS */
@@ -569,8 +815,8 @@
 
 .preview-details {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 15px;
     margin-top: 20px;
 }
 
@@ -944,6 +1190,28 @@
     box-shadow: 0 5px 15px rgba(255, 0, 51, 0.4);
 }
 
+/* TOOLTIP */
+[data-toggle="tooltip"] {
+    position: relative;
+}
+
+[data-toggle="tooltip"]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 1000;
+    border: 1px solid var(--neon-blue);
+    margin-bottom: 8px;
+}
+
 /* VARIABLES */
 :root {
     --neon-red: #ff0033;
@@ -958,6 +1226,21 @@
         grid-template-columns: 1fr;
     }
 }
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
 </style>
 
 <script>
@@ -969,6 +1252,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const statusSelect = document.querySelector('#payment_paymentStatus');
     const refInput = document.querySelector('#payment_transactionRef');
     const dateInput = document.querySelector('#payment_paymentDate');
+    const shopItemSelect = document.querySelector('#payment_shopItem');
     
     // Éléments de prévisualisation
     const previewAmount = document.getElementById('preview-amount');
@@ -977,6 +1261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const liveStatus = document.getElementById('live-status');
     const previewRef = document.getElementById('preview-ref');
     const previewDate = document.getElementById('preview-date');
+    const previewItem = document.getElementById('preview-item');
     
     // Fonction pour formater le montant
     function formatAmount(value) {
@@ -987,10 +1272,80 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fonction pour obtenir l'icône de méthode
     function getMethodIcon(method) {
         switch(method) {
-            case 'card': return '<i class="fas fa-credit-card"></i> CARTE';
+            case 'credit_card': return '<i class="fas fa-credit-card"></i> CARTE CRÉDIT';
+            case 'debit_card': return '<i class="fas fa-credit-card"></i> CARTE DÉBIT';
             case 'paypal': return '<i class="fab fa-paypal"></i> PAYPAL';
-            default: return '<i class="fas fa-wallet"></i> WALLET';
+            case 'bank_transfer': return '<i class="fas fa-university"></i> VIREMENT';
+            case 'cash': return '<i class="fas fa-money-bill-wave"></i> ESPÈCES';
+            case 'check': return '<i class="fas fa-money-check"></i> CHÈQUE';
+            default: return '<i class="fas fa-wallet"></i> AUTRE';
         }
+    }
+    
+    // Fonction pour obtenir les détails de l'article
+    function getItemDetails(option) {
+        if (!option) return { name: 'Aucun', price: '0,00 €' };
+        
+        const text = option.textContent || '';
+        // Extraire le nom et le prix du texte de l'option
+        const parts = text.split(' - ');
+        if (parts.length >= 2) {
+            return {
+                name: parts[0],
+                price: parts[1]
+            };
+        }
+        return {
+            name: text,
+            price: '0,00 €'
+        };
+    }
+    
+    // Fonction pour valider le montant
+    function validateAmount(value) {
+        const regex = /^\d+(\.\d{1,2})?$/;
+        if (!regex.test(value)) {
+            return 'Format invalide. Utilisez: 99.99';
+        }
+        
+        const num = parseFloat(value);
+        if (num <= 0) {
+            return 'Le montant doit être positif';
+        }
+        
+        if (num > 99999999.99) {
+            return 'Montant trop élevé';
+        }
+        
+        return null;
+    }
+    
+    // Fonction pour valider la référence
+    function validateReference(value) {
+        if (value.length < 5 || value.length > 255) {
+            return 'Doit faire entre 5 et 255 caractères';
+        }
+        
+        const regex = /^[a-zA-Z0-9\-_]+$/;
+        if (!regex.test(value)) {
+            return 'Caractères non autorisés. Utilisez lettres, chiffres, tirets et underscores uniquement';
+        }
+        
+        return null;
+    }
+    
+    // Fonction pour valider la date
+    function validateDate(value) {
+        if (!value) return 'Date requise';
+        
+        const selectedDate = new Date(value);
+        const now = new Date();
+        
+        if (selectedDate > now) {
+            return 'La date ne peut pas être dans le futur';
+        }
+        
+        return null;
     }
     
     // Fonction pour mettre à jour la prévisualisation
@@ -998,6 +1353,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Montant
         if (amountInput) {
             previewAmount.textContent = formatAmount(amountInput.value);
+            
+            // Validation visuelle
+            const error = validateAmount(amountInput.value);
+            if (error && amountInput.value) {
+                amountInput.style.borderColor = 'var(--neon-red)';
+                amountInput.style.boxShadow = '0 0 10px rgba(255, 0, 51, 0.3)';
+            } else {
+                amountInput.style.borderColor = error ? 'var(--neon-red)' : '';
+                amountInput.style.boxShadow = '';
+            }
         }
         
         // Méthode
@@ -1023,13 +1388,42 @@ document.addEventListener('DOMContentLoaded', function() {
         // Référence
         if (refInput && refInput.value) {
             previewRef.textContent = refInput.value;
+            
+            // Validation visuelle
+            const error = validateReference(refInput.value);
+            if (error && refInput.value) {
+                refInput.style.borderColor = 'var(--neon-red)';
+                refInput.style.boxShadow = '0 0 10px rgba(255, 0, 51, 0.3)';
+            } else {
+                refInput.style.borderColor = error ? 'var(--neon-red)' : '';
+                refInput.style.boxShadow = '';
+            }
         }
         
         // Date
-        if (dateInput && dateInput.value) {
-            const date = new Date(dateInput.value);
-            previewDate.textContent = date.toLocaleDateString('fr-FR') + ' ' + 
-                                     date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'});
+        if (dateInput) {
+            if (dateInput.value) {
+                const date = new Date(dateInput.value);
+                previewDate.textContent = date.toLocaleDateString('fr-FR') + ' ' + 
+                                         date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'});
+                
+                // Validation visuelle
+                const error = validateDate(dateInput.value);
+                if (error) {
+                    dateInput.style.borderColor = 'var(--neon-red)';
+                    dateInput.style.boxShadow = '0 0 10px rgba(255, 0, 51, 0.3)';
+                } else {
+                    dateInput.style.borderColor = '';
+                    dateInput.style.boxShadow = '';
+                }
+            }
+        }
+        
+        // Article
+        if (shopItemSelect && shopItemSelect.selectedIndex > 0) {
+            const selectedOption = shopItemSelect.options[shopItemSelect.selectedIndex];
+            const item = getItemDetails(selectedOption);
+            previewItem.innerHTML = `<i class="fas fa-cube"></i> ${item.name} - ${item.price}`;
         }
     }
     
@@ -1039,6 +1433,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (statusSelect) statusSelect.addEventListener('change', updatePreview);
     if (refInput) refInput.addEventListener('input', updatePreview);
     if (dateInput) dateInput.addEventListener('change', updatePreview);
+    if (shopItemSelect) shopItemSelect.addEventListener('change', updatePreview);
     
     // Initialiser la prévisualisation
     updatePreview();
@@ -1067,6 +1462,18 @@ document.addEventListener('DOMContentLoaded', function() {
         .form-group {
             opacity: 0;
         }
+        
+        /* Validation visuelle */
+        .neon-input:invalid {
+            border-color: var(--neon-red);
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
     `;
     document.head.appendChild(style);
     
@@ -1074,6 +1481,59 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('payment-form');
     if (form) {
         form.addEventListener('submit', function(e) {
+            let isValid = true;
+            let errorMessages = [];
+            
+            // Validation du montant
+            if (!amountInput.value) {
+                isValid = false;
+                errorMessages.push('Le montant est obligatoire');
+            } else {
+                const amountError = validateAmount(amountInput.value);
+                if (amountError) {
+                    isValid = false;
+                    errorMessages.push('Montant: ' + amountError);
+                }
+            }
+            
+            // Validation de la référence
+            if (!refInput.value) {
+                isValid = false;
+                errorMessages.push('La référence est obligatoire');
+            } else {
+                const refError = validateReference(refInput.value);
+                if (refError) {
+                    isValid = false;
+                    errorMessages.push('Référence: ' + refError);
+                }
+            }
+            
+            // Validation de l'article
+            if (!shopItemSelect.value) {
+                isValid = false;
+                errorMessages.push('L\'article est obligatoire');
+            }
+            
+            // Validation de la date
+            if (!dateInput.value) {
+                isValid = false;
+                errorMessages.push('La date est obligatoire');
+            } else {
+                const dateError = validateDate(dateInput.value);
+                if (dateError) {
+                    isValid = false;
+                    errorMessages.push('Date: ' + dateError);
+                }
+            }
+            
+            // Si erreurs, afficher message et empêcher l'envoi
+            if (!isValid) {
+                e.preventDefault();
+                alert('⚠️ ERREURS DE VALIDATION :\n\n' + errorMessages.join('\n'));
+                return false;
+            }
+            
+            // Validation supplémentaire pour statut "failed"
             const status = statusSelect ? statusSelect.value : '';
             if (status === 'failed') {
                 if (!confirm('⚠️ Vous êtes sur le point de marquer ce paiement comme ÉCHOUÉ. Voulez-vous continuer ?')) {
@@ -1081,8 +1541,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     return false;
                 }
             }
+            
+            // Animation de chargement
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> MISE À JOUR...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
         });
     }
+    
+    // Tooltips
+    const tooltips = document.querySelectorAll('[data-toggle="tooltip"]');
+    tooltips.forEach(tooltip => {
+        tooltip.addEventListener('mouseenter', function() {
+            const tooltipText = this.getAttribute('title');
+            if (tooltipText) {
+                // Vous pouvez ajouter ici un système de tooltip personnalisé si nécessaire
+            }
+        });
+    });
 });
 </script>
 {% endblock %}

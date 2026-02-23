@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Échec de paiement - Phantom Shop</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #0a0a0a; color: #ffffff; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 20px auto; background: #1a1a2e; border: 3px solid #ff0033; border-radius: 15px; overflow: hidden; }
+        .header { background: linear-gradient(90deg, #ff0033, #ff3366); padding: 30px; text-align: center; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 800; }
+        .content { padding: 30px; }
+        .error-badge { background: rgba(255,0,51,0.2); border: 2px solid #ff0033; border-radius: 30px; padding: 10px 20px; display: inline-block; color: #ff0033; font-weight: 900; margin-bottom: 20px; }
+        .error-card { background: rgba(255,0,51,0.1); border: 2px solid #ff0033; border-radius: 10px; padding: 20px; text-align: center; margin: 20px 0; }
+        .info-card { background: rgba(255,255,255,0.05); border: 2px solid #ff0033; border-radius: 10px; padding: 20px; margin: 20px 0; }
+        .info-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,0,51,0.3); }
+        .info-item:last-child { border-bottom: none; }
+        .info-label { color: #aaa; }
+        .info-value { color: #ff0033; font-weight: 700; }
+        .button { display: inline-block; padding: 15px 30px; background: linear-gradient(90deg, #ff0033, #ff3366); color: white; text-decoration: none; border-radius: 30px; font-weight: 700; margin: 20px 0; }
+        .footer { background: #0a0a0a; padding: 20px; text-align: center; border-top: 2px solid #ff0033; color: #777; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 PHANTOM SHOP 🔥</h1>
+        </div>
+        
+        <div class="content">
+            <div style="text-align: center;">
+                <span class="error-badge">❌ ÉCHEC DU PAIEMENT</span>
+            </div>
+            
+            <div class="error-card">
+                <h2>Paiement non abouti</h2>
+                <p>Votre tentative de paiement n'a pas pu être traitée.</p>
+            </div>
+            
+            <div class="info-card">
+                <h3 style="color: #ff0033; margin-top: 0;">Détails de la tentative</h3>
+                <div class="info-item">
+                    <span class="info-label">Transaction :</span>
+                    <span class="info-value">{{ payment.transactionRef }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Montant :</span>
+                    <span class="info-value">{{ payment.amount }} €</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Date :</span>
+                    <span class="info-value">{{ payment.paymentDate|date('d/m/Y H:i') }}</span>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <p style="color: #aaa;">Veuillez vérifier vos informations et réessayer.</p>
+                <a href="#" class="button">RÉESSAYER</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© {{ "now"|date('Y') }} Phantom Shop. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>

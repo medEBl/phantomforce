@@ -59,6 +59,17 @@
                         <div class="input-icon">
                             <i class="fas fa-tag"></i>
                         </div>
+                        <!-- Contraintes -->
+                        <div class="constraints">
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Le nom de l'article est obligatoire</span>
+                            </div>
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Ne peut pas dépasser 255 caractères</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group full-width">
@@ -71,6 +82,13 @@
                         <div class="textarea-icon">
                             <i class="fas fa-align-left"></i>
                         </div>
+                        <!-- Contraintes -->
+                        <div class="constraints">
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>La description est obligatoire</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -81,6 +99,17 @@
                                 <i class="fas fa-chevron-down"></i>
                             </div>
                         </div>
+                        <!-- Contraintes -->
+                        <div class="constraints">
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>La catégorie est obligatoire</span>
+                            </div>
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Ne peut pas dépasser 100 caractères</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -89,6 +118,17 @@
                             {{ form_widget(form.status, {'attr': {'class': 'neon-select'}}) }}
                             <div class="select-arrow">
                                 <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <!-- Contraintes -->
+                        <div class="constraints">
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Le statut est obligatoire</span>
+                            </div>
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Doit être: pending, processing, shipped, delivered ou cancelled</span>
                             </div>
                         </div>
                     </div>
@@ -116,6 +156,17 @@
                                 <i class="fas fa-euro-sign"></i>
                             </div>
                         </div>
+                        <!-- Contraintes -->
+                        <div class="constraints">
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Le prix est obligatoire</span>
+                            </div>
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Doit être positif (supérieur à 0)</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -127,6 +178,43 @@
                         <div class="input-icon">
                             <i class="fas fa-cubes"></i>
                         </div>
+                        <!-- Contraintes -->
+                        <div class="constraints">
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>La quantité est obligatoire</span>
+                            </div>
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Doit être positive (supérieure à 0)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.totalPrice, null, {'label_attr': {'class': 'form-label'}}) }}
+                        <div class="input-with-icon">
+                            {{ form_widget(form.totalPrice, {'attr': {
+                                'class': 'neon-input',
+                                'placeholder': '0.00',
+                                'readonly': 'readonly'
+                            }}) }}
+                            <span class="input-suffix">€</span>
+                            <div class="input-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                        </div>
+                        <!-- Contraintes -->
+                        <div class="constraints">
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Le prix total est obligatoire</span>
+                            </div>
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Doit être positif (supérieur à 0)</span>
+                            </div>
+                        </div>
                     </div>
 
                     {% if form.purchaseDate is defined %}
@@ -137,6 +225,33 @@
                         }}) }}
                         <div class="input-icon">
                             <i class="far fa-calendar"></i>
+                        </div>
+                        <!-- Contraintes -->
+                        <div class="constraints">
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>La date d'achat est obligatoire</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if form.buyerId is defined %}
+                    <div class="form-group">
+                        {{ form_label(form.buyerId, null, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.buyerId, {'attr': {
+                            'class': 'neon-input',
+                            'placeholder': 'ID de l\'acheteur'
+                        }}) }}
+                        <div class="input-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <!-- Contraintes -->
+                        <div class="constraints">
+                            <div class="constraint-item">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span>Doit être positif si renseigné</span>
+                            </div>
                         </div>
                     </div>
                     {% endif %}
@@ -251,6 +366,18 @@
                         <div class="mini-stat-label">ID ITEM</div>
                     </div>
                 </div>
+
+                {% if shop_item.buyerId %}
+                <div class="mini-stat">
+                    <div class="mini-stat-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="mini-stat-info">
+                        <div class="mini-stat-value">#{{ shop_item.buyerId }}</div>
+                        <div class="mini-stat-label">ACHETEUR</div>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -388,19 +515,31 @@
     font-size: 0.9rem;
 }
 
-.preview-badge.paid {
-    background: rgba(0, 255, 65, 0.2);
-    color: var(--neon-green);
-    border: 1px solid var(--neon-green);
-}
-
 .preview-badge.pending {
     background: rgba(255, 204, 0, 0.2);
     color: var(--neon-yellow);
     border: 1px solid var(--neon-yellow);
 }
 
-.preview-badge.canceled {
+.preview-badge.processing {
+    background: rgba(0, 243, 255, 0.2);
+    color: var(--neon-blue);
+    border: 1px solid var(--neon-blue);
+}
+
+.preview-badge.shipped {
+    background: rgba(157, 0, 255, 0.2);
+    color: var(--neon-purple);
+    border: 1px solid var(--neon-purple);
+}
+
+.preview-badge.delivered {
+    background: rgba(0, 255, 65, 0.2);
+    color: var(--neon-green);
+    border: 1px solid var(--neon-green);
+}
+
+.preview-badge.cancelled {
     background: rgba(255, 0, 51, 0.2);
     color: var(--neon-red);
     border: 1px solid var(--neon-red);
@@ -470,6 +609,31 @@
 .indicator-dot.active {
     background: var(--neon-red);
     box-shadow: 0 0 10px var(--neon-red);
+}
+
+/* CONTRAINTES */
+.constraints {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.constraint-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.constraint-item i {
+    color: var(--neon-yellow);
+    font-size: 0.7rem;
+}
+
+.constraint-item:last-child {
+    margin-bottom: 0;
 }
 
 /* FORMULAIRE */
@@ -986,6 +1150,14 @@
     0% { filter: drop-shadow(0 0 5px var(--neon-red)); }
     100% { filter: drop-shadow(0 0 20px var(--neon-blue)); }
 }
+
+/* FORM ERRORS */
+.form-error {
+    color: var(--neon-red);
+    font-size: 0.8rem;
+    margin-top: 5px;
+    min-height: 20px;
+}
 </style>
 
 <script>
@@ -1036,8 +1208,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const quantity = parseFloat(quantityInput.value) || 0;
             const total = price * quantity;
             previewTotal.textContent = total.toFixed(2).replace('.', ',') + ' €';
+            
+            // Mettre à jour le champ totalPrice
+            const totalPriceInput = document.querySelector('[name*="[totalPrice]"]');
+            if (totalPriceInput) {
+                totalPriceInput.value = total.toFixed(2);
+            }
         }
     }
+
+    // Initialiser la prévisualisation
+    updatePreview();
 
     // Gestion de la modal de suppression
     const deleteTrigger = document.getElementById('deleteTrigger');
@@ -1101,4 +1282,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-{% endblock %}      
+{% endblock %}

@@ -1,7 +1,59 @@
-controllers:
+ontrollers:
     resource: ../src/Controller/
     type: annotation
 
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+# Créer un nouveau paiement
+app_payment_new:
+    path: /payment/new
+    controller: App\Controller\PaymentController::new
+    methods: [GET, POST]
+
+# Afficher un paiement
+app_payment_show:
+    path: /payment/{id}
+    controller: App\Controller\PaymentController::show
+    methods: GET
+
+# Éditer un paiement
+app_payment_edit:
+    path: /payment/{id}/edit
+    controller: App\Controller\PaymentController::edit
+    methods: [GET, POST]
+
+# Supprimer un paiement
+app_payment_delete:
+    path: /payment/{id}
+    controller: App\Controller\PaymentController::delete
+    methods: POST
+
+app_shop_item_index:
+    path: /shop
+    controller: App\Controller\ShopItemController::index
+    methods: GET
+
+# Créer un nouvel article
+app_shop_item_new:
+    path: /shop/new
+    controller: App\Controller\ShopItemController::new
+    methods: [GET, POST]
+
+# Afficher un article
+app_shop_item_show:
+    path: /shop/{id}
+    controller: App\Controller\ShopItemController::show
+    methods: GET
+
+# Éditer un article
+app_shop_item_edit:
+    path: /shop/{id}/edit
+    controller: App\Controller\ShopItemController::edit
+    methods: [GET, POST]
+
+# Supprimer un article
+app_shop_item_delete:
+    path: /shop/{id}
+    controller: App\Controller\ShopItemController::delete
+    methods: POST

@@ -1,0 +1,14 @@
+knp_snappy:
+    pdf:
+        enabled: true
+        binary: '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"'
+        options:
+            no-outline: true
+            margin-top: 10
+            margin-right: 10
+            margin-bottom: 10
+            margin-left: 10
+            page-size: A4
+            encoding: UTF-8
+            enable-local-file-access: true
+    process_timeout: 60

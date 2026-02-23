@@ -149,6 +149,35 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- BOUTON STRIPE (AJOUTÉ ICI) -->
+                {% if payment.paymentStatus == 'pending' and payment.shopItem %}
+                <div class="stripe-payment-section">
+                    <div class="stripe-card">
+                        <div class="stripe-header">
+                            <i class="fab fa-stripe"></i>
+                            <span>PAIEMENT STRIPE</span>
+                        </div>
+                        <div class="stripe-body">
+                            <p>Finalisez votre achat en payant par carte bancaire</p>
+                            <div class="price-display">
+                                <span class="label">Total à payer :</span>
+                                <span class="amount">{{ payment.amount|number_format(2, ',', ' ') }} €</span>
+                            </div>
+                            <a href="{{ path('app_payment_checkout', {'id': payment.id}) }}" class="btn-stripe">
+                                <i class="fas fa-lock"></i> Payer avec Stripe
+                            </a>
+                            <div class="stripe-footer">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Paiement sécurisé</span>
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
                 
                 <!-- ACTIONS -->
                 <div class="action-buttons">
@@ -160,6 +189,13 @@
                         <i class="fas fa-copy"></i>
                         DUPLIQUER
                     </a>
+                    
+                    <!-- NOUVEAU BOUTON FACTURE -->
+                    <a href="{{ path('app_payment_invoice', {'id': payment.id}) }}" class="action-btn invoice-btn" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        FACTURE
+                    </a>
+                    
                     <button type="button" class="action-btn delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
                         <i class="fas fa-trash"></i>
                         SUPPRIMER
@@ -537,6 +573,111 @@
     font-size: 1rem;
 }
 
+/* STYLES POUR LA SECTION STRIPE */
+.stripe-payment-section {
+    margin: 20px 0;
+    animation: slideInUp 0.5s ease-out;
+}
+
+.stripe-card {
+    background: linear-gradient(135deg, rgba(103, 114, 229, 0.1), rgba(85, 91, 191, 0.05));
+    border: 3px solid #6772e5;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(103, 114, 229, 0.2);
+}
+
+.stripe-header {
+    background: #6772e5;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.stripe-header i {
+    font-size: 24px;
+}
+
+.stripe-body {
+    padding: 25px;
+    text-align: center;
+}
+
+.stripe-body p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.price-display {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1rem;
+}
+
+.price-display .label {
+    color: #6772e5;
+    font-weight: 600;
+}
+
+.price-display .amount {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--neon-green);
+}
+
+.btn-stripe {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #6772e5, #555abf);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-stripe:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(103, 114, 229, 0.4);
+}
+
+.btn-stripe i {
+    font-size: 1rem;
+}
+
+.stripe-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(103, 114, 229, 0.3);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.stripe-footer i {
+    font-size: 1.3rem;
+    color: #6772e5;
+}
+
 /* ACTIONS */
 .action-buttons {
     display: flex;
@@ -600,6 +741,20 @@
     color: black;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(255, 0, 51, 0.4);
+}
+
+/* NOUVEAU STYLE POUR LE BOUTON FACTURE */
+.invoice-btn {
+    background: rgba(255, 138, 45, 0.2);
+    border-color: #ff8a2d;
+    color: #ff8a2d;
+}
+
+.invoice-btn:hover {
+    background: #ff8a2d;
+    color: black;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 138, 45, 0.4);
 }
 
 /* SUMMARY CARD */
@@ -1366,6 +1521,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
+})
 </script>
 {% endblock %}

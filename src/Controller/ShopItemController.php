@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-#[Route('/shop')] 
+#[Route('/shop')] // CHANGER LA ROUTE
 class ShopItemController extends AbstractController
 {
     #[Route('/', name: 'app_shop_item_index', methods: ['GET'])]

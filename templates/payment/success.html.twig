@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}✅ PAIEMENT RÉUSSI - PHANTOM SHOP{% endblock %}
+
+{% block body %}
+<div class="aggressive-shop">
+    <!-- HEADER -->
+    <div class="shop-header">
+        <h1 class="shop-title">✅ <span>PAIEMENT RÉUSSI</span> ✅</h1>
+        <p class="shop-subtitle">TRANSACTION #{{ payment.id }} • {{ payment.paymentDate|date('d/m/Y H:i') }}</p>
+    </div>
+
+    <!-- CONTENU PRINCIPAL -->
+    <div class="success-container">
+        <div class="success-icon-wrapper">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+        </div>
+
+        <div class="success-message">
+            <h2>FÉLICITATIONS !</h2>
+            <p>Votre paiement a été traité avec succès.</p>
+        </div>
+
+        <!-- RÉSUMÉ DE LA TRANSACTION -->
+        <div class="transaction-summary">
+            <h3><i class="fas fa-receipt"></i> RÉSUMÉ DE LA TRANSACTION</h3>
+            
+            <div class="summary-card">
+                <div class="summary-row">
+                    <span class="summary-label">RÉFÉRENCE</span>
+                    <span class="summary-value">{{ payment.transactionRef }}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">MONTANT</span>
+                    <span class="summary-value amount">{{ payment.amount|number_format(2, ',', ' ') }} €</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">JEU</span>
+                    <span class="summary-value">{{ payment.shopItem.itemName }}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">DATE</span>
+                    <span class="summary-value">{{ payment.paymentDate|date('d/m/Y H:i') }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOUVEAU : BOUTON FACTURE -->
+        <div class="invoice-section">
+            <a href="{{ path('app_payment_invoice', {'id': payment.id}) }}" class="btn-invoice" target="_blank">
+                <i class="fas fa-file-pdf"></i>
+                TÉLÉCHARGER MA FACTURE
+            </a>
+            <p class="invoice-info">
+                <i class="fas fa-info-circle"></i>
+                Votre facture est disponible en téléchargement
+            </p>
+        </div>
+
+        <!-- BOUTONS D'ACTION -->
+        <div class="action-buttons">
+            <a href="{{ path('app_games_popular') }}" class="action-btn shop-btn">
+                <i class="fas fa-shopping-cart"></i>
+                CONTINUER MES ACHATS
+            </a>
+            <a href="{{ path('app_payment_show', {'id': payment.id}) }}" class="action-btn view-btn">
+                <i class="fas fa-eye"></i>
+                VOIR DÉTAILS
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+.success-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--bg-card);
+    border: 3px solid var(--neon-green);
+    border-radius: 20px;
+}
+
+.success-icon-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.success-icon {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--neon-green), #00cc33);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.success-icon i {
+    font-size: 50px;
+    color: black;
+}
+
+.success-message {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.success-message h2 {
+    color: var(--neon-green);
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+/* NOUVEAU STYLE POUR LA SECTION FACTURE */
+.invoice-section {
+    margin: 30px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 138, 45, 0.1), rgba(255, 138, 45, 0.05));
+    border: 3px solid #ff8a2d;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.btn-invoice {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #ff8a2d, #ffaa5d);
+    color: black;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.btn-invoice:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 138, 45, 0.4);
+}
+
+.invoice-info {
+    margin-top: 15px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.invoice-info i {
+    color: #ff8a2d;
+    margin-right: 5px;
+}
+
+/* BOUTONS D'ACTION */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 15px 20px;
+    border: 2px solid;
+    border-radius: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.shop-btn {
+    background: rgba(0, 255, 65, 0.2);
+    border-color: var(--neon-green);
+    color: var(--neon-green);
+}
+
+.shop-btn:hover {
+    background: var(--neon-green);
+    color: black;
+}
+
+.view-btn {
+    background: rgba(0, 243, 255, 0.2);
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+}
+
+.view-btn:hover {
+    background: var(--neon-blue);
+    color: black;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.summary-label {
+    color: var(--text-muted);
+}
+
+.summary-value {
+    font-weight: 600;
+}
+
+.summary-value.amount {
+    color: var(--neon-green);
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+</style>
+{% endblock %}
