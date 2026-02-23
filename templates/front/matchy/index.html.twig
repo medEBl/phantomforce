@@ -21,6 +21,8 @@
         --white: #ffffff;
         --red-gradient: linear-gradient(135deg, #ff0000 0%, #cc0000 50%, #990000 100%);
         --fire-gradient: linear-gradient(45deg, #ff0000, #ff3300, #cc0000);
+        --location-glow: rgba(255, 193, 7, 0.7);
+        --location-yellow: #ffc107;
     }
     
     body {
@@ -44,7 +46,83 @@
             radial-gradient(circle at 40% 90%, rgba(255, 51, 51, 0.1) 0%, transparent 50%);
         z-index: -1;
     }
-    
+        /* Contrôle musique */
+    /* Contrôle musique - Position en haut à gauche */
+.music-control {
+    position: fixed;
+    top: 100px;
+    left: 10px;
+    z-index: 999;
+}
+
+.music-toggle-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--blood-red), var(--dark-red));
+    border: 2px solid white;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s infinite;
+}
+
+.music-toggle-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+}
+
+.music-toggle-btn.playing {
+    background: linear-gradient(45deg, #00ff88, #00cc66);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+}
+
+.music-toggle-btn.playing:hover {
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+    100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+}
+
+/* Message audio non autorisé - adapté à la position gauche */
+.audio-error-message {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--blood-red);
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: white;
+    font-size: 0.9rem;
+    z-index: 1000;
+    animation: slideInLeft 0.3s ease;
+    display: none;
+    border-left: 4px solid #ffcc00;
+}
+
+.audio-error-message.show {
+    display: block;
+}
+
+@keyframes slideInLeft {
+    from { transform: translateX(-100px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+        50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+        100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+    }
     .gaming-container {
         position: relative;
         padding: 2rem;
@@ -195,7 +273,7 @@
     
     .matches-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
         gap: 2rem;
         padding: 2rem 0;
         position: relative;
@@ -210,7 +288,7 @@
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border: 1px solid rgba(255, 0, 0, 0.3);
         backdrop-filter: blur(10px);
-        min-height: 320px;
+        min-height: 380px;
         display: flex;
         flex-direction: column;
     }
@@ -415,6 +493,34 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+    
+    .location-item {
+        background: rgba(255, 193, 7, 0.1);
+        border-left: 3px solid var(--location-yellow);
+        padding: 0.5rem;
+        border-radius: 5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .location-item strong {
+        color: var(--location-yellow) !important;
+        min-width: 80px;
+    }
+    
+    .location-link {
+        color: var(--location-yellow);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .location-link:hover {
+        text-decoration: underline;
+        transform: translateX(5px);
+        text-shadow: 0 0 10px var(--location-glow);
     }
     
     .status-badge {
@@ -641,7 +747,6 @@
         }
     }
     
-    /* Filtres */
     .filters-container {
         background: rgba(26, 0, 0, 0.9);
         border-radius: 15px;
@@ -782,7 +887,6 @@
         color: var(--blood-red);
     }
     
-    /* Styles pour l'effet de filtrage */
     .match-card.hidden {
         display: none;
     }
@@ -793,7 +897,6 @@
         transition: all 0.3s ease;
     }
     
-    /* Actions avancées */
     .advanced-actions {
         display: flex;
         justify-content: center;
@@ -823,7 +926,6 @@
         box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
     }
     
-    /* Notifications */
     .notification-bell {
         position: fixed;
         bottom: 20px;
@@ -867,7 +969,6 @@
         50% { transform: scale(1.2); }
     }
     
-    /* Modal notifications */
     .notifications-modal {
         display: none;
         position: fixed;
@@ -933,7 +1034,6 @@
         margin-top: 0.3rem;
     }
     
-    /* Toast */
     .toast {
         position: fixed;
         bottom: 100px;
@@ -960,7 +1060,6 @@
         to { transform: translateX(0); opacity: 1; }
     }
     
-    /* Stats overlay */
     .stats-overlay {
         position: fixed;
         top: 20px;
@@ -993,7 +1092,6 @@
         font-weight: 700;
     }
     
-    /* Match highlight */
     .match-card.highlighted {
         animation: highlightPulse 2s infinite;
         border-color: var(--neon-red);
@@ -1056,7 +1154,7 @@
         }
         
         .match-card {
-            min-height: 350px;
+            min-height: 400px;
         }
         
         .advanced-actions {
@@ -1109,7 +1207,7 @@
     
     <!-- Éléments flottants pour l'ambiance gaming -->
     <div class="floating-elements">
-        {% set icons = ['⚔️', '🔥', '💀', '👑', '🛡️', '🎯', '🏆', '💥', '⚡', '⭐'] %}
+        {% set icons = ['⚔️', '🔥', '💀', '👑', '🛡️', '🎯', '🏆', '💥', '⚡', '⭐', '📍', '🗺️'] %}
         {% for i in 1..15 %}
             {% set iconIndex = (i % icons|length) %}
             {% set leftPosition = 5 + ((i * 7) % 90) %}
@@ -1165,6 +1263,10 @@
             <span>Avec gagnant:</span>
             <span class="stats-value" id="statWithWinner">0</span>
         </div>
+        <div class="stats-item">
+            <span>Avec localisation:</span>
+            <span class="stats-value" id="statWithLocation">0</span>
+        </div>
     </div>
     
     <!-- En-tête avec effet néon -->
@@ -1184,6 +1286,9 @@
         </a>
         <a href="{{ path('app_map') }}" class="add-match-btn" style="background: linear-gradient(45deg, #0066cc, #003399);">
             🗺️ CARTE DES ARÈNES
+        </a>
+        <a href="{{ path('app_games_index') }}" class="add-match-btn" style="background: linear-gradient(45deg, #00cc66, #00994d);">
+            🎮 JEUX GRATUITS
         </a>
         {% endif %}
     </div>
@@ -1246,6 +1351,15 @@
                 </select>
             </div>
             
+            <div class="filter-group">
+                <label class="filter-label">📍 AVEC LOCALISATION :</label>
+                <select id="locationFilter" class="filter-select">
+                    <option value="">Tous</option>
+                    <option value="with">Avec localisation</option>
+                    <option value="without">Sans localisation</option>
+                </select>
+            </div>
+            
             <button id="resetFilters" class="reset-btn">🔄 Réinitialiser</button>
         </div>
         
@@ -1272,7 +1386,10 @@
                     },
                     'status': match.status|upper,
                     'winner': match.winnerTeam ? match.winnerTeam.name : 'Pas encore de vainqueur',
-                    'status_label': match.statusLabel|default(match.status|upper)
+                    'status_label': match.statusLabel|default(match.status|upper),
+                    'location': match.location|default(''),
+                    'latitude': match.latitude|default(''),
+                    'longitude': match.longitude|default('')
                 } %}
                 
                 <div class="match-card {% if match.status == 'ongoing' %}ongoing{% endif %}" 
@@ -1281,11 +1398,14 @@
                      data-status="{{ match.status|lower }}"
                      data-date="{{ match.matchDate ? match.matchDate|date('U') : 0 }}"
                      data-winner="{{ match.winnerTeam ? 'yes' : 'no' }}"
+                     data-location="{{ match.location ? 'yes' : 'no' }}"
                      data-match='{{ matchData|json_encode|escape('html_attr') }}'>
                     <div class="match-id">#{{ match.id }}</div>
                     
                     <div class="match-header">
-                        <div class="match-game">{{ match.game|upper }}</div>
+                        <div class="match-game">
+                            {{ match.game|upper }}
+                        </div>
                         <div class="match-date">
                             {{ match.matchDate ? match.matchDate|date('d/m/Y H:i') : 'Date non définie' }}
                         </div>
@@ -1345,6 +1465,23 @@
                                 {{ match.status|upper }}
                             </span>
                         </div>
+                        
+                        <!-- Afficher la localisation -->
+                        {% if match.location %}
+                        <div class="detail-item location-item">
+                            <strong>📍 LIEU :</strong>
+                            {% if match.latitude and match.longitude %}
+                            <a href="https://www.google.com/maps/search/?api=1&query={{ match.latitude }},{{ match.longitude }}" 
+                               target="_blank" 
+                               class="location-link">
+                                {{ match.location|slice(0, 30) }}{{ match.location|length > 30 ? '...' : '' }}
+                                <span style="font-size: 0.8rem;">↗</span>
+                            </a>
+                            {% else %}
+                            <span>{{ match.location|slice(0, 30) }}{{ match.location|length > 30 ? '...' : '' }}</span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
                     </div>
                     
                     {% if match.winnerTeam %}
@@ -1402,6 +1539,16 @@
             </a>
         </div>
     {% endif %}
+    <!-- Contrôle musique -->
+        <div class="music-control">
+            <button id="musicToggleBtn" class="music-toggle-btn" title="Activer/Désactiver la musique">
+                🎵
+            </button>
+            <audio id="backgroundMusic" loop style="display: none;">
+                <source src="{{ asset('music/background.mp3') }}" type="audio/mpeg">
+                Votre navigateur ne supporte pas l'audio.
+            </audio>
+        </div>
 </div>
 
 <script>
@@ -1418,6 +1565,7 @@
     const gameFilter = document.getElementById('gameFilter');
     const statusFilter = document.getElementById('statusFilter');
     const winnerFilter = document.getElementById('winnerFilter');
+    const locationFilter = document.getElementById('locationFilter');
     const resetFiltersBtn = document.getElementById('resetFilters');
     const matchCount = document.getElementById('matchCount');
     const activeMatches = document.getElementById('activeMatches');
@@ -1442,6 +1590,7 @@
     const statOngoing = document.getElementById('statOngoing');
     const statFinished = document.getElementById('statFinished');
     const statWithWinner = document.getElementById('statWithWinner');
+    const statWithLocation = document.getElementById('statWithLocation');
     
     // Fonction pour afficher un toast
     function showToast(message, duration = 3000) {
@@ -1473,7 +1622,6 @@
         renderNotifications();
         saveNotifications();
         
-        // Notification sonore (optionnelle)
         if (type === 'alert') {
             playNotificationSound();
         }
@@ -1481,25 +1629,22 @@
         showToast(message);
     }
     
-    // Fonction pour jouer un son de notification
     function playNotificationSound() {
         try {
             const audio = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEAQB8AAEAfAAABAAgAZGF0YQ');
             audio.volume = 0.3;
             audio.play();
         } catch (e) {
-            // Fallback silencieux si l'audio échoue
+            // Fallback silencieux
         }
     }
     
-    // Fonction pour mettre à jour le badge de notification
     function updateNotificationBadge() {
         const unreadCount = notifications.filter(n => !n.read).length;
         notificationBadge.textContent = unreadCount;
         notificationBadge.style.display = unreadCount > 0 ? 'block' : 'none';
     }
     
-    // Fonction pour afficher les notifications
     function renderNotifications() {
         notificationsList.innerHTML = '';
         
@@ -1531,7 +1676,6 @@
         });
     }
     
-    // Fonction pour effacer toutes les notifications
     function clearNotifications() {
         notifications = [];
         updateNotificationBadge();
@@ -1539,7 +1683,6 @@
         saveNotifications();
     }
     
-    // Fonction pour sauvegarder les notifications dans localStorage
     function saveNotifications() {
         try {
             localStorage.setItem('matchNotifications', JSON.stringify(notifications));
@@ -1548,7 +1691,6 @@
         }
     }
     
-    // Fonction pour charger les notifications depuis localStorage
     function loadNotifications() {
         try {
             const saved = localStorage.getItem('matchNotifications');
@@ -1562,14 +1704,12 @@
         }
     }
     
-    // Fonction pour mettre à jour le compteur
     function updateCounter(visibleCount) {
         matchCount.textContent = visibleCount;
         if (activeMatches) {
             activeMatches.textContent = visibleCount;
         }
         
-        // Animation du compteur
         matchCount.style.transform = 'scale(1.2)';
         setTimeout(() => {
             matchCount.style.transform = 'scale(1)';
@@ -1578,20 +1718,20 @@
         updateStats();
     }
     
-    // Fonction pour mettre à jour les statistiques
     function updateStats() {
         const visibleMatches = document.querySelectorAll('.match-card:not(.hidden)');
         const ongoing = document.querySelectorAll('.match-card.ongoing:not(.hidden)').length;
         const finished = document.querySelectorAll('.match-card[data-status="finished"]:not(.hidden)').length;
         const withWinner = document.querySelectorAll('.match-card[data-winner="yes"]:not(.hidden)').length;
+        const withLocation = document.querySelectorAll('.match-card[data-location="yes"]:not(.hidden)').length;
         
         statTotal.textContent = visibleMatches.length;
         statOngoing.textContent = ongoing;
         statFinished.textContent = finished;
         statWithWinner.textContent = withWinner;
+        statWithLocation.textContent = withLocation;
     }
     
-    // Fonction pour exporter la liste des matchs
     function exportMatches() {
         const visibleMatches = Array.from(document.querySelectorAll('.match-card:not(.hidden)'));
         
@@ -1611,20 +1751,22 @@
             const team2 = match.querySelector('.team-info:last-child .team-name').textContent;
             const score2 = match.querySelector('.team-info:last-child .team-score').textContent;
             const status = match.dataset.status.toUpperCase();
-            const hasWinner = match.dataset.winner === 'yes';
+            
+            const locationElement = match.querySelector('.location-item span, .location-item .location-link');
+            const location = locationElement ? locationElement.textContent.trim() : 'Non spécifiée';
             
             exportData += `${index + 1}. ${game}\n`;
             exportData += `   Date: ${date}\n`;
             exportData += `   ${team1} ${score1} - ${score2} ${team2}\n`;
             exportData += `   Statut: ${status}\n`;
-            exportData += `   ${hasWinner ? 'Avec gagnant' : 'Sans gagnant'}\n`;
+            exportData += `   Lieu: ${location}\n`;
+            exportData += `   ${match.dataset.winner === 'yes' ? 'Avec gagnant' : 'Sans gagnant'}\n`;
             exportData += '\n';
         });
         
         exportData += `\nTotal: ${visibleMatches.length} match(s)\n`;
         exportData += `Exporté le: ${new Date().toLocaleDateString('fr-FR')}`;
         
-        // Créer un blob et télécharger
         const blob = new Blob([exportData], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1639,13 +1781,11 @@
         addNotification(`Liste de ${visibleMatches.length} matchs exportée`, 'info');
     }
     
-    // Fonction pour mettre en vedette les matchs importants
     function toggleHighlight() {
         isHighlightActive = !isHighlightActive;
         
         document.querySelectorAll('.match-card').forEach(card => {
             if (isHighlightActive) {
-                // Mettre en vedette les matchs en cours et ceux sans gagnant
                 if (card.classList.contains('ongoing') || card.dataset.winner === 'no') {
                     card.classList.add('highlighted');
                 }
@@ -1664,7 +1804,6 @@
         }
     }
     
-    // Fonction pour activer/désactiver l'actualisation automatique
     function toggleAutoRefresh() {
         if (autoRefreshInterval) {
             clearInterval(autoRefreshInterval);
@@ -1675,7 +1814,7 @@
         } else {
             autoRefreshInterval = setInterval(() => {
                 simulateLiveUpdates();
-            }, 10000); // Actualiser toutes les 10 secondes
+            }, 10000);
             
             refreshBtn.innerHTML = '🔄 Actualisation active';
             showToast('Actualisation automatique activée (10s)');
@@ -1683,12 +1822,10 @@
         }
     }
     
-    // Fonction pour simuler des mises à jour en direct
     function simulateLiveUpdates() {
         const ongoingMatches = document.querySelectorAll('.match-card.ongoing:not(.hidden)');
         
         if (ongoingMatches.length > 0) {
-            // Simuler un changement de score aléatoire
             ongoingMatches.forEach(card => {
                 if (Math.random() > 0.7) {
                     const score1El = card.querySelector('.team-info:first-child .team-score');
@@ -1697,7 +1834,6 @@
                     let score1 = parseInt(score1El.textContent);
                     let score2 = parseInt(score2El.textContent);
                     
-                    // Augmenter aléatoirement un score
                     if (Math.random() > 0.5) {
                         score1 += Math.floor(Math.random() * 2) + 1;
                     } else {
@@ -1707,7 +1843,6 @@
                     score1El.textContent = score1;
                     score2El.textContent = score2;
                     
-                    // Animation
                     score1El.style.transform = 'scale(1.2)';
                     score2El.style.transform = 'scale(1.2)';
                     setTimeout(() => {
@@ -1715,7 +1850,6 @@
                         score2El.style.transform = 'scale(1)';
                     }, 300);
                     
-                    // Mettre à jour la barre de score
                     const totalScore = score1 + score2;
                     const percentage1 = totalScore > 0 ? (score1 / totalScore * 100) : 50;
                     const scoreBar = card.querySelector('.score-bar');
@@ -1723,7 +1857,6 @@
                         scoreBar.style.width = `${percentage1}%`;
                     }
                     
-                    // Notification pour les changements importants
                     if (Math.abs(score1 - score2) >= 5) {
                         const game = card.querySelector('.match-game').textContent;
                         addNotification(`${game}: Écart important (${score1}-${score2})`, 'alert');
@@ -1731,7 +1864,6 @@
                 }
             });
             
-            // Mettre à jour la date de dernière mise à jour
             const now = new Date();
             const timeString = now.toLocaleTimeString('fr-FR', { 
                 hour: '2-digit', 
@@ -1751,7 +1883,6 @@
         }
     }
     
-    // Fonction pour afficher/masquer les statistiques
     function toggleStats() {
         statsOverlay.classList.toggle('active');
         
@@ -1763,7 +1894,6 @@
         }
     }
     
-    // Fonction de recherche
     function searchMatches() {
         const searchTerm = searchInput.value.toLowerCase().trim();
         
@@ -1772,12 +1902,15 @@
             const matchId = match.querySelector('.match-id').textContent.toLowerCase();
             const team1Name = match.querySelector('.team-info:first-child .team-name').textContent.toLowerCase();
             const team2Name = match.querySelector('.team-info:last-child .team-name').textContent.toLowerCase();
+            const locationElement = match.querySelector('.location-item span, .location-item .location-link');
+            const location = locationElement ? locationElement.textContent.toLowerCase() : '';
             
             if (searchTerm === '' || 
                 gameName.includes(searchTerm) || 
                 matchId.includes(searchTerm) ||
                 team1Name.includes(searchTerm) ||
-                team2Name.includes(searchTerm)) {
+                team2Name.includes(searchTerm) ||
+                location.includes(searchTerm)) {
                 match.classList.remove('hidden', 'filtered-out');
             } else {
                 match.classList.add('filtered-out');
@@ -1787,31 +1920,35 @@
         applyFilters();
     }
     
-    // Fonction pour appliquer tous les filtres
     function applyFilters() {
         let visibleMatches = [];
         
         currentMatches.forEach(match => {
             let isVisible = !match.classList.contains('filtered-out');
             
-            // Filtre par jeu
             const selectedGame = gameFilter.value.toLowerCase();
             if (selectedGame && match.dataset.game !== selectedGame) {
                 isVisible = false;
             }
             
-            // Filtre par statut
             const selectedStatus = statusFilter.value;
             if (selectedStatus && match.dataset.status !== selectedStatus) {
                 isVisible = false;
             }
             
-            // Filtre par gagnant
             const winnerStatus = winnerFilter.value;
             if (winnerStatus === 'with' && match.dataset.winner === 'no') {
                 isVisible = false;
             }
             if (winnerStatus === 'without' && match.dataset.winner === 'yes') {
+                isVisible = false;
+            }
+            
+            const locationStatus = locationFilter.value;
+            if (locationStatus === 'with' && match.dataset.location === 'no') {
+                isVisible = false;
+            }
+            if (locationStatus === 'without' && match.dataset.location === 'yes') {
                 isVisible = false;
             }
             
@@ -1823,7 +1960,6 @@
             }
         });
         
-        // Mettre à jour le compteur
         updateCounter(visibleMatches.length);
     }
     
@@ -1832,7 +1968,6 @@
         applyFilters();
         loadNotifications();
         
-        // Notifications de bienvenue
         setTimeout(() => {
             if (notifications.length === 0) {
                 addNotification('Bienvenue sur Phantom Force Matchs!', 'info');
@@ -1840,7 +1975,6 @@
             }
         }, 1000);
         
-        // Afficher le nom complet des équipes au survol
         document.querySelectorAll('.team-name').forEach(element => {
             element.addEventListener('mouseenter', function() {
                 const title = this.getAttribute('title');
@@ -1855,7 +1989,6 @@
             });
         });
         
-        // Animation du compteur live
         if (liveCounter) {
             setInterval(() => {
                 liveCounter.style.transform = 'scale(1.1)';
@@ -1867,7 +2000,6 @@
             }, 2000);
         }
         
-        // Mise à jour de la barre de score en direct
         updateScoreBars();
     });
     
@@ -1882,12 +2014,14 @@
     gameFilter.addEventListener('change', applyFilters);
     statusFilter.addEventListener('change', applyFilters);
     winnerFilter.addEventListener('change', applyFilters);
+    locationFilter.addEventListener('change', applyFilters);
     
     resetFiltersBtn.addEventListener('click', () => {
         searchInput.value = '';
         gameFilter.value = '';
         statusFilter.value = '';
         winnerFilter.value = '';
+        locationFilter.value = '';
         
         currentMatches.forEach(match => {
             match.classList.remove('hidden', 'filtered-out');
@@ -1897,17 +2031,14 @@
         showToast('Filtres réinitialisés');
     });
     
-    // Boutons avancés
     exportBtn.addEventListener('click', exportMatches);
     statsBtn.addEventListener('click', toggleStats);
     highlightBtn.addEventListener('click', toggleHighlight);
     refreshBtn.addEventListener('click', toggleAutoRefresh);
     
-    // Notifications
     notificationBell.addEventListener('click', () => {
         notificationsModal.classList.toggle('active');
         
-        // Marquer toutes comme lues lorsqu'on ouvre
         if (notificationsModal.classList.contains('active')) {
             notifications.forEach(n => n.read = true);
             updateNotificationBadge();
@@ -1916,7 +2047,6 @@
         }
     });
     
-    // Fermer les notifications en cliquant à l'extérieur
     document.addEventListener('click', (e) => {
         if (!notificationsModal.contains(e.target) && !notificationBell.contains(e.target)) {
             notificationsModal.classList.remove('active');
@@ -1927,7 +2057,6 @@
         }
     });
     
-    // Effet de survol amélioré pour les cartes
     const cards = document.querySelectorAll('.match-card');
     cards.forEach(card => {
         card.addEventListener('mousemove', function(e) {
@@ -1945,19 +2074,21 @@
         });
     });
     
-    // Effet de score en temps réel
     function updateScoreBars() {
         document.querySelectorAll('.match-card').forEach(card => {
-            const score1 = parseInt(card.querySelector('.team-info:first-child .team-score').textContent);
-            const score2 = parseInt(card.querySelector('.team-info:last-child .team-score').textContent);
-            const totalScore = score1 + score2;
-            const percentage1 = totalScore > 0 ? (score1 / totalScore * 100) : 50;
-            
+            const score1El = card.querySelector('.team-info:first-child .team-score');
+            const score2El = card.querySelector('.team-info:last-child .team-score');
             const scoreBar = card.querySelector('.score-bar');
-            if (scoreBar) {
+            
+            // Vérifier que les éléments existent avant de les utiliser
+            if (score1El && score2El && scoreBar) {
+                const score1 = parseInt(score1El.textContent) || 0;
+                const score2 = parseInt(score2El.textContent) || 0;
+                const totalScore = score1 + score2;
+                const percentage1 = totalScore > 0 ? (score1 / totalScore * 100) : 50;
+                
                 scoreBar.style.width = `${percentage1}%`;
                 
-                // Animation pour les matchs en cours
                 if (card.classList.contains('ongoing')) {
                     scoreBar.style.animation = 'pulse 2s infinite';
                 }
@@ -1965,7 +2096,6 @@
         });
     }
     
-    // Effet de particules au clic
     document.addEventListener('click', function(e) {
         if (e.target.closest('.match-card') || e.target.closest('.action-btn') || 
             e.target.closest('.add-match-btn') || e.target.closest('.advanced-btn') ||
@@ -1993,34 +2123,28 @@
         }, 500);
     });
     
-    // Raccourcis clavier
     document.addEventListener('keydown', (e) => {
-        // Ctrl+E pour exporter
         if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
             e.preventDefault();
             exportMatches();
         }
         
-        // Ctrl+S pour les stats
         if ((e.ctrlKey || e.metaKey) && e.key === 's') {
             e.preventDefault();
             toggleStats();
         }
         
-        // Ctrl+H pour highlight
         if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
             e.preventDefault();
             toggleHighlight();
         }
         
-        // Échap pour fermer les modals
         if (e.key === 'Escape') {
             notificationsModal.classList.remove('active');
             statsOverlay.classList.remove('active');
         }
     });
     
-    // Ajouter l'animation CSS pour les particules
     const style = document.createElement('style');
     style.textContent = `
         @keyframes sparkFade {
@@ -2030,12 +2154,55 @@
     `;
     document.head.appendChild(style);
     
-    // Détection de matchs urgents au chargement
     setTimeout(() => {
         const urgentMatches = document.querySelectorAll('.match-card.ongoing');
         if (urgentMatches.length > 0) {
             addNotification(`${urgentMatches.length} match(s) en cours nécessitent votre attention`, 'alert');
         }
     }, 2000);
+        // Gestion de la musique
+    const musicBtn = document.getElementById('musicToggleBtn');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    let isMusicPlaying = false;
+
+    if (musicBtn && backgroundMusic) {
+        // Charger l'état depuis localStorage
+        const savedMusicState = localStorage.getItem('musicPlaying');
+        if (savedMusicState === 'true') {
+            backgroundMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '🔊';
+            }).catch(e => console.log('Audio error:', e));
+        }
+
+        musicBtn.addEventListener('click', function() {
+            if (!isMusicPlaying) {
+                backgroundMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicBtn.innerHTML = '🔊';
+                    musicBtn.classList.add('playing');
+                    localStorage.setItem('musicPlaying', 'true');
+                }).catch(error => {
+                    console.log("Erreur audio:", error);
+                    alert("Cliquez d'abord sur la page pour autoriser l'audio.");
+                });
+            } else {
+                backgroundMusic.pause();
+                isMusicPlaying = false;
+                musicBtn.innerHTML = '🎵';
+                musicBtn.classList.remove('playing');
+                localStorage.setItem('musicPlaying', 'false');
+            }
+        });
+
+        // Gestion de l'autoplay bloqué par le navigateur
+        document.addEventListener('click', function initAudio() {
+            if (backgroundMusic.paused && !isMusicPlaying) {
+                // Ne pas lancer automatiquement, attendre le bouton
+            }
+        }, { once: true });
+    }
 </script>
+{{ include('chatbot/_widget.html.twig') }}
 {% endblock %}

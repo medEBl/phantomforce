@@ -383,3 +383,83 @@ app_map:
     path: /map
     controller: App\Controller\MapController::index
     methods: GET
+
+# =============================================
+# PARTIE 1
+# =============================================
+
+app_ai:
+    path: /ai
+    controller: App\Controller\AiController::index
+
+app_ai_generate:
+    path: /ai/generate
+    controller: App\Controller\AiController::generate
+
+# =============================================
+# WORKOUT IA
+# =============================================
+
+app_ai_workout_form:
+    path: /ai/workout-form
+    controller: App\Controller\AiController::workoutForm
+
+app_ai_workout_generate:
+    path: /ai/workout-generate
+    controller: App\Controller\AiController::workoutGenerate
+    methods: [POST]
+
+api_workout:
+    path: /api/workout
+    controller: App\Controller\AiController::apiWorkout
+    methods: [POST]
+
+# =============================================
+# ANALYSTE ESPORT
+# =============================================
+
+app_analyst_dashboard:
+    path: /ai/analyst
+    controller: App\Controller\AiController::analystDashboard
+
+app_analyst_player_search:
+    path: /ai/analyst/player/search
+    controller: App\Controller\AiController::playerSearch
+
+app_analyst_team_search:
+    path: /ai/analyst/team/search
+    controller: App\Controller\AiController::teamSearch
+
+app_esport_analyst:
+    path: /esport-analyst
+    controller: App\Controller\AiEsportAnalystController::index
+
+app_analyst_player:
+    path: /esport-analyst/player/{playerName}
+    controller: App\Controller\AiEsportAnalystController::analyzePlayer
+
+app_analyst_team:
+    path: /esport-analyst/team/{teamName}
+    controller: App\Controller\AiEsportAnalystController::analyzeTeam
+
+app_analyst_predict_match:
+    path: /esport-analyst/predict-match
+    controller: App\Controller\AiEsportAnalystController::predictMatch
+    methods: [POST]
+
+app_analyst_live:
+    path: /esport-analyst/live-analysis
+    controller: App\Controller\AiEsportAnalystController::liveAnalysis
+
+api_live_stats:
+    path: /api/esport/live-stats/{matchId}
+    controller: App\Controller\AiEsportAnalystController::liveStats
+
+app_analyst_export:
+    path: /esport-analyst/export-report/{type}/{name}
+    controller: App\Controller\AiEsportAnalystController::exportReport
+
+app_calendar:
+    path: /calendar
+    controller: App\Controller\CalendarController::index
+    methods: [GET]

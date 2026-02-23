@@ -1,0 +1,73 @@
+{# templates/ai/generate.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Génération IA{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .result-card { 
+        background: #f8f9fa; 
+        border-radius: 8px; 
+        padding: 20px; 
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .probability { 
+        font-size: 24px; 
+        font-weight: bold; 
+        color: #28a745; 
+    }
+    .date-badge {
+        background: #6c757d;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="example-wrapper">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Résultats de la génération IA</h1>
+        <span class="date-badge">{{ date_analyse }}</span>
+    </div>
+
+    <p class="lead">
+        Bienvenue sur la page de génération IA. Voici les résultats pour 
+        <code>{{ controller_name }}</code>
+    </p>
+
+    <div class="row">
+        {% for resultat in resultats %}
+            <div class="col-md-4">
+                <div class="result-card">
+                    <h3>{{ resultat.titre }}</h3>
+                    <p>{{ resultat.contenu }}</p>
+                    <div class="text-center">
+                        <span class="probability">{{ resultat.probabilite }}%</span>
+                        <p class="text-muted mt-2">de confiance</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="alert alert-info mt-4">
+        <h4>Routes disponibles :</h4>
+        <ul class="mb-0">
+            <li><strong>GET /ai</strong> - Page d'accueil</li>
+            <li><strong>GET /ai/generate</strong> - API JSON</li>
+            <li><strong>GET /ai/generate-view</strong> - Cette page</li>
+            <li><strong>GET /ai/analyze/psg/liverpool</strong> - Analyse de match</li>
+            <li><strong>POST /ai/generate-post</strong> - API POST</li>
+        </ul>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ path('app_ai') }}" class="btn btn-primary">Retour à l'accueil</a>
+        <a href="{{ path('app_ai_generate') }}" class="btn btn-success">Voir l'API JSON</a>
+    </div>
+</div>
+{% endblock %}
