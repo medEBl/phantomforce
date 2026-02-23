@@ -10,6 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 #[Route('/agent')]
 final class AgentController extends AbstractController
@@ -91,6 +94,53 @@ final class AgentController extends AbstractController
         }
 
         return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/export/excel', name: 'app_agent_export_excel', methods: ['GET'])]
+    public function exportExcel(AgentRepository $agentRepository): Response
+    {
+        // 1. Fetch all agents from the database
+        $agents = $agentRepository->findAll();
+
+        // 2. Create a new Spreadsheet object
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Agents Phantom Force');
+
+        // 3. Set the column headers
+        $sheet->setCellValue('A1', 'ID');
+        $sheet->setCellValue('B1', 'Pseudo');
+        $sheet->setCellValue('C1', 'Jeu');
+        $sheet->setCellValue('D1', 'Statut');
+        $sheet->setCellValue('E1', 'Rank');
+        $sheet->setCellValue('F1', 'Lien Social');
+
+        // Optional: Make the header row bold
+        $sheet->getStyle('A1:F1')->getFont()->setBold(true);
+
+        // 4. Fill in the data
+        $row = 2; // Start on row 2 (row 1 is headers)
+        foreach ($agents as $agent) {
+            $sheet->setCellValue('A' . $row, $agent->getId());
+            $sheet->setCellValue('B' . $row, $agent->getPseudo());
+            $sheet->setCellValue('C' . $row, $agent->getGame());
+            $sheet->setCellValue('D' . $row, ucfirst($agent->getStatus()));
+            $sheet->setCellValue('E' . $row, $agent->getRank());
+            $sheet->setCellValue('F' . $row, $agent->getSocialsLink() ?? 'Aucun');
+            $row++;
+        }
+
+        // Auto-size the columns for a clean look
+        foreach (range('A', 'F') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        // 5. Create the Excel file and prepare the download response
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Phantom_Force_Agents.xlsx';
+        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+        $writer->save($temp_file);
+
+        return $this->file($temp_file, $fileName, ResponseHeaderBag::DISPOSITION_ATTACHMENT);
     }
 
 

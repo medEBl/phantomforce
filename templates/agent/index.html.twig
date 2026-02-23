@@ -99,9 +99,17 @@
             <h1 class="h3 fw-bold mb-1">Agents</h1>
             <p class="text-muted mb-0">Gestion des agents du back-office</p>
         </div>
-        <a href="{{ path('app_agent_new') }}" class="btn btn-admin btn-admin-primary" style="background: #ff2d2d; color: white;">
-            <i class="fas fa-plus me-2"></i> Créer un Agent
-        </a>
+        <div class="d-flex gap-2">
+            {# EXCEL EXPORT BUTTON #}
+            <a href="{{ path('app_agent_export_excel') }}" class="btn btn-admin" style="background: rgba(45, 255, 139, 0.1); border: 1px solid #2dff8b; color: #2dff8b;">
+                <i class="fas fa-file-excel me-2"></i> Exporter (Excel)
+            </a>
+            
+            {# CREATE BUTTON #}
+            <a href="{{ path('app_agent_new') }}" class="btn btn-admin btn-admin-primary" style="background: #ff2d2d; color: white; border: 1px solid #ff2d2d;">
+                <i class="fas fa-plus me-2"></i> Créer un Agent
+            </a>
+        </div>
     </div>
 
     {# 2. CONTROL PANEL #}
