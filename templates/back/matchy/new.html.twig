@@ -1,0 +1,289 @@
+{# templates/back/matchy/new.html.twig #}
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Admin - Nouveau match{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-2">Créer un nouveau match</h1>
+            <p class="mb-0 text-muted">Ajoutez un match à l'arène e-sport</p>
+        </div>
+        <a href="{{ path('app_back_matchy_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+    </div>
+</div>
+
+<div class="admin-card">
+    {{ form_start(form, {'attr': {'class': 'form-admin'}}) }}
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.game, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.game, {'attr': {'class': 'form-control'}}) }}
+            <div class="invalid-feedback">{{ form_errors(form.game) }}</div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.match_date, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.match_date, {'attr': {'class': 'form-control'}}) }}
+            <div class="invalid-feedback">{{ form_errors(form.match_date) }}</div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.team1, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.team1, {'attr': {'class': 'form-select'}}) }}
+            <div class="invalid-feedback">{{ form_errors(form.team1) }}</div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.team2, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.team2, {'attr': {'class': 'form-select'}}) }}
+            <div class="invalid-feedback">{{ form_errors(form.team2) }}</div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.score_team1, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.score_team1, {'attr': {'class': 'form-control', 'placeholder': '0'}}) }}
+            <div class="invalid-feedback">{{ form_errors(form.score_team1) }}</div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.score_team2, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.score_team2, {'attr': {'class': 'form-control', 'placeholder': '0'}}) }}
+            <div class="invalid-feedback">{{ form_errors(form.score_team2) }}</div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.status, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.status, {'attr': {'class': 'form-select'}}) }}
+            <div class="invalid-feedback">{{ form_errors(form.status) }}</div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            {{ form_label(form.winner_team, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.winner_team, {'attr': {'class': 'form-select'}}) }}
+            <div class="invalid-feedback">{{ form_errors(form.winner_team) }}</div>
+        </div>
+
+        <!-- SECTION LOCALISATION -->
+        <div class="col-12 mt-4 mb-3">
+            <hr>
+            <h4 class="mb-3" style="color: var(--admin-warning);">
+                <i class="fas fa-map-marker-alt me-2"></i>Localisation de l'arène
+            </h4>
+        </div>
+
+        <div class="col-md-12 mb-3">
+            {{ form_label(form.location, 'Adresse / Lieu', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.location, {'attr': {
+                'class': 'form-control',
+                'placeholder': 'Ex: Avenue Habib Bourguiba, Tunis'
+            }}) }}
+            <small class="text-muted">Adresse complète du match</small>
+            <div class="invalid-feedback">{{ form_errors(form.location) }}</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.latitude, 'Latitude', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.latitude, {'attr': {
+                'class': 'form-control',
+                'placeholder': 'Ex: 36.8008',
+                'step': 'any'
+            }}) }}
+            <small class="text-muted">Latitude GPS (ex: 36.8008 pour Tunis)</small>
+            <div class="invalid-feedback">{{ form_errors(form.latitude) }}</div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.longitude, 'Longitude', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.longitude, {'attr': {
+                'class': 'form-control',
+                'placeholder': 'Ex: 10.1800',
+                'step': 'any'
+            }}) }}
+            <small class="text-muted">Longitude GPS (ex: 10.1800 pour Tunis)</small>
+            <div class="invalid-feedback">{{ form_errors(form.longitude) }}</div>
+        </div>
+
+        <!-- Boutons de test rapide pour les villes tunisiennes -->
+        <div class="col-12 mb-3">
+            <div class="d-flex gap-2 flex-wrap">
+                <span class="text-muted me-2"><i class="fas fa-magic"></i> Remplissage rapide :</span>
+                <button type="button" class="btn btn-sm btn-outline-warning" onclick="fillTunisCoords()">
+                    <i class="fas fa-map-pin"></i> Tunis
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-warning" onclick="fillSousseCoords()">
+                    <i class="fas fa-map-pin"></i> Sousse
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-warning" onclick="fillSfaxCoords()">
+                    <i class="fas fa-map-pin"></i> Sfax
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-warning" onclick="fillDjerbaCoords()">
+                    <i class="fas fa-map-pin"></i> Djerba
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-warning" onclick="fillHammametCoords()">
+                    <i class="fas fa-map-pin"></i> Hammamet
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-warning" onclick="fillBizerteCoords()">
+                    <i class="fas fa-map-pin"></i> Bizerte
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-warning" onclick="fillMonastirCoords()">
+                    <i class="fas fa-map-pin"></i> Monastir
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <button type="submit" class="btn-admin btn-admin-primary">
+            <i class="fas fa-save"></i> Créer le match
+        </button>
+        
+        <a href="{{ path('app_back_matchy_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-times"></i> Annuler
+        </a>
+    </div>
+    
+    {{ form_end(form) }}
+</div>
+
+<script>
+// Fonctions pour remplir automatiquement les coordonnées des villes tunisiennes
+function fillTunisCoords() {
+    document.querySelector('[name*="location"]').value = 'Avenue Habib Bourguiba, Tunis';
+    document.querySelector('[name*="latitude"]').value = '36.8008';
+    document.querySelector('[name*="longitude"]').value = '10.1800';
+    showToast('📍 Coordonnées de Tunis ajoutées');
+}
+
+function fillSousseCoords() {
+    document.querySelector('[name*="location"]').value = 'Boulevard du 14 Janvier, Sousse';
+    document.querySelector('[name*="latitude"]').value = '35.8256';
+    document.querySelector('[name*="longitude"]').value = '10.6361';
+    showToast('📍 Coordonnées de Sousse ajoutées');
+}
+
+function fillSfaxCoords() {
+    document.querySelector('[name*="location"]').value = 'Avenue Habib Bourguiba, Sfax';
+    document.querySelector('[name*="latitude"]').value = '34.7400';
+    document.querySelector('[name*="longitude"]').value = '10.7600';
+    showToast('📍 Coordonnées de Sfax ajoutées');
+}
+
+function fillDjerbaCoords() {
+    document.querySelector('[name*="location"]').value = 'Place de la République, Houmt Souk, Djerba';
+    document.querySelector('[name*="latitude"]').value = '33.8750';
+    document.querySelector('[name*="longitude"]').value = '10.8600';
+    showToast('📍 Coordonnées de Djerba ajoutées');
+}
+
+function fillHammametCoords() {
+    document.querySelector('[name*="location"]').value = 'Avenue des Nations Unies, Hammamet';
+    document.querySelector('[name*="latitude"]').value = '36.4000';
+    document.querySelector('[name*="longitude"]').value = '10.6167';
+    showToast('📍 Coordonnées de Hammamet ajoutées');
+}
+
+function fillBizerteCoords() {
+    document.querySelector('[name*="location"]').value = 'Vieux Port de Bizerte, Rue d\'Alger, Bizerte';
+    document.querySelector('[name*="latitude"]').value = '37.2746';
+    document.querySelector('[name*="longitude"]').value = '9.8739';
+    showToast('📍 Coordonnées de Bizerte ajoutées');
+}
+
+function fillMonastirCoords() {
+    document.querySelector('[name*="location"]').value = 'Marina de Monastir, Route de la Corniche, Monastir';
+    document.querySelector('[name*="latitude"]').value = '35.7800';
+    document.querySelector('[name*="longitude"]').value = '10.8300';
+    showToast('📍 Coordonnées de Monastir ajoutées');
+}
+
+function showToast(message) {
+    // Créer un toast simple
+    const toast = document.createElement('div');
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.right = '20px';
+    toast.style.background = 'var(--admin-success)';
+    toast.style.color = 'white';
+    toast.style.padding = '12px 24px';
+    toast.style.borderRadius = '8px';
+    toast.style.zIndex = '9999';
+    toast.style.boxShadow = '0 4px 15px rgba(0,0,0,0.3)';
+    toast.style.fontFamily = 'Rajdhani, sans-serif';
+    toast.style.fontWeight = '600';
+    toast.style.letterSpacing = '0.5px';
+    toast.style.animation = 'slideIn 0.3s ease';
+    toast.textContent = message;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 3000);
+}
+
+// Animation CSS pour les toasts
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100px); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+// Validation que team1 et team2 sont différentes
+document.addEventListener('DOMContentLoaded', function() {
+    const team1Select = document.querySelector('[name*="team1"]');
+    const team2Select = document.querySelector('[name*="team2"]');
+    const form = document.querySelector('form');
+    
+    if (form && team1Select && team2Select) {
+        form.addEventListener('submit', function(e) {
+            if (team1Select.value === team2Select.value) {
+                e.preventDefault();
+                alert('⚠️ Les deux équipes doivent être différentes !');
+            }
+            
+            // Vérification optionnelle : si une adresse est fournie, les coordonnées devraient l'être aussi
+            const locationInput = document.querySelector('[name*="location"]');
+            const latInput = document.querySelector('[name*="latitude"]');
+            const lngInput = document.querySelector('[name*="longitude"]');
+            
+            if (locationInput && locationInput.value.trim() !== '') {
+                if (!latInput.value || !lngInput.value) {
+                    if (!confirm('⚠️ Vous avez spécifié une adresse mais pas les coordonnées GPS. Le match n\'apparaîtra pas sur la carte. Continuer ?')) {
+                        e.preventDefault();
+                    }
+                }
+            }
+        });
+    }
+    
+    // Animation des champs au focus
+    const inputs = document.querySelectorAll('.form-control, .form-select');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.style.borderColor = 'var(--admin-accent)';
+            this.style.boxShadow = '0 0 0 3px rgba(157, 0, 255, 0.2)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.style.borderColor = '';
+            this.style.boxShadow = '';
+        });
+    });
+});
+</script>
+{% endblock %}

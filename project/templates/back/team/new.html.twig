@@ -1,0 +1,229 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Admin - Nouvelle équipe{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-2">Créer une nouvelle équipe</h1>
+            <p class="mb-0 text-muted">Ajoutez une équipe à l'arène e-sport</p>
+        </div>
+        <a href="{{ path('app_back_team_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-arrow-left"></i> Retour
+        </a>
+    </div>
+</div>
+
+<div class="admin-card">
+    {{ form_start(form, {'attr': {'class': 'form-admin'}}) }}
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.name, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.name, {'attr': {
+                'class': 'form-control',
+                'placeholder': 'Ex: BLOOD WARRIORS',
+                'maxlength': 50
+            }}) }}
+            <small class="text-muted">Minimum 2 caractères, maximum 50</small>
+            <div class="invalid-feedback">{{ form_errors(form.name) }}</div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.game, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.game, {'attr': {
+                'class': 'form-control',
+                'placeholder': 'Ex: League of Legends, Valorant...'
+            }}) }}
+            <small class="text-muted">Jeu principal de l'équipe</small>
+            <div class="invalid-feedback">{{ form_errors(form.game) }}</div>
+        </div>
+        
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.creation_date, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.creation_date, {'attr': {
+                'class': 'form-control',
+                'placeholder': 'JJ/MM/AAAA'
+            }}) }}
+            <small class="text-muted">Date de création de l'équipe</small>
+            <div class="invalid-feedback">{{ form_errors(form.creation_date) }}</div>
+        </div>
+        
+        <!-- CHAMP COACH CORRIGÉ (remplace coach_id) -->
+        <div class="col-md-6 mb-3">
+            {{ form_label(form.coach, 'Coach de l\'équipe', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.coach, {'attr': {
+                'class': 'form-select',
+                'placeholder': 'Sélectionnez un coach'
+            }}) }}
+            <small class="text-muted">Sélectionnez le coach (utilisateur avec rôle COACH)</small>
+            <div class="invalid-feedback">{{ form_errors(form.coach) }}</div>
+        </div>
+        
+        <!-- CHAMP MEMBRES (agents) -->
+        <div class="col-12 mb-3">
+            <label class="form-label">
+                <i class="fas fa-users me-1"></i> Membres de l'équipe
+            </label>
+            {{ form_widget(form.members, {'attr': {
+                'class': 'form-select',
+                'size': 8,
+                'multiple': 'multiple'
+            }}) }}
+            <small class="text-muted">
+                <i class="fas fa-info-circle"></i> 
+                Maintenez <kbd>Ctrl</kbd> (Windows) ou <kbd>⌘</kbd> (Mac) pour sélectionner plusieurs membres
+            </small>
+            <div class="invalid-feedback">{{ form_errors(form.members) }}</div>
+        </div>
+    </div>
+    
+    <!-- Conseils et informations -->
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="alert" style="background: rgba(255, 102, 0, 0.1); border: 1px solid var(--blood-orange); border-radius: 8px;">
+                <h6 class="mb-2" style="color: var(--fire-yellow);">
+                    <i class="fas fa-lightbulb me-1"></i> Conseils :
+                </h6>
+                <ul class="mb-0 small" style="color: var(--text-muted);">
+                    <li>Le coach doit être un utilisateur existant avec le rôle COACH</li>
+                    <li>Vous pouvez sélectionner plusieurs agents comme membres de l'équipe</li>
+                    <li>Les membres peuvent être ajoutés/modifiés ultérieurement</li>
+                    <li>Le nom de l'équipe doit être unique</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <button type="submit" class="btn-admin btn-admin-primary">
+            <i class="fas fa-save"></i> Créer l'équipe
+        </button>
+        
+        <a href="{{ path('app_back_team_index') }}" class="btn-admin btn-admin-secondary">
+            <i class="fas fa-times"></i> Annuler
+        </a>
+    </div>
+    
+    {{ form_end(form) }}
+</div>
+
+<script>
+// Validation du formulaire
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            // Récupérer les champs
+            const nameInput = document.querySelector('[name*="name"]');
+            const gameInput = document.querySelector('[name*="game"]');
+            const coachSelect = document.querySelector('[name*="coach"]');
+            
+            // Validation simple
+            if (nameInput && nameInput.value.trim().length < 2) {
+                e.preventDefault();
+                alert('⚠️ Le nom de l\'équipe doit contenir au moins 2 caractères');
+                nameInput.focus();
+                return false;
+            }
+            
+            if (gameInput && gameInput.value.trim() === '') {
+                e.preventDefault();
+                alert('⚠️ Veuillez spécifier un jeu principal');
+                gameInput.focus();
+                return false;
+            }
+            
+            // Animation du bouton de soumission
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Création en cours...';
+                submitBtn.disabled = true;
+            }
+        });
+    }
+    
+    // Animation des champs au focus
+    const inputs = document.querySelectorAll('.form-control, .form-select');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.style.borderColor = 'var(--blood-red)';
+            this.style.boxShadow = '0 0 0 3px rgba(255, 0, 60, 0.2)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.style.borderColor = '';
+            this.style.boxShadow = '';
+        });
+    });
+    
+    // Mettre en évidence les champs avec erreurs
+    const errorElements = document.querySelectorAll('.invalid-feedback');
+    errorElements.forEach(error => {
+        if (error.textContent.trim() !== '') {
+            const input = error.closest('.mb-3')?.querySelector('.form-control, .form-select');
+            if (input) {
+                input.classList.add('is-invalid');
+            }
+        }
+    });
+});
+</script>
+
+<style>
+/* Style pour le champ multiple */
+select[multiple] {
+    min-height: 200px;
+    padding: 0.5rem;
+}
+
+select[multiple] option {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+}
+
+select[multiple] option:hover {
+    background: rgba(255, 102, 0, 0.3);
+}
+
+select[multiple] option:checked {
+    background: linear-gradient(45deg, var(--blood-red), var(--blood-orange));
+    color: white;
+}
+
+/* Style pour les champs invalides */
+.is-invalid {
+    border-color: var(--blood-red) !important;
+    box-shadow: 0 0 0 3px rgba(255, 0, 60, 0.2) !important;
+}
+
+.invalid-feedback {
+    display: block;
+    color: var(--blood-red);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+/* Animation du bouton de soumission */
+.btn-admin-primary i.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Style pour les badges d'aide */
+kbd {
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--fire-yellow);
+    border: 1px solid var(--blood-orange);
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+</style>
+{% endblock %}

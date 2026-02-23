@@ -1,0 +1,1195 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phantom Force - Nouveau Plan d'Entraînement{% endblock %}
+
+{% block inline_styles %}
+<style>
+/* ================= CREATE PAGE STYLES ================= */
+.create-hero {
+    text-align: center;
+    padding: 80px 20px 40px;
+    position: relative;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.create-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #5faee3, #87cefa);
+    border-radius: 2px;
+    animation: widthGrow 1.2s ease-out;
+}
+
+.create-hero h1 {
+    font-size: 56px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #3498db, #5faee3, #87cefa, #b0e0ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    text-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+    animation: textGlow 3s infinite alternate;
+}
+
+.create-hero p {
+    color: var(--text-muted);
+    font-size: 20px;
+    max-width: 700px;
+    margin: 0 auto 20px;
+    line-height: 1.6;
+}
+
+/* ================= FORM CONTAINER ================= */
+.form-container {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 50px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.6s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #5faee3, #87cefa);
+    animation: borderFlow 3s linear infinite;
+}
+
+@keyframes borderFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ================= FORM HEADER ================= */
+.form-header {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.form-header h2 {
+    font-size: 32px;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-header p {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.form-header::after {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #5faee3, #87cefa);
+    border-radius: 2px;
+    animation: widthGrow 1s ease-out;
+}
+
+/* ================= CREATION GUIDE ================= */
+.creation-guide {
+    background: rgba(52, 152, 219, 0.08);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out 0.3s backwards;
+}
+
+.creation-guide h3 {
+    font-size: 20px;
+    color: #3498db;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.creation-guide h3::before {
+    content: '📋';
+    font-size: 24px;
+}
+
+.guide-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .guide-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+.guide-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.guide-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(52, 152, 219, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3498db;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.guide-content h4 {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.guide-content p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* ================= FORM STYLES ================= */
+.form-group {
+    margin-bottom: 35px;
+    position: relative;
+    animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.2s; }
+.form-group:nth-child(3) { animation-delay: 0.3s; }
+.form-group:nth-child(4) { animation-delay: 0.4s; }
+.form-group:nth-child(5) { animation-delay: 0.5s; }
+.form-group:nth-child(6) { animation-delay: 0.6s; }
+.form-group:nth-child(7) { animation-delay: 0.7s; }
+
+.form-label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: var(--text-light);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.form-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #3498db, #5faee3);
+    border-radius: 2px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.1); }
+}
+
+.form-control {
+    width: 100%;
+    padding: 18px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    color: var(--text-light);
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+    background: rgba(52, 152, 219, 0.08);
+    transform: translateY(-2px);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    font-style: italic;
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233498db' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 25px center;
+    background-size: 16px;
+    padding-right: 60px;
+    cursor: pointer;
+}
+
+select.form-control option {
+    background: var(--bg-card);
+    color: var(--text-light);
+    padding: 10px;
+}
+
+.form-group input[type="date"] {
+    color-scheme: dark;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.6;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+textarea.form-control {
+    min-height: 180px;
+    resize: vertical;
+    line-height: 1.6;
+    padding: 20px 25px;
+}
+
+/* ================= FORM ROW ================= */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================= SELECT WITH ICON ================= */
+.select-with-info {
+    position: relative;
+}
+
+.select-with-info select {
+    padding-left: 60px;
+}
+
+.select-icon {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #3498db;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.info-preview {
+    margin-top: 10px;
+    padding: 12px 15px;
+    background: rgba(52, 152, 219, 0.05);
+    border: 1px solid rgba(52, 152, 219, 0.1);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.info-preview i {
+    color: #3498db;
+    font-size: 14px;
+}
+
+.preview-highlight {
+    color: #3498db;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+/* ================= FORM VALIDATION ================= */
+.form-error {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: shake 0.5s ease-in-out;
+    font-weight: 600;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+.form-error::before {
+    content: '⚡';
+    font-size: 16px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.form-control.error {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.validation-summary {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 30px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.validation-summary h4 {
+    color: #e74c3c;
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.validation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.validation-list li {
+    color: var(--text-light);
+    font-size: 13px;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.validation-list li::before {
+    content: '⚠️';
+    font-size: 12px;
+}
+
+/* ================= FORM HELP TEXT ================= */
+.form-help {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.form-help i {
+    color: #3498db;
+    font-size: 12px;
+}
+
+/* ================= CHARACTER COUNTER ================= */
+.char-counter {
+    text-align: right;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.char-counter.warning {
+    color: #f39c12;
+    animation: pulse 1.5s infinite;
+}
+
+.char-counter.danger {
+    color: #e74c3c;
+    font-weight: 800;
+    animation: pulse 0.8s infinite;
+}
+
+/* ================= FORM ACTIONS ================= */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(52, 152, 219, 0.2);
+}
+
+.btn-back {
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-back:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    transform: translateX(-5px);
+    border-color: #3498db;
+}
+
+.btn-back::before {
+    content: '←';
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.btn-create {
+    padding: 18px 40px;
+    background: linear-gradient(135deg, #3498db, #5faee3, #87cefa);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(52, 152, 219, 0.2);
+}
+
+.btn-create::before {
+    content: '📋';
+    font-size: 18px;
+}
+
+.btn-create::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.8s, height 0.8s;
+}
+
+.btn-create:hover::after {
+    width: 400px;
+    height: 400px;
+}
+
+.btn-create:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(52, 152, 219, 0.4);
+    background: linear-gradient(135deg, #5faee3, #3498db, #5faee3);
+    animation: btnPulse 1s infinite alternate;
+}
+
+@keyframes btnPulse {
+    0% { box-shadow: 0 15px 30px rgba(52, 152, 219, 0.4); }
+    100% { box-shadow: 0 15px 40px rgba(52, 152, 219, 0.6); }
+}
+
+/* ================= LOADING OVERLAY ================= */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    border: 4px solid rgba(52, 152, 219, 0.2);
+    border-top-color: #3498db;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    color: var(--text-light);
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #3498db, #5faee3, #87cefa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: loadingText 2s infinite linear;
+}
+
+@keyframes loadingText {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+/* ================= SUCCESS MESSAGE ================= */
+.success-message {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: #000;
+    padding: 20px 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10000;
+    transform: translateX(120%);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    font-weight: 700;
+}
+
+.success-message.active {
+    transform: translateX(0);
+}
+
+.success-message::before {
+    content: '✅';
+    font-size: 24px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .create-hero h1 {
+        font-size: 40px;
+    }
+    
+    .form-container {
+        padding: 30px 20px;
+        margin: 0 15px 40px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .btn-back, .btn-create {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .form-header h2 {
+        font-size: 26px;
+    }
+}
+
+/* ================= SPECIAL EFFECTS ================= */
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #3498db;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    animation: sparkle 1s ease-out;
+}
+
+@keyframes sparkle {
+    0% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0); }
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="create-hero">
+    <h1>📋 NOUVEAU PLAN D'ENTRAÎNEMENT</h1>
+    <p>Créez un plan d'entraînement personnalisé pour optimiser les performances de votre équipe esport.</p>
+</div>
+
+<div class="creation-guide">
+    <h3>Guide de création Phantom Force</h3>
+    <div class="guide-list">
+        <div class="guide-item">
+            <div class="guide-icon">🎯</div>
+            <div class="guide-content">
+                <h4>Objectifs stratégiques</h4>
+                <p>Définissez des objectifs clairs et mesurables pour chaque session</p>
+            </div>
+        </div>
+        <div class="guide-item">
+            <div class="guide-icon">⚡</div>
+            <div class="guide-content">
+                <h4>Intensité progressive</h4>
+                <p>Augmentez la difficulté progressivement pour des résultats optimaux</p>
+            </div>
+        </div>
+        <div class="guide-item">
+            <div class="guide-icon">📊</div>
+            <div class="guide-content">
+                <h4>Analyse détaillée</h4>
+                <p>Documentez chaque aspect pour des ajustements futurs</p>
+            </div>
+        </div>
+        <div class="guide-item">
+            <div class="guide-icon">🏆</div>
+            <div class="guide-content">
+                <h4>Performance maximale</h4>
+                <p>Concevez des sessions qui poussent les limites de l'équipe</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-container">
+    <div class="form-header">
+        <h2>CRÉATION DE PLAN D'ENTRAÎNEMENT</h2>
+        <p>Remplissez tous les champs requis pour créer un plan d'entraînement efficace</p>
+    </div>
+
+    {{ form_start(form, {'attr': {'class': 'training-form', 'id': 'createForm', 'novalidate': 'novalidate'}}) }}
+    
+    <!-- Affichage des erreurs globales -->
+    {% if not form.vars.valid %}
+        <div class="validation-summary">
+            <h4><i class="fas fa-exclamation-circle"></i> Des erreurs ont été détectées :</h4>
+            <ul class="validation-list">
+                {% for error in form.vars.errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    
+    <div class="form-row">
+        <div class="form-group">
+            {{ form_label(form.title, 'Titre du plan') }}
+            {{ form_widget(form.title, {'attr': {
+                'placeholder': 'Ex: Stratégie défensive avancée - Saison 2024',
+                'class': 'form-control',
+                'minlength': '5',
+                'maxlength': '255',
+                'autofocus': 'autofocus'
+            }}) }}
+            <div class="form-help">
+                <i class="fas fa-info-circle"></i>
+                <span>Un titre clair et descriptif pour votre plan (5-255 caractères)</span>
+            </div>
+            {{ form_errors(form.title) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.focus_area, 'Zone de focus principale') }}
+            {{ form_widget(form.focus_area, {'attr': {
+                'class': 'form-control',
+                'id': 'focus_area_select'
+            }}) }}
+            <div class="form-help">
+                <i class="fas fa-bullseye"></i>
+                <span>La compétence principale que ce plan vise à améliorer</span>
+            </div>
+            {{ form_errors(form.focus_area) }}
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group">
+            {{ form_label(form.difficulty_level, 'Niveau de difficulté') }}
+            {{ form_widget(form.difficulty_level, {'attr': {
+                'class': 'form-control',
+                'id': 'difficulty_select'
+            }}) }}
+            <div class="form-help">
+                <i class="fas fa-chart-line"></i>
+                <span>Sélectionnez le niveau adapté à votre équipe</span>
+            </div>
+            {{ form_errors(form.difficulty_level) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.coach, 'Coach responsable') }}
+            <div class="select-with-info">
+                <span class="select-icon">👨‍🏫</span>
+                {{ form_widget(form.coach, {'attr': {
+                    'class': 'form-control',
+                    'id': 'coach_select'
+                }}) }}
+            </div>
+            <div class="info-preview" id="coachPreview" style="display: none;">
+                <i class="fas fa-user-tie"></i>
+                <span>Coach sélectionné : <span class="preview-highlight" id="selectedCoachName"></span></span>
+            </div>
+            {{ form_errors(form.coach) }}
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group">
+            {{ form_label(form.team, 'Équipe cible') }}
+            <div class="select-with-info">
+                <span class="select-icon">👥</span>
+                {{ form_widget(form.team, {'attr': {
+                    'class': 'form-control',
+                    'id': 'team_select'
+                }}) }}
+            </div>
+            <div class="info-preview" id="teamPreview" style="display: none;">
+                <i class="fas fa-users"></i>
+                <span>Équipe sélectionnée : <span class="preview-highlight" id="selectedTeamName"></span></span>
+            </div>
+            {{ form_errors(form.team) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.created_at, 'Date de création') }}
+            {{ form_widget(form.created_at, {'attr': {
+                'class': 'form-control',
+                'max': "now"|date('Y-m-d')
+            }}) }}
+            <div class="form-help">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Date de création du plan (par défaut : aujourd'hui)</span>
+            </div>
+            {{ form_errors(form.created_at) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.description, 'Description détaillée') }}
+        {{ form_widget(form.description, {'attr': {
+            'placeholder': 'Décrivez en détail les objectifs, exercices, stratégies, durée estimée, prérequis et résultats attendus de ce plan d\'entraînement...',
+            'class': 'form-control',
+            'rows': '8',
+            'minlength': '20',
+            'maxlength': '2000',
+            'id': 'plan_description'
+        }}) }}
+        <div class="form-help">
+            <i class="fas fa-align-left"></i>
+            <span>Incluez tous les détails pour une mise en œuvre réussie (20-2000 caractères)</span>
+        </div>
+        <div class="char-counter" id="descriptionCounter">
+            <span id="descriptionCount">0</span> / 2000 caractères
+        </div>
+        {{ form_errors(form.description) }}
+    </div>
+    
+    <div class="form-actions">
+        <a href="{{ path('app_coaching_session_index') }}#training-plans" class="btn-back">
+            Annuler & Retour
+        </a>
+        
+        <button type="submit" class="btn-create" id="createButton">
+            Créer le plan d'entraînement
+        </button>
+    </div>
+    
+    {{ form_end(form) }}
+</div>
+
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">CRÉATION</div>
+</div>
+
+<div class="success-message" id="successMessage">
+    ✅ Plan créé avec succès !
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('createForm');
+    const createButton = document.getElementById('createButton');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const successMessage = document.getElementById('successMessage');
+    const descriptionTextarea = document.getElementById('plan_description');
+    const descriptionCounter = document.getElementById('descriptionCounter');
+    const descriptionCount = document.getElementById('descriptionCount');
+    const coachSelect = document.getElementById('coach_select');
+    const teamSelect = document.getElementById('team_select');
+    const coachPreview = document.getElementById('coachPreview');
+    const teamPreview = document.getElementById('teamPreview');
+    const selectedCoachName = document.getElementById('selectedCoachName');
+    const selectedTeamName = document.getElementById('selectedTeamName');
+    
+    // Données pour les aperçus
+    const coaches = {
+        {% if coaches is defined %}
+            {% for coach in coaches %}
+                {{ coach.id }}: {
+                    name: "{{ coach.fullName|e('js') }}",
+                    username: "{{ coach.username|e('js') }}"
+                },
+            {% endfor %}
+        {% endif %}
+    };
+    
+    const teams = {
+        {% if teams is defined %}
+            {% for team in teams %}
+                {{ team.id }}: {
+                    name: "{{ team.name|e('js') }}",
+                    game: "{{ team.game|e('js') }}"
+                },
+            {% endfor %}
+        {% endif %}
+    };
+    
+    // Gestion de l'aperçu du coach
+    if (coachSelect) {
+        coachSelect.addEventListener('change', function() {
+            const coachId = this.value;
+            
+            if (coachId && coaches[coachId]) {
+                const coach = coaches[coachId];
+                selectedCoachName.textContent = coach.name + ' (@' + coach.username + ')';
+                coachPreview.style.display = 'flex';
+                
+                // Animation
+                coachPreview.style.animation = 'none';
+                setTimeout(() => {
+                    coachPreview.style.animation = 'fadeIn 0.3s ease-out';
+                }, 10);
+            } else {
+                coachPreview.style.display = 'none';
+            }
+        });
+        
+        // Déclencher une fois si déjà sélectionné
+        if (coachSelect.value) {
+            const event = new Event('change');
+            coachSelect.dispatchEvent(event);
+        }
+    }
+    
+    // Gestion de l'aperçu de l'équipe
+    if (teamSelect) {
+        teamSelect.addEventListener('change', function() {
+            const teamId = this.value;
+            
+            if (teamId && teams[teamId]) {
+                const team = teams[teamId];
+                selectedTeamName.textContent = team.name + ' (' + team.game + ')';
+                teamPreview.style.display = 'flex';
+                
+                // Animation
+                teamPreview.style.animation = 'none';
+                setTimeout(() => {
+                    teamPreview.style.animation = 'fadeIn 0.3s ease-out';
+                }, 10);
+            } else {
+                teamPreview.style.display = 'none';
+            }
+        });
+        
+        // Déclencher une fois si déjà sélectionné
+        if (teamSelect.value) {
+            const event = new Event('change');
+            teamSelect.dispatchEvent(event);
+        }
+    }
+    
+    // Initialize description counter
+    if (descriptionTextarea && descriptionCounter && descriptionCount) {
+        function updateCounter() {
+            const length = descriptionTextarea.value.length;
+            descriptionCount.textContent = length;
+            
+            descriptionCounter.classList.remove('warning', 'danger');
+            
+            if (length > 1500) {
+                descriptionCounter.classList.add('warning');
+            }
+            
+            if (length > 1800) {
+                descriptionCounter.classList.add('danger');
+            }
+        }
+        
+        descriptionTextarea.addEventListener('input', updateCounter);
+        updateCounter(); // Initial count
+    }
+    
+    // Form validation and submission
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Basic validation
+        let isValid = true;
+        const requiredInputs = form.querySelectorAll('[required]');
+        
+        requiredInputs.forEach(input => {
+            if (!input.value.trim()) {
+                input.classList.add('error');
+                isValid = false;
+                
+                let errorDiv = input.nextElementSibling;
+                while (errorDiv && !errorDiv.classList.contains('form-error')) {
+                    errorDiv = errorDiv.nextElementSibling;
+                }
+                
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error';
+                    errorDiv.textContent = 'Ce champ est obligatoire';
+                    input.parentNode.insertBefore(errorDiv, input.nextSibling);
+                }
+            } else {
+                input.classList.remove('error');
+                let errorDiv = input.nextElementSibling;
+                while (errorDiv) {
+                    if (errorDiv.classList && errorDiv.classList.contains('form-error')) {
+                        errorDiv.remove();
+                        break;
+                    }
+                    errorDiv = errorDiv.nextElementSibling;
+                }
+            }
+        });
+        
+        // Validate title length
+        const titleInput = document.querySelector('#training_plan_title');
+        if (titleInput && titleInput.value) {
+            const length = titleInput.value.length;
+            if (length < 5 || length > 255) {
+                titleInput.classList.add('error');
+                isValid = false;
+                
+                let errorDiv = titleInput.nextElementSibling;
+                while (errorDiv && !errorDiv.classList.contains('form-error')) {
+                    errorDiv = errorDiv.nextElementSibling;
+                }
+                
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error';
+                    errorDiv.textContent = 'Le titre doit contenir entre 5 et 255 caractères';
+                    titleInput.parentNode.insertBefore(errorDiv, titleInput.nextSibling);
+                }
+            }
+        }
+        
+        // Validate description length
+        if (descriptionTextarea && descriptionTextarea.value) {
+            const length = descriptionTextarea.value.length;
+            if (length < 20 || length > 2000) {
+                descriptionTextarea.classList.add('error');
+                isValid = false;
+                
+                let errorDiv = descriptionTextarea.nextElementSibling;
+                while (errorDiv && !errorDiv.classList.contains('form-error')) {
+                    errorDiv = errorDiv.nextElementSibling;
+                }
+                
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'form-error';
+                    errorDiv.textContent = 'La description doit contenir entre 20 et 2000 caractères';
+                    descriptionTextarea.parentNode.insertBefore(errorDiv, descriptionTextarea.nextSibling);
+                }
+            }
+        }
+        
+        if (!isValid) {
+            form.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => {
+                form.style.animation = '';
+            }, 500);
+            return;
+        }
+        
+        // Show loading
+        loadingOverlay.classList.add('active');
+        
+        // Submit form after delay for animation
+        setTimeout(() => {
+            form.submit();
+        }, 1500);
+    });
+    
+    // Sparkle effect on create button hover
+    if (createButton) {
+        createButton.addEventListener('mouseenter', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            for (let i = 0; i < 5; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = (x + Math.random() * 40 - 20) + 'px';
+                sparkle.style.top = (y + Math.random() * 40 - 20) + 'px';
+                this.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 1000);
+            }
+        });
+    }
+    
+    // Real-time validation
+    const formControls = document.querySelectorAll('.form-control');
+    
+    formControls.forEach(control => {
+        control.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'translateY(-3px)';
+        });
+        
+        control.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'translateY(0)';
+        });
+        
+        control.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.classList.remove('error');
+                let errorDiv = this.nextElementSibling;
+                while (errorDiv) {
+                    if (errorDiv.classList && errorDiv.classList.contains('form-error')) {
+                        errorDiv.remove();
+                        break;
+                    }
+                    errorDiv = errorDiv.nextElementSibling;
+                }
+            }
+        });
+    });
+    
+    // Date input enhancements
+    const dateInput = document.querySelector('#training_plan_created_at');
+    if (dateInput) {
+        // Définir la date maximale (aujourd'hui)
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('max', today);
+        
+        // Auto-sélection de la date actuelle si vide
+        if (!dateInput.value) {
+            dateInput.value = today;
+        }
+        
+        // Style enhancement
+        dateInput.addEventListener('focus', function() {
+            this.style.background = 'rgba(52, 152, 219, 0.1)';
+            this.style.boxShadow = '0 0 0 3px rgba(52, 152, 219, 0.2)';
+        });
+        
+        dateInput.addEventListener('blur', function() {
+            this.style.background = '';
+            this.style.boxShadow = '';
+        });
+    }
+    
+    // Success message simulation
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('success')) {
+        setTimeout(() => {
+            successMessage.classList.add('active');
+            
+            setTimeout(() => {
+                successMessage.classList.remove('active');
+            }, 4000);
+        }, 1000);
+    }
+    
+    // Add animation to form groups
+    const formGroups = document.querySelectorAll('.form-group');
+    formGroups.forEach((group, index) => {
+        group.style.animationDelay = `${index * 0.1}s`;
+    });
+    
+    // Auto-focus first input
+    const firstInput = form.querySelector('[autofocus]');
+    if (firstInput) {
+        setTimeout(() => {
+            firstInput.focus();
+        }, 500);
+    }
+});
+</script>
+{% endblock %}

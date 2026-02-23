@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Answers - {{ agent.pseudo }}{% endblock %}
+
+{% block inline_styles %}
+<style>
+  .page-wrap { max-width: 900px; margin: 0 auto; }
+
+  .card{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+
+  .muted{ color: var(--text-muted); }
+  .hr{ height:1px; background: var(--border-light); margin: 16px 0; }
+
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-light);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-light);
+    font-size: 12px;
+    font-weight: 600;
+    gap: 8px;
+  }
+
+  .qa-container{ display:grid; gap: 12px; margin-top: 14px; }
+
+  .qa-item{
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    transition: var(--transition);
+  }
+  .qa-item:hover{
+    transform: translateY(-2px);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+  }
+
+  .qa-question{
+    display:block;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  .qa-answer{
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-light);
+    line-height: 1.45;
+  }
+
+  .actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  /* Match your index styles */
+  .btn-warning{
+    background: rgba(255, 212, 45, 0.10);
+    border: 1px solid rgba(255, 212, 45, 0.35);
+    color: #ffe45d;
+  }
+  .btn-warning:hover{
+    background: rgba(255, 212, 45, 0.16);
+    transform: translateY(-2px);
+  }
+
+  a.btn{ text-decoration:none; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="page-wrap">
+
+  <section class="card">
+    {# ===== HEADER ===== #}
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+      <div>
+        <h2 style="margin:0 0 6px;">My Answers</h2>
+        <p class="muted" style="margin:0;">
+          Agent: <strong>{{ agent.pseudo }}</strong>
+        </p>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+        <span class="pill"><i class="fa-solid fa-gamepad"></i> {{ agent.game }}</span>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    {# ===== Q/A LIST ===== #}
+    <div class="qa-container">
+
+      <div class="qa-item">
+        <span class="qa-question">{{ questionnaire.ques1 }}</span>
+        <div class="qa-answer">{{ reponse.rep1 }}</div>
+      </div>
+
+      <div class="qa-item">
+        <span class="qa-question">{{ questionnaire.ques2 }}</span>
+        <div class="qa-answer">{{ reponse.rep2 }}</div>
+      </div>
+
+      {% if reponse.rep3 %}
+        <div class="qa-item">
+          <span class="qa-question">{{ questionnaire.ques3 }}</span>
+          <div class="qa-answer">{{ reponse.rep3 }}</div>
+        </div>
+      {% endif %}
+
+      {% if reponse.rep4 %}
+        <div class="qa-item">
+          <span class="qa-question">{{ questionnaire.ques4 }}</span>
+          <div class="qa-answer">{{ reponse.rep4 }}</div>
+        </div>
+      {% endif %}
+
+    </div>
+
+    <div class="hr"></div>
+
+    {# ===== ACTIONS ===== #}
+    <div class="actions">
+      <a href="{{ path('front_agent_index') }}" class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Back to Agents
+      </a>
+
+      <a href="{{ path('front_agent_questionnaire_edit', {'id': agent.id}) }}" class="btn btn-warning">
+        <i class="fa-solid fa-pen-to-square"></i> Update Answers
+      </a>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

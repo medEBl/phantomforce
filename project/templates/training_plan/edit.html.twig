@@ -1,0 +1,821 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phantom Force - Modifier Plan d'Entraînement{% endblock %}
+
+{% block inline_styles %}
+<style>
+/* ================= EDIT PAGE STYLES ================= */
+.edit-hero {
+    text-align: center;
+    padding: 60px 20px 30px;
+    position: relative;
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.edit-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff0000, #ff2d2d, #ff5e5e);
+    border-radius: 2px;
+    animation: widthGrow 1.2s ease-out;
+}
+
+.edit-hero h1 {
+    font-size: 42px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ff0000, #ff2d2d, #ff5e5e, #ff8a8a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
+    line-height: 1.1;
+    text-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+    animation: textGlow 3s infinite alternate;
+}
+
+.edit-hero p {
+    color: var(--text-muted);
+    font-size: 18px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ================= FORM CONTAINER ================= */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.6s ease-out;
+}
+
+.form-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 45, 45, 0.2);
+}
+
+.form-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff0000, #ff2d2d);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+.form-title h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.form-title p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin: 0;
+}
+
+/* ================= FORM GROUPS ================= */
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group label::after {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: var(--red);
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.form-group.optional label::after {
+    content: '(optionnel)';
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: none;
+    margin-left: 8px;
+    background: none;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    color: var(--text-light);
+    font-size: 15px;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--red);
+    background: rgba(255, 45, 45, 0.05);
+    box-shadow: 0 0 0 3px rgba(255, 45, 45, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.form-group input[type="date"] {
+    color-scheme: dark;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.form-group input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* ================= FORM ROW ================= */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+/* ================= SELECT WITH ICON ================= */
+.select-with-info {
+    position: relative;
+}
+
+.select-with-info select {
+    padding-left: 45px;
+}
+
+.select-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: var(--red);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.info-preview {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: rgba(255, 45, 45, 0.05);
+    border: 1px solid rgba(255, 45, 45, 0.1);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.info-preview i {
+    color: var(--red);
+    font-size: 14px;
+}
+
+.preview-highlight {
+    color: var(--red);
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+/* ================= FORM ACTIONS ================= */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-save, .btn-cancel, .btn-delete {
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: inherit;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #ff0000, #ff2d2d);
+    color: white;
+    flex: 1;
+    justify-content: center;
+}
+
+.btn-save:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+    background: linear-gradient(135deg, #ff2d2d, #ff5e5e);
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 14px 24px;
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    transform: translateY(-2px);
+    border-color: rgba(255, 45, 45, 0.3);
+}
+
+.btn-delete {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    padding: 14px 24px;
+}
+
+.btn-delete:hover {
+    background: rgba(231, 76, 60, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+}
+
+/* ================= FORM HELP TEXT ================= */
+.form-help {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.form-help i {
+    color: var(--red);
+    font-size: 12px;
+}
+
+/* ================= DATE PICKER CUSTOM ================= */
+.date-picker-container {
+    position: relative;
+}
+
+.date-picker-container .form-help {
+    margin-top: 12px;
+}
+
+.date-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--red);
+    pointer-events: none;
+}
+
+/* ================= CURRENT INFO SECTION ================= */
+.current-info {
+    background: rgba(255, 45, 45, 0.05);
+    border: 1px solid rgba(255, 45, 45, 0.1);
+    border-radius: var(--radius);
+    padding: 15px;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.current-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.current-info-item i {
+    color: var(--red);
+    font-size: 14px;
+}
+
+.current-info-item strong {
+    color: var(--text-light);
+    margin-left: 5px;
+}
+
+/* ================= FORM FOOTER ================= */
+.form-footer {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+}
+
+.back-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+}
+
+.back-link:hover {
+    color: var(--red);
+}
+
+/* ================= FORM VALIDATION ================= */
+.form-error {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.form-group.error input,
+.form-group.error textarea,
+.form-group.error select {
+    border-color: #e74c3c;
+    background: rgba(231, 76, 60, 0.05);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .edit-hero {
+        padding: 40px 20px 20px;
+    }
+    
+    .edit-hero h1 {
+        font-size: 32px;
+    }
+    
+    .form-container {
+        padding: 25px;
+        margin: 0 15px 30px;
+    }
+    
+    .form-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn-save, .btn-cancel, .btn-delete {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes widthGrow {
+    from { width: 0; }
+    to { width: 100px; }
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 5px 15px rgba(255, 0, 0, 0.3); }
+    100% { text-shadow: 0 5px 25px rgba(255, 0, 0, 0.6); }
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="edit-hero">
+    <h1>📝 MODIFIER PLAN D'ENTRAÎNEMENT</h1>
+    <p>Mettez à jour les détails de votre plan d'entraînement pour optimiser les performances de votre équipe.</p>
+</div>
+
+<div class="form-container">
+    <div class="form-header">
+        <div class="form-icon">
+            <i class="fas fa-dumbbell"></i>
+        </div>
+        <div class="form-title">
+            <h2>Édition du plan #{{ training_plan.id }}</h2>
+            <p>Modifiez les champs ci-dessous pour mettre à jour votre plan d'entraînement</p>
+        </div>
+    </div>
+
+    {{ form_start(form, {'attr': {'class': 'training-form', 'novalidate': 'novalidate'}}) }}
+    
+    <div class="form-row">
+        <div class="form-group">
+            {{ form_label(form.title, 'Titre du plan') }}
+            {{ form_widget(form.title, {'attr': {
+                'placeholder': 'Ex: Stratégie défensive avancée',
+                'class': 'form-input'
+            }}) }}
+            <div class="form-help">
+                <i class="fas fa-info-circle"></i>
+                <span>Un titre clair et descriptif pour votre plan</span>
+            </div>
+            {{ form_errors(form.title) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.focus_area, 'Zone de focus') }}
+            {{ form_widget(form.focus_area, {'attr': {
+                'class': 'form-input'
+            }}) }}
+            <div class="form-help">
+                <i class="fas fa-bullseye"></i>
+                <span>La principale compétence visée par ce plan</span>
+            </div>
+            {{ form_errors(form.focus_area) }}
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group">
+            {{ form_label(form.difficulty_level, 'Niveau de difficulté') }}
+            {{ form_widget(form.difficulty_level, {'attr': {
+                'class': 'form-input'
+            }}) }}
+            <div class="form-help">
+                <i class="fas fa-chart-line"></i>
+                <span>Adaptez la difficulté au niveau de votre équipe</span>
+            </div>
+            {{ form_errors(form.difficulty_level) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.coach, 'Coach responsable') }}
+            <div class="select-with-info">
+                <span class="select-icon">👨‍🏫</span>
+                {{ form_widget(form.coach, {'attr': {
+                    'class': 'form-input',
+                    'id': 'coach_select'
+                }}) }}
+            </div>
+            {% if training_plan.coach %}
+                <div class="info-preview" id="coachPreview">
+                    <i class="fas fa-user-tie"></i>
+                    <span><strong>Coach actuel :</strong> {{ training_plan.coach.fullName }} (@{{ training_plan.coach.username }})</span>
+                </div>
+            {% endif %}
+            <div class="form-help">
+                <i class="fas fa-user-tie"></i>
+                <span>Sélectionnez le coach responsable</span>
+            </div>
+            {{ form_errors(form.coach) }}
+        </div>
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group">
+            {{ form_label(form.team, 'Équipe cible') }}
+            <div class="select-with-info">
+                <span class="select-icon">👥</span>
+                {{ form_widget(form.team, {'attr': {
+                    'class': 'form-input',
+                    'id': 'team_select'
+                }}) }}
+            </div>
+            {% if training_plan.team %}
+                <div class="info-preview" id="teamPreview">
+                    <i class="fas fa-users"></i>
+                    <span><strong>Équipe actuelle :</strong> {{ training_plan.team.name }} ({{ training_plan.team.game }})</span>
+                </div>
+            {% endif %}
+            <div class="form-help">
+                <i class="fas fa-users"></i>
+                <span>Sélectionnez l'équipe concernée par ce plan</span>
+            </div>
+            {{ form_errors(form.team) }}
+        </div>
+        
+        <div class="form-group">
+            {{ form_label(form.created_at, 'Date de création') }}
+            <div class="date-picker-container">
+                {{ form_widget(form.created_at, {'attr': {
+                    'class': 'form-input'
+                }}) }}
+                <i class="fas fa-calendar-alt date-icon"></i>
+            </div>
+            <div class="form-help">
+                <i class="fas fa-calendar"></i>
+                <span>Date de création du plan (format : AAAA-MM-JJ)</span>
+            </div>
+            {{ form_errors(form.created_at) }}
+        </div>
+    </div>
+    
+    <div class="form-group">
+        {{ form_label(form.description, 'Description détaillée') }}
+        {{ form_widget(form.description, {'attr': {
+            'placeholder': 'Décrivez en détail les objectifs, exercices et stratégies de ce plan d\'entraînement...',
+            'class': 'form-textarea',
+            'rows': '6',
+            'id': 'plan_description'
+        }}) }}
+        <div class="form-help">
+            <i class="fas fa-align-left"></i>
+            <span>Incluez tous les détails importants pour la mise en œuvre du plan</span>
+        </div>
+        {{ form_errors(form.description) }}
+    </div>
+    
+    {% if training_plan.createdAt %}
+        <div class="current-info">
+            <div class="current-info-item">
+                <i class="fas fa-calendar-check"></i>
+                <span>Date actuelle: <strong>{{ training_plan.createdAt|date('d/m/Y') }}</strong></span>
+            </div>
+            {% if training_plan.coach %}
+                <div class="current-info-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Coach: <strong>{{ training_plan.coach.fullName }}</strong></span>
+                </div>
+            {% endif %}
+            {% if training_plan.team %}
+                <div class="current-info-item">
+                    <i class="fas fa-users"></i>
+                    <span>Équipe: <strong>{{ training_plan.team.name }}</strong></span>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    
+    <div class="form-actions">
+        <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i>
+            Mettre à jour
+        </button>
+        
+        <a href="{{ path('app_coaching_session_index') }}#training-plans" class="btn-cancel">
+            <i class="fas fa-arrow-left"></i>
+            Annuler
+        </a>
+        
+        <button type="button" class="btn-delete" onclick="confirmDelete()">
+            <i class="fas fa-trash"></i>
+            Supprimer
+        </button>
+    </div>
+    
+    {{ form_end(form) }}
+    
+    <div id="delete-form" style="display: none;">
+        {{ include('training_plan/_delete_form.html.twig') }}
+    </div>
+</div>
+
+<div class="form-footer">
+    <a href="{{ path('app_coaching_session_index') }}#training-plans" class="back-link">
+        <i class="fas fa-list"></i>
+        Retour à la liste des plans d'entraînement
+    </a>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+// Données pour les aperçus
+const coaches = {
+    {% if coaches is defined %}
+        {% for coach in coaches %}
+            {{ coach.id }}: {
+                name: "{{ coach.fullName|e('js') }}",
+                username: "{{ coach.username|e('js') }}"
+            },
+        {% endfor %}
+    {% endif %}
+};
+
+const teams = {
+    {% if teams is defined %}
+        {% for team in teams %}
+            {{ team.id }}: {
+                name: "{{ team.name|e('js') }}",
+                game: "{{ team.game|e('js') }}"
+            },
+        {% endfor %}
+    {% endif %}
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const coachSelect = document.getElementById('coach_select');
+    const teamSelect = document.getElementById('team_select');
+    const coachPreview = document.getElementById('coachPreview');
+    const teamPreview = document.getElementById('teamPreview');
+    const descriptionTextarea = document.getElementById('plan_description');
+    
+    // Gestion de l'aperçu du coach
+    if (coachSelect) {
+        coachSelect.addEventListener('change', function() {
+            const coachId = this.value;
+            
+            if (coachId && coaches[coachId]) {
+                const coach = coaches[coachId];
+                
+                let preview = document.getElementById('coachPreview');
+                if (!preview) {
+                    preview = document.createElement('div');
+                    preview.id = 'coachPreview';
+                    preview.className = 'info-preview';
+                    this.closest('.form-group').appendChild(preview);
+                }
+                
+                preview.innerHTML = `<i class="fas fa-user-tie"></i>
+                    <span><strong>Nouveau coach :</strong> ${coach.name} (@${coach.username})</span>`;
+                preview.style.display = 'flex';
+            } else if (coachPreview) {
+                coachPreview.style.display = coachSelect.value ? 'flex' : 'none';
+            }
+        });
+    }
+    
+    // Gestion de l'aperçu de l'équipe
+    if (teamSelect) {
+        teamSelect.addEventListener('change', function() {
+            const teamId = this.value;
+            
+            if (teamId && teams[teamId]) {
+                const team = teams[teamId];
+                
+                let preview = document.getElementById('teamPreview');
+                if (!preview) {
+                    preview = document.createElement('div');
+                    preview.id = 'teamPreview';
+                    preview.className = 'info-preview';
+                    this.closest('.form-group').appendChild(preview);
+                }
+                
+                preview.innerHTML = `<i class="fas fa-users"></i>
+                    <span><strong>Nouvelle équipe :</strong> ${team.name} (${team.game})</span>`;
+                preview.style.display = 'flex';
+            } else if (teamPreview) {
+                teamPreview.style.display = teamSelect.value ? 'flex' : 'none';
+            }
+        });
+    }
+    
+    // Validation des formulaires
+    function validateForm() {
+        let isValid = true;
+        
+        // Titre (5-255 caractères)
+        const titleInput = document.querySelector('#training_plan_title');
+        if (titleInput && titleInput.value.trim()) {
+            const length = titleInput.value.trim().length;
+            if (length < 5 || length > 255) {
+                titleInput.classList.add('error');
+                isValid = false;
+            } else {
+                titleInput.classList.remove('error');
+            }
+        }
+        
+        // Description (20-2000 caractères)
+        if (descriptionTextarea && descriptionTextarea.value.trim()) {
+            const length = descriptionTextarea.value.trim().length;
+            if (length < 20 || length > 2000) {
+                descriptionTextarea.classList.add('error');
+                isValid = false;
+            } else {
+                descriptionTextarea.classList.remove('error');
+            }
+        }
+        
+        return isValid;
+    }
+    
+    // Soumission du formulaire
+    const form = document.querySelector('.training-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+                alert('Veuillez corriger les erreurs dans le formulaire avant de soumettre.');
+            }
+        });
+    }
+    
+    // Animation d'entrée
+    const formGroups = document.querySelectorAll('.form-group');
+    formGroups.forEach((group, index) => {
+        setTimeout(() => {
+            group.style.animation = `fadeIn 0.5s ease-out forwards`;
+            group.style.opacity = '0';
+        }, index * 100);
+    });
+    
+    // Confirmation avant de quitter si modifications
+    let formModified = false;
+    if (form) {
+        form.addEventListener('input', () => {
+            formModified = true;
+        });
+        
+        window.addEventListener('beforeunload', (e) => {
+            if (formModified) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+        
+        form.addEventListener('submit', () => {
+            formModified = false;
+        });
+    }
+});
+
+function confirmDelete() {
+    if (confirm('⚠️ ATTENTION : Êtes-vous sûr de vouloir supprimer définitivement ce plan d\'entraînement ? Cette action est irréversible.')) {
+        document.querySelector('#delete-form form').submit();
+    }
+}
+
+// Formatage de la date pour l'input date
+const createdAtInput = document.querySelector('#training_plan_created_at');
+if (createdAtInput && createdAtInput.value) {
+    // Si la valeur est déjà au bon format, on la garde
+    if (!createdAtInput.value.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        const date = new Date(createdAtInput.value);
+        if (!isNaN(date.getTime())) {
+            const formattedDate = date.toISOString().split('T')[0];
+            createdAtInput.value = formattedDate;
+        }
+    }
+}
+</script>
+{% endblock %}
