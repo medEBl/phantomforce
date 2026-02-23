@@ -1,0 +1,50 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Dashboard Admin - ARENA{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <h1 class="h3 mb-0">Vue d'ensemble</h1>
+    <p class="text-muted small mb-0">Bienvenue dans votre interface d'administration.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="admin-card text-center">
+            <i class="fas fa-trophy mb-3" style="font-size: 2rem; color: var(--admin-accent);"></i>
+            <h3 class="h2 mb-1">{{ totalTournaments }}</h3>
+            <p class="text-muted text-uppercase small mb-0">Tournois Totaux</p>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="admin-card text-center">
+            <i class="fas fa-check-circle mb-3" style="font-size: 2rem; color: var(--admin-success);"></i>
+            <h3 class="h2 mb-1">{{ activeTournaments }}</h3>
+            <p class="text-muted text-uppercase small mb-0">Tournois Actifs</p>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="admin-card text-center">
+            <i class="fas fa-money-bill-wave mb-3" style="font-size: 2rem; color: var(--admin-accent);"></i>
+            <h3 class="h2 mb-1">{{ totalPrizePool }}€</h3>
+            <p class="text-muted text-uppercase small mb-0">Prize Pool Global</p>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5">
+    <div class="admin-card">
+        <h4 class="mb-4">Actions Rapides</h4>
+        <div class="d-flex gap-3">
+            <a href="{{ path('app_back_matchy_index') }}" class="btn-admin btn-admin-primary">
+                <i class="fas fa-list"></i> Gérer les Tournois
+            </a>
+            <a href="{{ path('app_back_matchy_new') }}" class="btn-admin btn-admin-secondary">
+                <i class="fas fa-plus"></i> Organiser
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

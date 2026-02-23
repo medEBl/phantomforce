@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendrier des sessions{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css">
+<style>
+    #calendar {
+        background: var(--bg-card);
+        padding: 20px;
+        border-radius: var(--radius-lg);
+        margin-top: 20px;
+    }
+    .fc-toolbar-title { color: var(--text-main) !important; }
+    .fc-button-primary { background: var(--red-gradient) !important; border: none !important; }
+    .fc-daygrid-day { background: var(--bg-card-light) !important; }
+    .fc-day-today { background: rgba(255,45,45,0.1) !important; }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>📅 Calendrier des sessions</h1>
+    <div id="calendar"></div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/fr.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        locale: 'fr',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: {{ events|raw }},
+        eventClick: function(info) {
+            window.location.href = info.event.url;
+        }
+    });
+    calendar.render();
+});
+</script>
+{% endblock %}

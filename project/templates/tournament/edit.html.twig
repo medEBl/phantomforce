@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phantom Force – Modifier {{ tournament.name }}{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .form-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .form-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        backdrop-filter: blur(10px);
+    }
+
+    .form-title {
+        font-size: 24px;
+        font-weight: 800;
+        color: white;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-left: 4px solid var(--red);
+        padding-left: 20px;
+    }
+
+    .form-group-pf {
+        margin-bottom: 25px;
+    }
+
+    .form-label-pf {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    .form-control-pf {
+        background: rgba(0,0,0,0.3);
+        border: 1px solid var(--border-light);
+        color: white;
+        padding: 12px 15px;
+        border-radius: 8px;
+        width: 100%;
+        transition: var(--transition);
+    }
+
+    .form-control-pf:focus {
+        border-color: var(--red);
+        outline: none;
+        box-shadow: 0 0 0 2px var(--red-soft);
+        background: rgba(0,0,0,0.5);
+    }
+
+    .form-error-pf {
+        color: var(--red);
+        font-size: 12px;
+        margin-top: 5px;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container py-5 form-container">
+    <div class="form-card">
+        <h2 class="form-title">Modifier : {{ tournament.name }}</h2>
+        
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="row">
+                <div class="col-md-6 form-group-pf">
+                    <label class="form-label-pf">{{ form_label(form.name) }}</label>
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control-pf'}}) }}
+                    <div class="form-error-pf">{{ form_errors(form.name) }}</div>
+                </div>
+                
+                <div class="col-md-6 form-group-pf">
+                    <label class="form-label-pf">{{ form_label(form.game) }}</label>
+                    {{ form_widget(form.game, {'attr': {'class': 'form-control-pf'}}) }}
+                    <div class="form-error-pf">{{ form_errors(form.game) }}</div>
+                </div>
+
+                <div class="col-md-6 form-group-pf">
+                    <label class="form-label-pf">{{ form_label(form.startDate) }}</label>
+                    {{ form_widget(form.startDate, {'attr': {'class': 'form-control-pf d-flex gap-1'}}) }}
+                    <div class="form-error-pf">{{ form_errors(form.startDate) }}</div>
+                </div>
+
+                <div class="col-md-6 form-group-pf">
+                    <label class="form-label-pf">{{ form_label(form.endDate) }}</label>
+                    {{ form_widget(form.endDate, {'attr': {'class': 'form-control-pf d-flex gap-1'}}) }}
+                    <div class="form-error-pf">{{ form_errors(form.endDate) }}</div>
+                </div>
+
+                <div class="col-md-6 form-group-pf">
+                    <label class="form-label-pf">{{ form_label(form.phase) }}</label>
+                    {{ form_widget(form.phase, {'attr': {'class': 'form-control-pf'}}) }}
+                    <div class="form-error-pf">{{ form_errors(form.phase) }}</div>
+                </div>
+
+                <div class="col-md-6 form-group-pf">
+                    <label class="form-label-pf">{{ form_label(form.organizerId) }}</label>
+                    {{ form_widget(form.organizerId, {'attr': {'class': 'form-control-pf'}}) }}
+                    <div class="form-error-pf">{{ form_errors(form.organizerId) }}</div>
+                </div>
+            </div>
+            
+            <div class="detail-actions mt-2">
+                <button type="submit" class="btn-organiser flex-grow-1 justify-content-center">
+                    <i class="fas fa-save"></i> ENREGISTRER LES MODIFICATIONS
+                </button>
+                <a href="{{ path('app_tournaments') }}" class="btn-secondary-pf px-4">
+                    ANNULER
+                </a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
