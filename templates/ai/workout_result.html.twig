@@ -1,0 +1,377 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre plan d'entraînement personnalisé{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .result-hero {
+        text-align: center;
+        padding: 30px 20px;
+        margin-bottom: 30px;
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .result-hero h1 {
+        font-size: 36px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, #fff, var(--red));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .result-badges {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+    }
+
+    .result-badge {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        padding: 10px 25px;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: fadeInUp 0.6s ease-out backwards;
+    }
+
+    .result-badge:nth-child(1) { animation-delay: 0.2s; }
+    .result-badge:nth-child(2) { animation-delay: 0.3s; }
+    .result-badge:nth-child(3) { animation-delay: 0.4s; }
+    .result-badge:nth-child(4) { animation-delay: 0.5s; }
+
+    .result-badge i {
+        color: var(--red);
+    }
+
+    .result-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 40px;
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-lg);
+        animation: fadeInUp 0.8s ease-out;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .result-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--red-gradient);
+        animation: borderFlow 3s linear infinite;
+    }
+
+    .workout-plan {
+        background: rgba(0,0,0,0.3);
+        border: 1px solid var(--border-light);
+        border-radius: var(--radius);
+        padding: 30px;
+        margin: 30px 0;
+        font-family: 'Inter', monospace;
+        line-height: 1.8;
+        white-space: pre-wrap;
+        max-height: 600px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--red) var(--bg-card);
+    }
+
+    .workout-plan::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .workout-plan::-webkit-scrollbar-track {
+        background: var(--bg-card);
+        border-radius: 4px;
+    }
+
+    .workout-plan::-webkit-scrollbar-thumb {
+        background: var(--red);
+        border-radius: 4px;
+    }
+
+    .workout-plan::-webkit-scrollbar-thumb:hover {
+        background: #ff5e5e;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    .action-btn {
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        animation: fadeInUp 0.6s ease-out backwards;
+    }
+
+    .action-btn:nth-child(1) { animation-delay: 0.1s; }
+    .action-btn:nth-child(2) { animation-delay: 0.2s; }
+    .action-btn:nth-child(3) { animation-delay: 0.3s; }
+    .action-btn:nth-child(4) { animation-delay: 0.4s; }
+
+    .action-btn-primary {
+        background: var(--red-gradient);
+        color: white;
+    }
+
+    .action-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(255,45,45,0.3);
+    }
+
+    .action-btn-secondary {
+        background: rgba(255,255,255,0.05);
+        color: var(--text-light);
+        border: 1px solid var(--border-light);
+    }
+
+    .action-btn-secondary:hover {
+        background: rgba(255,255,255,0.1);
+        transform: translateY(-2px);
+    }
+
+    .success-message {
+        background: rgba(45,255,139,0.1);
+        border: 1px solid rgba(45,255,139,0.3);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .success-message i {
+        font-size: 30px;
+        color: var(--green);
+    }
+
+    .success-message-content h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: var(--green);
+    }
+
+    .success-message-content p {
+        font-size: 14px;
+        color: var(--text-muted);
+    }
+
+    .share-section {
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 1px solid var(--border-light);
+        text-align: center;
+    }
+
+    .share-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--text-muted);
+    }
+
+    .share-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .share-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.05);
+        border: 1px solid var(--border-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .share-btn:hover {
+        transform: translateY(-5px);
+    }
+
+    .share-btn.twitter:hover { background: #1DA1F2; color: white; }
+    .share-btn.facebook:hover { background: #4267B2; color: white; }
+    .share-btn.whatsapp:hover { background: #25D366; color: white; }
+    .share-btn.linkedin:hover { background: #0077B5; color: white; }
+
+    @media (max-width: 768px) {
+        .result-card {
+            padding: 25px;
+        }
+
+        .result-badges {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-badge {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+
+        .action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="result-hero">
+    <h1>✅ Plan généré avec succès !</h1>
+    <p>Votre programme d'entraînement personnalisé est prêt</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <div class="success-message">
+            <i class="fas fa-check-circle"></i>
+            <div class="success-message-content">
+                <h3>Plan personnalisé créé par l'IA</h3>
+                <p>Ce programme a été généré spécialement pour vous en fonction de vos critères</p>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <div class="result-badges">
+                <div class="result-badge">
+                    <i class="fas fa-futbol"></i> {{ sport|capitalize }}
+                </div>
+                <div class="result-badge">
+                    <i class="fas fa-chart-line"></i> {{ niveau|capitalize }}
+                </div>
+                <div class="result-badge">
+                    <i class="fas fa-clock"></i> {{ duree }} min
+                </div>
+                <div class="result-badge">
+                    <i class="fas fa-bullseye"></i> {{ objectif|capitalize }}
+                </div>
+            </div>
+
+            <div class="workout-plan">
+                {{ plan|nl2br }}
+            </div>
+
+            <div class="action-buttons">
+                <a href="{{ path('app_ai_workout_form') }}" class="action-btn action-btn-primary">
+                    <i class="fas fa-plus-circle"></i> Nouveau plan
+                </a>
+                <button onclick="window.print()" class="action-btn action-btn-secondary">
+                    <i class="fas fa-print"></i> Imprimer
+                </button>
+                <button onclick="copyToClipboard()" class="action-btn action-btn-secondary">
+                    <i class="fas fa-copy"></i> Copier
+                </button>
+                <button onclick="downloadAsText()" class="action-btn action-btn-secondary">
+                    <i class="fas fa-download"></i> Télécharger
+                </button>
+            </div>
+
+            <div class="share-section">
+                <div class="share-title">Partager ce plan</div>
+                <div class="share-buttons">
+                    <a href="#" onclick="shareOnTwitter()" class="share-btn twitter" title="Partager sur Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" onclick="shareOnFacebook()" class="share-btn facebook" title="Partager sur Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" onclick="shareOnWhatsApp()" class="share-btn whatsapp" title="Partager sur WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" onclick="shareOnLinkedIn()" class="share-btn linkedin" title="Partager sur LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="color: var(--text-muted); font-size: 13px;">
+                <i class="fas fa-clock"></i> Généré le {{ date }} • 
+                <i class="fas fa-microchip"></i> Propulsé par OpenAI
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard() {
+    const plan = document.querySelector('.workout-plan').innerText;
+    navigator.clipboard.writeText(plan).then(() => {
+        alert('✅ Plan copié dans le presse-papier !');
+    });
+}
+
+function downloadAsText() {
+    const plan = document.querySelector('.workout-plan').innerText;
+    const blob = new Blob([plan], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'plan_entrainement_{{ sport }}_{{ date|replace({"/": "-", ":": "-"}) }}.txt';
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
+function shareOnTwitter() {
+    const text = encodeURIComponent('Mon plan d\'entraînement personnalisé pour {{ sport }} !');
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+}
+
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+
+function shareOnWhatsApp() {
+    const text = encodeURIComponent('Regarde mon plan d\'entraînement personnalisé !');
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
+}
+
+function shareOnLinkedIn() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+}
+</script>
+{% endblock %}

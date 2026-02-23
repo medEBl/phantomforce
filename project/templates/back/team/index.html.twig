@@ -1,0 +1,392 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Admin - Gestion des équipes{% endblock %}
+
+{% block body %}
+<div class="admin-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-2">👥 Gestion des équipes</h1>
+            <p class="mb-0 text-muted">Administrez les équipes de l'arène e-sport</p>
+        </div>
+        <a href="{{ path('app_back_team_new') }}" class="btn-admin btn-admin-primary">
+            <i class="fas fa-plus"></i> Nouvelle équipe
+        </a>
+    </div>
+</div>
+
+<!-- Statistiques -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="admin-card">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-users fa-2x" style="color: var(--admin-accent);"></i>
+                </div>
+                <div>
+                    <h3 class="mb-0">{{ teams|length }}</h3>
+                    <small class="text-muted">Équipes total</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="admin-card">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-user-tie fa-2x" style="color: #ffc107;"></i>
+                </div>
+                <div>
+                    <h3 class="mb-0">{{ teams|filter(t => t.coach is not empty)|length }}</h3>
+                    <small class="text-muted">Avec coach</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="admin-card">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-gamepad fa-2x" style="color: var(--admin-success);"></i>
+                </div>
+                <div>
+                    <h3 class="mb-0">{{ teams|map(t => t.game)|filter(g => g is not empty)|reduce((unique, game) => game not in unique ? unique|merge([game]) : unique, [])|length }}</h3>
+                    <small class="text-muted">Jeux distincts</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="admin-card">
+            <div class="d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fas fa-user-check fa-2x" style="color: #9d00ff;"></i>
+                </div>
+                <div>
+                    <h3 class="mb-0">{{ teams|reduce((total, t) => total + t.members|length, 0) }}</h3>
+                    <small class="text-muted">Membres total</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filtres rapides -->
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="admin-card p-2">
+            <div class="d-flex gap-2 flex-wrap align-items-center">
+                <span class="text-muted me-2"><i class="fas fa-filter"></i> Filtres :</span>
+                <button class="btn-admin btn-admin-secondary btn-sm" onclick="filterTeams('all')">
+                    Tous ({{ teams|length }})
+                </button>
+                <button class="btn-admin btn-admin-primary btn-sm" onclick="filterTeams('with-coach')">
+                    <i class="fas fa-user-tie"></i> Avec coach ({{ teams|filter(t => t.coach is not empty)|length }})
+                </button>
+                <button class="btn-admin btn-admin-warning btn-sm" onclick="filterTeams('without-coach')">
+                    <i class="fas fa-user-slash"></i> Sans coach ({{ teams|filter(t => t.coach is empty)|length }})
+                </button>
+                <button class="btn-admin btn-admin-info btn-sm" onclick="filterTeams('with-members')">
+                    <i class="fas fa-users"></i> Avec membres ({{ teams|filter(t => t.members|length > 0)|length }})
+                </button>
+                <button class="btn-admin btn-admin-secondary btn-sm" onclick="filterTeams('empty')">
+                    <i class="fas fa-empty"></i> Sans membres ({{ teams|filter(t => t.members|length == 0)|length }})
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Barre de recherche -->
+<div class="row mb-3">
+    <div class="col-md-6 col-lg-4">
+        <div class="input-group">
+            <input type="text" class="form-control form-admin" id="searchInput" placeholder="Rechercher une équipe...">
+            <button class="btn-admin btn-admin-secondary" type="button" onclick="searchTeams()">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="btn-admin btn-admin-danger" type="button" onclick="clearSearch()" title="Effacer la recherche">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="admin-card">
+    <div class="table-responsive">
+        <table class="admin-table" id="teamsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Jeu</th>
+                    <th>Date création</th>
+                    <th>Coach</th>
+                    <th>Membres</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team in teams %}
+                <tr class="team-row" 
+                    data-has-coach="{{ team.coach ? 'yes' : 'no' }}"
+                    data-members-count="{{ team.members|length }}">
+                    <td><strong>#{{ team.id }}</strong></td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-users me-2" style="color: var(--blood-red);"></i>
+                            {{ team.name }}
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge-admin" style="background: var(--blood-orange);">
+                            {{ team.game|default('N/A') }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if team.creationDate %}
+                            {{ team.creationDate|date('d/m/Y') }}
+                            <small class="text-muted d-block">{{ team.creationDate|date('H:i') }}</small>
+                        {% else %}
+                            <span class="text-muted">N/A</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if team.coach %}
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-crown me-1" style="color: #ffc107;"></i>
+                                {{ team.coach.username }}
+                                <small class="text-muted ms-1">({{ team.coach.email }})</small>
+                            </div>
+                        {% else %}
+                            <span class="text-muted">
+                                <i class="fas fa-user-slash"></i> Non assigné
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-user-friends me-1" style="color: var(--neon-green);"></i>
+                            <span class="badge-admin" style="background: var(--neon-green); color: black;">
+                                {{ team.members|length }}
+                            </span>
+                            {% if team.members|length > 0 %}
+                                <small class="text-muted ms-1" title="
+                                    {%- for member in team.members -%}
+                                        {{ member.pseudo }}{% if not loop.last %}, {% endif %}
+                                    {%- endfor -%}">
+                                    <i class="fas fa-info-circle"></i>
+                                </small>
+                            {% endif %}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="{{ path('app_back_team_show', {'id': team.id}) }}" 
+                               class="btn-admin btn-admin-secondary btn-sm"
+                               title="Voir les détails">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ path('app_back_team_edit', {'id': team.id}) }}" 
+                               class="btn-admin btn-admin-primary btn-sm"
+                               title="Modifier">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form method="post" action="{{ path('app_back_team_delete', {'id': team.id}) }}" 
+                                  onsubmit="return confirm('⚠️ Supprimer cette équipe ?\n\nCette action supprimera l\'équipe mais conservera les agents.');"
+                                  class="d-inline">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ team.id) }}">
+                                <button type="submit" class="btn-admin btn-admin-danger btn-sm"
+                                        title="Supprimer">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="text-center py-4">
+                        <div class="py-4">
+                            <i class="fas fa-users fa-3x mb-3" style="color: rgba(255,255,255,0.1);"></i>
+                            <h5 class="text-muted">Aucune équipe trouvée</h5>
+                            <p class="text-muted">Commencez par créer une nouvelle équipe</p>
+                            <a href="{{ path('app_back_team_new') }}" class="btn-admin btn-admin-primary">
+                                <i class="fas fa-plus"></i> Créer la première équipe
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Pagination (optionnelle) -->
+    {% if teams|length > 10 %}
+    <nav class="mt-3">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Précédent">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Suivant">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+<script>
+// Fonction de recherche
+function searchTeams() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const rows = document.querySelectorAll('.team-row');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(filter)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+// Effacer la recherche
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    document.querySelectorAll('.team-row').forEach(row => {
+        row.style.display = '';
+    });
+}
+
+// Filtrer les équipes
+function filterTeams(type) {
+    const rows = document.querySelectorAll('.team-row');
+    
+    rows.forEach(row => {
+        const hasCoach = row.dataset.hasCoach;
+        const membersCount = parseInt(row.dataset.membersCount);
+        
+        switch(type) {
+            case 'all':
+                row.style.display = '';
+                break;
+            case 'with-coach':
+                row.style.display = hasCoach === 'yes' ? '' : 'none';
+                break;
+            case 'without-coach':
+                row.style.display = hasCoach === 'no' ? '' : 'none';
+                break;
+            case 'with-members':
+                row.style.display = membersCount > 0 ? '' : 'none';
+                break;
+            case 'empty':
+                row.style.display = membersCount === 0 ? '' : 'none';
+                break;
+        }
+    });
+}
+
+// Recherche en temps réel
+document.getElementById('searchInput')?.addEventListener('keyup', function(e) {
+    searchTeams();
+});
+
+// Raccourci Ctrl+F pour focus recherche
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'f') {
+        e.preventDefault();
+        document.getElementById('searchInput')?.focus();
+    }
+});
+
+// Animation des cartes au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.admin-card');
+    cards.forEach((card, index) => {
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+});
+</script>
+
+<style>
+.admin-card {
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.admin-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Style pour les badges de filtre */
+.btn-admin-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.85rem;
+}
+
+/* Animation pour les lignes du tableau */
+.team-row {
+    transition: all 0.2s;
+}
+
+.team-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Style pour la recherche */
+#searchInput:focus {
+    border-color: var(--blood-red);
+    box-shadow: 0 0 0 3px rgba(255, 0, 60, 0.2);
+}
+
+/* Badges personnalisés */
+.badge-admin {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Style pour les boutons de filtre */
+.btn-admin-info {
+    background: linear-gradient(45deg, #17a2b8, #138496);
+    color: white;
+    border: none;
+}
+
+.btn-admin-info:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+.btn-admin-warning {
+    background: linear-gradient(45deg, #ffc107, #e0a800);
+    color: black;
+    border: none;
+}
+
+.btn-admin-warning:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+</style>
+{% endblock %}
