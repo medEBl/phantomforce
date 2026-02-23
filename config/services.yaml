@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
 parameters:
     app.from_email: '%env(MAILER_FROM_EMAIL)%'
     app.from_name: '%env(MAILER_FROM_NAME)%'
@@ -13,7 +21,14 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+<<<<<<< HEAD
             - '../src/Tests/'
+=======
+    App\Security\RecaptchaValidator:
+        arguments:
+            $secretKey: '%env(RECAPTCHA_SECRET_KEY)%'
+    Knp\Component\Pager\PaginatorInterface: '@knp_paginator'
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
 
     App\Service\EmailService:
         arguments:

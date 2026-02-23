@@ -18,5 +18,12 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+<<<<<<< HEAD
 .env
 .env
+=======
+
+###> symfony/asset-mapper ###
+/public/assets/
+###< symfony/asset-mapper ###
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f

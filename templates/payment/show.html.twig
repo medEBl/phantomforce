@@ -149,6 +149,7 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
 
                 <!-- BOUTON STRIPE (AJOUTÉ ICI) -->
                 {% if payment.paymentStatus == 'pending' and payment.shopItem %}
@@ -178,6 +179,8 @@
                     </div>
                 </div>
                 {% endif %}
+=======
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
                 
                 <!-- ACTIONS -->
                 <div class="action-buttons">
@@ -189,6 +192,7 @@
                         <i class="fas fa-copy"></i>
                         DUPLIQUER
                     </a>
+<<<<<<< HEAD
                     
                     <!-- NOUVEAU BOUTON FACTURE -->
                     <a href="{{ path('app_payment_invoice', {'id': payment.id}) }}" class="action-btn invoice-btn" target="_blank">
@@ -196,6 +200,8 @@
                         FACTURE
                     </a>
                     
+=======
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
                     <button type="button" class="action-btn delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
                         <i class="fas fa-trash"></i>
                         SUPPRIMER
@@ -573,6 +579,7 @@
     font-size: 1rem;
 }
 
+<<<<<<< HEAD
 /* STYLES POUR LA SECTION STRIPE */
 .stripe-payment-section {
     margin: 20px 0;
@@ -678,6 +685,8 @@
     color: #6772e5;
 }
 
+=======
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
 /* ACTIONS */
 .action-buttons {
     display: flex;
@@ -743,6 +752,7 @@
     box-shadow: 0 5px 15px rgba(255, 0, 51, 0.4);
 }
 
+<<<<<<< HEAD
 /* NOUVEAU STYLE POUR LE BOUTON FACTURE */
 .invoice-btn {
     background: rgba(255, 138, 45, 0.2);
@@ -757,6 +767,8 @@
     box-shadow: 0 5px 15px rgba(255, 138, 45, 0.4);
 }
 
+=======
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
 /* SUMMARY CARD */
 .summary-card {
     background: rgba(20, 20, 30, 0.9);
@@ -1521,6 +1533,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
 </script>
 {% endblock %}

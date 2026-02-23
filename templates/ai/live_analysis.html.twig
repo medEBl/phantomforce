@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Analyse en direct - Matchs Live{% endblock %}
+
+{% block body %}
+<div class="container" style="text-align: center; padding: 50px 0;">
+    <div style="margin-bottom: 30px;">
+        <i class="fas fa-broadcast-tower" style="font-size: 80px; color: var(--red); margin-bottom: 20px;"></i>
+        <h1 style="font-size: 42px; font-weight: 800; margin-bottom: 15px; background: linear-gradient(135deg, #fff, var(--red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            📡 Analyse en direct
+        </h1>
+        <p style="color: var(--text-muted); font-size: 18px; max-width: 600px; margin: 0 auto;">
+            Suivez les matchs en temps réel avec des analyses instantanées de l'IA
+        </p>
+    </div>
+
+    <div class="live-analysis-panel" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 40px; margin: 40px 0;">
+        <div class="live-header" style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+            <div style="width: 12px; height: 12px; background: var(--red); border-radius: 50%; animation: pulse 1.5s infinite;"></div>
+            <div style="font-size: 20px; font-weight: 700;">Matchs en cours</div>
+            <div style="background: var(--red); color: white; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-left: auto;">LIVE</div>
+        </div>
+
+        <!-- Match 1 -->
+        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: center; background: rgba(0,0,0,0.3); border-radius: var(--radius); padding: 25px; margin-bottom: 20px;">
+            <div style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: var(--red-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 20px; font-weight: 700;">T1</div>
+                <div style="font-weight: 600;">T1</div>
+                <div style="font-size: 12px; color: var(--text-muted);">LCK #1</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 32px; font-weight: 800; color: var(--red);">12 - 8</div>
+                <div style="width: 200px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: 10px auto; overflow: hidden;">
+                    <div style="height: 100%; background: var(--red-gradient); width: 65%; border-radius: 4px;"></div>
+                </div>
+                <div style="font-size: 12px; color: var(--text-muted);">65% win prob.</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: var(--blue-soft, rgba(77,124,255,0.15)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 20px; font-weight: 700;">GEN</div>
+                <div style="font-weight: 600;">Gen.G</div>
+                <div style="font-size: 12px; color: var(--text-muted);">LCK #2</div>
+            </div>
+        </div>
+
+        <!-- Match 2 -->
+        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: center; background: rgba(0,0,0,0.3); border-radius: var(--radius); padding: 25px; margin-bottom: 20px;">
+            <div style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: var(--red-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 20px; font-weight: 700;">G2</div>
+                <div style="font-weight: 600;">G2</div>
+                <div style="font-size: 12px; color: var(--text-muted);">LEC #1</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 32px; font-weight: 800; color: var(--red);">8 - 15</div>
+                <div style="width: 200px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: 10px auto; overflow: hidden;">
+                    <div style="height: 100%; background: var(--red-gradient); width: 35%; border-radius: 4px;"></div>
+                </div>
+                <div style="font-size: 12px; color: var(--text-muted);">35% win prob.</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: var(--orange-soft, rgba(255,138,45,0.15)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 20px; font-weight: 700;">FNC</div>
+                <div style="font-weight: 600;">Fnatic</div>
+                <div style="font-size: 12px; color: var(--text-muted);">LEC #2</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <h3 style="font-size: 24px; margin-bottom: 20px;">📊 Statistiques en direct</h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;">
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 5px;">Matchs en cours</div>
+                <div style="font-size: 36px; font-weight: 800; color: var(--red);">4</div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;">
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 5px;">Joueurs actifs</div>
+                <div style="font-size: 36px; font-weight: 800; color: var(--red);">28</div>
+            </div>
+            <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;">
+                <div style="font-size: 14px; color: var(--text-muted); margin-bottom: 5px;">Prédictions mises à jour</div>
+                <div style="font-size: 36px; font-weight: 800; color: var(--red);">12</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <a href="{{ path('app_analyst_dashboard') }}" class="btn btn-primary" style="padding: 15px 40px;">
+            <i class="fas fa-arrow-left"></i> Retour au dashboard
+        </a>
+    </div>
+</div>
+
+<style>
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+</style>
+{% endblock %}

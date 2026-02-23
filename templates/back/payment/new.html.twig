@@ -1,0 +1,352 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}🎮 Nouveau Paiement - Admin Panel{% endblock %}
+
+{% block body %}
+<div class="admin-content">
+    <div class="admin-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="h3 mb-0">
+                    <i class="fas fa-plus-circle"></i>
+                    Nouveau Paiement
+                </h1>
+                <p class="text-muted mb-0">Créez une nouvelle transaction</p>
+            </div>
+            <a href="{{ path('app_back_payment_index') }}" class="btn-admin btn-admin-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Retour à la liste
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="admin-card">
+                <h2 class="h5 mb-4">
+                    <i class="fas fa-edit me-2"></i>
+                    Formulaire de création
+                </h2>
+                
+                {{ form_start(form, {'attr': {'class': 'form-admin'}}) }}
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.shopItem, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            <span class="text-danger ms-1">*</span>
+                            {{ form_widget(form.shopItem, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                            <div class="text-danger mt-1">{{ form_errors(form.shopItem) }}</div>
+                            <small class="form-text text-muted mt-1">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Article obligatoire associé au paiement
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.amount, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            <span class="text-danger ms-1">*</span>
+                            {{ form_widget(form.amount, {'attr': {
+                                'class': 'form-control',
+                                'placeholder': '0.00',
+                                'required': 'required',
+                                'min': '0.01',
+                                'step': '0.01'
+                            }}) }}
+                            <div class="text-danger mt-1">{{ form_errors(form.amount) }}</div>
+                            <small class="form-text text-muted mt-1">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                Doit être un nombre positif (ex: 99.99)
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.paymentMethod, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            <span class="text-danger ms-1">*</span>
+                            {{ form_widget(form.paymentMethod, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                            <div class="text-danger mt-1">{{ form_errors(form.paymentMethod) }}</div>
+                            <small class="form-text text-muted mt-1">
+                                <i class="fas fa-list me-1"></i>
+                                Sélectionnez la méthode de paiement utilisée
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.paymentStatus, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            <span class="text-danger ms-1">*</span>
+                            {{ form_widget(form.paymentStatus, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                            <div class="text-danger mt-1">{{ form_errors(form.paymentStatus) }}</div>
+                            <small class="form-text text-muted mt-1">
+                                <i class="fas fa-exchange-alt me-1"></i>
+                                Sélectionnez le statut de la transaction
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.transactionRef, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            <span class="text-danger ms-1">*</span>
+                            {{ form_widget(form.transactionRef, {'attr': {
+                                'class': 'form-control',
+                                'placeholder': 'TRX',
+                                'required': 'required',
+                                'minlength': '3',
+                                'maxlength': '255'
+                            }}) }}
+                            <div class="text-danger mt-1">{{ form_errors(form.transactionRef) }}</div>
+                            <small class="form-text text-muted mt-1">
+                                <i class="fas fa-ruler me-1"></i>
+                                Doit contenir entre 3 et 255 caractères
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form_label(form.paymentDate, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            <span class="text-danger ms-1">*</span>
+                            {{ form_widget(form.paymentDate, {'attr': {'class': 'form-control', 'required': 'required'}}) }}
+                            <div class="text-danger mt-1">{{ form_errors(form.paymentDate) }}</div>
+                            <small class="form-text text-muted mt-1">
+                                <i class="fas fa-calendar-alt me-1"></i>
+                                Date et heure du paiement
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Règles de validation -->
+                <div class="admin-card mt-4">
+                    <h5 class="mb-3">
+                        <i class="fas fa-clipboard-check me-2"></i>
+                        Règles de validation
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2">
+                                    <span class="badge bg-danger me-2">*</span>
+                                    <small>Champs obligatoires</small>
+                                </li>
+                                <li class="mb-2">
+                                    <span class="badge bg-dark me-2">
+                                        <i class="fas fa-euro-sign"></i>
+                                    </span>
+                                    <small>Montant : nombre positif</small>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2">
+                                    <span class="badge bg-dark me-2">
+                                        <i class="fas fa-hashtag"></i>
+                                    </span>
+                                    <small>Référence : 3-255 caractères</small>
+                                </li>
+                                <li class="mb-2">
+                                    <span class="badge bg-dark me-2">
+                                        <i class="fas fa-check-circle"></i>
+                                    </span>
+                                    <small>Statut et méthode : sélection obligatoire</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <a href="{{ path('app_back_payment_index') }}" class="btn-admin btn-admin-secondary">
+                        <i class="fas fa-times"></i>
+                        Annuler
+                    </a>
+                    <button type="submit" class="btn-admin btn-admin-primary">
+                        <i class="fas fa-save"></i>
+                        Créer le paiement
+                    </button>
+                </div>
+                
+                {{ form_end(form) }}
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="admin-card mb-3">
+                <h2 class="h5 mb-4">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Informations
+                </h2>
+                
+                <div class="alert alert-dark" role="alert">
+                    <h6 class="alert-heading">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        Conseils
+                    </h6>
+                    <ul class="mb-0 ps-3">
+                        <li>Tous les champs sont obligatoires</li>
+                        <li>La référence doit être unique</li>
+                        <li>Vérifiez le montant avant validation</li>
+                        <li>Associez un article pour le suivi</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="admin-card mb-3">
+                <h2 class="h5 mb-4">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Contrôles de saisie
+                </h2>
+                
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                                <td width="40">
+                                    <span class="badge bg-danger">*</span>
+                                </td>
+                                <td>
+                                    <small class="text-muted">Champ obligatoire</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="badge bg-dark">
+                                        <i class="fas fa-euro-sign"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    <small class="text-muted">Montant > 0</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="badge bg-dark">
+                                        <i class="fas fa-hashtag"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    <small class="text-muted">Référence unique</small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="badge bg-dark">
+                                        <i class="fas fa-calendar"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    <small class="text-muted">Date valide</small>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-card">
+                <h2 class="h5 mb-4">
+                    <i class="fas fa-cube me-2"></i>
+                    Articles disponibles
+                </h2>
+                
+                {% if shop_items_available %}
+                <div class="list-group">
+                    {% for item in shop_items_available|slice(0, 3) %}
+                    <div class="list-group-item bg-transparent border-secondary">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">{{ item.itemName }}</h6>
+                                <small class="text-muted">{{ item.itemCategory }}</small>
+                            </div>
+                            <span class="badge bg-dark">{{ item.totalPrice|number_format(2, ',', ' ') }} €</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center mt-2">
+                    <small class="text-muted">
+                        {{ shop_items_available|length }} articles disponibles
+                    </small>
+                </div>
+                {% else %}
+                <div class="text-center py-3">
+                    <i class="fas fa-box-open fa-2x text-muted mb-2"></i>
+                    <p class="text-muted mb-0">Aucun article disponible</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Générer une référence automatique
+    const refInput = document.querySelector('#{{ form.transactionRef.vars.id }}');
+    const generateRefBtn = document.createElement('button');
+    
+    if (refInput && !refInput.value) {
+        generateRefBtn.type = 'button';
+        generateRefBtn.className = 'btn btn-sm btn-outline-secondary mt-1';
+        generateRefBtn.innerHTML = '<i class="fas fa-random me-1"></i>Générer une référence';
+        
+        generateRefBtn.addEventListener('click', function() {
+            const random = Math.floor(Math.random() * 1000000);
+            refInput.value = 'TRX' + random.toString().padStart(6, '0');
+        });
+        
+        refInput.parentNode.appendChild(generateRefBtn);
+    }
+    
+    // Préremplir la date actuelle
+    const dateInput = document.querySelector('#{{ form.paymentDate.vars.id }}');
+    if (dateInput && !dateInput.value) {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        
+        dateInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+    
+    // Validation en temps réel
+    const amountInput = document.querySelector('#{{ form.amount.vars.id }}');
+    if (amountInput) {
+        amountInput.addEventListener('input', function() {
+            const value = parseFloat(this.value);
+            if (isNaN(value) || value <= 0) {
+                this.classList.add('is-invalid');
+                this.classList.remove('is-valid');
+            } else {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            }
+        });
+    }
+    
+    const transactionRefInput = document.querySelector('#{{ form.transactionRef.vars.id }}');
+    if (transactionRefInput) {
+        transactionRefInput.addEventListener('input', function() {
+            const value = this.value;
+            if (value.length < 3 || value.length > 255) {
+                this.classList.add('is-invalid');
+                this.classList.remove('is-valid');
+            } else {
+                this.classList.remove('is-invalid');
+                this.classList.add('is-valid');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

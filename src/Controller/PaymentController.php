@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Payment;
+<<<<<<< HEAD
 use App\Entity\ShopItem;
 use App\Form\PaymentType;
 use App\Repository\PaymentRepository;
@@ -10,20 +11,29 @@ use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
+=======
+use App\Form\PaymentType;
+use App\Repository\PaymentRepository;
+use Doctrine\ORM\EntityManagerInterface;
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+<<<<<<< HEAD
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Service\InvoiceService;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Psr\Log\LoggerInterface;
+=======
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
 
 #[Route('/payment')]
 class PaymentController extends AbstractController
 {
+<<<<<<< HEAD
     private $httpClient;
     private $entityManager;
     private $emailService;
@@ -42,12 +52,18 @@ class PaymentController extends AbstractController
     #[Route('/', name: 'app_payment_index', methods: ['GET'])]
     public function index(PaymentRepository $paymentRepository): Response
     {   
+=======
+    #[Route('/', name: 'app_payment_index', methods: ['GET'])]
+    public function index(PaymentRepository $paymentRepository): Response
+    {
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
         return $this->render('payment/index.html.twig', [
             'payments' => $paymentRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'app_payment_new', methods: ['GET', 'POST'])]
+<<<<<<< HEAD
 public function new(Request $request): Response
 {
     $payment = new Payment();
@@ -133,12 +149,37 @@ public function new(Request $request): Response
             return $this->redirectToRoute('app_payment_index');
         }
         
+=======
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $payment = new Payment();
+        $form = $this->createForm(PaymentType::class, $payment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($payment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_payment_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('payment/new.html.twig', [
+            'payment' => $payment,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_payment_show', methods: ['GET'])]
+    public function show(Payment $payment): Response
+    {
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
         return $this->render('payment/show.html.twig', [
             'payment' => $payment,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_payment_edit', methods: ['GET', 'POST'])]
+<<<<<<< HEAD
     public function edit(int $id, Request $request, PaymentRepository $paymentRepository): Response
     {
         $payment = $paymentRepository->find($id);
@@ -148,10 +189,15 @@ public function new(Request $request): Response
             return $this->redirectToRoute('app_payment_index');
         }
         
+=======
+    public function edit(Request $request, Payment $payment, EntityManagerInterface $entityManager): Response
+    {
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
         $form = $this->createForm(PaymentType::class, $payment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+<<<<<<< HEAD
             $this->entityManager->flush();
             $this->addFlash('success', 'Paiement modifié avec succès !');
             return $this->redirectToRoute('app_payment_index', [], Response::HTTP_SEE_OTHER);
@@ -177,10 +223,30 @@ public function new(Request $request): Response
             $this->entityManager->remove($payment);
             $this->entityManager->flush();
             $this->addFlash('success', 'Paiement supprimé avec succès !');
+=======
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_payment_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('payment/edit.html.twig', [
+            'payment' => $payment,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_payment_delete', methods: ['POST'])]
+    public function delete(Request $request, Payment $payment, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$payment->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($payment);
+            $entityManager->flush();
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
         }
 
         return $this->redirectToRoute('app_payment_index', [], Response::HTTP_SEE_OTHER);
     }
+<<<<<<< HEAD
 
     #[Route('/checkout/{id}', name: 'app_payment_checkout')]
 public function checkout(Payment $payment, Request $request): Response
@@ -338,3 +404,6 @@ public function testInvoice(InvoiceService $invoiceService): Response
     }
 }
 }
+=======
+}
+>>>>>>> e2422cfde5b308b3f914dbb9a3dd46d1907df62f
