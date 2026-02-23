@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Service\NotificationService;
+use App\Service\AIService;
 use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
@@ -116,5 +117,64 @@ class TournamentController extends AbstractController
         $this->addFlash('success', "Le tournoi a été $status.");
 
         return $this->redirectToRoute('app_back_matchy_index');
+    }
+
+    #[Route('/{id}/generate-poster', name: 'app_back_matchy_generate_poster', methods: ['POST'])]
+    public function generatePoster(Tournament $tournament, AIService $aiService, EntityManagerInterface $entityManager): Response
+    {
+        try {
+            $result = $aiService->generateTournamentPoster($tournament);
+
+            $tournament->setPosterPath($result['url']);
+            $tournament->setPosterPrompt($result['prompt']);
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Poster généré avec succès par l\'IA !');
+        } catch (\Exception $e) {
+            $this->addFlash('danger', 'Erreur lors de la génération du poster : ' . $e->getMessage());
+        }
+
+        return $this->redirectToRoute('app_back_matchy_edit', ['id' => $tournament->getId()]);
+    }
+
+    #[Route('/{id}/apply-transition/{transition}', name: 'app_back_matchy_apply_transition', methods: ['POST'])]
+    public function applyTransition(
+        Request $request,
+        Tournament $tournament,
+        string $transition,
+        EntityManagerInterface $entityManager,
+        \Symfony\Component\Workflow\WorkflowInterface $tournamentLifecycleStateMachine
+    ): Response {
+        $tournamentLifecycleWorkflow = $tournamentLifecycleStateMachine;
+        if (!$this->isCsrfTokenValid('workflow' . $tournament->getId(), $request->request->get('_token'))) {
+            $this->addFlash('danger', 'Jeton CSRF invalide.');
+            return $this->redirectToRoute('app_back_matchy_edit', ['id' => $tournament->getId()]);
+        }
+
+        try {
+            if (!$tournamentLifecycleWorkflow->can($tournament, $transition)) {
+                $this->addFlash('danger', sprintf("La transition '%s' n'est pas possible dans l'état actuel.", $transition));
+                return $this->redirectToRoute('app_back_matchy_edit', ['id' => $tournament->getId()]);
+            }
+
+            $tournamentLifecycleWorkflow->apply($tournament, $transition);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Le tournoi a passé la transition '$transition' avec succès.");
+        } catch (\Exception $e) {
+            $this->addFlash('danger', 'Erreur lors de la transition : ' . $e->getMessage());
+        }
+
+        return $this->redirectToRoute('app_back_matchy_edit', ['id' => $tournament->getId()]);
+    }
+
+    #[Route('/{id}/registrations', name: 'app_back_matchy_registrations', methods: ['GET'])]
+    public function registrations(Tournament $tournament): Response
+    {
+        return $this->render('admin/tournament/registrations.html.twig', [
+            'tournament' => $tournament,
+            'registrations' => $tournament->getRegistrations(),
+        ]);
     }
 }

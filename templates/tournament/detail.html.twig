@@ -165,13 +165,19 @@
 {% block body %}
 <div class="container py-5 detail-container">
     <div class="detail-card">
-        <div class="detail-header text-center">
+        <div class="detail-header text-center" {% if tournament.posterPath %}style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('{{ tournament.posterPath }}'); background-size: cover; background-position: center;"{% endif %}>
             <span class="game-badge mb-3 d-inline-block">{{ tournament.game }}</span>
             <h1 class="display-5 fw-bold text-white mb-2">{{ tournament.name }}</h1>
-            <p class="text-muted small mb-0">Organisé par l'Admin #{{ tournament.organizerId }}</p>
+            <p class="text-white opacity-75 small mb-0 fw-bold">Organisé par l'Admin #{{ tournament.organizerId }}</p>
         </div>
 
         <div class="detail-body">
+            {% if tournament.posterPath %}
+                <div class="text-center mb-5">
+                    <img src="{{ tournament.posterPath }}" class="img-fluid rounded-4 shadow-lg border border-pf" style="max-height: 500px; width: auto; border: 1px solid rgba(255,45,45,0.3);" alt="Poster {{ tournament.name }}">
+                </div>
+            {% endif %}
+
             <h2 class="section-subtitle">Informations Générales</h2>
             
             <div class="info-grid">

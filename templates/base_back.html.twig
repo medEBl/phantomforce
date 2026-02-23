@@ -150,34 +150,48 @@
         }
         
         .btn-admin-primary {
-            background: var(--admin-accent);
+            background: linear-gradient(135deg, var(--admin-accent) 0%, #00d2ff 100%);
             color: #000000;
         }
         
         .btn-admin-primary:hover {
-            background: #00e5ff;
+            filter: brightness(1.1);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.4);
         }
         
         .btn-admin-danger {
-            background: var(--admin-danger);
+            background: linear-gradient(135deg, var(--admin-danger) 0%, #ff5e62 100%);
             color: #ffffff;
         }
         
         .btn-admin-danger:hover {
-            background: #ff2a5c;
+            filter: brightness(1.1);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 0, 60, 0.3);
+            box-shadow: 0 5px 15px rgba(255, 0, 60, 0.4);
+        }
+
+        .btn-admin-success {
+            background: linear-gradient(135deg, var(--admin-success) 0%, #00ff88 100%);
+            color: #000000;
+        }
+
+        .btn-admin-success:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
         }
         
         .btn-admin-secondary {
             background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
             color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .btn-admin-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
         
@@ -292,6 +306,13 @@
             outline: none;
             border-color: var(--admin-accent);
             box-shadow: 0 0 0 3px rgba(0, 243, 255, 0.1);
+        }
+
+        /* Fix for select dropdown visibility in dark theme */
+        .form-admin select option {
+            background-color: var(--admin-sidebar);
+            color: #ffffff;
+            padding: 10px;
         }
     </style>
     

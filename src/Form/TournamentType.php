@@ -39,15 +39,28 @@ class TournamentType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'required' => false
             ])
-            ->add('phase', TextType::class, [
+            ->add('phase', \Symfony\Component\Form\Extension\Core\Type\ChoiceType::class, [
                 'label' => 'Phase actuelle',
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Ex: Groupe, Finale'],
-                'required' => false
+                'choices' => [
+                    'Brouillon' => 'draft',
+                    'Inscriptions Ouvertes' => 'registrations_open',
+                    'En cours' => 'ongoing',
+                    'Terminé' => 'finished',
+                    'Annulé' => 'cancelled',
+                ],
+                'attr' => ['class' => 'form-select'],
+                'required' => true
             ])
             ->add('organizerId', IntegerType::class, [
                 'label' => 'ID de l\'organisateur',
                 'attr' => ['class' => 'form-control'],
                 'required' => false
+            ])
+            ->add('maxTeams', IntegerType::class, [
+                'label' => 'Nombre max d\'équipes',
+                'attr' => ['class' => 'form-control', 'min' => 2, 'max' => 128],
+                'required' => true,
+                'help' => 'Limite le nombre d\'inscriptions possibles.'
             ]);
     }
 

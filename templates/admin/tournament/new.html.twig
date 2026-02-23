@@ -44,10 +44,16 @@
                         {{ form_widget(form.phase) }}
                         <div class="text-danger small mt-1">{{ form_errors(form.phase) }}</div>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label class="form-label text-muted small text-uppercase fw-bold">ID Organisateur</label>
                         {{ form_widget(form.organizerId) }}
                         <div class="text-danger small mt-1">{{ form_errors(form.organizerId) }}</div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label text-muted small text-uppercase fw-bold">Max Équipes</label>
+                        {{ form_widget(form.maxTeams, {'attr': {'placeholder': '16'}}) }}
+                        <div class="form-text small text-muted" style="font-size: 0.7rem;">Limite les inscriptions.</div>
+                        <div class="text-danger small mt-1">{{ form_errors(form.maxTeams) }}</div>
                     </div>
                 </div>
 

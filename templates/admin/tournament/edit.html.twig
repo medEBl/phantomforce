@@ -44,10 +44,35 @@
                         {{ form_widget(form.phase) }}
                         <div class="text-danger small mt-1">{{ form_errors(form.phase) }}</div>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label class="form-label text-muted small text-uppercase fw-bold">ID Organisateur</label>
                         {{ form_widget(form.organizerId) }}
                         <div class="text-danger small mt-1">{{ form_errors(form.organizerId) }}</div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label class="form-label text-muted small text-uppercase fw-bold">Max Équipes</label>
+                        {{ form_widget(form.maxTeams, {'attr': {'placeholder': '16'}}) }}
+                        <div class="form-text small text-muted" style="font-size: 0.7rem;">Limite les inscriptions.</div>
+                        <div class="text-danger small mt-1">{{ form_errors(form.maxTeams) }}</div>
+                    </div>
+                </div>
+
+                <div class="row mt-4 pt-4 border-top">
+                    <div class="col-12">
+                        <label class="form-label text-muted small text-uppercase fw-bold">Poster du Tournoi (IA)</label>
+                        {% if tournament.posterPath %}
+                            <div class="mb-3 position-relative" style="max-width: 300px;">
+                                <img src="{{ tournament.posterPath }}" class="img-fluid rounded border border-secondary shadow-sm" alt="Poster {{ tournament.name }}">
+                                <div class="mt-2">
+                                    <p class="small text-muted mb-1"><strong>Prompt utilisé :</strong></p>
+                                    <p class="small text-muted italic" style="font-size: 0.8rem;">"{{ tournament.posterPrompt }}"</p>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info small py-2">
+                                <i class="fas fa-info-circle me-1"></i> Aucun poster n'a été généré pour ce tournoi.
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -60,12 +85,61 @@
                             Annuler
                         </a>
                     </div>
-                    
-                    <a href="{{ path('app_admin_reward_index', {tournamentId: tournament.id}) }}" class="btn-admin btn-admin-secondary">
-                        <i class="fas fa-trophy me-1"></i> Gérer les Récompenses
-                    </a>
                 </div>
             {{ form_end(form) }}
+
+            <div class="mt-4 border-top pt-3">
+                <label class="form-label text-muted small text-uppercase fw-bold d-block mb-3">Actions de Cycle de Vie (Gestion des Phases)</label>
+                <div class="d-flex flex-wrap gap-2">
+                    {% if workflow_can(tournament, 'publish', 'tournament_lifecycle') %}
+                        <form action="{{ path('app_back_matchy_apply_transition', {id: tournament.id, transition: 'publish'}) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ csrf_token('workflow' ~ tournament.id) }}">
+                            <button type="submit" class="btn-admin btn-admin-primary btn-sm">
+                                <i class="fas fa-paper-plane me-1"></i> Ouvrir les Inscriptions
+                            </button>
+                        </form>
+                    {% endif %}
+
+                    {% if workflow_can(tournament, 'start', 'tournament_lifecycle') %}
+                        <form action="{{ path('app_back_matchy_apply_transition', {id: tournament.id, transition: 'start'}) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ csrf_token('workflow' ~ tournament.id) }}">
+                            <button type="submit" class="btn-admin btn-admin-success btn-sm">
+                                <i class="fas fa-play me-1"></i> Lancer le Tournoi
+                            </button>
+                        </form>
+                    {% endif %}
+
+                    {% if workflow_can(tournament, 'complete', 'tournament_lifecycle') %}
+                        <form action="{{ path('app_back_matchy_apply_transition', {id: tournament.id, transition: 'complete'}) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ csrf_token('workflow' ~ tournament.id) }}">
+                            <button type="submit" class="btn-admin btn-admin-primary btn-sm">
+                                <i class="fas fa-check-double me-1"></i> Terminer le Tournoi
+                            </button>
+                        </form>
+                    {% endif %}
+
+                    {% if workflow_can(tournament, 'cancel', 'tournament_lifecycle') %}
+                        <form action="{{ path('app_back_matchy_apply_transition', {id: tournament.id, transition: 'cancel'}) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ csrf_token('workflow' ~ tournament.id) }}">
+                            <button type="submit" class="btn-admin btn-admin-danger btn-sm">
+                                <i class="fas fa-times-circle me-1"></i> Annuler le Tournoi
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="mt-3 border-top pt-3 text-end">
+                <form action="{{ path('app_back_matchy_generate_poster', {id: tournament.id}) }}" method="POST" class="d-inline">
+                    <button type="submit" class="btn-admin btn-admin-secondary btn-sm">
+                        <i class="fas fa-magic me-1"></i> {% if tournament.posterPath %}Régénérer le Poster{% else %}Générer un Poster avec l'IA{% endif %}
+                    </button>
+                </form>
+                
+                <a href="{{ path('app_admin_reward_index', {tournamentId: tournament.id}) }}" class="btn-admin btn-admin-secondary ms-2">
+                    <i class="fas fa-trophy me-1"></i> Gérer les Récompenses
+                </a>
+            </div>
         </div>
     </div>
 </div>

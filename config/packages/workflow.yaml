@@ -1,0 +1,31 @@
+framework:
+    workflows:
+        tournament_lifecycle:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'phase'
+            supports:
+                - App\Entity\Tournament
+            initial_marking: draft
+            places:
+                - draft
+                - registrations_open
+                - ongoing
+                - finished
+                - cancelled
+            transitions:
+                publish:
+                    from: draft
+                    to:   registrations_open
+                start:
+                    from: registrations_open
+                    to:   ongoing
+                complete:
+                    from: ongoing
+                    to:   finished
+                cancel:
+                    from: [draft, registrations_open, ongoing]
+                    to:   cancelled

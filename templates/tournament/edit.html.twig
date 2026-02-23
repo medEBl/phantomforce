@@ -106,9 +106,16 @@
                 </div>
 
                 <div class="col-md-6 form-group-pf">
-                    <label class="form-label-pf">{{ form_label(form.organizerId) }}</label>
-                    {{ form_widget(form.organizerId, {'attr': {'class': 'form-control-pf'}}) }}
+                    <label class="form-label-pf">ID Organisateur</label>
+                    {{ form_widget(form.organizerId, {'attr': {'class': 'form-control-pf', 'placeholder': 'Ex: 1'}}) }}
                     <div class="form-error-pf">{{ form_errors(form.organizerId) }}</div>
+                </div>
+
+                <div class="col-md-6 form-group-pf">
+                    <label class="form-label-pf">Nombre max d'équipes</label>
+                    {{ form_widget(form.maxTeams, {'attr': {'class': 'form-control-pf', 'placeholder': 'Ex: 16'}}) }}
+                    <div class="small text-muted mt-1" style="font-size: 0.7rem;">Limite les inscriptions possibles.</div>
+                    <div class="form-error-pf">{{ form_errors(form.maxTeams) }}</div>
                 </div>
             </div>
             

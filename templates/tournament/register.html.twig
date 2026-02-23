@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Phantom Force – S'inscrire au Tournoi{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="pf-card p-5">
+                <div class="text-center mb-4">
+                    <h1 class="h2 mb-2">INSCRIPTION</h1>
+                    <p class="text-muted text-uppercase small">Tournoi : <span class="text-danger fw-bold">{{ tournament.name }}</span></p>
+                </div>
+
+                <div class="alert alert-info border-0 shadow-sm mb-4 d-flex align-items-center" style="background: rgba(0, 243, 255, 0.1); color: #00f3ff;">
+                    <i class="fas fa-info-circle me-3 fa-2x"></i>
+                    <div>
+                        <p class="mb-0 fw-bold">Places disponibles</p>
+                        <p class="mb-0 small">{{ currentTeams }} / {{ maxTeams }} équipes déjà inscrites</p>
+                    </div>
+                </div>
+
+                {{ form_start(form) }}
+                    <div class="mb-4">
+                        <label class="form-label text-muted small text-uppercase fw-bold">
+                            <i class="fas fa-users me-1 text-danger"></i> Nom de votre équipe
+                        </label>
+                        {{ form_widget(form.teamName, {'attr': {'class': 'form-control-pf', 'placeholder': 'Ex: Phantom Elite'}}) }}
+                        <div class="text-danger small mt-1">{{ form_errors(form.teamName) }}</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-muted small text-uppercase fw-bold">
+                            <i class="fas fa-envelope me-1 text-danger"></i> Email de contact
+                        </label>
+                        {{ form_widget(form.contactEmail, {'attr': {'class': 'form-control-pf', 'placeholder': 'Ex: capitaine@equipe.com'}}) }}
+                        <div class="text-danger small mt-1">{{ form_errors(form.contactEmail) }}</div>
+                        <div class="form-text small text-muted mt-2" style="font-size: 0.75rem;">Cet email sera utilisé pour vous envoyer les détails du tournoi.</div>
+                    </div>
+
+                    <div class="mt-5">
+                        <button type="submit" class="btn-organiser w-100">
+                            CONFIRMER L'INSCRIPTION
+                        </button>
+                    </div>
+                {{ form_end(form) }}
+
+                <div class="mt-4 text-center">
+                    <a href="{{ path('app_tournaments') }}" class="text-muted small text-decoration-none">
+                        <i class="fas fa-arrow-left me-1"></i> Retour aux tournois
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pf-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .pf-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--red-gradient);
+    }
+
+    .form-control-pf {
+        background: rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid var(--border-light) !important;
+        color: white !important;
+        padding: 12px 15px !important;
+        border-radius: 8px !important;
+        width: 100%;
+    }
+
+    .form-control-pf:focus {
+        border-color: var(--red) !important;
+        outline: none !important;
+        box-shadow: 0 0 0 2px var(--red-soft) !important;
+    }
+
+    .btn-organiser {
+        background: var(--red-gradient);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        transition: var(--transition);
+        text-transform: uppercase;
+    }
+
+    .btn-organiser:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 0, 60, 0.3);
+    }
+</style>
+{% endblock %}

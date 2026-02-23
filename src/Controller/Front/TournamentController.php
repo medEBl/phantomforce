@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class TournamentController extends AbstractController
 {
     #[Route('/tournaments', name: 'app_tournaments')]
-    public function list(Request $request, TournamentRepository $tournamentRepository): Response
+    public function list(Request $request, TournamentRepository $tournamentRepository, \App\Service\QRCodeService $qrCodeService): Response
     {
         $filters = [
             'query' => $request->query->get('query') ?? $request->query->get('q'),
@@ -27,14 +27,25 @@ class TournamentController extends AbstractController
 
         $tournaments = $tournamentRepository->findWithAdvancedSearch($filters);
 
+        // Generate QR codes only for tournaments with open registrations AND space available
+        $qrCodes = [];
+        foreach ($tournaments as $tournament) {
+            if ($tournament->getPhase() === 'registrations_open' && $tournament->getRegistrations()->count() < $tournament->getMaxTeams()) {
+                $registrationLink = $this->generateUrl('app_tournament_register', ['id' => $tournament->getId()], \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
+                $qrCodes[$tournament->getId()] = $qrCodeService->generateTournamentQRCode($registrationLink);
+            }
+        }
+
         if ($request->isXmlHttpRequest()) {
             return $this->render('tournament/_list_content.html.twig', [
                 'tournaments' => $tournaments,
+                'qrCodes' => $qrCodes,
             ]);
         }
 
         return $this->render('tournament/list.html.twig', [
             'tournaments' => $tournaments,
+            'qrCodes' => $qrCodes,
             'searchQuery' => $filters['query'],
             'currentSort' => $filters['sort'],
             'currentOrder' => $filters['order'],
@@ -119,6 +130,43 @@ class TournamentController extends AbstractController
         $this->addFlash('success', "Le tournoi a été $status.");
 
         return $this->redirectToRoute('app_tournaments');
+    }
+
+    #[Route('/tournament/{id}/register', name: 'app_tournament_register', methods: ['GET', 'POST'])]
+    public function register(Request $request, \App\Entity\Tournament $tournament, \Doctrine\ORM\EntityManagerInterface $entityManager): Response
+    {
+        // Only allow registration if the phase is 'registrations_open'
+        if ($tournament->getPhase() !== 'registrations_open') {
+            $this->addFlash('warning', 'Les inscriptions pour ce tournoi ne sont pas ouvertes.');
+            return $this->redirectToRoute('app_tournaments');
+        }
+
+        // Check if maxTeams limit is reached
+        if ($tournament->getRegistrations()->count() >= $tournament->getMaxTeams()) {
+            $this->addFlash('danger', 'Le nombre maximum d\'équipes a été atteint pour ce tournoi.');
+            return $this->redirectToRoute('app_tournaments');
+        }
+
+        $registration = new \App\Entity\Registration();
+        $registration->setTournament($tournament);
+
+        $form = $this->createForm(\App\Form\RegistrationType::class, $registration);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($registration);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre équipe "' . $registration->getTeamName() . '" a été inscrite avec succès !');
+            return $this->redirectToRoute('app_tournaments');
+        }
+
+        return $this->render('tournament/register.html.twig', [
+            'tournament' => $tournament,
+            'form' => $form->createView(),
+            'currentTeams' => $tournament->getRegistrations()->count(),
+            'maxTeams' => $tournament->getMaxTeams(),
+        ]);
     }
 
     #[Route('/stats', name: 'app_tournament_stats', methods: ['GET'])]

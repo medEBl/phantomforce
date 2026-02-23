@@ -40,7 +40,7 @@ class Tournament
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: "La phase du tournoi est obligatoire.")]
-    private ?string $phase = null;
+    private ?string $phase = 'draft';
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "L'identifiant de l'organisateur est obligatoire.")]
@@ -56,9 +56,25 @@ class Tournament
     #[ORM\OneToMany(targetEntity: TournamentReward::class, mappedBy: 'tournament', orphanRemoval: true)]
     private Collection $rewards;
 
+    #[ORM\Column(type: Types::TEXT, length: 16777215, nullable: true)]
+    private ?string $posterPath = null;
+
+    #[ORM\OneToMany(targetEntity: Registration::class, mappedBy: 'tournament', orphanRemoval: true)]
+    private Collection $registrations;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $posterPrompt = null;
+
+    #[ORM\Column]
+    #[Assert\NotBlank(message: "Le nombre maximum d'équipes est obligatoire.")]
+    #[Assert\Positive(message: "Le nombre d'équipes doit être supérieur à 0.")]
+    private ?int $maxTeams = 16;
+
     public function __construct()
     {
         $this->rewards = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
+        $this->phase = 'draft';
     }
 
     public function getId(): ?int
@@ -71,7 +87,7 @@ class Tournament
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
@@ -83,7 +99,7 @@ class Tournament
         return $this->game;
     }
 
-    public function setGame(string $game): static
+    public function setGame(?string $game): static
     {
         $this->game = $game;
 
@@ -95,7 +111,7 @@ class Tournament
         return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeImmutable $startDate): static
+    public function setStartDate(?\DateTimeImmutable $startDate): static
     {
         $this->startDate = $startDate;
 
@@ -107,7 +123,7 @@ class Tournament
         return $this->endDate;
     }
 
-    public function setEndDate(\DateTimeImmutable $endDate): static
+    public function setEndDate(?\DateTimeImmutable $endDate): static
     {
         $this->endDate = $endDate;
 
@@ -119,7 +135,7 @@ class Tournament
         return $this->phase;
     }
 
-    public function setPhase(string $phase): static
+    public function setPhase(?string $phase): static
     {
         $this->phase = $phase;
 
@@ -131,7 +147,7 @@ class Tournament
         return $this->organizerId;
     }
 
-    public function setOrganizerId(int $organizerId): static
+    public function setOrganizerId(?int $organizerId): static
     {
         $this->organizerId = $organizerId;
 
@@ -173,9 +189,75 @@ class Tournament
         return $this->isActive;
     }
 
-    public function setIsActive(bool $isActive): static
+    public function setIsActive(?bool $isActive): static
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getPosterPath(): ?string
+    {
+        return $this->posterPath;
+    }
+
+    public function setPosterPath(?string $posterPath): static
+    {
+        $this->posterPath = $posterPath;
+
+        return $this;
+    }
+
+    public function getPosterPrompt(): ?string
+    {
+        return $this->posterPrompt;
+    }
+
+    public function setPosterPrompt(?string $posterPrompt): static
+    {
+        $this->posterPrompt = $posterPrompt;
+
+        return $this;
+    }
+
+    public function getMaxTeams(): ?int
+    {
+        return $this->maxTeams;
+    }
+
+    public function setMaxTeams(?int $maxTeams): static
+    {
+        $this->maxTeams = $maxTeams;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Registration>
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setTournament($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registration $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getTournament() === $this) {
+                $registration->setTournament(null);
+            }
+        }
 
         return $this;
     }

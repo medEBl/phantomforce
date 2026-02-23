@@ -10,6 +10,16 @@
             <div class="text-muted small">Au {{ tournament.endDate|date('d/m/Y') }}</div>
         </td>
         <td>
+            <div class="fw-bold">{{ tournament.registrations|length }} / {{ tournament.maxTeams }}</div>
+            <div class="progress mt-1" style="height: 4px; background: rgba(255,255,255,0.05);">
+                {% set percent = 0 %}
+                {% if tournament.maxTeams > 0 %}
+                    {% set percent = (tournament.registrations|length / tournament.maxTeams * 100)|round %}
+                {% endif %}
+                <div class="progress-bar bg-primary" style="width: {{ percent }}%"></div>
+            </div>
+        </td>
+        <td>
             {% if tournament.isActive %}
                 <span class="badge-admin badge-finished">ACTIF</span>
             {% else %}
@@ -25,6 +35,9 @@
                 </form>
                 <a href="{{ path('app_back_matchy_edit', {id: tournament.id}) }}" class="btn-admin btn-admin-secondary p-2" title="Modifier">
                     <i class="fas fa-edit"></i>
+                </a>
+                <a href="{{ path('app_back_matchy_registrations', {id: tournament.id}) }}" class="btn-admin btn-admin-secondary p-2" title="Voir les inscriptions">
+                    <i class="fas fa-users"></i>
                 </a>
                 <form action="{{ path('app_back_matchy_delete', {id: tournament.id}) }}" method="post" onsubmit="return confirm('Supprimer ce tournoi ?');">
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tournament.id) }}">
