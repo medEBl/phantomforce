@@ -159,7 +159,7 @@
         </a>
     </div>
 
-    {# --- 1.5 KPI STATS ROW (AVEC GRAPHIQUE API) --- #}
+    {# --- 1.5 KPI STATS ROW (AVEC GOOGLE CHARTS) --- #}
     <div class="stats-row">
         <div class="stat-card">
             <i class="fas fa-users icon-bg"></i>
@@ -184,40 +184,8 @@
                 </div>
             </div>
 
-            {# --- INTÉGRATION API QUICKCHART --- #}
-            {% set missing = (total_agents|default(0)) - (total_responses|default(0)) %}
-            {% set completed = total_responses|default(0) %}
-            
-            {# Si les données sont à 0, on met une valeur par défaut pour afficher un cercle gris #}
-            {% if total_agents|default(0) == 0 %}
-                {% set chartData = [0, 1] %}
-                {% set chartColors = ["#00f3ff", "rgba(255,255,255,0.1)"] %}
-            {% else %}
-                {% set chartData = [completed, missing] %}
-                {% set chartColors = ["#00f3ff", "rgba(255,255,255,0.1)"] %}
-            {% endif %}
-
-            {% set chartConfig = {
-                "type": "doughnut",
-                "data": {
-                    "datasets": [{
-                        "data": chartData,
-                        "backgroundColor": chartColors,
-                        "borderWidth": 0
-                    }]
-                },
-                "options": {
-                    "cutoutPercentage": 75,
-                    "legend": { "display": false },
-                    "plugins": { "outlabels": { "display": false } }
-                }
-            } %}
-
-            <div style="position: relative; z-index: 1;">
-                <img src="https://quickchart.io/chart?c={{ chartConfig|json_encode|url_encode }}&size=100" 
-                     alt="Graphique Engagement"
-                     style="width: 70px; height: 70px; display:block;">
-            </div>
+            {# --- GOOGLE CHARTS RENDERER --- #}
+            <div id="engagement_chart_div" style="position: relative; z-index: 1; width: 70px; height: 70px; display:block;"></div>
         </div>
     </div>
 
@@ -248,12 +216,11 @@
             {# Sort #}
             <div class="col-md-6 text-md-end">
                 <span class="text-muted small fw-bold me-2 text-uppercase">Trier :</span>
-                
                 {% set currentDir = (dir == 'ASC') ? 'up' : 'down' %}
                 
                 <a href="{{ path('app_questionnaire_agent_index', { q: q, sort: 'game', dir: (sort == 'game' and dir == 'ASC') ? 'DESC' : 'ASC' }) }}" 
                    class="btn-sort {{ sort == 'game' ? 'active' : '' }}">
-                   Jeu {% if sort == 'game' %}<i class="fas fa-caret-{{ currentDir }}"></i>{% endif %}
+                    Jeu {% if sort == 'game' %}<i class="fas fa-caret-{{ currentDir }}"></i>{% endif %}
                 </a>
             </div>
         </div>
@@ -279,7 +246,7 @@
         <div class="quest-list">
             {% for qa in questionnaire_agents %}
                 <div class="quest-card">
-                    
+                     
                     {# INFO #}
                     <div style="flex: 1; min-width: 280px;">
                         <div class="d-flex align-items-center gap-2 mb-2">
@@ -316,4 +283,15 @@
     {% endif %}
 
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {# Load Google Charts Loader #}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    
+    {# Draw the chart passed from the Controller #}
+    <script type="text/javascript">
+        {{ gc_draw(engagementChart, 'engagement_chart_div') }}
+    </script>
 {% endblock %}

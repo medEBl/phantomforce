@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 
 #[Route('/questionnaire/agent')]
 final class QuestionnaireAgentController extends AbstractController
@@ -39,6 +40,47 @@ final class QuestionnaireAgentController extends AbstractController
             $completionRate = round(($totalResponses / $totalAgents) * 100, 1);
         }
 
+        // 3. BUILD THE GOOGLE CHART
+        $missing = max(0, $totalAgents - $totalResponses);
+        $completed = $totalResponses;
+
+        $engagementChart = new PieChart();
+        
+        if ($totalAgents == 0) {
+            $engagementChart->getData()->setArrayToDataTable([
+                ['Statut', 'Nombre'],
+                ['Aucun', 1]
+            ]);
+            // ✅ Fixed: Using Hex dark gray instead of rgba
+            $engagementChart->getOptions()->setColors(['#333333']);
+        } else {
+            $engagementChart->getData()->setArrayToDataTable([
+                ['Statut', 'Nombre'],
+                ['Remplis', $completed],
+                ['Manquants', $missing]
+            ]);
+            // ✅ Fixed: Using Hex dark gray for the "missing" portion
+            $engagementChart->getOptions()->setColors(['#00f3ff', '#333333']);
+        }
+
+        // --- FIXED STYLING SECTION ---
+        $engagementChart->getOptions()->setPieHole(0.75); // Makes it a doughnut
+        $engagementChart->getOptions()->getLegend()->setPosition('none'); // Hides labels
+        $engagementChart->getOptions()->setPieSliceText('none'); // Hides text on slices
+        $engagementChart->getOptions()->setBackgroundColor('transparent');
+        $engagementChart->getOptions()->setHeight(70);
+        $engagementChart->getOptions()->setWidth(70);
+        
+        // Correct way to set ChartArea in CMEN Bundle
+        $engagementChart->getOptions()->getChartArea()->setLeft(0);
+        $engagementChart->getOptions()->getChartArea()->setTop(0);
+        $engagementChart->getOptions()->getChartArea()->setWidth('100%');
+        $engagementChart->getOptions()->getChartArea()->setHeight('100%');
+        
+        // Correct way to set Tooltip styles in CMEN Bundle
+        $engagementChart->getOptions()->getTooltip()->getTextStyle()->setColor('#000000');
+        // -----------------------------
+
         return $this->render('questionnaire_agent/index.html.twig', [
             'questionnaire_agents' => $questionnaires,
             'q' => $q, 
@@ -49,6 +91,9 @@ final class QuestionnaireAgentController extends AbstractController
             'total_agents' => $totalAgents,
             'total_responses' => $totalResponses,
             'completion_rate' => $completionRate,
+
+            // ✅ Pass the Google Chart to Template
+            'engagementChart' => $engagementChart,
         ]);
     }
 
