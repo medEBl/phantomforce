@@ -1,0 +1,480 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+    <div class="cyber-card reset-request-card">
+        <div class="cyber-card-header">
+            <h1 class="cyber-title">
+                <span class="title-glitch">PASSWORD</span>
+                <span class="title-glitch">RECOVERY</span>
+            </h1>
+            <div class="header-scanline"></div>
+        </div>
+
+        <div class="cyber-card-body">
+            {% for flash_error in app.flashes('reset_password_error') %}
+                <div class="cyber-alert alert-error" role="alert">
+                    <span class="alert-icon">✗</span>
+                    <span class="alert-message">{{ flash_error }}</span>
+                </div>
+            {% endfor %}
+
+            <div class="request-form-container">
+                {{ form_start(requestForm, {'attr': {'class': 'cyber-form'}}) }}
+                    
+                    <div class="form-field">
+                        <div class="field-label">
+                            <span class="label-icon">⌂</span>
+                            <span class="label-text">OPERATOR ID</span>
+                        </div>
+                        
+                        <div class="field-input-wrapper">
+                            {{ form_widget(requestForm.email, {
+                                'attr': {
+                                    'class': 'cyber-input',
+                                    'placeholder': 'Enter your email address'
+                                }
+                            }) }}
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        {% if form_errors(requestForm.email) %}
+                            <div class="field-error">
+                                <span class="error-icon">⚠</span>
+                                {{ form_errors(requestForm.email) }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="info-panel">
+                        <div class="info-header">
+                            <span class="info-icon">ⓘ</span>
+                            <span class="info-title">ACCESS PROTOCOL</span>
+                        </div>
+                        <div class="info-content">
+                            <p class="info-text">
+                                Enter your registered email address to receive a secure 
+                                password reset link. The link will expire in 1 hour for 
+                                security purposes.
+                            </p>
+                            <div class="info-badge">
+                                <span class="badge-dot"></span>
+                                <span class="badge-text">ENCRYPTED TRANSMISSION</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="cyber-btn cyber-btn-primary">
+                            <span class="btn-text">SIGNAL TRANSMIT</span>
+                            <span class="btn-icon">⌂</span>
+                        </button>
+                        
+                        <a href="{{ path('app_login') }}" class="cyber-btn cyber-btn-secondary">
+                            <span class="btn-text">RETURN</span>
+                            <span class="btn-icon">←</span>
+                        </a>
+                    </div>
+                {{ form_end(requestForm) }}
+            </div>
+        </div>
+
+        <div class="cyber-card-footer">
+            <div class="footer-stats">
+                <span class="stat">STATUS: <span class="stat-value">AWAITING INPUT</span></span>
+                <span class="stat">SECURITY: <span class="stat-value">LEVEL 3</span></span>
+            </div>
+            <div class="footer-corner"></div>
+        </div>
+    </div>
+
+    <style>
+        .cyber-card {
+            background: linear-gradient(145deg, rgba(17,17,17,0.95) 0%, rgba(34,34,34,0.95) 100%);
+            border: 1px solid rgba(255,0,60,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(255,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            margin: 40px auto;
+            max-width: 600px;
+        }
+
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,0,60,0.1), transparent);
+            transform: skewX(-25deg);
+            animation: cardShine 3s infinite;
+        }
+
+        @keyframes cardShine {
+            0% { left: -100%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .cyber-card-header {
+            padding: 30px 30px 20px;
+            border-bottom: 2px solid rgba(255,0,60,0.3);
+            position: relative;
+        }
+
+        .cyber-title {
+            font-family: 'Aldrich', sans-serif;
+            font-size: 2.2em;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+
+        .title-glitch {
+            display: block;
+            color: transparent;
+            background: linear-gradient(45deg, #fff, #ff003c, #ff0000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255,0,60,0.5);
+            animation: glitch 3s infinite;
+        }
+
+        .title-glitch:nth-child(2) {
+            font-size: 0.8em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: skew(0deg, 0deg); opacity: 1; }
+            95% { transform: skew(0deg, 0deg); opacity: 1; }
+            96% { transform: skew(5deg, 0deg); opacity: 0.8; }
+            97% { transform: skew(-5deg, 0deg); opacity: 0.9; }
+            98% { transform: skew(3deg, 0deg); opacity: 0.8; }
+        }
+
+        .header-scanline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff003c, transparent);
+            animation: scanline 2s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .cyber-card-body {
+            padding: 30px;
+        }
+
+        .cyber-alert {
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            background: rgba(255,0,0,0.1);
+            border-left: 4px solid #ff0000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .alert-icon {
+            font-size: 1.2em;
+            color: #ff0000;
+        }
+
+        .alert-message {
+            color: #ff6666;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .cyber-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-field {
+            position: relative;
+        }
+
+        .field-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8em;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .label-icon {
+            color: #ff003c;
+        }
+
+        .field-input-wrapper {
+            position: relative;
+        }
+
+        .cyber-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,0,60,0.3);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cyber-input:focus {
+            outline: none;
+            border-color: #ff003c;
+            box-shadow: 0 0 20px rgba(255,0,60,0.3);
+        }
+
+        .cyber-input::placeholder {
+            color: rgba(255,255,255,0.3);
+            font-style: italic;
+        }
+
+        .input-border {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff003c, #9d00ff);
+            transition: width 0.3s;
+            z-index: 3;
+        }
+
+        .cyber-input:focus ~ .input-border {
+            width: 100%;
+        }
+
+        .field-error {
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: rgba(255,0,0,0.1);
+            border: 1px solid rgba(255,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            color: #ff6666;
+        }
+
+        .error-icon {
+            color: #ff0000;
+        }
+
+        .info-panel {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,0,60,0.2);
+            padding: 20px;
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .info-icon {
+            color: #ff003c;
+            font-size: 1.2em;
+        }
+
+        .info-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8em;
+            color: #666;
+            letter-spacing: 2px;
+        }
+
+        .info-text {
+            font-family: 'Rajdhani', sans-serif;
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .info-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 10px;
+            background: rgba(255,0,60,0.1);
+            border: 1px solid rgba(255,0,60,0.3);
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        .badge-text {
+            font-size: 0.7em;
+            color: #00ff00;
+            letter-spacing: 1px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .cyber-btn {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+
+        .cyber-btn-primary {
+            background: linear-gradient(45deg, #8b0000, #ff003c);
+            color: white;
+            box-shadow: 0 0 20px rgba(255,0,60,0.3);
+        }
+
+        .cyber-btn-secondary {
+            background: linear-gradient(45deg, #333333, #555555);
+            color: #ccc;
+        }
+
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .cyber-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .cyber-btn-primary:hover {
+            box-shadow: 0 0 30px rgba(255,0,60,0.5);
+        }
+
+        .cyber-btn-secondary:hover {
+            background: linear-gradient(45deg, #444444, #666666);
+        }
+
+        .cyber-btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s;
+        }
+
+        .cyber-btn:hover .btn-icon {
+            transform: translateX(5px) scale(1.2);
+        }
+
+        .cyber-card-footer {
+            padding: 20px 30px;
+            border-top: 1px solid rgba(255,0,60,0.2);
+            position: relative;
+        }
+
+        .footer-stats {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Aldrich', monospace;
+            font-size: 0.8em;
+        }
+
+        .stat {
+            color: #666;
+        }
+
+        .stat-value {
+            color: #ff003c;
+            margin-left: 5px;
+        }
+
+        .footer-corner {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            border-bottom: 2px solid #ff003c;
+            border-right: 2px solid #ff003c;
+        }
+
+        @media (max-width: 768px) {
+            .cyber-card {
+                margin: 20px;
+            }
+            
+            .cyber-title {
+                font-size: 1.5em;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .cyber-btn {
+                width: 100%;
+            }
+            
+            .footer-stats {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+{% endblock %}

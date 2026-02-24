@@ -1500,11 +1500,16 @@
             {% endif %}
         </div>
         
-       <!-- In the header section, replace the user-profile section with this: -->
+     <!-- In the header section, replace the user-profile section with this: -->
 <div class="user-profile" id="user-profile">
     <div class="avatar" tabindex="0" role="button" aria-label="Toggle user menu">
-        {{ app.user ? app.user.initials|default('MK') : 'GU' }}
-    </div>
+    {% if app.user and app.user.profilePhotoUrl %}
+        <img src="{{ app.user.profilePhotoUrl }}" alt="Avatar" 
+             style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+    {% else %}
+        {{ app.user ? app.user.initials : 'GU' }}
+    {% endif %}
+</div>
     <div class="user-info">
         <div class="username">
             {{ app.user ? app.user.username|default('Invité') : 'Invité' }}
@@ -1523,20 +1528,24 @@
     <!-- DROPDOWN -->
     <div class="user-dropdown" id="user-dropdown-menu" aria-labelledby="user-profile">
         {% if app.user %}
+            <a href="{{ path('app_profile') }}">
+                <i class="fas fa-user-circle"></i> Mon Profil
+            </a>
+            <a href="{{ path('app_profile_photo_change') }}">
+                <i class="fas fa-camera"></i> Changer Photo
+            </a>
+            <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">
+                <i class="fas fa-user-edit"></i> Modifier Profil
+            </a>
+            <hr style="border-color: rgba(255,45,45,0.2); margin: 8px 0;">
             <a href="{{ path('app_logout') }}">
                 <i class="fas fa-sign-out-alt"></i> Déconnexion
-            </a>
-            <a href="{{ path('app_user_show', {'id': app.user.id}) }}">
-                <i class="fas fa-user-cog"></i> Mon Profil
-            </a>
-            <a href="#">
-                <i class="fas fa-cog"></i> Paramètres
             </a>
         {% else %}
             <a href="{{ path('app_login') }}">
                 <i class="fas fa-sign-in-alt"></i> Connexion
             </a>
-            <a href="#">
+            <a href="{{ path('app_register') }}">
                 <i class="fas fa-user-plus"></i> Inscription
             </a>
         {% endif %}

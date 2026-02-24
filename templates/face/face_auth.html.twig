@@ -1,0 +1,907 @@
+{% extends 'basefront.html.twig' %}
+
+{% block title %}Face Authentication - PhantomForce{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        :root {
+            --scan-color: #00f0ff;
+            --register-color: #ffd700;
+            --login-color: #00ff00;
+            --error-color: #ff003c;
+            --success-color: #00ff00;
+        }
+
+        .face-container {
+            max-width: 900px;
+            margin: 40px auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--neon-red), var(--glitch-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 640px;
+            margin: 30px auto;
+            border: 3px solid var(--neon-red);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.5);
+            background: #000;
+        }
+
+        #video {
+            width: 100%;
+            display: block;
+            transform: scaleX(-1);
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: scaleX(-1);
+        }
+
+        .face-controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .face-button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            min-width: 180px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .face-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .face-button:active {
+            transform: translateY(0);
+        }
+
+        #registerBtn {
+            background: linear-gradient(45deg, #ffd700, #ffaa00);
+            color: #000;
+        }
+
+        #loginBtn {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #000;
+        }
+
+        #scanBtn {
+            background: linear-gradient(45deg, #00f0ff, #0099ff);
+            color: #000;
+        }
+
+        #logoutBtn {
+            background: linear-gradient(45deg, #ff4444, #cc0000);
+            color: white;
+        }
+
+        .status-box {
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 4px solid var(--glitch-blue);
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 8px;
+            font-size: 1.1em;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .face-success {
+            border-left-color: var(--success-color);
+            color: var(--success-color);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        .face-error {
+            border-left-color: var(--error-color);
+            color: var(--error-color);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
+        }
+
+        .face-info {
+            border-left-color: var(--glitch-blue);
+            color: var(--glitch-blue);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        .face-warning {
+            border-left-color: #ffaa00;
+            color: #ffaa00;
+            box-shadow: 0 0 20px rgba(255, 170, 0, 0.2);
+        }
+
+        .face-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--neon-red);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .confidence-meter {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+        }
+
+        .confidence-bar {
+            width: 100%;
+            height: 20px;
+            background: var(--carbon-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-red), var(--hacker-green));
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .registered-faces {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .face-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .face-item:hover {
+            background: rgba(255, 45, 45, 0.1);
+            transform: translateX(5px);
+        }
+
+        .face-item:last-child {
+            border-bottom: none;
+        }
+
+        .face-name {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 1.1em;
+        }
+
+        .face-date {
+            font-size: 0.85em;
+            color: var(--text-muted);
+            margin-left: 10px;
+        }
+
+        .face-delete {
+            color: var(--blood-red);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .face-delete:hover {
+            background: rgba(255, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        .login-prompt {
+            background: rgba(255, 45, 45, 0.15);
+            border: 2px solid var(--blood-red);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px auto;
+            max-width: 500px;
+        }
+
+        .login-prompt h2 {
+            color: var(--neon-red);
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .login-prompt p {
+            margin-bottom: 30px;
+            color: var(--text-muted);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .mode-indicator {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .mode-register {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            border: 1px solid #ffd700;
+        }
+
+        .mode-login {
+            background: rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+
+        .mode-scan {
+            background: rgba(0, 240, 255, 0.2);
+            color: #00f0ff;
+            border: 1px solid #00f0ff;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            color: var(--text-muted);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--neon-red);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+
+        .user-info-panel {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 3px solid var(--neon-red);
+        }
+
+        @media (max-width: 768px) {
+            .face-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .face-button {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="face-container">
+    <h1>FACE AUTHENTICATION</h1>
+    <p class="form-hint">Powered by AI - 100% Private (runs in your browser)</p>
+    
+    {% if app.user %}
+        <div class="user-info-panel">
+            <div class="user-avatar">
+                {% if app.user.profilePhotoUrl %}
+                    <img src="{{ app.user.profilePhotoUrl }}" alt="{{ app.user.username }}" 
+                         style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                {% else %}
+                    <div style="width: 100%; height: 100%; border-radius: 50%; background: var(--red-gradient); display: flex; align-items: center; justify-content: center; font-size: 2em;">
+                        {{ app.user.initials }}
+                    </div>
+                {% endif %}
+            </div>
+            <h3 style="color: var(--neon-red);">Logged in as:</h3>
+            <p style="font-size: 1.2em; font-weight: bold;">{{ app.user.username }}</p>
+            <p style="color: var(--text-muted);">{{ app.user.email }}</p>
+        </div>
+    {% endif %}
+    
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-value" id="faceCount">0</div>
+            <div class="stat-label">Registered Faces</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="cameraStatus">❌</div>
+            <div class="stat-label">Camera</div>
+        </div>
+    </div>
+    
+    <div class="video-wrapper">
+        <video id="video" autoplay muted playsinline></video>
+        <canvas id="canvas"></canvas>
+    </div>
+    
+    <div id="modeIndicator" class="mode-indicator" style="display: none;"></div>
+    
+    <div class="face-controls">
+        {% if app.user %}
+            <button id="registerBtn" class="face-button">📸 REGISTER FACE</button>
+            <button id="logoutBtn" class="face-button" onclick="window.location.href='{{ path('app_logout') }}'">🚪 LOGOUT</button>
+        {% else %}
+            <button id="loginBtn" class="face-button">🔐 LOGIN WITH FACE</button>
+        {% endif %}
+        <button id="scanBtn" class="face-button">👁️ SCENE MODE</button>
+        {% if app.user %}
+            <button id="clearBtn" class="face-button" style="background: linear-gradient(45deg, #ff4444, #cc0000); color: white;">🗑️ CLEAR MY FACES</button>
+        {% endif %}
+    </div>
+    
+    <div id="status" class="status-box face-info">
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <span class="face-loading"></span>
+            <span>Initializing face recognition system...</span>
+        </div>
+    </div>
+    
+    <div id="confidenceContainer" style="display: none;" class="confidence-meter">
+        <div class="confidence-bar">
+            <div id="confidenceFill" class="confidence-fill" style="width: 0%"></div>
+        </div>
+        <p id="confidenceText" style="text-align: center; margin-top: 10px;"></p>
+    </div>
+    
+    {% if app.user %}
+        <div class="registered-faces">
+            <h3 style="margin-bottom: 20px;">📋 Your Registered Faces</h3>
+            <div id="faceList">
+                <div class="face-item">
+                    <span class="face-name">{{ app.user.username }}</span>
+                    <span class="face-delete" onclick="deleteAllUserFaces()">🗑️ Delete All</span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+<script>
+// ==================== CONFIGURATION ====================
+const CONFIDENCE_THRESHOLD = 0.5;
+const MAX_FACES_PER_USER = 5;
+
+// ==================== USER DATA ====================
+const appUser = {% if app.user %}{
+    id: '{{ app.user.id }}',
+    username: '{{ app.user.username }}',
+    email: '{{ app.user.email }}'
+}{% else %}null{% endif %};
+
+// ==================== DOM ELEMENTS ====================
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const statusDiv = document.getElementById('status');
+const modeIndicator = document.getElementById('modeIndicator');
+const confidenceContainer = document.getElementById('confidenceContainer');
+const confidenceFill = document.getElementById('confidenceFill');
+const confidenceText = document.getElementById('confidenceText');
+const ctx = canvas.getContext('2d');
+
+// ==================== STATE ====================
+let modelsLoaded = false;
+let currentMode = null;
+let faceDatabase = loadFaceDatabase();
+let detectionInterval = null;
+let cameraActive = false;
+
+// ==================== INITIALIZATION ====================
+updateFaceCount();
+
+// Load models from local server
+async function loadModels() {
+    try {
+        updateStatus('⏳ Loading AI models...', 'info', true);
+        
+        await faceapi.nets.tinyFaceDetector.loadFromUri('/weights');
+        await faceapi.nets.faceLandmark68Net.loadFromUri('/weights');
+        await faceapi.nets.faceRecognitionNet.loadFromUri('/weights');
+        
+        modelsLoaded = true;
+        updateStatus('✅ AI models loaded! Ready to go.', 'success');
+        startVideo();
+    } catch (error) {
+        updateStatus('❌ Failed to load AI models: ' + error.message, 'error');
+        console.error('Model loading error:', error);
+    }
+}
+
+// Start webcam
+async function startVideo() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                width: { ideal: 640 },
+                height: { ideal: 480 },
+                facingMode: 'user',
+                frameRate: { ideal: 30 }
+            } 
+        });
+        
+        video.srcObject = stream;
+        document.getElementById('cameraStatus').innerHTML = '✅';
+        
+        video.addEventListener('play', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            startFaceDetection();
+        });
+        
+        cameraActive = true;
+    } catch (error) {
+        document.getElementById('cameraStatus').innerHTML = '❌';
+        updateStatus('❌ Camera access denied. Please allow camera access.', 'error');
+        console.error('Camera error:', error);
+    }
+}
+
+// Start face detection loop
+function startFaceDetection() {
+    if (detectionInterval) {
+        cancelAnimationFrame(detectionInterval);
+    }
+    
+    async function detect() {
+        if (!modelsLoaded || !video.srcObject || video.paused || video.ended) {
+            detectionInterval = requestAnimationFrame(detect);
+            return;
+        }
+        
+        try {
+            const detection = await faceapi
+                .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions({
+                    inputSize: 512,
+                    scoreThreshold: 0.5
+                }))
+                .withFaceLandmarks()
+                .withFaceDescriptor();
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (detection) {
+                drawFaceDetection(detection);
+                handleMode(detection);
+            }
+        } catch (error) {
+            console.error('Detection error:', error);
+        }
+        
+        detectionInterval = requestAnimationFrame(detect);
+    }
+    
+    detect();
+}
+
+// Draw face detection on canvas
+function drawFaceDetection(detection) {
+    const box = detection.detection.box;
+    const landmarks = detection.landmarks;
+    
+    let boxColor = '#00f0ff';
+    if (currentMode === 'register') boxColor = '#ffd700';
+    if (currentMode === 'login') boxColor = '#00ff00';
+    
+    ctx.strokeStyle = boxColor;
+    ctx.lineWidth = 3;
+    ctx.strokeRect(box.x, box.y, box.width, box.height);
+    
+    // Draw corners
+    const cornerLength = 20;
+    ctx.beginPath();
+    ctx.strokeStyle = boxColor;
+    ctx.lineWidth = 2;
+    
+    ctx.moveTo(box.x, box.y + cornerLength);
+    ctx.lineTo(box.x, box.y);
+    ctx.lineTo(box.x + cornerLength, box.y);
+    
+    ctx.moveTo(box.x + box.width - cornerLength, box.y);
+    ctx.lineTo(box.x + box.width, box.y);
+    ctx.lineTo(box.x + box.width, box.y + cornerLength);
+    
+    ctx.moveTo(box.x + box.width, box.y + box.height - cornerLength);
+    ctx.lineTo(box.x + box.width, box.y + box.height);
+    ctx.lineTo(box.x + box.width - cornerLength, box.y + box.height);
+    
+    ctx.moveTo(box.x, box.y + box.height - cornerLength);
+    ctx.lineTo(box.x, box.y + box.height);
+    ctx.lineTo(box.x + cornerLength, box.y + box.height);
+    
+    ctx.stroke();
+    
+    // Draw landmarks
+    ctx.fillStyle = boxColor;
+    landmarks.positions.forEach(point => {
+        ctx.fillRect(point.x - 1, point.y - 1, 2, 2);
+    });
+    
+    // Draw mode label
+    ctx.font = 'bold 16px Orbitron';
+    ctx.fillStyle = boxColor;
+    ctx.shadowColor = boxColor;
+    ctx.shadowBlur = 10;
+    
+    let label = 'FACE DETECTED';
+    if (currentMode === 'register') label = '📸 REGISTERING';
+    if (currentMode === 'login') label = '🔐 LOGGING IN';
+    if (currentMode === 'scan') label = '👁️ SCANNING';
+    
+    ctx.fillText(label, box.x, box.y - 10);
+    ctx.shadowBlur = 0;
+}
+
+// Handle different modes
+function handleMode(detection) {
+    switch(currentMode) {
+        case 'register':
+            handleRegister(detection);
+            break;
+        case 'login':
+            handleLogin(detection);
+            break;
+        case 'scan':
+            handleScan(detection);
+            break;
+    }
+}
+
+// ==================== REGISTRATION ====================
+async function handleRegister(detection) {
+    if (!detection || !appUser) {
+        updateStatus('❌ You must be logged in to register', 'error');
+        currentMode = null;
+        updateModeIndicator();
+        return;
+    }
+    
+    const userFaces = Object.values(faceDatabase).filter(f => f.userId === appUser.id);
+    if (userFaces.length >= MAX_FACES_PER_USER) {
+        updateStatus(`❌ Maximum ${MAX_FACES_PER_USER} faces per user. Delete some first.`, 'error');
+        currentMode = null;
+        updateModeIndicator();
+        return;
+    }
+    
+    const descriptor = detection.descriptor;
+    const faceId = generateFaceId();
+    
+    faceDatabase[faceId] = {
+        id: faceId,
+        userId: appUser.id,
+        username: appUser.username,
+        descriptor: Array.from(descriptor),
+        timestamp: new Date().toISOString(),
+        createdAt: new Date().toLocaleString()
+    };
+    
+    saveFaceDatabase();
+    
+    updateStatus(`✅ Face registered for ${appUser.username}! (${userFaces.length + 1}/${MAX_FACES_PER_USER})`, 'success');
+    showConfidence(100, 'Registration complete');
+    updateFaceCount();
+    
+    setTimeout(() => {
+        currentMode = null;
+        updateModeIndicator();
+        updateStatus('Ready', 'info');
+    }, 2000);
+}
+
+// ==================== LOGIN ====================
+async function handleLogin(detection) {
+    if (!detection) return;
+    
+    // If user is already logged in, don't try to login again
+    if (appUser) {
+        updateStatus('👤 You are already logged in!', 'info');
+        currentMode = null;
+        updateModeIndicator();
+        return;
+    }
+    
+    const currentDescriptor = detection.descriptor;
+    let bestMatch = null;
+    let highestConfidence = 0;
+    
+    for (const [faceId, faceData] of Object.entries(faceDatabase)) {
+        const storedDescriptor = new Float32Array(faceData.descriptor);
+        const distance = faceapi.euclideanDistance(currentDescriptor, storedDescriptor);
+        const confidence = 1 - distance;
+        
+        if (confidence > highestConfidence && confidence > CONFIDENCE_THRESHOLD) {
+            highestConfidence = confidence;
+            bestMatch = faceData;
+        }
+    }
+    
+    showConfidence(highestConfidence * 100, bestMatch ? bestMatch.username : 'No match');
+    
+    if (bestMatch) {
+        updateStatus(`✅ Welcome back, ${bestMatch.username}! (${(highestConfidence * 100).toFixed(1)}% match)`, 'success');
+        
+        // Store the matched user info in session storage for the login page
+        sessionStorage.setItem('faceAuthSuccess', JSON.stringify({
+            userId: bestMatch.userId,
+            username: bestMatch.username,
+            confidence: highestConfidence
+        }));
+        
+        // Redirect to a special face login callback
+        setTimeout(() => {
+            window.location.href = '{{ path("app_face_login_callback") }}?user_id=' + bestMatch.userId + '&confidence=' + highestConfidence;
+        }, 1500);
+    } else {
+        updateStatus('❌ Face not recognized. Try again or register.', 'error');
+    }
+    
+    currentMode = null;
+    updateModeIndicator();
+}
+
+// ==================== SCAN MODE ====================
+function handleScan(detection) {
+    if (!detection) return;
+    
+    const currentDescriptor = detection.descriptor;
+    
+    for (const [faceId, faceData] of Object.entries(faceDatabase)) {
+        const storedDescriptor = new Float32Array(faceData.descriptor);
+        const distance = faceapi.euclideanDistance(currentDescriptor, storedDescriptor);
+        const confidence = 1 - distance;
+        
+        if (confidence > CONFIDENCE_THRESHOLD) {
+            let status = `👁️ Detected: ${faceData.username} (${(confidence * 100).toFixed(1)}% match)`;
+            if (appUser && faceData.userId === appUser.id) {
+                status += ' - This is YOU!';
+            }
+            updateStatus(status, 'info');
+            showConfidence(confidence * 100, faceData.username);
+            return;
+        }
+    }
+    
+    updateStatus('👁️ Unknown person detected', 'info');
+    showConfidence(0, 'Unknown');
+}
+
+// ==================== UTILITY FUNCTIONS ====================
+function updateStatus(message, type, showLoader = false) {
+    statusDiv.innerHTML = showLoader ? 
+        `<div style="display: flex; align-items: center; justify-content: center;"><span class="face-loading"></span><span>${message}</span></div>` : 
+        message;
+    statusDiv.className = 'status-box face-' + type;
+}
+
+function showConfidence(percent, label) {
+    confidenceContainer.style.display = 'block';
+    confidenceFill.style.width = percent + '%';
+    
+    let color = '#ff003c';
+    if (percent > 70) color = '#00ff00';
+    else if (percent > 40) color = '#ffd700';
+    
+    confidenceFill.style.background = `linear-gradient(90deg, ${color}, ${percent > 70 ? '#00ff00' : '#ffd700'})`;
+    confidenceText.innerHTML = `${label} (${percent.toFixed(1)}% confidence)`;
+}
+
+function updateModeIndicator() {
+    if (currentMode === 'register') {
+        modeIndicator.style.display = 'inline-block';
+        modeIndicator.className = 'mode-indicator mode-register';
+        modeIndicator.innerHTML = '📸 REGISTRATION MODE - Look at camera';
+    } else if (currentMode === 'login') {
+        modeIndicator.style.display = 'inline-block';
+        modeIndicator.className = 'mode-indicator mode-login';
+        modeIndicator.innerHTML = '🔐 LOGIN MODE - Look at camera';
+    } else if (currentMode === 'scan') {
+        modeIndicator.style.display = 'inline-block';
+        modeIndicator.className = 'mode-indicator mode-scan';
+        modeIndicator.innerHTML = '👁️ SCAN MODE - Detecting faces';
+    } else {
+        modeIndicator.style.display = 'none';
+    }
+}
+
+function generateFaceId() {
+    return 'face_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+function loadFaceDatabase() {
+    try {
+        return JSON.parse(localStorage.getItem('faceDatabase') || '{}');
+    } catch {
+        return {};
+    }
+}
+
+function saveFaceDatabase() {
+    localStorage.setItem('faceDatabase', JSON.stringify(faceDatabase));
+    updateFaceList();
+    updateFaceCount();
+}
+
+function updateFaceCount() {
+    const count = Object.keys(faceDatabase).length;
+    document.getElementById('faceCount').innerHTML = count;
+}
+
+function updateFaceList() {
+    const faceList = document.getElementById('faceList');
+    if (!faceList || !appUser) return;
+    
+    const userFaces = Object.values(faceDatabase)
+        .filter(face => face.userId === appUser.id)
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    
+    if (userFaces.length === 0) {
+        faceList.innerHTML = '<p style="color: var(--text-muted); padding: 20px;">No faces registered yet</p>';
+        return;
+    }
+    
+    faceList.innerHTML = userFaces.map(face => `
+        <div class="face-item">
+            <div style="text-align: left;">
+                <span class="face-name">${face.username}</span>
+                <span class="face-date">${new Date(face.timestamp).toLocaleDateString()} ${new Date(face.timestamp).toLocaleTimeString()}</span>
+            </div>
+            <span class="face-delete" onclick="deleteFace('${face.id}')">🗑️ Delete</span>
+        </div>
+    `).join('');
+}
+
+function deleteFace(faceId) {
+    if (confirm('Delete this face registration?')) {
+        delete faceDatabase[faceId];
+        saveFaceDatabase();
+        updateStatus('✅ Face deleted successfully', 'success');
+    }
+}
+
+function deleteAllUserFaces() {
+    if (!appUser) return;
+    if (confirm('Delete ALL your face registrations?')) {
+        Object.keys(faceDatabase).forEach(faceId => {
+            if (faceDatabase[faceId].userId === appUser.id) {
+                delete faceDatabase[faceId];
+            }
+        });
+        saveFaceDatabase();
+        updateStatus('✅ All your faces deleted', 'success');
+    }
+}
+
+function clearAllFaces() {
+    if (!appUser) return;
+    if (confirm('⚠️ Delete ALL your faces from database?')) {
+        Object.keys(faceDatabase).forEach(faceId => {
+            if (faceDatabase[faceId].userId === appUser.id) {
+                delete faceDatabase[faceId];
+            }
+        });
+        saveFaceDatabase();
+        updateStatus('✅ All your faces cleared', 'success');
+    }
+}
+
+// ==================== EVENT LISTENERS ====================
+document.getElementById('registerBtn')?.addEventListener('click', () => {
+    if (!appUser) {
+        updateStatus('❌ Please login first to register your face', 'error');
+        return;
+    }
+    
+    const userFaces = Object.values(faceDatabase).filter(f => f.userId === appUser.id);
+    if (userFaces.length >= MAX_FACES_PER_USER) {
+        updateStatus(`❌ Maximum ${MAX_FACES_PER_USER} faces per user. Delete some first.`, 'error');
+        return;
+    }
+    
+    currentMode = 'register';
+    updateModeIndicator();
+    updateStatus('📸 Registration mode - Look at camera', 'info');
+});
+
+document.getElementById('loginBtn')?.addEventListener('click', () => {
+    // If already logged in, don't go to login mode
+    if (appUser) {
+        updateStatus('👤 You are already logged in!', 'info');
+        return;
+    }
+    currentMode = 'login';
+    updateModeIndicator();
+    updateStatus('🔐 Login mode - Look at camera', 'info');
+    confidenceContainer.style.display = 'none';
+});
+
+document.getElementById('scanBtn').addEventListener('click', () => {
+    currentMode = 'scan';
+    updateModeIndicator();
+    updateStatus('👁️ Scan mode - Detecting faces...', 'info');
+});
+
+document.getElementById('clearBtn')?.addEventListener('click', clearAllFaces);
+
+// ==================== START APPLICATION ====================
+loadModels();
+
+// Clean up on page unload
+window.addEventListener('beforeunload', () => {
+    if (video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+    }
+    if (detectionInterval) {
+        cancelAnimationFrame(detectionInterval);
+    }
+});
+</script>
+{% endblock %}

@@ -58,14 +58,14 @@ final class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
-    {
-        $this->denyAccessUnlessGranted('ROLE_USER');
-        
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
+public function show(User $user): Response
+{
+    $this->denyAccessUnlessGranted('ROLE_USER');
+    
+    return $this->render('profile/index.html.twig', [  // Redirect to profile template
+        'user' => $user,
+    ]);
+}
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response

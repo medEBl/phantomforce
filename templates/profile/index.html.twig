@@ -1,0 +1,99 @@
+{% extends 'basefront.html.twig' %}
+
+{% block title %}My Profile - PhantomForce{% endblock %}
+
+{% block body %}
+<div class="cyber-container" style="max-width: 900px; margin: 40px auto;">
+    <h1>OPERATOR PROFILE</h1>
+    
+    {% for flash in app.flashes('success') %}
+        <div class="success-box">{{ flash }}</div>
+    {% endfor %}
+    
+    {% for flash in app.flashes('error') %}
+        <div class="error-box">{{ flash }}</div>
+    {% endfor %}
+    
+    <div style="display: flex; gap: 50px; flex-wrap: wrap; margin-top: 40px;">
+        <!-- Left Column - Avatar -->
+        <div style="flex: 1; min-width: 280px; text-align: center;">
+            <div style="position: relative; display: inline-block;">
+                <div class="avatar" style="width: 200px; height: 200px; font-size: 60px; margin: 0 auto;">
+                    {% if user.profilePhotoUrl %}
+                        <img src="{{ user.profilePhotoUrl }}" alt="{{ user.username }}" 
+                             style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid var(--red);">
+                    {% else %}
+                        {{ user.initials }}
+                    {% endif %}
+                </div>
+                
+                <a href="{{ path('app_profile_photo_change') }}" class="btn btn-primary" 
+                   style="position: absolute; bottom: 10px; right: 10px; width: 50px; height: 50px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-camera"></i>
+                </a>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <a href="{{ path('app_profile_photo_change') }}" class="cyber-link">Change Photo</a>
+                {% if user.profilePhotoUrl %}
+                    <form method="post" action="{{ path('app_profile_photo_remove') }}" style="display: inline;" onsubmit="return confirm('Remove profile photo?');">
+                        <button type="submit" class="cyber-link" style="background: none; border: none; color: var(--red);">Remove</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Right Column - Info -->
+        <div style="flex: 2;">
+            <h2 style="color: var(--red); margin-bottom: 20px;">OPERATOR DETAILS</h2>
+            
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border); width: 150px; color: var(--text-muted);">CALL SIGN</td>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border); font-weight: 600;">{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border); color: var(--text-muted);">FULL DESIGNATION</td>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border);">{{ user.fullName }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border); color: var(--text-muted);">COMBAT EMAIL</td>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border);">{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border); color: var(--text-muted);">OPERATION ZONE</td>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border);">{{ user.country }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border); color: var(--text-muted);">ACTIVATION DATE</td>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border);">{{ user.birthDate|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border); color: var(--text-muted);">COMBAT ROLE</td>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border);">
+                        <span class="badge">{{ user.role }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border); color: var(--text-muted);">ENLISTMENT DATE</td>
+                    <td style="padding: 15px 0; border-bottom: 1px solid var(--border);">{{ user.createdAt|date('d/m/Y') }}</td>
+                </tr>
+            </table>
+            
+            <div style="margin-top: 30px; display: flex; gap: 20px;">
+                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> EDIT PROFILE
+                </a>
+                <a href="{{ path('app_acceuil') }}" class="btn btn-secondary">
+                    <i class="fas fa-home"></i> BACK TO HOME
+                </a>
+            </div>
+            <div style="margin-top: 20px;">
+    <a href="{{ path('app_face_auth') }}" class="btn btn-primary">
+        <i class="fas fa-face-smile"></i> Manage Face Authentication
+    </a>
+</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

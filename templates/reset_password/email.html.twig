@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARENA-X Password Reset</title>
+    <style>
+        /* Cyberpunk Email Styles */
+        :root {
+            --blood-red: #ff0000;
+            --dark-red: #8b0000;
+            --neon-red: #ff003c;
+            --black-hole: #000000;
+            --metal-gray: #111111;
+            --carbon-gray: #222222;
+            --toxic-purple: #9d00ff;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--black-hole);
+            font-family: 'Orbitron', 'Rajdhani', 'Arial', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border: 2px solid rgba(255,0,60,0.3);
+            box-shadow: 0 0 50px rgba(255,0,0,0.2);
+        }
+        
+        .email-header {
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--neon-red);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .email-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-red), var(--toxic-purple), transparent);
+            animation: scan 2s linear infinite;
+        }
+        
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .logo {
+            font-family: 'Aldrich', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(45deg, var(--blood-red), var(--neon-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255,0,60,0.5);
+            margin: 0;
+            letter-spacing: 4px;
+        }
+        
+        .logo-sub {
+            color: #666;
+            font-size: 0.8em;
+            letter-spacing: 3px;
+            margin-top: 5px;
+        }
+        
+        .email-body {
+            padding: 40px 30px;
+            background: rgba(0,0,0,0.7);
+        }
+        
+        .greeting {
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .greeting::before {
+            content: '>';
+            color: var(--neon-red);
+            margin-right: 10px;
+        }
+        
+        .message {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .reset-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(45deg, var(--dark-red), var(--neon-red));
+            color: white;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.1em;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255,0,60,0.5);
+        }
+        
+        .reset-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .reset-button:hover::before {
+            left: 100%;
+        }
+        
+        .reset-button span {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .reset-link-container {
+            background: rgba(255,0,60,0.1);
+            border: 1px solid rgba(255,0,60,0.3);
+            padding: 20px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .reset-link-label {
+            font-size: 0.8em;
+            color: var(--neon-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .reset-link {
+            font-family: 'Aldrich', monospace;
+            word-break: break-all;
+            color: #fff;
+            font-size: 0.9em;
+        }
+        
+        .expiry-notice {
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-left: 4px solid var(--neon-red);
+            margin: 30px 0;
+            font-size: 0.9em;
+            color: #999;
+        }
+        
+        .expiry-notice strong {
+            color: var(--neon-red);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .signature {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,0,60,0.3);
+        }
+        
+        .signature-line {
+            font-size: 1.2em;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .signature-arena {
+            font-size: 1.5em;
+            color: transparent;
+            background: linear-gradient(45deg, var(--neon-red), var(--toxic-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            font-weight: bold;
+        }
+        
+        .email-footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255,0,60,0.2);
+            background: rgba(0,0,0,0.5);
+        }
+        
+        .footer-text {
+            color: #666;
+            font-size: 0.8em;
+            margin: 0;
+        }
+        
+        .glitch-effect {
+            animation: glitch 3s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: skew(0deg, 0deg); }
+            95% { transform: skew(0deg, 0deg); }
+            96% { transform: skew(5deg, 0deg); opacity: 0.8; }
+            97% { transform: skew(-5deg, 0deg); opacity: 0.9; }
+            98% { transform: skew(3deg, 0deg); opacity: 0.8; }
+        }
+        
+        @media (max-width: 600px) {
+            .email-container {
+                margin: 10px;
+            }
+            
+            .reset-button {
+                display: block;
+                padding: 15px 20px;
+                font-size: 1em;
+            }
+            
+            .logo {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1 class="logo">ARENA-X</h1>
+            <div class="logo-sub">ELITE GAMING DIVISION</div>
+        </div>
+        
+        <div class="email-body">
+            <h2 class="greeting">OPERATOR ACCESS</h2>
+            
+            <p class="message">
+                A password reset request has been initiated for your account. 
+                Click the secure link below to regain access to your command center.
+            </p>
+            
+            <div class="button-container">
+                <a href="{{ resetUrl }}" class="reset-button">
+                    <span>RESET ACCESS ⚡</span>
+                </a>
+            </div>
+            
+            <div class="reset-link-container">
+                <div class="reset-link-label">DIRECT ACCESS CODE:</div>
+                <div class="reset-link">{{ resetUrl }}</div>
+            </div>
+            
+            <div class="expiry-notice">
+                <strong>⚠ SECURITY PROTOCOL:</strong> This access link will self-destruct in 
+                <strong>1 HOUR</strong>. Request a new one if it expires.
+            </div>
+            
+            <div class="signature">
+                <div class="signature-line">Stay dangerous,</div>
+                <div class="signature-arena">ARENA-X COMMAND</div>
+            </div>
+        </div>
+        
+        <div class="email-footer">
+            <p class="footer-text">
+                This is an automated message from ARENA-X. Do not reply to this email.
+                If you didn't request this, please secure your account immediately.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

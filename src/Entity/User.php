@@ -119,6 +119,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Type('\DateTimeInterface', message: 'La dernière connexion doit être une date valide.')]
     private ?\DateTimeInterface $lastLoginAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $googleId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $googleAccessToken = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $googleRefreshToken = null;
+
     #[Assert\Length(
         min: 8,
         minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères.',
@@ -144,6 +153,68 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         message: 'Le mot de passe doit contenir au moins un caractère spécial.',
         groups: ['registration', 'password_change']
     )]
+    // Add these properties after existing ones
+#[ORM\Column(type: 'string', length: 255, nullable: true)]
+private ?string $profilePhotoUrl = null;
+
+#[ORM\Column(type: 'string', length: 255, nullable: true)]
+private ?string $profilePhotoPublicId = null;
+
+// Add these getters and setters
+public function getProfilePhotoUrl(): ?string
+{
+    return $this->profilePhotoUrl;
+}
+
+public function setProfilePhotoUrl(?string $profilePhotoUrl): self
+{
+    $this->profilePhotoUrl = $profilePhotoUrl;
+    return $this;
+}
+
+public function getProfilePhotoPublicId(): ?string
+{
+    return $this->profilePhotoPublicId;
+}
+
+public function setProfilePhotoPublicId(?string $profilePhotoPublicId): self
+{
+    $this->profilePhotoPublicId = $profilePhotoPublicId;
+    return $this;
+}
+
+// Add helper method for avatar display
+public function getAvatarUrl(): string
+{
+    if ($this->profilePhotoUrl) {
+        return $this->profilePhotoUrl;
+    }
+    
+    // Generate initials avatar using UI Avatars
+    return 'https://ui-avatars.com/api/?name=' . urlencode($this->getUsername() ?? 'User') . 
+           '&background=ff2d2d&color=fff&size=128&bold=true&length=2';
+}
+
+// Add helper method for initials
+public function getInitials(): string
+{
+    if ($this->fullName) {
+        $words = explode(' ', $this->fullName);
+        $initials = '';
+        foreach ($words as $word) {
+            if (!empty($word)) {
+                $initials .= strtoupper(substr($word, 0, 1));
+            }
+        }
+        return substr($initials, 0, 2) ?: 'U';
+    }
+    
+    if ($this->username) {
+        return strtoupper(substr($this->username, 0, 2));
+    }
+    
+    return 'U';
+}
     private ?string $plainPassword = null;
 
     public function __construct()
@@ -349,5 +420,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $hasSpecial = preg_match('/[^A-Za-z0-9]/', $password);
         
         return $hasUpper && $hasLower && $hasDigit && $hasSpecial;
+    }
+
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?string $googleId): static
+    {
+        $this->googleId = $googleId;
+        return $this;
+    }
+
+    public function getGoogleAccessToken(): ?string
+    {
+        return $this->googleAccessToken;
+    }
+
+    public function setGoogleAccessToken(?string $googleAccessToken): static
+    {
+        $this->googleAccessToken = $googleAccessToken;
+        return $this;
+    }
+
+    public function getGoogleRefreshToken(): ?string
+    {
+        return $this->googleRefreshToken;
+    }
+
+    public function setGoogleRefreshToken(?string $googleRefreshToken): static
+    {
+        $this->googleRefreshToken = $googleRefreshToken;
+        return $this;
     }
 }

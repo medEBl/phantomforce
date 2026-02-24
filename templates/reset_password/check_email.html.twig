@@ -1,0 +1,440 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block body %}
+    <div class="cyber-card email-sent-card">
+        <div class="cyber-card-header">
+            <h1 class="cyber-title">
+                <span class="title-glitch">MESSAGE</span>
+                <span class="title-glitch">TRANSMITTED</span>
+            </h1>
+            <div class="header-scanline"></div>
+        </div>
+        
+        <div class="cyber-card-body">
+            <div class="email-icon-container">
+                <div class="email-icon">
+                    <span class="icon-part top"></span>
+                    <span class="icon-part middle"></span>
+                    <span class="icon-part bottom"></span>
+                </div>
+                <div class="pulse-ring"></div>
+            </div>
+            
+            <div class="message-box">
+                <p class="cyber-message">
+                    <span class="message-prefix">></span>
+                    If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+                </p>
+                
+                <div class="expiry-warning">
+                    <span class="warning-icon">⚠</span>
+                    <span class="warning-text">
+                        This link will expire in 
+                        <strong class="glitch-text">{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}</strong>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="spam-notice">
+                <div class="notice-header">
+                    <span class="notice-symbol">⌂</span>
+                    <span class="notice-title">COMMUNICATION PROTOCOL</span>
+                </div>
+                <p class="notice-text">
+                    If you don't receive an email please check your spam folder or 
+                    <a href="{{ path('app_forgot_password_request') }}" class="cyber-link">
+                        <span class="link-text">try again</span>
+                        <span class="link-arrow">→</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+        
+        <div class="cyber-card-footer">
+            <div class="footer-stats">
+                <span class="stat">SIGNAL: <span class="stat-value">STRONG</span></span>
+                <span class="stat">ENCRYPTION: <span class="stat-value">AES-256</span></span>
+            </div>
+            <div class="footer-corner"></div>
+        </div>
+    </div>
+
+    <style>
+        .cyber-card {
+            background: linear-gradient(145deg, rgba(17,17,17,0.95) 0%, rgba(34,34,34,0.95) 100%);
+            border: 1px solid rgba(255,0,60,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(255,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            margin: 40px auto;
+            max-width: 700px;
+        }
+
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,0,60,0.1), transparent);
+            transform: skewX(-25deg);
+            animation: cardShine 3s infinite;
+        }
+
+        @keyframes cardShine {
+            0% { left: -100%; }
+            20% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .cyber-card-header {
+            padding: 30px 30px 20px;
+            border-bottom: 2px solid rgba(255,0,60,0.3);
+            position: relative;
+        }
+
+        .cyber-title {
+            font-family: 'Aldrich', sans-serif;
+            font-size: 2.2em;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+
+        .title-glitch {
+            display: block;
+            color: transparent;
+            background: linear-gradient(45deg, #fff, #ff003c, #ff0000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(255,0,60,0.5);
+            animation: glitch 3s infinite;
+        }
+
+        .title-glitch:nth-child(2) {
+            font-size: 0.8em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: skew(0deg, 0deg); opacity: 1; }
+            95% { transform: skew(0deg, 0deg); opacity: 1; }
+            96% { transform: skew(5deg, 0deg); opacity: 0.8; }
+            97% { transform: skew(-5deg, 0deg); opacity: 0.9; }
+            98% { transform: skew(3deg, 0deg); opacity: 0.8; }
+        }
+
+        .header-scanline {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff003c, transparent);
+            animation: scanline 2s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .cyber-card-body {
+            padding: 30px;
+        }
+
+        .email-icon-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+        }
+
+        .email-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 40px;
+            background: linear-gradient(45deg, #ff003c, #9d00ff);
+            border-radius: 5px;
+            z-index: 2;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-10px); }
+        }
+
+        .email-icon::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 15px solid #ff003c;
+            transform: rotate(180deg);
+        }
+
+        .email-icon .icon-part {
+            position: absolute;
+            background: white;
+        }
+
+        .icon-part.top {
+            top: 8px;
+            left: 15px;
+            width: 30px;
+            height: 2px;
+        }
+
+        .icon-part.middle {
+            top: 18px;
+            left: 15px;
+            width: 30px;
+            height: 2px;
+        }
+
+        .icon-part.bottom {
+            top: 28px;
+            left: 15px;
+            width: 30px;
+            height: 2px;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border: 2px solid #ff003c;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { width: 60px; height: 60px; opacity: 1; }
+            100% { width: 120px; height: 120px; opacity: 0; }
+        }
+
+        .message-box {
+            background: rgba(0,0,0,0.5);
+            border-left: 4px solid #ff003c;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .message-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            border-top: 2px solid #ff003c;
+            border-right: 2px solid #ff003c;
+        }
+
+        .message-box::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border-bottom: 2px solid #ff003c;
+            border-left: 2px solid #ff003c;
+        }
+
+        .cyber-message {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #ccc;
+            margin: 0;
+        }
+
+        .message-prefix {
+            color: #ff003c;
+            font-weight: bold;
+            margin-right: 10px;
+            animation: blink 1s infinite;
+        }
+
+        .expiry-warning {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,0,60,0.1);
+            border: 1px solid rgba(255,0,60,0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .warning-icon {
+            font-size: 1.5em;
+            color: #ff003c;
+            animation: warningPulse 2s infinite;
+        }
+
+        @keyframes warningPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .warning-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9em;
+            color: #fff;
+        }
+
+        .glitch-text {
+            color: #ff003c;
+            text-shadow: 0 0 10px rgba(255,0,60,0.5);
+            animation: textGlitch 3s infinite;
+        }
+
+        @keyframes textGlitch {
+            0%, 100% { text-shadow: 0 0 10px rgba(255,0,60,0.5); }
+            95% { text-shadow: 0 0 10px rgba(255,0,60,0.5); }
+            96% { text-shadow: -2px 0 #ff003c, 2px 2px #9d00ff; }
+            97% { text-shadow: 2px -2px #ff003c, -2px 0 #9d00ff; }
+        }
+
+        .spam-notice {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border: 1px solid rgba(255,0,60,0.2);
+        }
+
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .notice-symbol {
+            color: #ff003c;
+            font-size: 1.2em;
+        }
+
+        .notice-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8em;
+            color: #666;
+            letter-spacing: 2px;
+        }
+
+        .notice-text {
+            font-family: 'Rajdhani', sans-serif;
+            color: #999;
+            margin: 0;
+        }
+
+        .cyber-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #ff003c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .cyber-link:hover {
+            gap: 10px;
+            text-shadow: 0 0 10px #ff003c;
+        }
+
+        .link-text {
+            position: relative;
+        }
+
+        .link-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: #ff003c;
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .cyber-link:hover .link-text::after {
+            transform: scaleX(1);
+        }
+
+        .link-arrow {
+            transition: transform 0.3s;
+        }
+
+        .cyber-link:hover .link-arrow {
+            transform: translateX(5px);
+        }
+
+        .cyber-card-footer {
+            padding: 20px 30px;
+            border-top: 1px solid rgba(255,0,60,0.2);
+            position: relative;
+        }
+
+        .footer-stats {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Aldrich', monospace;
+            font-size: 0.8em;
+        }
+
+        .stat {
+            color: #666;
+        }
+
+        .stat-value {
+            color: #ff003c;
+            margin-left: 5px;
+        }
+
+        .footer-corner {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            border-bottom: 2px solid #ff003c;
+            border-right: 2px solid #ff003c;
+        }
+
+        @media (max-width: 768px) {
+            .cyber-card {
+                margin: 20px;
+            }
+            
+            .cyber-title {
+                font-size: 1.5em;
+            }
+            
+            .expiry-warning {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+{% endblock %}
